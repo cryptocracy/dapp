@@ -10,7 +10,7 @@
           <div class="col-md-4">
             <div class="about-box-single">
               <h4 class="inner-box-title">WHY CHOOSE <span>CRYPTOCRACY</span>.</h4>
-              <p>We believe enshrining the natural rights of the individual are at the core for building a better tomorrow for all.</p>
+              <p>We have a shared passion for engineering innovative technologies that serve our communities.</p>
             </div>
           </div>
           <div class="col-md-4">
@@ -21,8 +21,8 @@
           </div>
           <div class="col-md-4">
             <div class="about-box-single">
-              <h4 class="inner-box-title">WHAT WE DO.</h4>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi quidem minus id omnis, nam expedita, ea fuga commodi voluptas iusto, hic autem deleniti.</p>
+              <h4 class="inner-box-title">WHATS NEXT?</h4>
+              <p>Continue to improve the user experience through user feedback, to help organize the users crowdfunding Projects and Tasks.</p>
             </div>
           </div>
         </div>
