@@ -22,6 +22,8 @@ import '../node_modules/vuetify/dist/vuetify.min.css';
 /* Import store */
 import store from './store/store';
 
+window.blockstack = require('blockstack');
+
 Vue.config.productionTip = false;
 
 /* Initialize Vuetify for app */

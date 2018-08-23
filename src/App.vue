@@ -1,17 +1,21 @@
 <template>
   <v-app light>
     <div id="app">
-      <app-header></app-header>
-      <app-sidebar/>
-      <div :class="isSidebarOpen">
-        <transition name="slide-fade" mode="out-in">
-          <router-view/>
-        </transition>
+      <login v-if="!blockstack.isUserSignedIn()"></login>
+      <div v-else>
+        <app-header></app-header>
+        <app-sidebar/>
+        <div :class="isSidebarOpen">
+          <transition name="slide-fade" mode="out-in">
+            <router-view/>
+          </transition>
+        </div>
+        <v-footer class="pa-3" >
+          <v-spacer></v-spacer>
+          <div>Made with love by Ty {{ new Date().getFullYear() }}</div>
+        </v-footer>
       </div>
-      <v-footer class="pa-3" color="white">
-        <v-spacer></v-spacer>
-        <div>Made with love by Ty {{ new Date().getFullYear() }}</div>
-      </v-footer>
+      
     </div>
   </v-app>
 </template>
@@ -19,16 +23,19 @@
 <script>
 import Header from './components/header/Header';
 import Sidebar from './components/sidebar/Sidebar';
+import Login from './components/other-pages/login/Login';
 
 export default {
   components: {
     'app-header': Header,
     'app-sidebar': Sidebar,
+    login: Login,
   },
   name: 'app',
 
   data: () => ({
     windowWidth: 0,
+    blockstack: window.blockstack,
   }),
 
   methods: {
@@ -64,6 +71,17 @@ export default {
   },
 
   mounted() {
+    const blockstack = this.blockstack;
+    if (blockstack.isUserSignedIn()) {
+      this.userData = blockstack.loadUserData();
+      this.user = new blockstack.Person(this.userData.profile);
+      this.user.username = this.userData.username;
+    } else if (blockstack.isSignInPending()) {
+      blockstack.handlePendingSignIn()
+      .then(() => {
+        window.location = window.location.origin;
+      });
+    }
     this.$nextTick(() => {
       window.addEventListener('resize', this.getWindowWidth);
       this.getWindowWidth();
@@ -89,5 +107,6 @@ export default {
     opacity: 0;
 
   }
+  
 
 </style>

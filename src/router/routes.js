@@ -66,7 +66,7 @@ import BannerLayout from '@/pages/page-layouts/banner/BannerIndex';
 
 const routes = [
   { path: '/', name: 'Home', component: Home },
-  /**{ path: '/settings', name: 'Settings', component: Settings }, */ 
+  /** { path: '/settings', name: 'Settings', component: Settings }, */
   { path: '/ecommerce', name: 'Ecommerce', component: Ecommerce },
 
   { path: '/ui/grids', name: 'Grids', component: Grids },
