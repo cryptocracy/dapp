@@ -1,7 +1,7 @@
 {
-  "name": "cryptocracy",
+  "name": "souq",
   "version": "0.0.1",
-  "description": "Decentralized Voluntary Associations",
+  "description": "decentralized crypto crowdfunding",
   "author": "admin@cryptocracy.io",
   "private": true,
   "scripts": {

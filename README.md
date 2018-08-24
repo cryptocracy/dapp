@@ -1,6 +1,6 @@
-# Cryptocracy
+# Souq
 
-> Decentralized Voluntary Associations
+> Decentralized Crypto Crowdfunding
 
 ## Build Setup
 

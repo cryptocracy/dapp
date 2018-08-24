@@ -1,9 +1,9 @@
 {
-  "name": "Souq Project",
-  "start_url": "https://souq.cryptocracy.io",
-  "description": "A decentralized task app built for Souq Projects",
+  "name": "Souq",
+  "start_url": "https://dapp.cryptocracy.io",
+  "description": "Decentralized Crypto Crowdfunding",
   "icons": [{
-    "src": "https://raw.githubusercontent.com/cryptocracy/images/master/tasks.png",
+    "src": "https://raw.githubusercontent.com/cryptocracy/images/master/souq_gradient.png",
     "sizes": "400x400",
     "type": "image/png"
   }]

@@ -28,15 +28,15 @@
     </div> -->
     <div class="login">
       <div class="text-center">
-        <img class="img-icon" src="https://raw.githubusercontent.com/cryptocracy/images/master/tasks.png" alt="Souq Project Tasks" height="168" width="168">
+        <img class="img-icon" src="https://raw.githubusercontent.com/cryptocracy/images/master/souq_gradient.png" alt="Souq" height="168" width="168">
         <h1><a href="https://cryptocracy.io" target="_blank">Souq</a></h1>
-        <p>A decentralized crowdfunding app</p>
+        <p>Decentralized Crypto Crowdfunding</p>
         <v-btn class="btn-login" @click="signIn">Sign In With Blockstack</v-btn>
       </div>
     </div>
     <v-footer class="pa-3" >
       <v-spacer></v-spacer>
-      <div>Made with love by Ty {{ new Date().getFullYear() }}</div>
+      <div>powered by <a href="https://blockstack.org">Blockstack</a> - source code on <a href="https://github.com/cryptocracy/dapp">Github</a></div>
     </v-footer>
   </div>
 </template>

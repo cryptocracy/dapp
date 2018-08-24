@@ -12,7 +12,7 @@
         </div>
         <v-footer class="pa-3" >
           <v-spacer></v-spacer>
-          <div>Made with love by Ty {{ new Date().getFullYear() }}</div>
+            <div>powered by <a href="https://blockstack.org">Blockstack</a> - source code on <a href="https://github.com/cryptocracy/dapp">Github</a></div>
         </v-footer>
       </div>
       
