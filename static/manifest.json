@@ -3,7 +3,7 @@
   "start_url": "https://dapp.cryptocracy.io",
   "description": "Decentralized Crypto Crowdfunding",
   "icons": [{
-    "src": "https://raw.githubusercontent.com/cryptocracy/images/master/souq_gradient.png",
+    "src": "https://raw.githubusercontent.com/cryptocracy/images/master/512x512.png",
     "sizes": "400x400",
     "type": "image/png"
   }]
