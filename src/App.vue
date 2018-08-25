@@ -5,14 +5,14 @@
       <div v-else>
         <app-header></app-header>
         <app-sidebar/>
-        <v-btn fab fixed top right dark color="teal accent-4" class="fab-mt4">
-          <v-icon>add</v-icon>
-        </v-btn>
         <div :class="isSidebarOpen">
           <transition name="slide-fade" mode="out-in">
             <router-view/>
           </transition>
         </div>
+        <v-btn fab fixed bottom right dark color="teal accent-4">
+          <v-icon>add</v-icon>
+        </v-btn>
         <v-footer class="pa-3" >
           <v-spacer></v-spacer>
             <div>powered by <a href="https://blockstack.org">Blockstack</a> - source code on <a href="https://github.com/cryptocracy/dapp">Github</a></div>
