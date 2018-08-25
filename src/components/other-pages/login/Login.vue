@@ -31,7 +31,7 @@
         <img class="img-icon" src="https://raw.githubusercontent.com/cryptocracy/images/master/souq_gradient.png" alt="Souq" height="168" width="168">
         <h1><a href="https://cryptocracy.io" target="_blank">Souq</a></h1>
         <p>Decentralized Crypto Crowdfunding</p>
-        <v-btn class="btn-login" @click="signIn">Sign In With Blockstack</v-btn>
+        <v-btn class="btn-login" style="color : #33886c;" @click="signIn">Sign In With Blockstack</v-btn>
       </div>
     </div>
     <v-footer class="pa-3" >
@@ -76,9 +76,6 @@
   }
   .btn-login {
     border-radius: 20px;
-    color : #33886c;
-  }
-  .btn__content {
     color : #33886c;
   }
 </style>

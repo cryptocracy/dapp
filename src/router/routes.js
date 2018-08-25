@@ -53,6 +53,7 @@ import PageError from '@/pages/other-pages/page-404/Page404Index';
 
 import DefaultLayout from '@/pages/page-layouts/default/DefaultIndex';
 import BannerLayout from '@/pages/page-layouts/banner/BannerIndex';
+import Profile from '@/components/Profile';
 
 /**
 * Routes Data
@@ -66,6 +67,7 @@ import BannerLayout from '@/pages/page-layouts/banner/BannerIndex';
 
 const routes = [
   { path: '/', name: 'Home', component: Home },
+  { path: '/profile', name: 'Profile', component: Profile },
   /** { path: '/settings', name: 'Settings', component: Settings }, */
   { path: '/ecommerce', name: 'Ecommerce', component: Ecommerce },
 

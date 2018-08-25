@@ -10,6 +10,9 @@
             <router-view/>
           </transition>
         </div>
+        <v-btn fab fixed bottom right dark color="teal accent-4">
+          <v-icon>add</v-icon>
+        </v-btn>
         <v-footer class="pa-3" >
           <v-spacer></v-spacer>
             <div>powered by <a href="https://blockstack.org">Blockstack</a> - source code on <a href="https://github.com/cryptocracy/dapp">Github</a></div>
@@ -76,6 +79,9 @@ export default {
       this.userData = blockstack.loadUserData();
       this.user = new blockstack.Person(this.userData.profile);
       this.user.username = this.userData.username;
+      // console.log('userDATA', this.userData);
+      // console.log('user', this.user);
+      this.$store.commit('MUTATION_SET_USER_PROFILE_DATA', this.userData);
     } else if (blockstack.isSignInPending()) {
       blockstack.handlePendingSignIn()
       .then(() => {
@@ -94,7 +100,7 @@ export default {
 };
 </script>
 
-<style media="screen">
+<style media="screen" scoped>
 
   .slide-fade-enter-active {
     transition: all .2s ease;
@@ -106,6 +112,9 @@ export default {
     transform: translateY(10px);
     opacity: 0;
 
+  }
+  .fab-mt4 {
+    margin-top: 4%;
   }
   
 
