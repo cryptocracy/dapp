@@ -5,7 +5,7 @@
       <div v-else>
         <app-header></app-header>
         <app-sidebar/>
-        <v-btn class="fab-mt4" fab fixed top right dark color="teal accent-4">
+        <v-btn fab fixed top right dark color="teal accent-4" class="fab-mt4">
           <v-icon>add</v-icon>
         </v-btn>
         <div :class="isSidebarOpen">
@@ -100,7 +100,7 @@ export default {
 };
 </script>
 
-<style media="screen">
+<style media="screen" scoped>
 
   .slide-fade-enter-active {
     transition: all .2s ease;
