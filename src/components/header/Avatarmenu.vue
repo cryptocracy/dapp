@@ -2,11 +2,11 @@
   <v-menu bottom left min-width=200>
     <v-btn icon slot="activator" dark>
       <v-avatar size="32px">
-        <img :src="profileAvatar" alt="avatar">
+        <img v-if="profileData.hasOwnProperty('profile')" :src="profileData.profile.image[0].contentUrl" alt="avatar">
       </v-avatar>
     </v-btn>
     <v-list>
-      <v-list-tile @click="">
+      <v-list-tile @click="$router.push({name: 'Profile'})">
         <v-list-tile-action>
           <v-icon>face</v-icon>
         </v-list-tile-action>
@@ -45,9 +45,20 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import profileAvatar from '../../assets/img/user12.jpg';
 
 export default {
+  computed: {
+    ...mapGetters({
+      profileData: 'getProfileData',
+    }),
+  },
+  watch: {
+    profileData() {
+      // console.log('PROFOLRRRRRRRRRRRR', this.profileData);
+    },
+  },
   data: () => ({
     profileAvatar,
     blockstack: window.blockstack,

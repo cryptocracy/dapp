@@ -5,6 +5,9 @@
       <div v-else>
         <app-header></app-header>
         <app-sidebar/>
+        <v-btn class="fab-mt4" fab fixed top right dark color="teal accent-4">
+          <v-icon>add</v-icon>
+        </v-btn>
         <div :class="isSidebarOpen">
           <transition name="slide-fade" mode="out-in">
             <router-view/>
@@ -76,6 +79,9 @@ export default {
       this.userData = blockstack.loadUserData();
       this.user = new blockstack.Person(this.userData.profile);
       this.user.username = this.userData.username;
+      // console.log('userDATA', this.userData);
+      // console.log('user', this.user);
+      this.$store.commit('MUTATION_SET_USER_PROFILE_DATA', this.userData);
     } else if (blockstack.isSignInPending()) {
       blockstack.handlePendingSignIn()
       .then(() => {
@@ -106,6 +112,9 @@ export default {
     transform: translateY(10px);
     opacity: 0;
 
+  }
+  .fab-mt4 {
+    margin-top: 4%;
   }
   
 

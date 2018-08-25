@@ -6,6 +6,7 @@ import products from './moduels/products';
 import teams from './moduels/teams';
 import services from './moduels/services';
 import blog from './moduels/blog';
+import userProfileData from './moduels/profileData';
 
 Vue.use(Vuex);
 
@@ -22,6 +23,9 @@ const stateObject = {
 
 export default new Vuex.Store({
   state: stateObject,
+  modules: {
+    userProfileData,
+  },
   mutations: {
     toggleSidebar: (state) => {
       state.sidebarOpen = !state.sidebarOpen;
