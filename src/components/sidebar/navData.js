@@ -19,6 +19,17 @@ const items = [
     linkTo: '/',
   },
   {
+    color: 'blue',
+    action: 'label',
+    title: 'Tags',
+    items: [
+      { title: 'Add New', linkTo: '/page-layout/tags/AddTag' },
+      { title: 'Find', linkTo: '/page-layout/banner' },
+      { title: 'Favorites', linkTo: '/page-layout/banner' },
+      { title: 'Owned', linkTo: '/page-layout/banner' },
+    ],
+  },
+  {
     color: 'red',
     action: 'favorite',
     title: 'Projects',
@@ -31,7 +42,7 @@ const items = [
   },
   {
     color: 'teal darken-1',
-    action: 'loyalty',
+    action: 'done_all',
     title: 'Tasks',
     items: [
       { title: 'Add New', linkTo: '/page-layout/banner' },

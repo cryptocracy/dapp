@@ -53,6 +53,7 @@ import PageError from '@/pages/other-pages/page-404/Page404Index';
 
 import DefaultLayout from '@/pages/page-layouts/default/DefaultIndex';
 import BannerLayout from '@/pages/page-layouts/banner/BannerIndex';
+import AddTag from '@/pages/page-layouts/tags/AddTag';
 import Profile from '@/components/Profile';
 
 /**
@@ -119,6 +120,7 @@ const routes = [
   { path: '/other-pages/page-404', name: 'PageError', component: PageError },
   { path: '/page-layout/default', name: 'DefaultLayout', component: DefaultLayout },
   { path: '/page-layout/banner', name: 'BannerLayout', component: BannerLayout },
+  { path: '/page-layout/tags/AddTag', name: 'AddTag', component: AddTag },
   { path: '/maps', name: 'Maps', component: Maps },
 ];
 
