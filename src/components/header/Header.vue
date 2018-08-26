@@ -65,7 +65,7 @@ export default {
     logo,
     selectItems: [
       { text: 'Contact', value: 'search' },
-      { text: 'Project', value: 'search' },
+      { text: 'Project', value: 'project' },
     ],
     searchType: 'search',
     searchText: '',
