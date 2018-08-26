@@ -13,14 +13,25 @@
       <!-- Search Box -->
       <v-text-field
         dark
-        solo
         class="hidden-xs-only"
         prepend-icon="search"
         placeholder="Search"
-        elevation-0
+        elevation-5
         style="max-width: 500px; min-width: 128px;box-shadow: none; background: transparent;"
+        v-model="searchText"
+        @keyup="search"
       >
       </v-text-field>
+
+      <div>
+        <v-select
+          class="pl-3"
+          placeholder="Select search type"
+          :items="selectItems"
+          v-model="searchType"
+        >
+        </v-select>
+      </div>    
 
       <!-- Header right side notification and progile menu -->
       <div class="d-flex align-center" style="margin-left: auto">
@@ -52,6 +63,12 @@ export default {
   data: () => ({
     toggleNotification: false,
     logo,
+    selectItems: [
+      { text: 'Contact', value: 'search' },
+      { text: 'Project', value: 'search' },
+    ],
+    searchType: 'search',
+    searchText: '',
   }),
 
   methods: {
@@ -63,6 +80,21 @@ export default {
     */
     showNotification() {
       this.toggleNotification = !this.toggleNotification;
+    },
+    search() {
+      const searchText = this.searchText.trim();
+      if (searchText === '') {
+        this.$store.commit('MUTATION_SET_SEARCH_STATE', false);
+        this.$store.commit('MUTATION_SET_SEARCH_RESULT', []);
+      } else {
+        this.$store.commit('MUTATION_SET_SEARCH_RESULT', []);
+        this.$store.commit('MUTATION_SET_SEARCH_STATE', true);
+        const searchObj = {
+          endpoint: 'search',
+          query: searchText,
+        };
+        this.$store.dispatch('ACTION_GET_SEARCH_RESULT', searchObj);
+      }
     },
 
     sideBarToggle() {

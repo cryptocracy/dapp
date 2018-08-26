@@ -11,6 +11,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "blockstack": "^0.14.2",
     "chart.js": "^2.7.2",
     "cors": "^2.8.4",

@@ -1,7 +1,7 @@
 <template lang="html">
   <v-list>
     <v-list-group v-for="item in items" :value="item.active" v-bind:key="item.title">
-      <v-list-tile slot="item" @click="" :to="item.linkTo">
+      <v-list-tile slot="item" @click="showDashboard" :to="item.linkTo">
 
         <!-- Nav Icon -->
         <v-list-tile-action>
@@ -45,6 +45,12 @@ export default {
     return {
       items,
     };
+  },
+  methods: {
+    showDashboard() {
+      this.$store.commit('MUTATION_SET_SEARCH_STATE', false);
+      this.$store.commit('MUTATION_SET_SEARCH_RESULT', []);
+    },
   },
 };
 </script>
