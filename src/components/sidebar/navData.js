@@ -41,26 +41,45 @@ const items = [
     ],
   },
   {
-    color: 'teal darken-1',
-    action: 'done_all',
+    color: 'green lighten-2',
+    action: 'list',
     title: 'Tasks',
     items: [
-      { title: 'Add New', linkTo: '/page-layout/banner' },
-      { title: 'Find', linkTo: '/page-layout/banner' },
-    ],
-  },
-  {
-    color: 'green',
-    action: 'recent_actors',
-    title: 'Contacts',
-    items: [
-      { title: 'Add New', linkTo: '/page-layout/banner' },
-      { title: 'Find', linkTo: '/page-layout/banner' },
+      { title: 'Owned', linkTo: '/page-layout/banner' },
       { title: 'Favorites', linkTo: '/page-layout/banner' },
     ],
   },
   {
-    color: 'black',
+    color: 'teal lighten-3',
+    action: 'favorite_border',
+    title: 'Projects',
+    items: [
+      { title: 'Owned', linkTo: '/page-layout/banner' },
+      { title: 'Favorites', linkTo: '/page-layout/banner' },
+    ],
+  },
+  {
+    color: 'brown lighten-2',
+    action: 'account_balance_wallet',
+    title: 'Wallet',
+    items: [
+      { title: 'Summary', linkTo: '/page-layout/banner' },
+      { title: 'Send', linkTo: '/page-layout/banner' },
+      { title: 'Receive', linkTo: '/page-layout/banner' },
+      { title: 'History', linkTo: '/page-layout/banner' },
+    ],
+  },
+  {
+    color: 'purple lighten-3',
+    action: 'contacts',
+    title: 'Contacts',
+    items: [
+      { title: 'List', linkTo: '/page-layout/banner' },
+      { title: 'Favorites', linkTo: '/page-layout/banner' },
+    ],
+  },
+  {
+    color: 'grey lighten-1',
     action: 'settings',
     title: 'Settings',
     items: [
