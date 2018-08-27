@@ -1,9 +1,17 @@
 <template>
     <v-form ref="form" v-model="valid" lazy-validation>
+        <image-uploader
+            accept="image/*"
+            ref="imageInput"
+            :disabled="isLoading"
+            @input="getUploadedImage"
+        />
+
         <v-text-field
             v-model="title"
             :rules="titleRules"
             :counter="10"
+            :disabled="isLoading"
             label="Title"
             required
         ></v-text-field>
@@ -15,23 +23,41 @@
             :items="symbols"
             label="Symbol"
             v-model="symbol"
+            :disabled="isLoading"
             :rules="[v => !!v || 'Item is required']"
             required
         ></v-select>
+        <v-text-field
+            v-model="address"
+            :rules="addressRules"
+            :counter="10"
+            label="Address"
+            :disabled="isLoading"
+            required
+        ></v-text-field>
 
         <v-btn
-            :disabled="!valid"
+            :disabled="!valid || isLoading || !image"
             @click="submit"
         >
             submit
         </v-btn>
-        <v-btn @click="clear">clear</v-btn>
+        <v-btn
+            @click="clear"
+            :disabled="isLoading"
+        >
+            clear
+        </v-btn>
     </v-form>
 </template>
 
 <script>
+  import ImageUploader from '../../../components/image-uploader/ImageUploader'
+  import blockstackStorage from '../../../services/blockstackStorage.js'
+
   export default {
     data: () => ({
+      isLoading: false,
       coordinates: {
         lat: null,
         lng: null,
@@ -40,39 +66,66 @@
       title: '',
       titleRules: [
         v => !!v || 'Name is required',
-        v => v.length <= 20 || 'Name must be less than 20 characters',
+        v => v ? v.length <= 20 || 'Name must be less than 20 characters' : true,
         v => /^\w+$/.test(v) || 'Letters, numbers and "_" are only allowed',
       ],
+      addressRules: [
+        v => !!v || 'Your address is required',
+        v => /^((?!_)[A-z0-9])+$/.test(v) || 'Letters and numbers are only allowed',
+      ],
+      address: '',
       detail: '',
       symbol: null,
       symbols: ['BTC', 'ETH', 'LTC'],
+      image: null,
     }),
+    components: {
+      ImageUploader,
+    },
     methods: {
       submit() {
         const timestamp = +new Date();
         if (this.$refs.form.validate()) {
-          // Native form submission is not yet supported
-          // axios.post('/api/submit', {
-          //   "title": this.title,
-          //   "detail": this.detail,
-          //   "symbol": this.symbol,
-          //   "coordinates": {
-          //      "latitude": this.coordinates.lat
-          //      "longitude": this.coordinates.lng
-          //    },
-          //   "image":{
-          //    "url":"url-to-img-uploaded-to-users-gaia-bucket"
-          //    },
-          //    "createdtime": timestamp,
-          //    "archived": false,
-          //    "v":"0.0.1",
-          //    "id":""
-          // })
-          console.log('correct')
+          this.isLoading = true;
+          console.log(this.image.name.split('.').pop());
+          blockstack.putFile('image' + timestamp + '.' + this.image.name.split('.').pop(), this.image)
+            .then((imageUrl) => {
+              console.log(imageUrl);
+              blockstack.putFile('tag' + timestamp + '.json', JSON.stringify({
+                title: this.title,
+                detail: this.detail,
+                symbol: this.symbol,
+                coordinates: {
+                  latitude: this.coordinates.lat,
+                  longitude: this.coordinates.lng,
+                },
+                image: {
+                  url: imageUrl,
+                },
+                createdtime: timestamp,
+                archived: false,
+                v: '0.0.1',
+                id: timestamp,
+              }))
+                .then((jsonUrl) => {
+                  // /hello.txt exists now, and has the contents "hello world!".
+                  console.log(jsonUrl);
+                  blockstackStorage.addToIndex('myTags.json', jsonUrl.split('/').pop().split('.')[0], this.title)
+                    .then(() => {
+                      this.isLoading = false;
+                      this.clear();
+                    });
+                });
+            });
         }
       },
       clear() {
-        this.$refs.form.reset()
+        this.$refs.form.reset();
+        this.$refs.imageInput.removeFile();
+      },
+      getUploadedImage(e) {
+        this.image = e;
+        console.log(e);
       },
     },
     mounted() {
@@ -82,7 +135,7 @@
       };
       navigator.geolocation.getCurrentPosition(geoSuccess);
     },
-  }
+  };
 </script>
 
 <style lang="scss">

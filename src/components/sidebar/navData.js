@@ -19,7 +19,7 @@ const items = [
     linkTo: '/',
   },
   {
-    color: 'blue',
+    color: 'blue lighten-2',
     action: 'label',
     title: 'Tags',
     items: [
@@ -27,17 +27,6 @@ const items = [
       { title: 'Find', linkTo: '/page-layout/banner' },
       { title: 'Favorites', linkTo: '/page-layout/banner' },
       { title: 'Owned', linkTo: '/page-layout/banner' },
-    ],
-  },
-  {
-    color: 'red',
-    action: 'favorite',
-    title: 'Projects',
-    items: [
-      { title: 'Add New', linkTo: '/page-layout/banner' },
-      { title: 'Find', linkTo: '/page-layout/banner' },
-      { title: 'Favorites', linkTo: '/page-layout/banner' },
-      { title: 'Mine', linkTo: '/page-layout/banner' },
     ],
   },
   {
