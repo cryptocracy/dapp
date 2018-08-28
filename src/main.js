@@ -32,6 +32,8 @@ Vue.use(Vuetify, {
     primary: '#1ebea5',
   },
 });
+// eslint-disable-next-line
+export const eventBus = new Vue();
 
 
 Vue.use(VueGoogleMaps, {

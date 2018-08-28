@@ -45,7 +45,7 @@ const items = [
     items: [
       { title: 'Add New', linkTo: '/page-layout/banner' },
       { title: 'Find', linkTo: '/page-layout/banner' },
-      { title: 'Favorites', linkTo: '/page-layout/banner' },
+      { title: 'Favorites', linkTo: '/favourite-contacts' },
     ],
   },
   {
