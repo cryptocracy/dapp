@@ -2,6 +2,7 @@
     <div>
         <div>
             <img
+                id="image"
                 :src="imageUrl"
                 ref="imageUrl"
                 height="150"
@@ -28,6 +29,8 @@
 </template>
 
 <script>
+  import imageCompressor from '../../services/imageCompressor'
+
   export default {
     props: {
       value: {
@@ -48,7 +51,11 @@
       removeLabel: {
         type: String,
         default: 'Remove'
-      }
+      },
+      limit: {
+        type: [Number, String],
+        default: null,
+      },
     },
 
     data() {
@@ -74,7 +81,6 @@
 
       onFilePicked(event) {
         const files = event.target.files || event.dataTransfer.files
-
         if (files && files[0]) {
           let filename = files[0].name
 
@@ -85,10 +91,22 @@
           const fileReader = new FileReader()
           fileReader.addEventListener('load', () => {
             this.imageUrl = fileReader.result
+            this.$refs.imageUrl.addEventListener('load', () => {
+              console.log(this.$refs.imageUrl.src == fileReader.result)
+              if (files[0].size < this.limit) {
+                this.$emit('input', files[0])
+              } else {
+                console.log(files[0])
+                imageCompressor.compress(files[0], this.$refs.imageUrl, 0.8, this.limit)
+                  .then((newImage) => {
+                    console.log(newImage)
+                    this.$emit('input', newImage)
+                  })
+              }
+            })
           })
           fileReader.readAsDataURL(files[0])
 
-          this.$emit('input', files[0])
         }
       },
 

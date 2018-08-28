@@ -4,6 +4,7 @@
             accept="image/*"
             ref="imageInput"
             :disabled="isLoading"
+            limit=2000000
             @input="getUploadedImage"
         />
 
@@ -68,7 +69,7 @@
       ],
       addressRules: [
         v => v ? /^((?!_)[A-z0-9])+$/.test(v) || 'Letters and numbers are only allowed' : true,
-        v => v.length <= 42 || 'Please enter proper address',
+        v => v ? v.length <= 42 || 'Please enter proper address' : true,
       ],
       address: '',
       detail: '',
@@ -85,10 +86,10 @@
         if (this.$refs.form.validate()) {
           this.isLoading = true;
           console.log(this.image.name.split('.').pop());
-          blockstack.putFile('image' + timestamp + '.' + this.image.name.split('.').pop(), this.image)
+          blockstack.putFile('image_' + timestamp + '.' + this.image.name.split('.').pop(), this.image)
             .then((imageUrl) => {
               console.log(imageUrl);
-              blockstack.putFile('tag' + timestamp + '.json', JSON.stringify({
+              blockstack.putFile('tag_' + timestamp + '.json', JSON.stringify({
                 title: this.title,
                 detail: this.detail,
                 symbol: this.symbol,
@@ -102,7 +103,7 @@
                 createdtime: timestamp,
                 archived: false,
                 v: '0.0.1',
-                id: timestamp,
+                id: '',
               }))
                 .then((jsonUrl) => {
                   // /hello.txt exists now, and has the contents "hello world!".
