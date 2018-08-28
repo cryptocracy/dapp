@@ -24,16 +24,13 @@
             label="Symbol"
             v-model="symbol"
             :disabled="isLoading"
-            :rules="[v => !!v || 'Item is required']"
-            required
         ></v-select>
         <v-text-field
             v-model="address"
             :rules="addressRules"
-            :counter="10"
+            :counter="42"
             label="Address"
             :disabled="isLoading"
-            required
         ></v-text-field>
 
         <v-btn
@@ -66,12 +63,12 @@
       title: '',
       titleRules: [
         v => !!v || 'Name is required',
-        v => v ? v.length <= 20 || 'Name must be less than 20 characters' : true,
+        v => (v && v.length <= 20) || 'Name must be less than 20 characters',
         v => /^\w+$/.test(v) || 'Letters, numbers and "_" are only allowed',
       ],
       addressRules: [
-        v => !!v || 'Your address is required',
-        v => /^((?!_)[A-z0-9])+$/.test(v) || 'Letters and numbers are only allowed',
+        v => v ? /^((?!_)[A-z0-9])+$/.test(v) || 'Letters and numbers are only allowed' : true,
+        v => v.length <= 42 || 'Please enter proper address',
       ],
       address: '',
       detail: '',
