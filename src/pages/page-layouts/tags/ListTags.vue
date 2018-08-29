@@ -34,10 +34,6 @@
       blockstack: window.blockstack,
       tags: [],
       tagsArray: [],
-      decryptOptions: {
-        decrypt: true
-
-      },
     }),
     methods: {
       fetchTagFile() {
@@ -51,7 +47,7 @@
             this.hubUrl = urlItems.url_prefix + urlItems.address + '/'
             // looping over project list to fetch unique json files for every project
             for (let tag in this.tags) {
-              this.blockstack.getFile(tag + '.json', this.decryptOptions).then((tagJson) => {
+              this.blockstack.getFile(tag + '.json').then((tagJson) => {
                 let tagData = typeof tagJson === 'string' ? JSON.parse(tagJson) : {}
                 // this[data.id] = tagData
                 // this[data.id].tasks = this[data.id].tasks || []

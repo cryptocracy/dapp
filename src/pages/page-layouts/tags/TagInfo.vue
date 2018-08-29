@@ -1,20 +1,24 @@
 <template>
     <div class="container">
         <v-list two-line>
-            <template v-for="(item, index) in tagObject">
-                <template v-if="item">
-                <v-list-tile
-                    v-if="index!='image' && index!='coordinates'"
-                    :key="index"
-                >
-                    <v-list-tile-content>
-                        <v-list-tile-sub-title v-html="index"></v-list-tile-sub-title>
-                        <v-list-tile-title v-html="item"></v-list-tile-title>
-                    </v-list-tile-content>
-                </v-list-tile>
-                </template>
-            </template>
-
+            <v-list-tile v-if="tagObject.title">
+                <v-list-tile-content>
+                    <v-list-tile-sub-title>Title</v-list-tile-sub-title>
+                    <v-list-tile-title v-html="tagObject.title"></v-list-tile-title>
+                </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile v-if="tagObject.detail">
+                <v-list-tile-content>
+                    <v-list-tile-sub-title>Details</v-list-tile-sub-title>
+                    <v-list-tile-title v-html="tagObject.detail"></v-list-tile-title>
+                </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile v-if="tagObject.createdtime">
+                <v-list-tile-content>
+                    <v-list-tile-sub-title>Created time</v-list-tile-sub-title>
+                    <v-list-tile-title v-html="new Date(tagObject.createdtime).toLocaleString()"></v-list-tile-title>
+                </v-list-tile-content>
+            </v-list-tile>
             <v-list-tile>
                 <v-list-tile-content>
                     <v-list-tile-sub-title>Image</v-list-tile-sub-title>
@@ -30,6 +34,18 @@
             <map-with-marker
                 v-if="tagObject.coordinates"
                 :center="coordinates"/>
+            <v-list-tile v-if="tagObject.symbol">
+                <v-list-tile-content>
+                    <v-list-tile-sub-title>Symbol</v-list-tile-sub-title>
+                    <v-list-tile-title v-html="tagObject.symbol"></v-list-tile-title>
+                </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile v-if="tagObject.address">
+                <v-list-tile-content>
+                    <v-list-tile-sub-title>Address</v-list-tile-sub-title>
+                    <v-list-tile-title v-html="tagObject.address"></v-list-tile-title>
+                </v-list-tile-content>
+            </v-list-tile>
         </v-list>
     </div>
 </template>

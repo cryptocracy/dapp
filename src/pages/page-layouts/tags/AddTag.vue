@@ -79,9 +79,6 @@
       symbol: null,
       symbols: ['BTC', 'ETH', 'LTC'],
       image: null,
-      encryptOption: {
-        encrypt: true
-      },
     }),
     components: {
       ImageUploader,
@@ -110,7 +107,7 @@
                 archived: false,
                 v: '0.0.1',
                 id: '',
-              }), this.encryptOption)
+              }))
                 .then((jsonUrl) => {
                   console.log(jsonUrl)
                   blockstackStorage.addToIndex('my_tags.json', jsonUrl.split('/').pop().split('.')[0], this.title)
