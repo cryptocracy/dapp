@@ -4,14 +4,12 @@ const blockstackStorage = {
         if (!currentContent) {
           blockstack.putFile(indexName, JSON.stringify({ [key]: value }))
             .then((filename) => {
-              console.log("index file created " + filename)
             });
         } else {
-          let parsedCurrentContent = JSON.parse(currentContent);
+          const parsedCurrentContent = JSON.parse(currentContent);
           parsedCurrentContent[key] = value;
           blockstack.putFile(indexName, JSON.stringify(parsedCurrentContent))
             .then((filename) => {
-              console.log("index file updated " + filename)
             });
         }
       }),

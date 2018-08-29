@@ -29,28 +29,28 @@
 </template>
 
 <script>
-  import imageCompressor from '../../services/imageCompressor'
+  import imageCompressor from '../../services/imageCompressor';
 
   export default {
     props: {
       value: {
-        type: String
+        type: String,
       },
       accept: {
         type: String,
-        default: '*'
+        default: '*',
       },
       selectLabel: {
         type: String,
-        default: 'Select an image'
+        default: 'Select an image',
       },
       disabled: {
         type: Boolean,
-        default: false
+        default: false,
       },
       removeLabel: {
         type: String,
-        default: 'Remove'
+        default: 'Remove',
       },
       limit: {
         type: [Number, String],
@@ -60,61 +60,57 @@
 
     data() {
       return {
-        imageUrl: ''
-      }
+        imageUrl: '',
+      };
     },
 
     watch: {
       value(v) {
-        this.imageUrl = v
+        this.imageUrl = v;
       },
     },
 
     mounted() {
-      this.imageUrl = this.value
+      this.imageUrl = this.value;
     },
 
     methods: {
       onPickFile() {
-        this.$refs.image.click()
+        this.$refs.image.click();
       },
 
       onFilePicked(event) {
-        const files = event.target.files || event.dataTransfer.files
+        const files = event.target.files || event.dataTransfer.files;
         if (files && files[0]) {
-          let filename = files[0].name
+          const filename = files[0].name;
 
           if (filename && filename.lastIndexOf('.') <= 0) {
-            return //return alert('Please add a valid image!')
+            return; // return alert('Please add a valid image!')
           }
 
-          const fileReader = new FileReader()
+          const fileReader = new FileReader();
           fileReader.addEventListener('load', () => {
-            this.imageUrl = fileReader.result
+            this.imageUrl = fileReader.result;
             this.$refs.imageUrl.addEventListener('load', () => {
-              console.log(this.$refs.imageUrl.src == fileReader.result)
               if (files[0].size < this.limit) {
-                this.$emit('input', files[0])
+                this.$emit('input', files[0]);
               } else {
-                console.log(files[0])
                 imageCompressor.compress(files[0], this.$refs.imageUrl, 0.8, this.limit)
                   .then((newImage) => {
-                    console.log(newImage)
-                    this.$emit('input', newImage)
-                  })
+                    this.$emit('input', newImage);
+                  });
               }
-            })
-          })
-          fileReader.readAsDataURL(files[0])
-
+            });
+          });
+          fileReader.readAsDataURL(files[0]);
         }
       },
 
       removeFile() {
-        this.imageUrl = ''
-      }
-    }
-  }
+        this.imageUrl = '';
+      },
+    },
+  };
 </script>
 
 <style scoped>

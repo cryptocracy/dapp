@@ -52,8 +52,8 @@
 </template>
 
 <script>
-  import ImageUploader from '../../../components/image-uploader/ImageUploader'
-  import blockstackStorage from '../../../services/blockstackStorage.js'
+  import ImageUploader from '../../../components/image-uploader/ImageUploader';
+  import blockstackStorage from '../../../services/blockstackStorage.js';
 
   export default {
     data: () => ({
@@ -85,17 +85,16 @@
     },
     methods: {
       submit() {
-        const timestamp = +new Date()
+        const timestamp = +new Date();
         if (this.$refs.form.validate()) {
-          this.isLoading = true
-          console.log(this.image.name.split('.').pop())
-          this.blockstack.putFile('image_' + timestamp + '.' + this.image.name.split('.').pop(), this.image)
+          this.isLoading = true;
+          this.blockstack.putFile(`image_${timestamp}.${this.image.name.split('.').pop()}`, this.image)
             .then((imageUrl) => {
-              console.log(imageUrl)
-              this.blockstack.putFile('tag_' + timestamp + '.json', JSON.stringify({
+              this.blockstack.putFile(`tag_${timestamp}.json`, JSON.stringify({
                 title: this.title,
                 detail: this.detail,
                 symbol: this.symbol,
+                address: this.address,
                 coordinates: {
                   latitude: this.coordinates.lat,
                   longitude: this.coordinates.lng,
@@ -109,23 +108,21 @@
                 id: '',
               }))
                 .then((jsonUrl) => {
-                  console.log(jsonUrl)
                   blockstackStorage.addToIndex('my_tags.json', jsonUrl.split('/').pop().split('.')[0], this.title)
                     .then(() => {
-                      this.isLoading = false
-                      this.clear()
-                    })
-                })
-            })
+                      this.isLoading = false;
+                      this.clear();
+                    });
+                });
+            });
         }
       },
       clear() {
-        this.$refs.form.reset()
-        this.$refs.imageInput.removeFile()
+        this.$refs.form.reset();
+        this.$refs.imageInput.removeFile();
       },
       getUploadedImage(e) {
-        this.image = e
-        console.log(e)
+        this.image = e;
       },
     },
     mounted() {
@@ -135,7 +132,7 @@
       };
       navigator.geolocation.getCurrentPosition(geoSuccess);
     },
-  }
+  };
 </script>
 
 <style lang="scss">
