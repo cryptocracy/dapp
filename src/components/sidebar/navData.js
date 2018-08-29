@@ -19,12 +19,14 @@ const items = [
     linkTo: '/',
   },
   {
-    color: 'teal lighten-2',
-    action: 'language',
+    color: 'blue lighten-2',
+    action: 'label',
     title: 'Tags',
     items: [
-      { title: 'Owned', linkTo: '/page-layout/banner' },
+      { title: 'Add New', linkTo: '/tags/add-tag' },
+      { title: 'Find', linkTo: '/page-layout/banner' },
       { title: 'Favorites', linkTo: '/page-layout/banner' },
+      { title: 'Owned', linkTo: '/tags/owned' },
     ],
   },
   {
