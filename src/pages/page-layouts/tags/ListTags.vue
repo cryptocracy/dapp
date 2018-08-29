@@ -7,7 +7,10 @@
                         <v-list-tile
                             v-for="tag in tagsArray"
                             :key="tag.createdtime"
-                            :to="{name: 'TagInfo', params: {tagName: 'tag_'+tag.createdtime, tagObject: tag}}"
+                            :to="{name: 'TagInfo', params: {
+                            tagName: 'tag_'+tag.createdtime,
+                            tagObject: tag,
+                            }}"
                         >
                             <v-list-tile-avatar>
                                 <v-icon color="blue lighten-4">label</v-icon>
@@ -41,13 +44,9 @@
         this.blockstack.getFile(STORAGE_FILE)
           .then((tagsText) => {
             this.tags = JSON.parse(tagsText || '[]')
-            // parsing blockstack gaia hub cong from localhost for creating hub url
-            let urlItems = JSON.parse(localStorage['blockstack-gaia-hub-config'])
-            // creating hub url(where our files are stored)
-            this.hubUrl = urlItems.url_prefix + urlItems.address + '/'
             // looping over project list to fetch unique json files for every project
             for (let tag in this.tags) {
-              this.blockstack.getFile(tag + '.json').then((tagJson) => {
+              this.blockstack.getFile(`${tag}.json`).then((tagJson) => {
                 let tagData = typeof tagJson === 'string' ? JSON.parse(tagJson) : {}
                 // this[data.id] = tagData
                 // this[data.id].tasks = this[data.id].tasks || []
