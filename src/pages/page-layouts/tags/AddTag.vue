@@ -1,52 +1,54 @@
 <template>
-    <v-form ref="form" v-model="valid" lazy-validation>
-        <image-uploader
-            accept="image/*"
-            ref="imageInput"
-            :disabled="isLoading"
-            limit=2000000
-            @input="getUploadedImage"
-        />
+    <div class="container">
+        <v-form ref="form" v-model="valid" lazy-validation>
+            <image-uploader
+                accept="image/*"
+                ref="imageInput"
+                :disabled="isLoading"
+                limit=2000000
+                @input="getUploadedImage"
+            />
 
-        <v-text-field
-            v-model="title"
-            :rules="titleRules"
-            :counter="10"
-            :disabled="isLoading"
-            label="Title"
-            required
-        ></v-text-field>
-        <v-text-field
-            v-model="detail"
-            label="Detail"
-        ></v-text-field>
-        <v-select
-            :items="symbols"
-            label="Symbol"
-            v-model="symbol"
-            :disabled="isLoading"
-        ></v-select>
-        <v-text-field
-            v-model="address"
-            :rules="addressRules"
-            :counter="42"
-            label="Address"
-            :disabled="isLoading"
-        ></v-text-field>
+            <v-text-field
+                v-model="title"
+                :rules="titleRules"
+                :counter="10"
+                :disabled="isLoading"
+                label="Title"
+                required
+            ></v-text-field>
+            <v-text-field
+                v-model="detail"
+                label="Detail"
+            ></v-text-field>
+            <v-select
+                :items="symbols"
+                label="Symbol"
+                v-model="symbol"
+                :disabled="isLoading"
+            ></v-select>
+            <v-text-field
+                v-model="address"
+                :rules="addressRules"
+                :counter="42"
+                label="Address"
+                :disabled="isLoading"
+            ></v-text-field>
 
-        <v-btn
-            :disabled="!valid || isLoading || !image"
-            @click="submit"
-        >
-            submit
-        </v-btn>
-        <v-btn
-            @click="clear"
-            :disabled="isLoading"
-        >
-            clear
-        </v-btn>
-    </v-form>
+            <v-btn
+                :disabled="!valid || isLoading || !image"
+                @click="submit"
+            >
+                submit
+            </v-btn>
+            <v-btn
+                @click="clear"
+                :disabled="isLoading"
+            >
+                clear
+            </v-btn>
+        </v-form>
+    </div>
 </template>
 
 <script>
@@ -55,6 +57,7 @@
 
   export default {
     data: () => ({
+      blockstack: window.blockstack,
       isLoading: false,
       coordinates: {
         lat: null,
@@ -76,20 +79,23 @@
       symbol: null,
       symbols: ['BTC', 'ETH', 'LTC'],
       image: null,
+      encryptOption: {
+        encrypt: true
+      },
     }),
     components: {
       ImageUploader,
     },
     methods: {
       submit() {
-        const timestamp = +new Date();
+        const timestamp = +new Date()
         if (this.$refs.form.validate()) {
-          this.isLoading = true;
-          console.log(this.image.name.split('.').pop());
-          blockstack.putFile('image_' + timestamp + '.' + this.image.name.split('.').pop(), this.image)
+          this.isLoading = true
+          console.log(this.image.name.split('.').pop())
+          this.blockstack.putFile('image_' + timestamp + '.' + this.image.name.split('.').pop(), this.image)
             .then((imageUrl) => {
-              console.log(imageUrl);
-              blockstack.putFile('tag_' + timestamp + '.json', JSON.stringify({
+              console.log(imageUrl)
+              this.blockstack.putFile('tag_' + timestamp + '.json', JSON.stringify({
                 title: this.title,
                 detail: this.detail,
                 symbol: this.symbol,
@@ -104,26 +110,25 @@
                 archived: false,
                 v: '0.0.1',
                 id: '',
-              }))
+              }), this.encryptOption)
                 .then((jsonUrl) => {
-                  // /hello.txt exists now, and has the contents "hello world!".
-                  console.log(jsonUrl);
-                  blockstackStorage.addToIndex('myTags.json', jsonUrl.split('/').pop().split('.')[0], this.title)
+                  console.log(jsonUrl)
+                  blockstackStorage.addToIndex('my_tags.json', jsonUrl.split('/').pop().split('.')[0], this.title)
                     .then(() => {
-                      this.isLoading = false;
-                      this.clear();
-                    });
-                });
-            });
+                      this.isLoading = false
+                      this.clear()
+                    })
+                })
+            })
         }
       },
       clear() {
-        this.$refs.form.reset();
-        this.$refs.imageInput.removeFile();
+        this.$refs.form.reset()
+        this.$refs.imageInput.removeFile()
       },
       getUploadedImage(e) {
-        this.image = e;
-        console.log(e);
+        this.image = e
+        console.log(e)
       },
     },
     mounted() {
@@ -133,7 +138,7 @@
       };
       navigator.geolocation.getCurrentPosition(geoSuccess);
     },
-  };
+  }
 </script>
 
 <style lang="scss">

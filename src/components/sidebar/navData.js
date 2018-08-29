@@ -23,10 +23,10 @@ const items = [
     action: 'label',
     title: 'Tags',
     items: [
-      { title: 'Add New', linkTo: '/page-layout/tags/AddTag' },
+      { title: 'Add New', linkTo: '/tags/add-tag' },
       { title: 'Find', linkTo: '/page-layout/banner' },
       { title: 'Favorites', linkTo: '/page-layout/banner' },
-      { title: 'Owned', linkTo: '/page-layout/banner' },
+      { title: 'Owned', linkTo: '/tags/owned' },
     ],
   },
   {
