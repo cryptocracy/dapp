@@ -68,7 +68,7 @@ import favContacts from '@/components/contacts/FavouriteContacts';
 
 const routes = [
   { path: '/', name: 'Home', component: Home },
-  { path: '/profile', name: 'Profile', component: Profile },
+  { path: '/profile/:id', name: 'Profile', component: Profile },
   { path: '/favourite-contacts', name: 'favourite-contacts', component: favContacts },
   /** { path: '/settings', name: 'Settings', component: Settings }, */
   { path: '/ecommerce', name: 'Ecommerce', component: Ecommerce },

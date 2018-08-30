@@ -27,9 +27,7 @@
                 <v-list-tile
                   :key="item.index"
                   avatar
-                  @click="">
-
-                  
+                  @click="showContactProfile(item)"> 
                   <!-- <v-btn outline fab small color="teal accent-4"><v-icon  large @click="addToContacts(item)" color="teal accent-4">checked</v-icon></v-btn> -->
                   <v-list-tile-avatar class="ml-2">
                     <img v-if="item.profile.hasOwnProperty('image')" :src="item.profile.image[0].contentUrl">
@@ -45,7 +43,7 @@
                   <v-list-tile-action>
 
                     <v-tooltip bottom>
-                      <v-btn slot="activator" @click="updateContacts(item, 'deletion')" outline fab small color="teal accent-4">
+                      <v-btn slot="activator" @click.stop="updateContacts(item, 'deletion')" outline fab small color="teal accent-4">
                         <v-icon  large color="teal accent-4">delete</v-icon>
                       </v-btn>
                       <span>Remove from Contacts</span>
@@ -91,6 +89,13 @@ export default {
         type,
         options: { encrypt: true },
       });
+    },
+    showContactProfile(contact) {
+      this.$store.commit('MUTATION_SET_CONTACT_USER_PROFILE_DATA', contact);
+      this.showProfile = true;
+      this.$store.commit('MUTATION_SET_SEARCH_STATE', false);
+      this.$store.commit('MUTATION_SET_SEARCH_RESULT', []);
+      this.$router.push({ name: 'Profile', params: { id: contact.fullyQualifiedName } });
     },
   },
   mounted() {
