@@ -56,6 +56,10 @@ import BannerLayout from '@/pages/page-layouts/banner/BannerIndex';
 import Profile from '@/components/Profile';
 import favContacts from '@/components/contacts/FavouriteContacts';
 
+import AddTag from '@/pages/page-layouts/tags/AddTag';
+import ListTags from '@/pages/page-layouts/tags/ListTags';
+import TagInfo from '@/pages/page-layouts/tags/TagInfo';
+
 /**
 * Routes Data
 *
@@ -121,6 +125,9 @@ const routes = [
   { path: '/other-pages/page-404', name: 'PageError', component: PageError },
   { path: '/page-layout/default', name: 'DefaultLayout', component: DefaultLayout },
   { path: '/page-layout/banner', name: 'BannerLayout', component: BannerLayout },
+  { path: '/tags/add-tag', name: 'AddTag', component: AddTag },
+  { path: '/tags/owned', name: 'Owned', component: ListTags },
+  { path: '/tags/:tagName', name: 'TagInfo', props: true, component: TagInfo },
   { path: '/maps', name: 'Maps', component: Maps },
 ];
 

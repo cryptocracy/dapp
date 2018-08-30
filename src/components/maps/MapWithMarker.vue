@@ -16,12 +16,15 @@
 
 <script>
   export default {
-    data: () => ({
+    props: {
       center: {
-        lat: 40.730610,
-        lng: -73.9352420,
+        type: Object,
+        default: {
+          lat: 40.730610,
+          lng: -73.9352420,
+        },
       },
-    }),
+    },
   };
 </script>
 
