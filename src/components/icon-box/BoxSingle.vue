@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="iconbox-single" :style="{background: backgroundColor}">
+  <router-link class="iconbox-single" :style="{background: backgroundColor}" :to="to">
     <div class="box-title">
       <div class="circle-icon" >
         <v-icon>{{ icon }}</v-icon>
@@ -9,12 +9,12 @@
         <p>{{ subtitle }}</p>
       </div>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <script>
 export default {
-  props: ['backgroundColor', 'title', 'subtitle', 'icon'],
+  props: ['backgroundColor', 'title', 'subtitle', 'icon', 'to'],
 };
 </script>
 

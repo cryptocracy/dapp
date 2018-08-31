@@ -7,6 +7,7 @@
             icon="favorite_border"
             title="2"
             subtitle="Projects Owned"
+            to="/"
           >
           </app-icon-box>
         </div>
@@ -17,6 +18,7 @@
             icon="list"
             title="2"
             subtitle="Tasks Owned"
+            to="/"
           >
           </app-icon-box>
         </div>
@@ -25,8 +27,9 @@
           <app-icon-box
             backgroundColor="#31e6a5"
             icon="language"
-            title="3"
+            :title="tagCount"
             subtitle="Tags Owned"
+            to="/tags/owned"
           >
           </app-icon-box>
         </div>
@@ -37,10 +40,17 @@
 
 <script>
 import BoxSingle from './BoxSingle';
-
+import storageService from '../../services/blockstack-storage'
 export default {
   components: {
     'app-icon-box': BoxSingle,
+    storageService,
+  },
+  data: () => ({
+    tagCount: 0,
+  }),
+  mounted() {
+    storageService.getFile({ fileName: 'my_tags.json' }).then((res) => { this.tagCount = Object.keys(res).length });
   },
 };
 </script>
