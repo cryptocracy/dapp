@@ -6,7 +6,7 @@
       </v-avatar>
     </v-btn>
     <v-list>
-      <v-list-tile @click="$router.push({name: 'Profile'})">
+      <v-list-tile @click="showProfile">
         <v-list-tile-action>
           <v-icon>face</v-icon>
         </v-list-tile-action>
@@ -47,6 +47,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import profileAvatar from '../../assets/img/user12.jpg';
+import { eventBus } from '../../main';
 
 export default {
   computed: {
@@ -64,6 +65,11 @@ export default {
     blockstack: window.blockstack,
   }),
   methods: {
+    showProfile() {
+      this.$store.commit('MUTATION_SET_CONTACT_USER_PROFILE_DATA');
+      this.$router.push({ name: 'Profile', params: { id: this.profileData.fullyQualifiedName || 'user' } });
+      eventBus.$emit('showProfile', this.profileData);
+    },
     signOut() {
       this.blockstack.signUserOut(window.location.href);
       window.location.href = '/';

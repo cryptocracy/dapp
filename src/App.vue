@@ -7,7 +7,8 @@
         <app-sidebar/>
         <div :class="isSidebarOpen">
           <transition name="slide-fade" mode="out-in">
-            <router-view/>
+            <search-results v-if="isSearching"></search-results>
+            <router-view v-else/>
           </transition>
         </div>
         <v-btn fab fixed bottom right dark color="teal accent-4">
@@ -24,14 +25,17 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import Header from './components/header/Header';
 import Sidebar from './components/sidebar/Sidebar';
 import Login from './components/other-pages/login/Login';
+import searchResults from './components/Search-results';
 
 export default {
   components: {
     'app-header': Header,
     'app-sidebar': Sidebar,
+    'search-results': searchResults,
     login: Login,
   },
   name: 'app',
@@ -65,6 +69,9 @@ export default {
     * @type {function}
     * @return {Boolean} true / false based on sidebarOpen Data
     */
+    ...mapGetters({
+      isSearching: 'isSearching',
+    }),
     isSidebarOpen() {
       return {
         'main-wrapper': true,
