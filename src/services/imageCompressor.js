@@ -9,7 +9,7 @@ const imageCompressor = {
     const newHeight = oldHeight * Math.sqrt(limit / (sourceImgFile.size * quality));
     canvas.width = newWidth;
     canvas.height = newHeight;
-    const ctx = canvas.getContext("2d").drawImage(origImage, 0, 0, oldWidth, oldHeight, 0, 0, newWidth, newHeight);
+    const ctx = canvas.getContext('2d').drawImage(origImage, 0, 0, oldWidth, oldHeight, 0, 0, newWidth, newHeight);
     return new Promise((resolve, reject) => {
       canvas.toBlob((blob) => {
         const file = new File([blob], sourceImgFile.name, {
@@ -17,10 +17,10 @@ const imageCompressor = {
           lastModified: Date.now(),
         });
         resolve(file);
-      }, sourceImgFile.type, quality ** (1/5)); // 1/5 is hardcode
+      }, sourceImgFile.type, quality ** (1 / 5)); // 1/5 is hardcode
     });
   },
 
-}
+};
 
 export default imageCompressor;
