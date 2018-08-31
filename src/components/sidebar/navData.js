@@ -64,7 +64,7 @@ const items = [
     title: 'Contacts',
     items: [
       { title: 'List', linkTo: '/page-layout/banner' },
-      { title: 'Favorites', linkTo: '/page-layout/banner' },
+      { title: 'Favorites', linkTo: '/favourite-contacts' },
     ],
   },
   {

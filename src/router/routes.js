@@ -54,6 +54,7 @@ import PageError from '@/pages/other-pages/page-404/Page404Index';
 import DefaultLayout from '@/pages/page-layouts/default/DefaultIndex';
 import BannerLayout from '@/pages/page-layouts/banner/BannerIndex';
 import Profile from '@/components/Profile';
+import favContacts from '@/components/contacts/FavouriteContacts';
 
 import AddTag from '@/pages/page-layouts/tags/AddTag';
 import ListTags from '@/pages/page-layouts/tags/ListTags';
@@ -71,7 +72,8 @@ import TagInfo from '@/pages/page-layouts/tags/TagInfo';
 
 const routes = [
   { path: '/', name: 'Home', component: Home },
-  { path: '/profile', name: 'Profile', component: Profile },
+  { path: '/profile/:id', name: 'Profile', component: Profile },
+  { path: '/favourite-contacts', name: 'favourite-contacts', component: favContacts },
   /** { path: '/settings', name: 'Settings', component: Settings }, */
   { path: '/ecommerce', name: 'Ecommerce', component: Ecommerce },
 

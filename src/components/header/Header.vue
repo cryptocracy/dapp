@@ -5,7 +5,7 @@
       <v-toolbar-title :style="$vuetify.breakpoint.smAndUp ? 'width: 260px; min-width: 250px' : 'min-width: 72px'" class="ml-0 pl-3 d-flex justify-content-between align-items-center">
 
         <span class="brand"><img :src="logo"></span>
-        <v-btn flat icon color="" @click.stop="sideBarToggle()">
+        <v-btn flat icon color="" @click="sideBarToggle()">
           <v-icon>sort</v-icon>
         </v-btn>
       </v-toolbar-title>
@@ -50,6 +50,7 @@
 </template>
 
 <script>
+import { eventBus } from '../../main';
 import Notifications from '../notifications/Notifications';
 import AvatarMenu from './Avatarmenu';
 import logo from '../../assets/img/logo.svg';
@@ -98,6 +99,7 @@ export default {
     },
 
     sideBarToggle() {
+      eventBus.$emit('sidebartoggled');
       this.$store.commit('toggleSidebar');
     },
   },

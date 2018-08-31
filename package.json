@@ -24,7 +24,7 @@
     "vue-perfect-scrollbar": "0.0.14",
     "vue-router": "^3.0.1",
     "vue2-google-maps": "^0.9.8",
-    "vuetify": "^0.17",
+    "vuetify": "^0.17.7",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
@@ -61,7 +61,6 @@
     "sass-loader": "^6.0.7",
     "semver": "^5.5.0",
     "shelljs": "^0.7.6",
-    "uglifyjs-webpack-plugin": "^1.2.7",
     "url-loader": "^0.5.8",
     "vue-loader": "^13.7.2",
     "vue-style-loader": "^3.1.2",
