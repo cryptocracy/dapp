@@ -20,19 +20,19 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      sheet: false,
-      tiles: [
-        { title: 'Keep' },
-        { title: 'Inbox' },
-        { title: 'Hangouts' },
-        { title: 'Messenger' },
-        { title: 'Google+' },
-      ],
-    }),
+export default {
+  data: () => ({
+    sheet: false,
+    tiles: [
+      { title: 'Keep' },
+      { title: 'Inbox' },
+      { title: 'Hangouts' },
+      { title: 'Messenger' },
+      { title: 'Google+' }
+    ]
+  })
 
-  };
+}
 </script>
 
 <style scoped>

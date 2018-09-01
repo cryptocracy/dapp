@@ -31,12 +31,12 @@
 </template>
 
 <script>
-  import FormLayouts from '@/components/forms/forms-components/FormLayouts';
+import FormLayouts from '@/components/forms/forms-components/FormLayouts'
 
-  export default {
-    components: { 'app-formlayouts': FormLayouts },
+export default {
+  components: { 'app-formlayouts': FormLayouts }
 
-  };
+}
 </script>
 
 <style scoped>

@@ -3,11 +3,11 @@
 </template>
 
 <script>
-  import Login from '@/components/other-pages/login/Login';
+import Login from '@/components/other-pages/login/Login'
 
-  export default {
-    components: { 'app-login': Login },
-  };
+export default {
+  components: { 'app-login': Login }
+}
 </script>
 
 <style lang="css">

@@ -1,4 +1,4 @@
-import productImage from '../../assets/img/watch.png';
+import productImage from '../../assets/img/watch.png'
 
 /**
  * Products Data
@@ -19,7 +19,7 @@ export default {
       name: 'Apple watch light blue',
       price: 390,
       favorite: false,
-      rating: 4.5,
+      rating: 4.5
     },
     {
       id: 2,
@@ -27,7 +27,7 @@ export default {
       name: 'Apple watch light blue',
       price: 390,
       favorite: false,
-      rating: 4.0,
+      rating: 4.0
     },
     {
       id: 3,
@@ -35,7 +35,7 @@ export default {
       name: 'Apple watch light blue',
       price: 390,
       favorite: false,
-      rating: 4.5,
+      rating: 4.5
     },
     {
       id: 4,
@@ -43,7 +43,7 @@ export default {
       name: 'Apple watch light blue',
       price: 390,
       favorite: false,
-      rating: 4.7,
+      rating: 4.7
     },
     {
       id: 5,
@@ -51,7 +51,7 @@ export default {
       name: 'Apple watch light blue',
       price: 390,
       favorite: false,
-      rating: 4.0,
+      rating: 4.0
     },
     {
       id: 6,
@@ -59,7 +59,7 @@ export default {
       name: 'Apple watch light blue',
       price: 390,
       favorite: false,
-      rating: 4.9,
+      rating: 4.9
     },
     {
       id: 7,
@@ -67,7 +67,7 @@ export default {
       name: 'Apple watch light blue',
       price: 390,
       favorite: false,
-      rating: 4.5,
+      rating: 4.5
     },
     {
       id: 8,
@@ -75,7 +75,7 @@ export default {
       name: 'Apple watch light blue',
       price: 390,
       favorite: false,
-      rating: 3.5,
+      rating: 3.5
     },
     {
       id: 9,
@@ -83,7 +83,7 @@ export default {
       name: 'Apple watch light blue',
       price: 390,
       favorite: false,
-      rating: 4.5,
+      rating: 4.5
     },
     {
       id: 10,
@@ -91,7 +91,7 @@ export default {
       name: 'Apple watch light blue',
       price: 390,
       favorite: false,
-      rating: 4.7,
+      rating: 4.7
     },
     {
       id: 11,
@@ -99,7 +99,7 @@ export default {
       name: 'Apple watch light blue',
       price: 390,
       favorite: false,
-      rating: 4.0,
+      rating: 4.0
     },
     {
       id: 12,
@@ -107,7 +107,7 @@ export default {
       name: 'Apple watch light blue',
       price: 390,
       favorite: false,
-      rating: 4.9,
-    },
-  ],
-};
+      rating: 4.9
+    }
+  ]
+}

@@ -51,24 +51,24 @@
 </template>
 
 <script>
-  import BasicChips from '@/components/ui-elements/chips/BasicChips';
-  import ColorChips from '@/components/ui-elements/chips/ColorChips';
-  import IconChips from '@/components/ui-elements/chips/IconChips';
-  import OutlineChips from '@/components/ui-elements/chips/OutlineChips';
-  import Labels from '@/components/ui-elements/chips/Labels';
-  import CloseableChips from '@/components/ui-elements/chips/CloseableChips';
+import BasicChips from '@/components/ui-elements/chips/BasicChips'
+import ColorChips from '@/components/ui-elements/chips/ColorChips'
+import IconChips from '@/components/ui-elements/chips/IconChips'
+import OutlineChips from '@/components/ui-elements/chips/OutlineChips'
+import Labels from '@/components/ui-elements/chips/Labels'
+import CloseableChips from '@/components/ui-elements/chips/CloseableChips'
 
-  export default {
-    data: () => ({
-      BasicChips,
-      ColorChips,
-      IconChips,
-      OutlineChips,
-      Labels,
-      CloseableChips,
-    }),
+export default {
+  data: () => ({
+    BasicChips,
+    ColorChips,
+    IconChips,
+    OutlineChips,
+    Labels,
+    CloseableChips
+  })
 
-  };
+}
 </script>
 
 <style scoped>

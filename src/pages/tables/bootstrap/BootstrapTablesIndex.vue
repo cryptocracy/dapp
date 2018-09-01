@@ -46,13 +46,13 @@
 </template>
 
 <script>
-  import Bootstraptable from '@/components/tables/bootstrap/Tables';
+import Bootstraptable from '@/components/tables/bootstrap/Tables'
 
-  export default {
-    components: {
-      'bootstrap-table': Bootstraptable,
-    },
-  };
+export default {
+  components: {
+    'bootstrap-table': Bootstraptable
+  }
+}
 </script>
 
 <style lang="css">

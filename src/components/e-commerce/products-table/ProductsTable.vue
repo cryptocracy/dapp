@@ -22,17 +22,17 @@
 </template>
 
 <script>
-  export default {
-    computed: {
-      /**
+export default {
+  computed: {
+    /**
       * Get most viewed products data from vuex store
       * as a props to the componenet
       */
-      productsTableData() {
-        return this.$store.state.productsTable.data;
-      },
-    },
-  };
+    productsTableData () {
+      return this.$store.state.productsTable.data
+    }
+  }
+}
 </script>
 
 <style scoped>

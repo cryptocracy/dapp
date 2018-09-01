@@ -9,7 +9,7 @@
             <v-icon dark>arrow_drop_down</v-icon>
           </v-toolbar-title>
           <v-list>
-            <v-list-tile v-for="item in items" :key="item" @click="">
+            <v-list-tile v-for="item in items" :key="item">
               <v-list-tile-title v-text="item"></v-list-tile-title>
             </v-list-tile>
           </v-list>
@@ -31,13 +31,13 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      items: [
-        'All', 'Family', 'Friends', 'Coworkers',
-      ],
-    }),
-  };
+export default {
+  data: () => ({
+    items: [
+      'All', 'Family', 'Friends', 'Coworkers'
+    ]
+  })
+}
 </script>
 
 <style scoped>

@@ -33,7 +33,6 @@
         </v-icon>
       </v-badge>
 
-
       <!--Inline badge -->
       <v-badge left>
         <span slot="badge">2</span>
@@ -44,16 +43,14 @@
         <span>Lists</span>
       </v-badge>
 
-
-
     </div>
   </div>
 </template>
 
 <script>
-  export default {
+export default {
 
-  };
+}
 </script>
 
 <style scoped>

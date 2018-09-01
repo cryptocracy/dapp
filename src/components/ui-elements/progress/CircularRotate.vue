@@ -43,24 +43,24 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      interval: {},
-      value: 0,
-    }),
+export default {
+  data: () => ({
+    interval: {},
+    value: 0
+  }),
 
-    beforeDestroy() {
-      clearInterval(this.interval);
-    },
-    mounted() {
-      this.interval = setInterval(() => {
-        if (this.value === 100) {
-          this.value = 0;
-        }
-        this.value += 10;
-      }, 1000);
-    },
-  };
+  beforeDestroy () {
+    clearInterval(this.interval)
+  },
+  mounted () {
+    this.interval = setInterval(() => {
+      if (this.value === 100) {
+        this.value = 0
+      }
+      this.value += 10
+    }, 1000)
+  }
+}
 </script>
 
 <style scoped>

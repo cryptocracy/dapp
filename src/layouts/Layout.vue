@@ -10,8 +10,8 @@
 
 <script>
 export default {
-  props: ['title', 'children', 'height'],
-};
+  props: ['title', 'children', 'height']
+}
 </script>
 
 <style lang="css">

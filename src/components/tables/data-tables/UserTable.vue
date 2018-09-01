@@ -39,37 +39,37 @@ export default {
     selected: [],
     headers: [
       { text: 'Name', value: 'name' },
-      { text: 'Status', value: 'status' },
+      { text: 'Status', value: 'status' }
     ],
     items: [
       {
         id: 1,
         name: 'John Smith',
-        status: 'Employed',
+        status: 'Employed'
       },
       {
         id: 2,
         name: 'Randal White',
-        status: 'Unemployed',
+        status: 'Unemployed'
       },
       {
         id: 3,
         name: 'Stephanie Sanders',
-        status: 'Employed',
+        status: 'Employed'
       },
       {
         id: 4,
         name: 'Steve Brown',
-        status: 'Employed',
+        status: 'Employed'
       },
       {
         id: 5,
         name: 'Christopher Nolano',
-        status: 'Unemployed',
-      },
-    ],
-  }),
-};
+        status: 'Unemployed'
+      }
+    ]
+  })
+}
 </script>
 
 <style lang="css">
@@ -91,7 +91,6 @@ table.table thead th:not(:first-child) {
 table tfoot td {
   padding-bottom: 0 !important;
 }
-
 
 table.table tbody td:first-child, table.table tbody td:not(:first-child),
 table.table tbody th:first-child, table.table tbody th:not(:first-child),

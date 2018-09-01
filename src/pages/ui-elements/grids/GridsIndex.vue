@@ -23,18 +23,18 @@
 </template>
 
 <script>
-  import BasicGrid from '@/components/ui-elements/grids/BasicGrid';
-  import OffsetGrid from '@/components/ui-elements/grids/OffsetGrid';
-  import OrderGrid from '@/components/ui-elements/grids/OrderGrid';
+import BasicGrid from '@/components/ui-elements/grids/BasicGrid'
+import OffsetGrid from '@/components/ui-elements/grids/OffsetGrid'
+import OrderGrid from '@/components/ui-elements/grids/OrderGrid'
 
-  export default {
-    data: () => ({
-      BasicGrid,
-      OffsetGrid,
-      OrderGrid,
-    }),
+export default {
+  data: () => ({
+    BasicGrid,
+    OffsetGrid,
+    OrderGrid
+  })
 
-  };
+}
 </script>
 
 <style lang="css">

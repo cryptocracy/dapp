@@ -12,13 +12,13 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      media: 0,
-      alarm: 0,
-    }),
+export default {
+  data: () => ({
+    media: 0,
+    alarm: 0
+  })
 
-  };
+}
 </script>
 
 <style scoped>

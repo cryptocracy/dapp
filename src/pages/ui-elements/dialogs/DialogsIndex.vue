@@ -34,19 +34,19 @@
 </template>
 
 <script>
-  import BasicDialog from '@/components/ui-elements/dialog/BasicDialog';
-  import ModalDialog from '@/components/ui-elements/dialog/ModalDialog';
-  import FullscreenDialog from '@/components/ui-elements/dialog/FullscreenDialog';
-  import DialogWithForm from '@/components/ui-elements/dialog/DialogWithForm';
+import BasicDialog from '@/components/ui-elements/dialog/BasicDialog'
+import ModalDialog from '@/components/ui-elements/dialog/ModalDialog'
+import FullscreenDialog from '@/components/ui-elements/dialog/FullscreenDialog'
+import DialogWithForm from '@/components/ui-elements/dialog/DialogWithForm'
 
-  export default {
-    data: () => ({
-      BasicDialog,
-      ModalDialog,
-      FullscreenDialog,
-      DialogWithForm,
-    }),
-  };
+export default {
+  data: () => ({
+    BasicDialog,
+    ModalDialog,
+    FullscreenDialog,
+    DialogWithForm
+  })
+}
 </script>
 
 <style lang="css">

@@ -3,11 +3,11 @@
 </template>
 
 <script>
-  import Register from '@/components/other-pages/register/Register';
+import Register from '@/components/other-pages/register/Register'
 
-  export default {
-    components: { 'app-register': Register },
-  };
+export default {
+  components: { 'app-register': Register }
+}
 </script>
 
 <style lang="css">

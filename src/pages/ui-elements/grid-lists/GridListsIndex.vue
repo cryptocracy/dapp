@@ -13,13 +13,13 @@
 </template>
 
 <script>
-  import GridList from '@/components/ui-elements/grid-lists/GridList';
+import GridList from '@/components/ui-elements/grid-lists/GridList'
 
-  export default {
-    data: () => ({
-      GridList,
-    }),
-  };
+export default {
+  data: () => ({
+    GridList
+  })
+}
 </script>
 
 <style lang="css">

@@ -5,11 +5,11 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      picker: null,
-    }),
-  };
+export default {
+  data: () => ({
+    picker: null
+  })
+}
 </script>
 
 <style scoped>

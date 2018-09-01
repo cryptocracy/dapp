@@ -45,25 +45,25 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      loader: null,
-      loading: false,
-      loading2: false,
-      loading3: false,
-      loading4: false,
-    }),
-    watch: {
-      loader() {
-        const l = this.loader;
-        this[l] = !this[l];
+export default {
+  data: () => ({
+    loader: null,
+    loading: false,
+    loading2: false,
+    loading3: false,
+    loading4: false
+  }),
+  watch: {
+    loader () {
+      const l = this.loader
+      this[l] = !this[l]
 
-        setTimeout(() => { this[l] = false; }, 3000);
+      setTimeout(() => { this[l] = false }, 3000)
 
-        this.loader = null;
-      },
-    },
-  };
+      this.loader = null
+    }
+  }
+}
 </script>
 
 <style lang="css">

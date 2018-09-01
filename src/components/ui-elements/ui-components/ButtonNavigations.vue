@@ -49,30 +49,30 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      e1: 'recent',
-      e2: 3,
-    }),
+export default {
+  data: () => ({
+    e1: 'recent',
+    e2: 3
+  }),
 
-    computed: {
-      computedColor() {
-        switch (this.e2) {
-          case 0:
-            return 'blue-grey';
-          case 1:
-            return 'teal';
-          case 2:
-            return 'brown';
-          case 4:
-            return 'brown lighten-1';
-          default:
-            return 'blue-grey';
-        }
-      },
-    },
+  computed: {
+    computedColor () {
+      switch (this.e2) {
+        case 0:
+          return 'blue-grey'
+        case 1:
+          return 'teal'
+        case 2:
+          return 'brown'
+        case 4:
+          return 'brown lighten-1'
+        default:
+          return 'blue-grey'
+      }
+    }
+  }
 
-  };
+}
 </script>
 
 <style scoped>
@@ -85,6 +85,5 @@
     position: relative;
     height: 60px;
   }
-
 
 </style>

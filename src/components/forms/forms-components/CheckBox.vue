@@ -78,15 +78,15 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      ex1: true,
-      ex2: false,
-      ex3: true,
-      ex4: ['red', 'indigo', 'orange', 'primary', 'secondary', 'success', 'info', 'warning', 'error'],
-    }),
+export default {
+  data: () => ({
+    ex1: true,
+    ex2: false,
+    ex3: true,
+    ex4: ['red', 'indigo', 'orange', 'primary', 'secondary', 'success', 'info', 'warning', 'error']
+  })
 
-  };
+}
 </script>
 
 <style scoped>

@@ -18,25 +18,25 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      center: {
+export default {
+  data: () => ({
+    center: {
+      lat: 40.730610,
+      lng: -73.9352420
+    },
+    markers: [{
+      position: {
         lat: 40.730610,
-        lng: -73.9352420,
-      },
-      markers: [{
-        position: {
-          lat: 40.730610,
-          lng: -73.9352420,
-        },
-      }, {
-        position: {
-          lat: 40.6782,
-          lng: -73.9442,
-        },
-      }],
-    }),
-  };
+        lng: -73.9352420
+      }
+    }, {
+      position: {
+        lat: 40.6782,
+        lng: -73.9442
+      }
+    }]
+  })
+}
 </script>
 
 <style scoped>

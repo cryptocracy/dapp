@@ -29,88 +29,88 @@
 </template>
 
 <script>
-  import imageCompressor from '../../services/imageCompressor';
+import imageCompressor from '../../services/imageCompressor'
 
-  export default {
-    props: {
-      value: {
-        type: String,
-      },
-      accept: {
-        type: String,
-        default: '*',
-      },
-      selectLabel: {
-        type: String,
-        default: 'Select an image',
-      },
-      disabled: {
-        type: Boolean,
-        default: false,
-      },
-      removeLabel: {
-        type: String,
-        default: 'Remove',
-      },
-      limit: {
-        type: [Number, String],
-        default: null,
-      },
+export default {
+  props: {
+    value: {
+      type: String
+    },
+    accept: {
+      type: String,
+      default: '*'
+    },
+    selectLabel: {
+      type: String,
+      default: 'Select an image'
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    removeLabel: {
+      type: String,
+      default: 'Remove'
+    },
+    limit: {
+      type: [Number, String],
+      default: null
+    }
+  },
+
+  data () {
+    return {
+      imageUrl: ''
+    }
+  },
+
+  watch: {
+    value (v) {
+      this.imageUrl = v
+    }
+  },
+
+  mounted () {
+    this.imageUrl = this.value
+  },
+
+  methods: {
+    onPickFile () {
+      this.$refs.image.click()
     },
 
-    data() {
-      return {
-        imageUrl: '',
-      };
-    },
+    onFilePicked (event) {
+      const files = event.target.files || event.dataTransfer.files
+      if (files && files[0]) {
+        const filename = files[0].name
 
-    watch: {
-      value(v) {
-        this.imageUrl = v;
-      },
-    },
-
-    mounted() {
-      this.imageUrl = this.value;
-    },
-
-    methods: {
-      onPickFile() {
-        this.$refs.image.click();
-      },
-
-      onFilePicked(event) {
-        const files = event.target.files || event.dataTransfer.files;
-        if (files && files[0]) {
-          const filename = files[0].name;
-
-          if (filename && filename.lastIndexOf('.') <= 0) {
-            return; // return alert('Please add a valid image!')
-          }
-
-          const fileReader = new FileReader();
-          fileReader.addEventListener('load', () => {
-            this.imageUrl = fileReader.result;
-            this.$refs.imageUrl.addEventListener('load', () => {
-              if (files[0].size < this.limit) {
-                this.$emit('input', files[0]);
-              } else {
-                imageCompressor.compress(files[0], this.$refs.imageUrl, 0.8, this.limit)
-                  .then((newImage) => {
-                    this.$emit('input', newImage);
-                  });
-              }
-            });
-          });
-          fileReader.readAsDataURL(files[0]);
+        if (filename && filename.lastIndexOf('.') <= 0) {
+          return // return alert('Please add a valid image!')
         }
-      },
 
-      removeFile() {
-        this.imageUrl = '';
-      },
+        const fileReader = new FileReader()
+        fileReader.addEventListener('load', () => {
+          this.imageUrl = fileReader.result
+          this.$refs.imageUrl.addEventListener('load', () => {
+            if (files[0].size < this.limit) {
+              this.$emit('input', files[0])
+            } else {
+              imageCompressor.compress(files[0], this.$refs.imageUrl, 0.8, this.limit)
+                .then((newImage) => {
+                  this.$emit('input', newImage)
+                })
+            }
+          })
+        })
+        fileReader.readAsDataURL(files[0])
+      }
     },
-  };
+
+    removeFile () {
+      this.imageUrl = ''
+    }
+  }
+}
 </script>
 
 <style scoped>

@@ -1,9 +1,9 @@
-import { Pie } from 'vue-chartjs';
+import { Pie } from 'vue-chartjs'
 
 export default {
   extends: Pie,
 
-  mounted() {
+  mounted () {
     this.renderChart({
       labels: ['VueJs', 'EmberJs', 'ReactJs', 'AngularJs'],
       datasets: [
@@ -12,12 +12,11 @@ export default {
             '#41B883',
             '#E46651',
             '#00D8FF',
-            '#DD1B16',
+            '#DD1B16'
           ],
-          data: [40, 20, 80, 10],
-        },
-      ],
-    }, { responsive: true, maintainAspectRatio: false });
-  },
-};
-
+          data: [40, 20, 80, 10]
+        }
+      ]
+    }, { responsive: true, maintainAspectRatio: false })
+  }
+}

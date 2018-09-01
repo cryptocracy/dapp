@@ -21,16 +21,16 @@
 </template>
 
 <script>
-  import TextFields from './forms-components/TextFields';
-  import SelectFields from './forms-components/SelectFields';
+import TextFields from './forms-components/TextFields'
+import SelectFields from './forms-components/SelectFields'
 
-  export default {
-    data: () => ({
-      TextFields,
-      SelectFields,
-    }),
+export default {
+  data: () => ({
+    TextFields,
+    SelectFields
+  })
 
-  };
+}
 </script>
 
 <style scoped>

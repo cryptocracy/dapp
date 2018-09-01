@@ -4,11 +4,11 @@
 </template>
 
 <script>
-  import Contact from '@/components/pages/contact/Contact';
+import Contact from '@/components/pages/contact/Contact'
 
-  export default {
-    components: { 'app-contact': Contact },
-  };
+export default {
+  components: { 'app-contact': Contact }
+}
 </script>
 
 <style lang="css">

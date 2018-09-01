@@ -21,19 +21,19 @@
 </template>
 
 <script>
-import BasicBar from '@/components/ui-elements/app-bars/BasicBar';
-import BarWithRightIcon from '@/components/ui-elements/app-bars/BarWithRightIcon';
-import BarWithExtension from '@/components/ui-elements/app-bars/BarWithExtension';
-import BarWithMenu from '@/components/ui-elements/app-bars/BarWithMenu';
+import BasicBar from '@/components/ui-elements/app-bars/BasicBar'
+import BarWithRightIcon from '@/components/ui-elements/app-bars/BarWithRightIcon'
+import BarWithExtension from '@/components/ui-elements/app-bars/BarWithExtension'
+import BarWithMenu from '@/components/ui-elements/app-bars/BarWithMenu'
 
 export default {
   data: () => ({
     BasicBar,
     BarWithRightIcon,
     BarWithExtension,
-    BarWithMenu,
-  }),
-};
+    BarWithMenu
+  })
+}
 </script>
 
 <style lang="css">

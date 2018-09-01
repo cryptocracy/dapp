@@ -36,13 +36,13 @@
 </template>
 
 <script>
-import BoxSingle from './BoxSingle';
+import BoxSingle from './BoxSingle'
 
 export default {
   components: {
-    'app-icon-box': BoxSingle,
-  },
-};
+    'app-icon-box': BoxSingle
+  }
+}
 </script>
 
 <style lang="css">
