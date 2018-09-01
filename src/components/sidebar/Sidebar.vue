@@ -7,26 +7,26 @@
 </template>
 
 <script>
-import Nav from './Nav';
+import Nav from './Nav'
 
 export default {
   components: {
-    'app-nav': Nav,
+    'app-nav': Nav
   },
 
   data: () => ({
   }),
 
   computed: {
-    triggerSidebarToggle() {
+    triggerSidebarToggle () {
       return {
         sidebar: true,
-        open: this.$store.state.sidebarOpen,
-      };
-    },
-  },
+        open: this.$store.state.sidebarOpen
+      }
+    }
+  }
 
-};
+}
 </script>
 
 <style lang="css" scope>

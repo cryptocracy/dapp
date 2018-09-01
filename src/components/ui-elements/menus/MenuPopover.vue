@@ -55,18 +55,18 @@
 
 <script>
 
-  import avatar from '../../../assets/img/user4.jpg';
+import avatar from '../../../assets/img/user4.jpg'
 
-  export default {
-    data: () => ({
-      fav: true,
-      menu: false,
-      message: false,
-      hints: true,
-      avatar,
-    }),
+export default {
+  data: () => ({
+    fav: true,
+    menu: false,
+    message: false,
+    hints: true,
+    avatar
+  })
 
-  };
+}
 </script>
 
 <style scoped>

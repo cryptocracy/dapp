@@ -49,23 +49,23 @@
 </template>
 
 <script>
-  import CircularProgress from '@/components/ui-elements/progress/CircularProgress';
-  import CircularColor from '@/components/ui-elements/progress/CircularColor';
-  import CircularIndeterminate from '@/components/ui-elements/progress/CircularIndeterminate';
-  import CircularRotate from '@/components/ui-elements/progress/CircularRotate';
-  import BarIndeterminate from '@/components/ui-elements/progress/BarIndeterminate';
-  import BarColored from '@/components/ui-elements/progress/BarColored';
+import CircularProgress from '@/components/ui-elements/progress/CircularProgress'
+import CircularColor from '@/components/ui-elements/progress/CircularColor'
+import CircularIndeterminate from '@/components/ui-elements/progress/CircularIndeterminate'
+import CircularRotate from '@/components/ui-elements/progress/CircularRotate'
+import BarIndeterminate from '@/components/ui-elements/progress/BarIndeterminate'
+import BarColored from '@/components/ui-elements/progress/BarColored'
 
-  export default {
-    data: () => ({
-      CircularProgress,
-      CircularColor,
-      CircularIndeterminate,
-      CircularRotate,
-      BarIndeterminate,
-      BarColored,
-    }),
-  };
+export default {
+  data: () => ({
+    CircularProgress,
+    CircularColor,
+    CircularIndeterminate,
+    CircularRotate,
+    BarIndeterminate,
+    BarColored
+  })
+}
 </script>
 
 <style lang="css">

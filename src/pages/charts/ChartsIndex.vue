@@ -95,32 +95,32 @@
 </template>
 
 <script>
-  import LineChart from '@/components/charts/line-chart/LineChart';
-  import BarChart from '@/components/charts/bar-chart/BarChart';
-  import tinyChart from '@/components/total-downloads/TotalDownloads';
-  import HorizontalBarChart from '@/components/charts/horizontal-bar/horizontalBarChart';
-  import DoughnutChart from '@/components/charts/doughnut/DoughnutChart';
-  import PieChart from '@/components/charts/pie-chart/PieChart';
-  import PolarAreaChart from '@/components/charts/polar-area/PolarAreaChart';
-  import RadarChart from '@/components/charts/radar-chart/RadarChart';
-  import BubbleChart from '@/components/charts/bubble-chart/BubbleChart';
-  import ScatterChart from '@/components/charts/scatter-chart/ScatterChart';
+import LineChart from '@/components/charts/line-chart/LineChart'
+import BarChart from '@/components/charts/bar-chart/BarChart'
+import tinyChart from '@/components/total-downloads/TotalDownloads'
+import HorizontalBarChart from '@/components/charts/horizontal-bar/horizontalBarChart'
+import DoughnutChart from '@/components/charts/doughnut/DoughnutChart'
+import PieChart from '@/components/charts/pie-chart/PieChart'
+import PolarAreaChart from '@/components/charts/polar-area/PolarAreaChart'
+import RadarChart from '@/components/charts/radar-chart/RadarChart'
+import BubbleChart from '@/components/charts/bubble-chart/BubbleChart'
+import ScatterChart from '@/components/charts/scatter-chart/ScatterChart'
 
-  export default {
-    data: () => ({
-      LineChart,
-      BarChart,
-      tinyChart,
-      HorizontalBarChart,
-      DoughnutChart,
-      PieChart,
-      PolarAreaChart,
-      RadarChart,
-      BubbleChart,
-      ScatterChart,
-    }),
+export default {
+  data: () => ({
+    LineChart,
+    BarChart,
+    tinyChart,
+    HorizontalBarChart,
+    DoughnutChart,
+    PieChart,
+    PolarAreaChart,
+    RadarChart,
+    BubbleChart,
+    ScatterChart
+  })
 
-  };
+}
 </script>
 
 <style scoped>

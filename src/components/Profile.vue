@@ -72,13 +72,13 @@
         </div>
       </div>
     </div>
-    
+
   </div>
-  
+
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from 'vuex'
 // import { eventBus } from '../main';
 
 export default {
@@ -86,37 +86,37 @@ export default {
   computed: {
     ...mapGetters({
       profileData: 'getProfileData',
-      contactUserData: 'getContactData',
+      contactUserData: 'getContactData'
     }),
-    imageSize() {
+    imageSize () {
       // console.log(this.profileData)
       switch (this.$vuetify.breakpoint.name) {
-        case 'xs': return '80px';
-        case 'sm': return '200px';
-        default: return '256px';
+        case 'xs': return '80px'
+        case 'sm': return '200px'
+        default: return '256px'
       }
     },
-    newUserData() {
-      return this.contactUserData || this.profileData;
-    },
+    newUserData () {
+      return this.contactUserData || this.profileData
+    }
   },
   watch: {
-    newUserData() {
-      this.userData = this.newUserData;
-    },
+    newUserData () {
+      this.userData = this.newUserData
+    }
   },
   props: ['userProfileData'],
   data: () => ({
     name: 'Akash',
-    userData: {},
+    userData: {}
   }),
   methods: {
-    dummyFunc() {},
+    dummyFunc () {}
   },
-  mounted() {
-    this.userData = this.contactUserData || this.profileData;
-  },
-};
+  mounted () {
+    this.userData = this.contactUserData || this.profileData
+  }
+}
 </script>
 <style lang="scss" scoped>
 .profile-info {
@@ -128,4 +128,3 @@ export default {
   }
 }
 </style>
-

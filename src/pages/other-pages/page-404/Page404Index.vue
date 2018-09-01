@@ -3,11 +3,11 @@
 </template>
 
 <script>
-  import ErrorPage from '@/components/other-pages/404-page/Error';
+import ErrorPage from '@/components/other-pages/404-page/Error'
 
-  export default {
-    components: { 'app-error': ErrorPage },
-  };
+export default {
+  components: { 'app-error': ErrorPage }
+}
 </script>
 
 <style lang="css">

@@ -29,12 +29,12 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      date: null,
-      menu: false,
-    }),
-  };
+export default {
+  data: () => ({
+    date: null,
+    menu: false
+  })
+}
 </script>
 
 <style scoped>

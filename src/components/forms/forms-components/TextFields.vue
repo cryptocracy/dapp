@@ -68,13 +68,13 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      e1: false,
-      password: 'Password',
-    }),
+export default {
+  data: () => ({
+    e1: false,
+    password: 'Password'
+  })
 
-  };
+}
 </script>
 
 <style scoped>

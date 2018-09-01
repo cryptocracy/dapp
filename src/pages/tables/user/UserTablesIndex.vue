@@ -9,13 +9,13 @@
 </template>
 
 <script>
-  import UserTable from '@/components/tables/data-tables/UserTable';
+import UserTable from '@/components/tables/data-tables/UserTable'
 
-  export default {
-    data: () => ({
-      UserTable,
-    }),
-  };
+export default {
+  data: () => ({
+    UserTable
+  })
+}
 </script>
 
 <style lang="css">

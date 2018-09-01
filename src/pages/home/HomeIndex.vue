@@ -30,35 +30,34 @@
         </v-flex>-->
       </v-layout>
     </div>
-    
 
   </div>
 </template>
 
 <script>
-import BoxWrapper from '@/components/icon-box/BoxWrapper';
-import LineChart from '@/components/charts/line-chart/LineChart';
-import BarChart from '@/components/charts/bar-chart/BarChart';
-import UserTable from '@/components/tables/data-tables/UserTable';
-import { mapGetters } from 'vuex';
+import BoxWrapper from '@/components/icon-box/BoxWrapper'
+import LineChart from '@/components/charts/line-chart/LineChart'
+import BarChart from '@/components/charts/bar-chart/BarChart'
+import UserTable from '@/components/tables/data-tables/UserTable'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
-    'app-box': BoxWrapper,
+    'app-box': BoxWrapper
   },
   computed: {
     ...mapGetters({
       isSearching: 'isSearching',
       isResolved: 'isResolved',
-      searchResult: 'getSearchResult',
-    }),
+      searchResult: 'getSearchResult'
+    })
   },
   data: () => ({
     LineChart,
     BarChart,
-    UserTable,
-  }),
-};
+    UserTable
+  })
+}
 </script>
 
 <style lang="css">

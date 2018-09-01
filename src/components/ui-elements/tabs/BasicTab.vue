@@ -28,13 +28,13 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      tabs: ['tab-1', 'tab-2', 'tab-3'],
-      active: null,
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    }),
-  };
+export default {
+  data: () => ({
+    tabs: ['tab-1', 'tab-2', 'tab-3'],
+    active: null,
+    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+  })
+}
 </script>
 
 <style scoped>

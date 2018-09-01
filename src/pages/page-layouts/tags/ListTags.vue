@@ -29,38 +29,38 @@
 </template>
 
 <script>
-  const STORAGE_FILE = 'my_tags.json'
+const STORAGE_FILE = 'my_tags.json'
 
-  export default {
-    name: 'ListTags',
-    data: () => ({
-      blockstack: window.blockstack,
-      tags: [],
-      tagsArray: [],
-    }),
-    methods: {
-      fetchTagFile() {
-        // fetching project list
-        this.blockstack.getFile(STORAGE_FILE)
-          .then((tagsText) => {
-            this.tags = JSON.parse(tagsText || '[]')
-            // looping over project list to fetch unique json files for every project
-            for (let tag in this.tags) {
-              this.blockstack.getFile(`${tag}.json`).then((tagJson) => {
-                let tagData = typeof tagJson === 'string' ? JSON.parse(tagJson) : {}
-                // this[data.id] = tagData
-                // this[data.id].tasks = this[data.id].tasks || []
-                // creating task array for listing tasks under their respective project
-                this.tagsArray.push(tagData)
-              })
-            }
-          })
-      },
-    },
-    mounted() {
-      this.fetchTagFile()
+export default {
+  name: 'ListTags',
+  data: () => ({
+    blockstack: window.blockstack,
+    tags: [],
+    tagsArray: []
+  }),
+  methods: {
+    fetchTagFile () {
+      // fetching project list
+      this.blockstack.getFile(STORAGE_FILE)
+        .then((tagsText) => {
+          this.tags = JSON.parse(tagsText || '[]')
+          // looping over project list to fetch unique json files for every project
+          for (let tag in this.tags) {
+            this.blockstack.getFile(`${tag}.json`).then((tagJson) => {
+              let tagData = typeof tagJson === 'string' ? JSON.parse(tagJson) : {}
+              // this[data.id] = tagData
+              // this[data.id].tasks = this[data.id].tasks || []
+              // creating task array for listing tasks under their respective project
+              this.tagsArray.push(tagData)
+            })
+          }
+        })
     }
+  },
+  mounted () {
+    this.fetchTagFile()
   }
+}
 </script>
 
 <style scoped>

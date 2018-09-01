@@ -3,11 +3,11 @@
 </template>
 
 <script>
-  import Pricing from '@/components/pages/pricing-table/Pricing';
+import Pricing from '@/components/pages/pricing-table/Pricing'
 
-  export default {
-    components: { 'app-pricing': Pricing },
-  };
+export default {
+  components: { 'app-pricing': Pricing }
+}
 </script>
 
 <style lang="css">

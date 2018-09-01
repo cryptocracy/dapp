@@ -33,21 +33,21 @@
 </template>
 
 <script>
-  import BasicDatePicker from '@/components/ui-elements/date-pickers/BasicDatePicker';
-  import LandscapeDatePicker from '@/components/ui-elements/date-pickers/LandscapeDatePicker';
-  import DatePickerWithMenu from '@/components/ui-elements/date-pickers/DatePickerWithMenu';
-  import AllowedDate from '@/components/ui-elements/date-pickers/AllowedDate';
-  import BirthDayPicker from '@/components/ui-elements/date-pickers/BirthDayPicker';
+import BasicDatePicker from '@/components/ui-elements/date-pickers/BasicDatePicker'
+import LandscapeDatePicker from '@/components/ui-elements/date-pickers/LandscapeDatePicker'
+import DatePickerWithMenu from '@/components/ui-elements/date-pickers/DatePickerWithMenu'
+import AllowedDate from '@/components/ui-elements/date-pickers/AllowedDate'
+import BirthDayPicker from '@/components/ui-elements/date-pickers/BirthDayPicker'
 
-  export default {
-    data: () => ({
-      BasicDatePicker,
-      LandscapeDatePicker,
-      DatePickerWithMenu,
-      AllowedDate,
-      BirthDayPicker,
-    }),
-  };
+export default {
+  data: () => ({
+    BasicDatePicker,
+    LandscapeDatePicker,
+    DatePickerWithMenu,
+    AllowedDate,
+    BirthDayPicker
+  })
+}
 </script>
 
 <style lang="css">

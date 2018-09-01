@@ -29,23 +29,22 @@
     </v-layout>
   </div>
 
-
 </template>
 
 <script>
-  import BasicList from '@/components/ui-elements/lists/BasicList';
-  import ListWithIcon from '@/components/ui-elements/lists/ListWithIcon';
-  import ListThreeLines from '@/components/ui-elements/lists/ListThreeLines';
-  import ListWithAction from '@/components/ui-elements/lists/ListWithAction';
+import BasicList from '@/components/ui-elements/lists/BasicList'
+import ListWithIcon from '@/components/ui-elements/lists/ListWithIcon'
+import ListThreeLines from '@/components/ui-elements/lists/ListThreeLines'
+import ListWithAction from '@/components/ui-elements/lists/ListWithAction'
 
-  export default {
-    data: () => ({
-      BasicList,
-      ListWithIcon,
-      ListThreeLines,
-      ListWithAction,
-    }),
-  };
+export default {
+  data: () => ({
+    BasicList,
+    ListWithIcon,
+    ListThreeLines,
+    ListWithAction
+  })
+}
 </script>
 
 <style lang="css">

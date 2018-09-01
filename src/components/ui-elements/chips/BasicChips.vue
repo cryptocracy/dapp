@@ -18,14 +18,14 @@
 </template>
 
 <script>
-  import avatar from '../../../assets/img/user1.jpg';
+import avatar from '../../../assets/img/user1.jpg'
 
-  export default {
-    data: () => ({
-      avatar,
-    }),
+export default {
+  data: () => ({
+    avatar
+  })
 
-  };
+}
 </script>
 
 <style scoped>

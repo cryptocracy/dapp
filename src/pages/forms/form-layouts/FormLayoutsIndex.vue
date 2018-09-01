@@ -3,11 +3,11 @@
 </template>
 
 <script>
-  import FormLayouts from '@/components/forms/FormLayouts';
+import FormLayouts from '@/components/forms/FormLayouts'
 
-  export default {
-    components: { 'app-formlayout': FormLayouts },
-  };
+export default {
+  components: { 'app-formlayout': FormLayouts }
+}
 </script>
 
 <style lang="css">

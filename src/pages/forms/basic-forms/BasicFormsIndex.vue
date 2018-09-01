@@ -5,11 +5,11 @@
 </template>
 
 <script>
-  import BasicForms from '@/components/forms/BasicForms';
+import BasicForms from '@/components/forms/BasicForms'
 
-  export default {
-    components: { 'app-basicforms': BasicForms },
-  };
+export default {
+  components: { 'app-basicforms': BasicForms }
+}
 </script>
 
 <style lang="css">

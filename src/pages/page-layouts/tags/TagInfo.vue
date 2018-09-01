@@ -62,46 +62,46 @@
 </template>
 
 <script>
-  import MapWithMarker from '../../../components/maps/MapWithMarker';
+import MapWithMarker from '../../../components/maps/MapWithMarker'
 
-  export default {
-    name: "TagInfo",
-    data: () => ({
-      blockstack: window.blockstack,
-      copyButtonText: 'Copy',
-    }),
-    components: {
-      MapWithMarker
+export default {
+  name: 'TagInfo',
+  data: () => ({
+    blockstack: window.blockstack,
+    copyButtonText: 'Copy'
+  }),
+  components: {
+    MapWithMarker
+  },
+  props: {
+    tagObject: {
+      type: Object
+    }
+  },
+  computed: {
+    coordinates () {
+      return this.tagObject ? {
+        lat: this.tagObject.coordinates.latitude,
+        lng: this.tagObject.coordinates.longitude
+      } : {}
     },
-    props: {
-      tagObject: {
-        type: Object
-      },
-    },
-    computed: {
-      coordinates() {
-        return this.tagObject ? {
-          lat: this.tagObject.coordinates.latitude,
-          lng: this.tagObject.coordinates.longitude,
-        } : {};
-      },
-      tagUrl() {
-        // parsing blockstack gaia hub cong from localhost for creating hub url
-        const urlItems = JSON.parse(localStorage['blockstack-gaia-hub-config']);
-        // creating hub url(where our files are stored)
-        const hubUrl = `${urlItems.url_prefix}${urlItems.address}/`;
-        return this.tagObject ? `${hubUrl}tag_${this.tagObject.createdtime}.json` : '';
-      },
-    },
-    methods: {
-      copyUrl(e) {
-        this.$refs.urlInput.$refs.input.select();
-        document.execCommand('copy');
-        this.copyButtonText = 'Copied!';
-        setTimeout(() => { this.copyButtonText = 'Copy' }, 2000);
-      },
+    tagUrl () {
+      // parsing blockstack gaia hub cong from localhost for creating hub url
+      const urlItems = JSON.parse(localStorage['blockstack-gaia-hub-config'])
+      // creating hub url(where our files are stored)
+      const hubUrl = `${urlItems.url_prefix}${urlItems.address}/`
+      return this.tagObject ? `${hubUrl}tag_${this.tagObject.createdtime}.json` : ''
+    }
+  },
+  methods: {
+    copyUrl (e) {
+      this.$refs.urlInput.$refs.input.select()
+      document.execCommand('copy')
+      this.copyButtonText = 'Copied!'
+      setTimeout(() => { this.copyButtonText = 'Copy' }, 2000)
     }
   }
+}
 </script>
 
 <style scoped lang="scss">
