@@ -23,7 +23,7 @@ const items = [
     action: 'label',
     title: 'Tags',
     items: [
-      { title: 'Add New', linkTo: '/tags/add-tag' },
+      { title: 'Add New', linkTo: { name: 'AddTag', params: { tagObject: null } } },
       { title: 'Find', linkTo: '/page-layout/banner' },
       { title: 'Favorites', linkTo: '/page-layout/banner' },
       { title: 'Owned', linkTo: '/tags/owned' },

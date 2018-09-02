@@ -34,7 +34,7 @@
   export default {
     props: {
       value: {
-        type: String,
+        type: [Object, File],
       },
       accept: {
         type: String,
@@ -66,7 +66,9 @@
 
     watch: {
       value(v) {
-        this.imageUrl = v;
+        if (this.value && this.value.url) {
+          this.imageUrl = v.url;
+        }
       },
     },
 
@@ -108,6 +110,7 @@
 
       removeFile() {
         this.imageUrl = '';
+        this.$emit('input', null);
       },
     },
   };

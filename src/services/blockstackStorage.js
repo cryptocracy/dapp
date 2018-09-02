@@ -1,14 +1,14 @@
 const blockstackStorage = {
-  addToIndex: (indexName, key, value) => blockstack.getFile(indexName)
+  updateTagIndex: (key, value) => blockstack.getFile('my_tags.json')
       .then((currentContent) => {
         if (!currentContent) {
-          blockstack.putFile(indexName, JSON.stringify({ [key]: value }))
+          blockstack.putFile('my_tags.json', JSON.stringify({ [key]: value }))
             .then((filename) => {
             });
         } else {
           const parsedCurrentContent = JSON.parse(currentContent);
           parsedCurrentContent[key] = value;
-          blockstack.putFile(indexName, JSON.stringify(parsedCurrentContent))
+          blockstack.putFile('my_tags.json', JSON.stringify(parsedCurrentContent))
             .then((filename) => {
             });
         }
