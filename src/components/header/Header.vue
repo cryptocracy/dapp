@@ -31,7 +31,7 @@
           v-model="searchType"
         >
         </v-select>
-      </div>    
+      </div>
 
       <!-- Header right side notification and progile menu -->
       <div class="d-flex align-center" style="margin-left: auto">
@@ -50,15 +50,15 @@
 </template>
 
 <script>
-import { eventBus } from '../../main';
-import Notifications from '../notifications/Notifications';
-import AvatarMenu from './Avatarmenu';
-import logo from '../../assets/img/logo.svg';
+import { eventBus } from '../../main'
+import Notifications from '../notifications/Notifications'
+import AvatarMenu from './Avatarmenu'
+import logo from '../../assets/img/logo.svg'
 
 export default {
   components: {
     'app-notification': Notifications,
-    'app-avatar-menu': AvatarMenu,
+    'app-avatar-menu': AvatarMenu
   },
 
   data: () => ({
@@ -66,10 +66,10 @@ export default {
     logo,
     selectItems: [
       { text: 'Contact', value: 'search' },
-      { text: 'Project', value: 'project' },
+      { text: 'Project', value: 'project' }
     ],
     searchType: 'search',
-    searchText: '',
+    searchText: ''
   }),
 
   methods: {
@@ -79,31 +79,31 @@ export default {
     * @type {function}
     * @return {Boolean} true / false based on toggleNotification Data
     */
-    showNotification() {
-      this.toggleNotification = !this.toggleNotification;
+    showNotification () {
+      this.toggleNotification = !this.toggleNotification
     },
-    search() {
-      const searchText = this.searchText.trim();
+    search () {
+      const searchText = this.searchText.trim()
       if (searchText === '') {
-        this.$store.commit('MUTATION_SET_SEARCH_STATE', false);
-        this.$store.commit('MUTATION_SET_SEARCH_RESULT', []);
+        this.$store.commit('MUTATION_SET_SEARCH_STATE', false)
+        this.$store.commit('MUTATION_SET_SEARCH_RESULT', [])
       } else {
-        this.$store.commit('MUTATION_SET_SEARCH_RESULT', []);
-        this.$store.commit('MUTATION_SET_SEARCH_STATE', true);
+        this.$store.commit('MUTATION_SET_SEARCH_RESULT', [])
+        this.$store.commit('MUTATION_SET_SEARCH_STATE', true)
         const searchObj = {
           endpoint: 'search',
-          query: searchText,
-        };
-        this.$store.dispatch('ACTION_GET_SEARCH_RESULT', searchObj);
+          query: searchText
+        }
+        this.$store.dispatch('ACTION_GET_SEARCH_RESULT', searchObj)
       }
     },
 
-    sideBarToggle() {
-      eventBus.$emit('sidebartoggled');
-      this.$store.commit('toggleSidebar');
-    },
-  },
-};
+    sideBarToggle () {
+      eventBus.$emit('sidebartoggled')
+      this.$store.commit('toggleSidebar')
+    }
+  }
+}
 </script>
 
 <style lang="css" scoped>

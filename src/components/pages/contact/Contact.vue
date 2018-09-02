@@ -37,18 +37,18 @@
 </template>
 
 <script>
-  import imageUrl from '../../../assets/img/banner.jpg';
+import imageUrl from '../../../assets/img/banner.jpg'
 
-  export default {
-    data: () => ({
-      style: {
-        backgroundImage: `url( ${imageUrl} )`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center center',
-      },
-    }),
+export default {
+  data: () => ({
+    style: {
+      backgroundImage: `url( ${imageUrl} )`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center center'
+    }
+  })
 
-  };
+}
 </script>
 
 <style scoped>

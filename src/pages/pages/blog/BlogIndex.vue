@@ -4,11 +4,11 @@
 </template>
 
 <script>
-  import Blog from '@/components/pages/blog/Blog';
+import Blog from '@/components/pages/blog/Blog'
 
-  export default {
-    components: { 'app-blog': Blog },
-  };
+export default {
+  components: { 'app-blog': Blog }
+}
 </script>
 
 <style lang="css">

@@ -12,15 +12,15 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      chip1: true,
-      chip2: true,
-      chip3: true,
-      chip4: true,
-    }),
+export default {
+  data: () => ({
+    chip1: true,
+    chip2: true,
+    chip3: true,
+    chip4: true
+  })
 
-  };
+}
 </script>
 
 <style scoped>

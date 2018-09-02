@@ -1,64 +1,64 @@
-import Home from '@/pages/home/HomeIndex';
+import Home from '@/pages/home/HomeIndex'
 
-import Ecommerce from '@/pages/e-commerce/EcommerceIndex';
-import Products from '@/pages/e-commerce/Products';
-import OrderReview from '@/pages/e-commerce/OrderReview';
+import Ecommerce from '@/pages/e-commerce/EcommerceIndex'
+import Products from '@/pages/e-commerce/Products'
+import OrderReview from '@/pages/e-commerce/OrderReview'
 
-import Buttons from '@/pages/ui-elements/buttons/ButtonsIndex';
-import AppBars from '@/pages/ui-elements/app-bars/AppBarsIndex';
-import UiComponents from '@/pages/ui-elements/ui-components/ComponentsIndex';
-import Cards from '@/pages/ui-elements/cards/CardsIndex';
-import Sliders from '@/pages/ui-elements/sliders/SlidersIndex';
-import DatePickers from '@/pages/ui-elements/date-pickers/DatePickersIndex';
-import TimePickers from '@/pages/ui-elements/time-pickers/TimePickersIndex';
-import Dialogs from '@/pages/ui-elements/dialogs/DialogsIndex';
-import Tabs from '@/pages/ui-elements/tabs/TabsIndex';
-import Progress from '@/pages/ui-elements/progress/ProgressIndex';
-import Lists from '@/pages/ui-elements/lists/ListsIndex';
-import Menus from '@/pages/ui-elements/menus/MenusIndex';
-import Icons from '@/pages/ui-elements/icons/IconsIndex';
-import GridLists from '@/pages/ui-elements/grid-lists/GridListsIndex';
-import Grids from '@/pages/ui-elements/grids/GridsIndex';
-import Alerts from '@/pages/ui-elements/alerts/AlertIndex';
-import Chips from '@/pages/ui-elements/chips/ChipsIndex';
+import Buttons from '@/pages/ui-elements/buttons/ButtonsIndex'
+import AppBars from '@/pages/ui-elements/app-bars/AppBarsIndex'
+import UiComponents from '@/pages/ui-elements/ui-components/ComponentsIndex'
+import Cards from '@/pages/ui-elements/cards/CardsIndex'
+import Sliders from '@/pages/ui-elements/sliders/SlidersIndex'
+import DatePickers from '@/pages/ui-elements/date-pickers/DatePickersIndex'
+import TimePickers from '@/pages/ui-elements/time-pickers/TimePickersIndex'
+import Dialogs from '@/pages/ui-elements/dialogs/DialogsIndex'
+import Tabs from '@/pages/ui-elements/tabs/TabsIndex'
+import Progress from '@/pages/ui-elements/progress/ProgressIndex'
+import Lists from '@/pages/ui-elements/lists/ListsIndex'
+import Menus from '@/pages/ui-elements/menus/MenusIndex'
+import Icons from '@/pages/ui-elements/icons/IconsIndex'
+import GridLists from '@/pages/ui-elements/grid-lists/GridListsIndex'
+import Grids from '@/pages/ui-elements/grids/GridsIndex'
+import Alerts from '@/pages/ui-elements/alerts/AlertIndex'
+import Chips from '@/pages/ui-elements/chips/ChipsIndex'
 
-import BasicForms from '@/pages/forms/basic-forms/BasicFormsIndex';
-import Switches from '@/pages/forms/switches/SwitchesIndex';
-import FormLayouts from '@/pages/forms/form-layouts/FormLayoutsIndex';
+import BasicForms from '@/pages/forms/basic-forms/BasicFormsIndex'
+import Switches from '@/pages/forms/switches/SwitchesIndex'
+import FormLayouts from '@/pages/forms/form-layouts/FormLayoutsIndex'
 
-import Charts from '@/pages/charts/ChartsIndex';
+import Charts from '@/pages/charts/ChartsIndex'
 /* import LineCharts from '@/pages/charts/line-charts/LineChartsIndex';
  * import BarCharts from '@/pages/charts/bar-charts/BarChartsIndex';
  * import AreaCharts from '@/pages/charts/area-charts/AreaChartsIndex';
  * import PieCharts from '@/pages/charts/pie-charts/PieChartsIndex';
  * import OtherCharts from '@/pages/charts/other-charts/OtherChartsIndex'; */
 
-import BootstrapTables from '@/pages/tables/bootstrap/BootstrapTablesIndex';
-import UserTables from '@/pages/tables/user/UserTablesIndex';
+import BootstrapTables from '@/pages/tables/bootstrap/BootstrapTablesIndex'
+import UserTables from '@/pages/tables/user/UserTablesIndex'
 
-import Maps from '@/pages/maps/MapsIndex';
+import Maps from '@/pages/maps/MapsIndex'
 
-import About from '@/pages/pages/about/AboutIndex';
-import Services from '@/pages/pages/services/ServicesIndex';
-import Contact from '@/pages/pages/contact/ContactIndex';
-import Blog from '@/pages/pages/blog/BlogIndex';
-import Pricing from '@/pages/pages/pricing-table/PricingIndex';
-import Faq from '@/pages/pages/faq/FaqIndex';
+import About from '@/pages/pages/about/AboutIndex'
+import Services from '@/pages/pages/services/ServicesIndex'
+import Contact from '@/pages/pages/contact/ContactIndex'
+import Blog from '@/pages/pages/blog/BlogIndex'
+import Pricing from '@/pages/pages/pricing-table/PricingIndex'
+import Faq from '@/pages/pages/faq/FaqIndex'
 
-import Login from '@/pages/other-pages/login/LoginIndex';
-import Register from '@/pages/other-pages/register/RegisterIndex';
-import ForgotPassword from '@/pages/other-pages/forgot-password/ForgotPasswordIndex';
-import MailConfirm from '@/pages/other-pages/mail-confirm/MailConfirmIndex';
-import PageError from '@/pages/other-pages/page-404/Page404Index';
+import Login from '@/pages/other-pages/login/LoginIndex'
+import Register from '@/pages/other-pages/register/RegisterIndex'
+import ForgotPassword from '@/pages/other-pages/forgot-password/ForgotPasswordIndex'
+import MailConfirm from '@/pages/other-pages/mail-confirm/MailConfirmIndex'
+import PageError from '@/pages/other-pages/page-404/Page404Index'
 
-import DefaultLayout from '@/pages/page-layouts/default/DefaultIndex';
-import BannerLayout from '@/pages/page-layouts/banner/BannerIndex';
-import Profile from '@/components/Profile';
-import favContacts from '@/components/contacts/FavouriteContacts';
+import DefaultLayout from '@/pages/page-layouts/default/DefaultIndex'
+import BannerLayout from '@/pages/page-layouts/banner/BannerIndex'
+import Profile from '@/components/Profile'
+import favContacts from '@/components/contacts/FavouriteContacts'
 
-import AddTag from '@/pages/page-layouts/tags/AddTag';
-import ListTags from '@/pages/page-layouts/tags/ListTags';
-import TagInfo from '@/pages/page-layouts/tags/TagInfo';
+import AddTag from '@/pages/page-layouts/tags/AddTag'
+import ListTags from '@/pages/page-layouts/tags/ListTags'
+import TagInfo from '@/pages/page-layouts/tags/TagInfo'
 
 /**
 * Routes Data
@@ -128,7 +128,7 @@ const routes = [
   { path: '/tags/add-tag', name: 'AddTag', component: AddTag },
   { path: '/tags/owned', name: 'Owned', component: ListTags },
   { path: '/tags/:tagName', name: 'TagInfo', props: true, component: TagInfo },
-  { path: '/maps', name: 'Maps', component: Maps },
-];
+  { path: '/maps', name: 'Maps', component: Maps }
+]
 
-export default routes;
+export default routes

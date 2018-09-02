@@ -30,14 +30,14 @@
 </template>
 
 <script>
-  import avatar from '../../../assets/img/user3.jpg';
+import avatar from '../../../assets/img/user3.jpg'
 
-  export default {
-    data: () => ({
-      avatar,
-    }),
+export default {
+  data: () => ({
+    avatar
+  })
 
-  };
+}
 </script>
 
 <style scoped>

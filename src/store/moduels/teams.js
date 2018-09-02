@@ -1,6 +1,6 @@
-import user1 from '../../assets/img/user1.jpg';
-import user2 from '../../assets/img/user2.jpg';
-import user3 from '../../assets/img/user3.jpg';
+import user1 from '../../assets/img/user1.jpg'
+import user2 from '../../assets/img/user2.jpg'
+import user3 from '../../assets/img/user3.jpg'
 
 /**
  * Teams Data
@@ -18,20 +18,19 @@ export default {
       id: 1,
       name: 'Ty',
       role: 'Co-Founder',
-      img: user1,
+      img: user1
     },
     {
       id: 2,
       name: 'Casper',
       role: 'Co-Founder',
-      img: user2,
+      img: user2
     },
     {
       id: 3,
       name: 'Akash',
       role: 'Co-Founder',
-      img: user3,
-    },
-  ],
-};
-
+      img: user3
+    }
+  ]
+}

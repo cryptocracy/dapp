@@ -40,9 +40,9 @@
 </template>
 
 <script>
-  export default {
-    props: ['striped', 'bordered', 'hover', 'condensed'],
-  };
+export default {
+  props: ['striped', 'bordered', 'hover', 'condensed']
+}
 </script>
 
 <style scoped>

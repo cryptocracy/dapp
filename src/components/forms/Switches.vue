@@ -25,22 +25,21 @@
       </v-flex>
     </v-layout>
 
-
   </div>
 </template>
 
 <script>
-  import CheckBox from './forms-components/CheckBox';
-  import RadioBox from './forms-components/RadioBox';
-  import Switch from './forms-components/Switch';
+import CheckBox from './forms-components/CheckBox'
+import RadioBox from './forms-components/RadioBox'
+import Switch from './forms-components/Switch'
 
-  export default {
-    data: () => ({
-      CheckBox,
-      RadioBox,
-      Switch,
-    }),
-  };
+export default {
+  data: () => ({
+    CheckBox,
+    RadioBox,
+    Switch
+  })
+}
 </script>
 
 <style scoped>

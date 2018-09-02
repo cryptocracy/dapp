@@ -23,28 +23,28 @@
 </template>
 
 <script>
-  import imageUrl from '../../../assets/img/banner.jpg';
+import imageUrl from '../../../assets/img/banner.jpg'
 
-  export default {
-    data: () => ({
-      style: {
-        backgroundImage: `url( ${imageUrl} )`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center center',
-      },
-    }),
+export default {
+  data: () => ({
+    style: {
+      backgroundImage: `url( ${imageUrl} )`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center center'
+    }
+  }),
 
-    computed: {
-      /**
+  computed: {
+    /**
        * Get all blog data from store
       */
-      blogs() {
-        return this.$store.state.blog.data;
-      },
+    blogs () {
+      return this.$store.state.blog.data
+    }
 
-    },
+  }
 
-  };
+}
 </script>
 
 <style scoped>

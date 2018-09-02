@@ -4,7 +4,8 @@
       <div class="row align-items-center">
         <div class="offset-1 col-3">
           <v-avatar :size="imageSize" color="grey lighten-4">
-            <img :src="userData.profile.image[0].contentUrl" :alt="userData.profile.name">
+            <img v-if="userData.profile.hasOwnProperty('image')" :src="userData.profile.image[0].contentUrl" :alt="userData.profile.name">
+            <v-icon v-else large color="teal accent-4">person</v-icon>
           </v-avatar>
         </div>
         <div class="offset-2 col-6 ">
@@ -16,7 +17,7 @@
                 </v-card-title>
 
                 <v-list two-line>
-                  <v-list-tile @click="dummyFunc">
+                  <v-list-tile @click="dummyFunction">
                     <v-list-tile-action>
                       <v-icon color="teal accent-4">person</v-icon>
                     </v-list-tile-action>
@@ -31,7 +32,7 @@
                     </v-list-tile-action>
                   </v-list-tile>
 
-                  <v-list-tile @click="dummyFunc">
+                  <v-list-tile @click="dummyFunction">
                     <v-list-tile-action></v-list-tile-action>
 
                     <v-list-tile-content>
@@ -46,7 +47,7 @@
 
                   <v-divider inset></v-divider>
 
-                  <v-list-tile @click="dummyFunc">
+                  <v-list-tile @click="dummyFunction">
                     <v-list-tile-action>
                       <v-icon color="teal accent-4">mail</v-icon>
                     </v-list-tile-action>
@@ -57,7 +58,7 @@
                     </v-list-tile-content>
                   </v-list-tile>
 
-                  <v-list-tile @click="dummyFunc">
+                  <v-list-tile @click="dummyFunction">
                     <v-list-tile-action></v-list-tile-action>
 
                     <v-list-tile-content>
@@ -72,13 +73,13 @@
         </div>
       </div>
     </div>
-    
+
   </div>
-  
+
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from 'vuex'
 // import { eventBus } from '../main';
 
 export default {
@@ -86,37 +87,36 @@ export default {
   computed: {
     ...mapGetters({
       profileData: 'getProfileData',
-      contactUserData: 'getContactData',
+      contactUserData: 'getContactData'
     }),
-    imageSize() {
+    imageSize () {
       // console.log(this.profileData)
       switch (this.$vuetify.breakpoint.name) {
-        case 'xs': return '80px';
-        case 'sm': return '200px';
-        default: return '256px';
+        case 'xs': return '80px'
+        case 'sm': return '200px'
+        default: return '256px'
       }
     },
-    newUserData() {
-      return this.contactUserData || this.profileData;
-    },
+    newUserData () {
+      return this.contactUserData || this.profileData
+    }
   },
   watch: {
-    newUserData() {
-      this.userData = this.newUserData;
-    },
+    newUserData () {
+      this.userData = this.newUserData
+    }
   },
   props: ['userProfileData'],
   data: () => ({
     name: 'Akash',
-    userData: {},
+    userData: {}
   }),
   methods: {
-    dummyFunc() {},
   },
-  mounted() {
-    this.userData = this.contactUserData || this.profileData;
-  },
-};
+  mounted () {
+    this.userData = this.contactUserData || this.profileData
+  }
+}
 </script>
 <style lang="scss" scoped>
 .profile-info {
@@ -128,4 +128,3 @@ export default {
   }
 }
 </style>
-

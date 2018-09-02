@@ -20,26 +20,26 @@
 </template>
 
 <script>
-  import imageUrl from '../../../assets/img/banner.jpg';
+import imageUrl from '../../../assets/img/banner.jpg'
 
-  export default {
-    data: () => ({
-      style: {
-        backgroundImage: `url( ${imageUrl} )`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center center',
-      },
-    }),
+export default {
+  data: () => ({
+    style: {
+      backgroundImage: `url( ${imageUrl} )`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center center'
+    }
+  }),
 
-    computed: {
-      /**
+  computed: {
+    /**
        * Get the team members data from store
        */
-      services() {
-        return this.$store.state.services.data;
-      },
-    },
-  };
+    services () {
+      return this.$store.state.services.data
+    }
+  }
+}
 </script>
 
 <style scoped>

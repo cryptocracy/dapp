@@ -22,18 +22,18 @@
 </template>
 
 <script>
-  import BasicAlerts from '@/components/ui-elements/alerts/BasicAlerts';
-  import CloseableAlerts from '@/components/ui-elements/alerts/CloseableAlerts';
-  import OutlineAlerts from '@/components/ui-elements/alerts/OutlineAlerts';
+import BasicAlerts from '@/components/ui-elements/alerts/BasicAlerts'
+import CloseableAlerts from '@/components/ui-elements/alerts/CloseableAlerts'
+import OutlineAlerts from '@/components/ui-elements/alerts/OutlineAlerts'
 
-  export default {
-    data: () => ({
-      BasicAlerts,
-      CloseableAlerts,
-      OutlineAlerts,
-    }),
+export default {
+  data: () => ({
+    BasicAlerts,
+    CloseableAlerts,
+    OutlineAlerts
+  })
 
-  };
+}
 </script>
 
 <style scoped>

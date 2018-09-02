@@ -1,6 +1,6 @@
-import moment from 'moment';
-import img1 from '../../assets/img/user1.jpg';
-import img2 from '../../assets/img/user2.jpg';
+import moment from 'moment'
+import img1 from '../../assets/img/user1.jpg'
+import img2 from '../../assets/img/user2.jpg'
 
 /**
 * Notification Data
@@ -24,7 +24,7 @@ export default {
       avatar: null,
       detail: 'Sent a review request to Amanda Nunes',
       time: moment().startOf('day').fromNow().toLocaleString(),
-      read: false,
+      read: false
     },
     {
       id: 2,
@@ -32,7 +32,7 @@ export default {
       avatar: img1,
       detail: 'Sent a review request to Amanda Nunes',
       time: moment().startOf('day').fromNow().toLocaleString(),
-      read: true,
+      read: true
     },
     {
       id: 3,
@@ -40,7 +40,7 @@ export default {
       detail: 'Our average rating goes up!',
       time: moment().startOf('day').fromNow().toLocaleString(),
       read: true,
-      success: true,
+      success: true
     },
     {
       id: 4,
@@ -48,7 +48,7 @@ export default {
       detail: 'Server load is 95%, trying to reduce it!',
       time: moment().startOf('day').fromNow().toLocaleString(),
       read: true,
-      warning: true,
+      warning: true
     },
     {
       id: 5,
@@ -56,7 +56,7 @@ export default {
       avatar: img2,
       detail: 'Sent a review request to Amanda Nunes',
       time: moment().startOf('day').fromNow().toLocaleString(),
-      read: true,
+      read: true
     },
     {
       id: 6,
@@ -64,7 +64,7 @@ export default {
       detail: '7 Subscrption plan not renewed!',
       time: moment().startOf('day').fromNow().toLocaleString(),
       read: true,
-      danger: true,
+      danger: true
     },
     {
       id: 7,
@@ -72,7 +72,7 @@ export default {
       avatar: null,
       detail: 'Sent a review request to Amanda Nunes',
       time: moment().startOf('day').fromNow().toLocaleString(),
-      read: false,
+      read: false
     },
     {
       id: 8,
@@ -80,7 +80,7 @@ export default {
       avatar: img1,
       detail: 'Sent a review request to Amanda Nunes',
       time: moment().startOf('day').fromNow().toLocaleString(),
-      read: true,
+      read: true
     },
     {
       id: 9,
@@ -88,7 +88,7 @@ export default {
       detail: 'Our average rating goes up!',
       time: moment().startOf('day').fromNow().toLocaleString(),
       read: true,
-      success: true,
+      success: true
     },
     {
       id: 10,
@@ -96,7 +96,7 @@ export default {
       detail: 'Server load is 95%, trying to reduce it!',
       time: moment().startOf('day').fromNow().toLocaleString(),
       read: true,
-      warning: true,
+      warning: true
     },
     {
       id: 11,
@@ -104,7 +104,7 @@ export default {
       avatar: img2,
       detail: 'Sent a review request to Amanda Nunes',
       time: moment().startOf('day').fromNow().toLocaleString(),
-      read: true,
+      read: true
     },
     {
       id: 12,
@@ -112,7 +112,7 @@ export default {
       detail: '7 Subscrption plan not renewed!',
       time: moment().startOf('day').fromNow().toLocaleString(),
       read: true,
-      danger: true,
-    },
-  ],
-};
+      danger: true
+    }
+  ]
+}

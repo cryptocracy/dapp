@@ -57,27 +57,27 @@
 </template>
 
 <script>
-  import imageUrl from '../../../assets/img/banner.jpg';
+import imageUrl from '../../../assets/img/banner.jpg'
 
-  export default {
-    data: () => ({
-      style: {
-        backgroundImage: `url( ${imageUrl} )`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center center',
-      },
-    }),
+export default {
+  data: () => ({
+    style: {
+      backgroundImage: `url( ${imageUrl} )`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center center'
+    }
+  }),
 
-    computed: {
-      /**
+  computed: {
+    /**
        * Get the team members data from store
        */
-      teams() {
-        return this.$store.state.teams.data;
-      },
+    teams () {
+      return this.$store.state.teams.data
+    }
 
-    },
-  };
+  }
+}
 </script>
 
 <style scoped>

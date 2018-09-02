@@ -31,14 +31,14 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      red: 64,
-      green: 128,
-      blue: 0,
-    }),
+export default {
+  data: () => ({
+    red: 64,
+    green: 128,
+    blue: 0
+  })
 
-  };
+}
 </script>
 
 <style scoped>

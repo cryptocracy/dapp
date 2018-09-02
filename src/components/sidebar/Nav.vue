@@ -38,21 +38,21 @@
 </template>
 
 <script>
-import items from './navData';
+import items from './navData'
 
 export default {
-  data() {
+  data () {
     return {
-      items,
-    };
+      items
+    }
   },
   methods: {
-    showDashboard() {
-      this.$store.commit('MUTATION_SET_SEARCH_STATE', false);
-      this.$store.commit('MUTATION_SET_SEARCH_RESULT', []);
-    },
-  },
-};
+    showDashboard () {
+      this.$store.commit('MUTATION_SET_SEARCH_STATE', false)
+      this.$store.commit('MUTATION_SET_SEARCH_RESULT', [])
+    }
+  }
+}
 </script>
 
 <style lang="css">
@@ -74,7 +74,6 @@ export default {
 .list--group .list__tile .list__tile__title:hover,
 .list--group .router-link-exact-active .list__tile__title {
 }
-
 
 .application .theme--light.list--group .list__tile--active .list__tile__title, .theme--light .list--group .list__tile--active .list__tile__title {
   color: rgba(0,0,0,.87) !important;

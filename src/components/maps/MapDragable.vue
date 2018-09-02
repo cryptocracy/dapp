@@ -15,14 +15,14 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      center: {
-        lat: 40.730610,
-        lng: -73.9352420,
-      },
-    }),
-  };
+export default {
+  data: () => ({
+    center: {
+      lat: 40.730610,
+      lng: -73.9352420
+    }
+  })
+}
 </script>
 
 <style scoped>

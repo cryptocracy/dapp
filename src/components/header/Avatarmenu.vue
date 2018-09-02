@@ -14,7 +14,7 @@
           <v-list-tile-title>Profile</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
-      <v-list-tile @click="">
+      <v-list-tile @click="dummyFunction">
         <v-list-tile-action>
           <v-icon>color_lens</v-icon>
         </v-list-tile-action>
@@ -22,7 +22,7 @@
           <v-list-tile-title>Theme</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
-      <v-list-tile @click="">
+      <v-list-tile @click="dummyFunction">
         <v-list-tile-action>
           <v-icon>settings</v-icon>
         </v-list-tile-action>
@@ -45,38 +45,38 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import profileAvatar from '../../assets/img/user12.jpg';
-import { eventBus } from '../../main';
+import { mapGetters } from 'vuex'
+import profileAvatar from '../../assets/img/user12.jpg'
+import { eventBus } from '../../main'
 
 export default {
   computed: {
     ...mapGetters({
-      profileData: 'getProfileData',
-    }),
+      profileData: 'getProfileData'
+    })
   },
   watch: {
-    profileData() {
+    profileData () {
       // console.log('PROFOLRRRRRRRRRRRR', this.profileData);
-    },
+    }
   },
   data: () => ({
     profileAvatar,
-    blockstack: window.blockstack,
+    blockstack: window.blockstack
   }),
   methods: {
-    showProfile() {
-      this.$store.commit('MUTATION_SET_CONTACT_USER_PROFILE_DATA');
-      this.$router.push({ name: 'Profile', params: { id: this.profileData.fullyQualifiedName || 'user' } });
-      eventBus.$emit('showProfile', this.profileData);
+    showProfile () {
+      this.$store.commit('MUTATION_SET_CONTACT_USER_PROFILE_DATA')
+      this.$router.push({ name: 'Profile', params: { id: this.profileData.fullyQualifiedName || 'user' } })
+      eventBus.$emit('showProfile', this.profileData)
     },
-    signOut() {
-      this.blockstack.signUserOut(window.location.href);
-      window.location.href = '/';
-    },
-  },
-};
-</script>
+    dummyFunction () {},
+    signOut () {
+      this.blockstack.signUserOut(window.location.href)
+      window.location.href = '/'
+    }
+  }
+}
 </script>
 
 <style lang="css">

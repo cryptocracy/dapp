@@ -15,17 +15,17 @@
 </template>
 
 <script>
-  export default {
-    props: {
-      center: {
-        type: Object,
-        default: {
-          lat: 40.730610,
-          lng: -73.9352420,
-        },
-      },
-    },
-  };
+export default {
+  props: {
+    center: {
+      type: Object,
+      default: () => ({
+        lat: 40.730610,
+        lng: -73.9352420
+      })
+    }
+  }
+}
 </script>
 
 <style scoped>

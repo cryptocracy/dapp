@@ -14,8 +14,8 @@
 
 <script>
 export default {
-  props: ['backgroundColor', 'title', 'subtitle', 'icon'],
-};
+  props: ['backgroundColor', 'title', 'subtitle', 'icon']
+}
 </script>
 
 <style lang="css">

@@ -18,14 +18,14 @@
 </template>
 
 <script>
-  import cardImage from '../../../assets/img/card-iamge.jpg';
+import cardImage from '../../../assets/img/card-iamge.jpg'
 
-  export default {
-    data: () => ({
-      cardImage,
-    }),
+export default {
+  data: () => ({
+    cardImage
+  })
 
-  };
+}
 </script>
 
 <style scoped>

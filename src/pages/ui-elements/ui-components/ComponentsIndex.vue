@@ -52,21 +52,21 @@
 </template>
 
 <script>
-  import Badges from '@/components/ui-elements/ui-components/Badges';
-  import Breadcrumbs from '@/components/ui-elements/ui-components/Breadcrumbs';
-  import ButtonNavigations from '@/components/ui-elements/ui-components/ButtonNavigations';
-  import Avatars from '@/components/ui-elements/ui-components/Avatars';
-  import BottomSheet from '@/components/ui-elements/ui-components/BottomSheet';
+import Badges from '@/components/ui-elements/ui-components/Badges'
+import Breadcrumbs from '@/components/ui-elements/ui-components/Breadcrumbs'
+import ButtonNavigations from '@/components/ui-elements/ui-components/ButtonNavigations'
+import Avatars from '@/components/ui-elements/ui-components/Avatars'
+import BottomSheet from '@/components/ui-elements/ui-components/BottomSheet'
 
-  export default {
-    data: () => ({
-      Badges,
-      Breadcrumbs,
-      ButtonNavigations,
-      Avatars,
-      BottomSheet,
-    }),
-  };
+export default {
+  data: () => ({
+    Badges,
+    Breadcrumbs,
+    ButtonNavigations,
+    Avatars,
+    BottomSheet
+  })
+}
 </script>
 
 <style lang="css">

@@ -3,11 +3,11 @@
 </template>
 
 <script>
-  import Switches from '@/components/forms/Switches';
+import Switches from '@/components/forms/Switches'
 
-  export default {
-    components: { 'app-switches': Switches },
-  };
+export default {
+  components: { 'app-switches': Switches }
+}
 </script>
 
 <style lang="css">

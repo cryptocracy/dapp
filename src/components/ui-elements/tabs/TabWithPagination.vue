@@ -15,7 +15,7 @@
           <v-icon>arrow_drop_down</v-icon>
         </v-tabs-item>
         <v-list v-for="n in 4" v-bind:key="n">
-          <v-list-tile @click="">Item {{ n }}</v-list-tile>
+          <v-list-tile @click="dummyFunction">Item {{ n }}</v-list-tile>
         </v-list>
       </v-menu>
     </v-tabs-bar>
@@ -34,12 +34,12 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    }),
+export default {
+  data: () => ({
+    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+  })
 
-  };
+}
 </script>
 
 <style scoped>
