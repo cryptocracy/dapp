@@ -6,7 +6,7 @@ import products from './moduels/products'
 import teams from './moduels/teams'
 import services from './moduels/services'
 import searchHandler from './moduels/search-handler'
-import storageHandler from './moduels/storage-handler'
+import contactsHandler from './moduels/contacts-handler'
 import blog from './moduels/blog'
 import userProfileData from './moduels/profileData'
 
@@ -28,7 +28,7 @@ export default new Vuex.Store({
   modules: {
     userProfileData,
     searchHandler,
-    storageHandler
+    contactsHandler
   },
   mutations: {
     toggleSidebar: (state) => {

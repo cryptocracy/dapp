@@ -86,8 +86,6 @@ export default {
       this.userData = blockstack.loadUserData()
       this.user = new blockstack.Person(this.userData.profile)
       this.user.username = this.userData.username
-      // console.log('userDATA', this.userData);
-      // console.log('user', this.user);
       this.$store.commit('MUTATION_SET_USER_PROFILE_DATA', this.userData)
     } else if (blockstack.isSignInPending()) {
       blockstack.handlePendingSignIn()

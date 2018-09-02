@@ -47,7 +47,6 @@
 <script>
 import { mapGetters } from 'vuex'
 import profileAvatar from '../../assets/img/user12.jpg'
-import { eventBus } from '../../main'
 
 export default {
   computed: {
@@ -55,22 +54,17 @@ export default {
       profileData: 'getProfileData'
     })
   },
-  watch: {
-    profileData () {
-      // console.log('PROFOLRRRRRRRRRRRR', this.profileData);
-    }
-  },
   data: () => ({
     profileAvatar,
     blockstack: window.blockstack
   }),
   methods: {
     showProfile () {
-      this.$store.commit('MUTATION_SET_CONTACT_USER_PROFILE_DATA')
-      this.$router.push({ name: 'Profile', params: { id: this.profileData.fullyQualifiedName || 'user' } })
-      eventBus.$emit('showProfile', this.profileData)
+      this.$store.commit('MUTATION_SET_USER')
+      this.$store.commit('MUTATION_SET_SEARCH_STATE', false)
+      this.$store.commit('MUTATION_SET_SEARCH_RESULT', [])
+      this.$router.push({ name: 'Profile', params: { id: 'my-profile' } })
     },
-    dummyFunction () {},
     signOut () {
       this.blockstack.signUserOut(window.location.href)
       window.location.href = '/'

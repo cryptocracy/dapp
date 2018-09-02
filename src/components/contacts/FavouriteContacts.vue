@@ -64,45 +64,27 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import contactService from '@/services/contacts'
 
 export default {
   name: 'favourite-contacts',
   computed: {
     ...mapGetters({
       contacts: 'getContacts'
-    }),
-    addedContacts () {
-      const addedContacts = {}
-      if (this.contacts.length > 0) {
-        this.contacts.forEach((item) => {
-          this.$set(addedContacts, item.fullyQualifiedName, item.fullyQualifiedName)
-        })
-      }
-      return addedContacts
-    }
+    })
   },
+  mixins: [contactService],
   methods: {
-    updateContacts (contact, type) {
-      this.$store.dispatch('ACTION_UPDATE_CONTACTS', {
-        fileName: 'my_contacts.json',
-        contact,
-        type,
-        options: { encrypt: true }
-      })
-    },
     showContactProfile (contact) {
-      this.$store.commit('MUTATION_SET_CONTACT_USER_PROFILE_DATA', contact)
-      this.showProfile = true
+      this.$store.commit('MUTATION_SET_USER', contact)
       this.$store.commit('MUTATION_SET_SEARCH_STATE', false)
       this.$store.commit('MUTATION_SET_SEARCH_RESULT', [])
       this.$router.push({ name: 'Profile', params: { id: contact.fullyQualifiedName } })
     }
   },
   mounted () {
-    this.$store.dispatch('ACTION_GET_CONTACTS', {
-      fileName: 'my_contacts.json',
-      options: { decrypt: true }
-    })
+    // method from contactService mixin
+    this.getContacts()
   }
 }
 </script>
