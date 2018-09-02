@@ -98,7 +98,6 @@ export default {
       }
     },
     newUserData () {
-      console.log('DATATTATA', this.contactUserData)
       return this.contactUserData || this.profileData
     }
   },
