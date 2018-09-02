@@ -114,16 +114,16 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      text: 'center',
-      icon: 'justify',
-      toggle_none: null,
-      toggle_one: 0,
-      toggle_exclusive: 2,
-      toggle_multiple: [0, 1, 2],
-    }),
-  };
+export default {
+  data: () => ({
+    text: 'center',
+    icon: 'justify',
+    toggle_none: null,
+    toggle_one: 0,
+    toggle_exclusive: 2,
+    toggle_multiple: [0, 1, 2]
+  })
+}
 </script>
 
 <style scoped>

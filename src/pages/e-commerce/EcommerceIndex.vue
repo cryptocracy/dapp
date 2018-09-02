@@ -31,24 +31,24 @@
 </template>
 
 <script>
-import BoxAlterWrapper from '@/components/icon-box-alter/BoxAlterWrapper';
-import productsTable from '@/components/e-commerce/products-table/ProductsTable';
-import totalDownloads from '@/components/total-downloads/TotalDownloads';
-import BoxSingle from '@/components/icon-box/BoxSingle';
-import UserTable from '@/components/tables/data-tables/UserTable';
+import BoxAlterWrapper from '@/components/icon-box-alter/BoxAlterWrapper'
+import productsTable from '@/components/e-commerce/products-table/ProductsTable'
+import totalDownloads from '@/components/total-downloads/TotalDownloads'
+import BoxSingle from '@/components/icon-box/BoxSingle'
+import UserTable from '@/components/tables/data-tables/UserTable'
 
 export default {
   components: {
     'app-box-alter': BoxAlterWrapper,
-    'app-box': BoxSingle,
+    'app-box': BoxSingle
   },
 
   data: () => ({
     productsTable,
     totalDownloads,
-    UserTable,
-  }),
-};
+    UserTable
+  })
+}
 </script>
 
 <style lang="css">

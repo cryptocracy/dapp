@@ -45,13 +45,13 @@
 </template>
 
 <script>
-import BoxAlterSingle from './BoxAlterSingle';
+import BoxAlterSingle from './BoxAlterSingle'
 
 export default {
   components: {
-    'app-icon-box-alter': BoxAlterSingle,
-  },
-};
+    'app-icon-box-alter': BoxAlterSingle
+  }
+}
 </script>
 
 <style lang="css">

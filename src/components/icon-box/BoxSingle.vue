@@ -15,7 +15,7 @@
 <script>
 export default {
   props: ['backgroundColor', 'title', 'subtitle', 'icon', 'to'],
-};
+}
 </script>
 
 <style lang="css">

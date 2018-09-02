@@ -42,17 +42,17 @@
 </template>
 
 <script>
-  export default {
-    name: 'login',
-    data: () => ({
-      blockstack: window.blockstack,
-    }),
-    methods: {
-      signIn() {
-        this.blockstack.redirectToSignIn();
-      },
-    },
-  };
+export default {
+  name: 'login',
+  data: () => ({
+    blockstack: window.blockstack
+  }),
+  methods: {
+    signIn () {
+      this.blockstack.redirectToSignIn()
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

@@ -16,7 +16,7 @@ const items = [
     color: 'teal lighten-3',
     action: 'dashboard',
     title: 'Dashboard',
-    linkTo: '/',
+    linkTo: '/'
   },
   {
     color: 'blue lighten-2',
@@ -26,8 +26,8 @@ const items = [
       { title: 'Add New', linkTo: { name: 'AddTag', params: { tagObject: null } } },
       { title: 'Find', linkTo: '/page-layout/banner' },
       { title: 'Favorites', linkTo: '/page-layout/banner' },
-      { title: 'Owned', linkTo: '/tags/owned' },
-    ],
+      { title: 'Owned', linkTo: '/tags/owned' }
+    ]
   },
   {
     color: 'green lighten-2',
@@ -35,8 +35,8 @@ const items = [
     title: 'Tasks',
     items: [
       { title: 'Owned', linkTo: '/page-layout/banner' },
-      { title: 'Favorites', linkTo: '/page-layout/banner' },
-    ],
+      { title: 'Favorites', linkTo: '/page-layout/banner' }
+    ]
   },
   {
     color: 'teal lighten-3',
@@ -44,8 +44,8 @@ const items = [
     title: 'Projects',
     items: [
       { title: 'Owned', linkTo: '/page-layout/banner' },
-      { title: 'Favorites', linkTo: '/page-layout/banner' },
-    ],
+      { title: 'Favorites', linkTo: '/page-layout/banner' }
+    ]
   },
   {
     color: 'brown lighten-2',
@@ -55,8 +55,8 @@ const items = [
       { title: 'Summary', linkTo: '/page-layout/banner' },
       { title: 'Send', linkTo: '/page-layout/banner' },
       { title: 'Receive', linkTo: '/page-layout/banner' },
-      { title: 'History', linkTo: '/page-layout/banner' },
-    ],
+      { title: 'History', linkTo: '/page-layout/banner' }
+    ]
   },
   {
     color: 'purple lighten-3',
@@ -64,8 +64,8 @@ const items = [
     title: 'Contacts',
     items: [
       { title: 'List', linkTo: '/page-layout/banner' },
-      { title: 'Favorites', linkTo: '/favourite-contacts' },
-    ],
+      { title: 'Favorites', linkTo: '/favourite-contacts' }
+    ]
   },
   {
     color: 'grey lighten-1',
@@ -73,9 +73,9 @@ const items = [
     title: 'Settings',
     items: [
       { title: 'Theme', linkTo: '/page-layout/banner' },
-      { title: 'BNS', linkTo: '/page-layout/banner' },
-    ],
-  },
+      { title: 'BNS', linkTo: '/page-layout/banner' }
+    ]
+  }
   //  {
   //   color: 'blue darken-2',
   //   action: 'shopping_cart',
@@ -159,7 +159,6 @@ const items = [
 
   //     { title: 'Blog', linkTo: '/pages/blog' },
 
-
   //     { title: 'Pricing Table', linkTo: '/pages/pricing' },
 
   //     { title: 'Faq', linkTo: '/pages/faq' },
@@ -186,6 +185,6 @@ const items = [
   //     { title: 'Banner', linkTo: '/page-layout/banner' },
   //   ],
   // },
-];
+]
 
-export default items;
+export default items

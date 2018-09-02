@@ -54,21 +54,19 @@
       </v-flex>
     </v-layout>
 
-
-
   </div>
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      ex8: 'radio-1',
-      ex9: 'radio-3',
-      ex7: 'red',
-      ex6: 'primary',
-    }),
+export default {
+  data: () => ({
+    ex8: 'radio-1',
+    ex9: 'radio-3',
+    ex7: 'red',
+    ex6: 'primary'
+  })
 
-  };
+}
 </script>
 
 <style scoped>

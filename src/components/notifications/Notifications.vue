@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="">
     <h6>Latest Activities</h6>
-    <div v-for="notification in notificationData">
+    <div v-for="(notification, index) in notificationData" :key="index">
       <!-- Notification loop -->
       <div class="notification-single">
         <div class="avatar" v-if="notification.avatar !== ''" :style="{background: 'url(' + notification.avatar + ')'}"></div>
@@ -31,26 +31,26 @@ export default {
     * @param {boolean} iconType based on notification `success/warning/danger` data
     * @return {string} success-icon if icon type success is true
     */
-    notificationIconClass(iconType) {
+    notificationIconClass (iconType) {
       return {
         'success-icon': iconType.success,
         avatar: true,
         'avatar-icon': true,
         'warning-icon': iconType.warning,
-        'danger-icon': iconType.danger,
-      };
-    },
+        'danger-icon': iconType.danger
+      }
+    }
   },
   computed: {
     /**
     * Get notification data from vuex store
     * as a props to the componenet
     */
-    notificationData() {
-      return this.$store.state.notifications.data;
-    },
-  },
-};
+    notificationData () {
+      return this.$store.state.notifications.data
+    }
+  }
+}
 </script>
 
 <style lang="css">

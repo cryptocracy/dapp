@@ -37,13 +37,13 @@
 </template>
 
 <script>
-import RaisedButtons from '@/components/ui-elements/buttons/RaisedButtons';
-import FlatButtons from '@/components/ui-elements/buttons/FlatButtons';
-import DepressedButtons from '@/components/ui-elements/buttons/DepressedButtons';
-import ToggleButtons from '@/components/ui-elements/buttons/ToggleButtons';
-import IconButtons from '@/components/ui-elements/buttons/IconButtons';
-import LoadingButtons from '@/components/ui-elements/buttons/LoadingButtons';
-import OutlineButtons from '@/components/ui-elements/buttons/OutlineButtons';
+import RaisedButtons from '@/components/ui-elements/buttons/RaisedButtons'
+import FlatButtons from '@/components/ui-elements/buttons/FlatButtons'
+import DepressedButtons from '@/components/ui-elements/buttons/DepressedButtons'
+import ToggleButtons from '@/components/ui-elements/buttons/ToggleButtons'
+import IconButtons from '@/components/ui-elements/buttons/IconButtons'
+import LoadingButtons from '@/components/ui-elements/buttons/LoadingButtons'
+import OutlineButtons from '@/components/ui-elements/buttons/OutlineButtons'
 
 export default {
   data: () => ({
@@ -53,9 +53,9 @@ export default {
     ToggleButtons,
     IconButtons,
     LoadingButtons,
-    OutlineButtons,
-  }),
-};
+    OutlineButtons
+  })
+}
 </script>
 
 <style lang="css">

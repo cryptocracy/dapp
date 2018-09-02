@@ -25,17 +25,17 @@
 </template>
 
 <script>
-  import BasicTimePicker from '@/components/ui-elements/time-pickers/BasicTimePicker';
-  import TimePickerFormat from '@/components/ui-elements/time-pickers/TimePickerFormat';
-  import LandscapeTimePicker from '@/components/ui-elements/time-pickers/LandscapeTimePicker';
+import BasicTimePicker from '@/components/ui-elements/time-pickers/BasicTimePicker'
+import TimePickerFormat from '@/components/ui-elements/time-pickers/TimePickerFormat'
+import LandscapeTimePicker from '@/components/ui-elements/time-pickers/LandscapeTimePicker'
 
-  export default {
-    data: () => ({
-      BasicTimePicker,
-      TimePickerFormat,
-      LandscapeTimePicker,
-    }),
-  };
+export default {
+  data: () => ({
+    BasicTimePicker,
+    TimePickerFormat,
+    LandscapeTimePicker
+  })
+}
 </script>
 
 <style lang="css">

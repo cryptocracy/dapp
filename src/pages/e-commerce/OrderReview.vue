@@ -6,13 +6,13 @@
 </template>
 
 <script>
-import OrderReview from '@/components/e-commerce/order-review/OrderReview';
+import OrderReview from '@/components/e-commerce/order-review/OrderReview'
 
 export default {
   data: () => ({
-    OrderReview,
-  }),
-};
+    OrderReview
+  })
+}
 </script>
 
 <style lang="css">

@@ -82,22 +82,21 @@
 
     </div>
 
-
   </div>
 </template>
 
 <script>
-  export default {
-    props: ['contact', 'register', 'inline'],
+export default {
+  props: ['contact', 'register', 'inline'],
 
-    data: () => ({
-      terms: false,
-      first: '',
-      last: '',
-      email: '',
-    }),
+  data: () => ({
+    terms: false,
+    first: '',
+    last: '',
+    email: ''
+  })
 
-  };
+}
 </script>
 
 <style scoped>

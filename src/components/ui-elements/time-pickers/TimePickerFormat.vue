@@ -5,15 +5,14 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      e7: null,
-    }),
+export default {
+  data: () => ({
+    e7: null
+  })
 
-  };
+}
 </script>
 
 <style scoped>
 
 </style>
-

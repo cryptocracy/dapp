@@ -3,11 +3,11 @@
 </template>
 
 <script>
-  import Faq from '@/components/pages/faq/Faq';
+import Faq from '@/components/pages/faq/Faq'
 
-  export default {
-    components: { 'app-faq': Faq },
-  };
+export default {
+  components: { 'app-faq': Faq }
+}
 </script>
 
 <style lang="css">

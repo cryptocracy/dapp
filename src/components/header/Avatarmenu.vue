@@ -14,7 +14,7 @@
           <v-list-tile-title>Profile</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
-      <v-list-tile @click="">
+      <v-list-tile @click="dummyFunction">
         <v-list-tile-action>
           <v-icon>color_lens</v-icon>
         </v-list-tile-action>
@@ -22,7 +22,7 @@
           <v-list-tile-title>Theme</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
-      <v-list-tile @click="">
+      <v-list-tile @click="dummyFunction">
         <v-list-tile-action>
           <v-icon>settings</v-icon>
         </v-list-tile-action>
@@ -45,38 +45,32 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import profileAvatar from '../../assets/img/user12.jpg';
-import { eventBus } from '../../main';
+import { mapGetters } from 'vuex'
+import profileAvatar from '../../assets/img/user12.jpg'
 
 export default {
   computed: {
     ...mapGetters({
-      profileData: 'getProfileData',
-    }),
-  },
-  watch: {
-    profileData() {
-      // console.log('PROFOLRRRRRRRRRRRR', this.profileData);
-    },
+      profileData: 'getProfileData'
+    })
   },
   data: () => ({
     profileAvatar,
-    blockstack: window.blockstack,
+    blockstack: window.blockstack
   }),
   methods: {
-    showProfile() {
-      this.$store.commit('MUTATION_SET_CONTACT_USER_PROFILE_DATA');
-      this.$router.push({ name: 'Profile', params: { id: this.profileData.fullyQualifiedName || 'user' } });
-      eventBus.$emit('showProfile', this.profileData);
+    showProfile () {
+      this.$store.commit('MUTATION_SET_USER')
+      this.$store.commit('MUTATION_SET_SEARCH_STATE', false)
+      this.$store.commit('MUTATION_SET_SEARCH_RESULT', [])
+      this.$router.push({ name: 'Profile', params: { id: 'my-profile' } })
     },
-    signOut() {
-      this.blockstack.signUserOut(window.location.href);
-      window.location.href = '/';
-    },
-  },
-};
-</script>
+    signOut () {
+      this.blockstack.signUserOut(window.location.href)
+      window.location.href = '/'
+    }
+  }
+}
 </script>
 
 <style lang="css">

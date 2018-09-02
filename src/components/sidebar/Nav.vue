@@ -1,7 +1,7 @@
 <template lang="html">
   <v-list>
     <v-list-group v-for="item in items" :value="item.active" v-bind:key="item.title">
-      <v-list-tile slot="item" @click="showDashboard" :to="item.linkTo">
+      <v-list-tile slot="item" @click="hideSearchResults" :to="item.linkTo">
 
         <!-- Nav Icon -->
         <v-list-tile-action>
@@ -25,7 +25,7 @@
       </v-list-tile>
 
       <!-- Rendering child list item -->
-      <v-list-tile v-if="item.items" v-for="subItem in item.items" v-bind:key="subItem.title" :to="subItem.linkTo">
+      <v-list-tile v-if="item.items" @click="hideSearchResults" v-for="subItem in item.items" v-bind:key="subItem.title" :to="subItem.linkTo">
         <v-list-tile-action>
           <v-icon color="grey lighten-1">trending_flat</v-icon>
         </v-list-tile-action>
@@ -38,21 +38,21 @@
 </template>
 
 <script>
-import items from './navData';
+import items from './navData'
 
 export default {
-  data() {
+  data () {
     return {
-      items,
-    };
+      items
+    }
   },
   methods: {
-    showDashboard() {
-      this.$store.commit('MUTATION_SET_SEARCH_STATE', false);
-      this.$store.commit('MUTATION_SET_SEARCH_RESULT', []);
-    },
-  },
-};
+    hideSearchResults () {
+      this.$store.commit('MUTATION_SET_SEARCH_STATE', false)
+      this.$store.commit('MUTATION_SET_SEARCH_RESULT', [])
+    }
+  }
+}
 </script>
 
 <style lang="css">
@@ -74,7 +74,6 @@ export default {
 .list--group .list__tile .list__tile__title:hover,
 .list--group .router-link-exact-active .list__tile__title {
 }
-
 
 .application .theme--light.list--group .list__tile--active .list__tile__title, .theme--light .list--group .list__tile--active .list__tile__title {
   color: rgba(0,0,0,.87) !important;

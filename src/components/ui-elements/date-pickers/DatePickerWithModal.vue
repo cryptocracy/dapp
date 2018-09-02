@@ -27,13 +27,13 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      date: null,
-      modal: false,
-    }),
+export default {
+  data: () => ({
+    date: null,
+    modal: false
+  })
 
-  };
+}
 </script>
 
 <style scoped>

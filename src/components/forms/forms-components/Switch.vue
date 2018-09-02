@@ -114,17 +114,17 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      ex11: true,
-      ex12: false,
-      ex13: true,
-      ex14: false,
-      ex15: ['red', 'indigo', 'orange', 'primary', 'secondary', 'success', 'info', 'warning', 'error',
-        'red darken-3', 'indigo darken-3', 'orange darken-3'],
-    }),
+export default {
+  data: () => ({
+    ex11: true,
+    ex12: false,
+    ex13: true,
+    ex14: false,
+    ex15: ['red', 'indigo', 'orange', 'primary', 'secondary', 'success', 'info', 'warning', 'error',
+      'red darken-3', 'indigo darken-3', 'orange darken-3']
+  })
 
-  };
+}
 </script>
 
 <style scoped>

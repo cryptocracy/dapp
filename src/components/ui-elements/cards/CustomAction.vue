@@ -30,15 +30,15 @@
 </template>
 
 <script>
-  import cardImage from '../../../assets/img/card-iamge.jpg';
+import cardImage from '../../../assets/img/card-iamge.jpg'
 
-  export default {
-    data: () => ({
-      cardImage,
-      show: false,
-    }),
+export default {
+  data: () => ({
+    cardImage,
+    show: false
+  })
 
-  };
+}
 </script>
 
 <style scoped>

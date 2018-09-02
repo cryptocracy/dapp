@@ -1,16 +1,16 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-import notifications from './moduels/notifications';
-import productsTable from './moduels/productsTable';
-import products from './moduels/products';
-import teams from './moduels/teams';
-import services from './moduels/services';
-import searchHandler from './moduels/search-handler';
-import storageHandler from './moduels/storage-handler';
-import blog from './moduels/blog';
-import userProfileData from './moduels/profileData';
+import Vue from 'vue'
+import Vuex from 'vuex'
+import notifications from './moduels/notifications'
+import productsTable from './moduels/productsTable'
+import products from './moduels/products'
+import teams from './moduels/teams'
+import services from './moduels/services'
+import searchHandler from './moduels/search-handler'
+import contactsHandler from './moduels/contacts-handler'
+import blog from './moduels/blog'
+import userProfileData from './moduels/profileData'
 
-Vue.use(Vuex);
+Vue.use(Vuex)
 
 // All store data should place inside state as a central store
 const stateObject = {
@@ -20,19 +20,19 @@ const stateObject = {
   teams,
   services,
   blog,
-  sidebarOpen: true,
-};
+  sidebarOpen: true
+}
 
 export default new Vuex.Store({
   state: stateObject,
   modules: {
     userProfileData,
     searchHandler,
-    storageHandler,
+    contactsHandler
   },
   mutations: {
     toggleSidebar: (state) => {
-      state.sidebarOpen = !state.sidebarOpen;
-    },
-  },
-});
+      state.sidebarOpen = !state.sidebarOpen
+    }
+  }
+})

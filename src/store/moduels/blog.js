@@ -1,6 +1,6 @@
-import image from '../../assets/img/grid-large.jpg';
+import image from '../../assets/img/grid-large.jpg'
 
-const text = 'Loren Ipsum Dolor sit amit';
+const text = 'Loren Ipsum Dolor sit amit'
 
 export default {
   data: [
@@ -8,37 +8,37 @@ export default {
       id: 1,
       img: image,
       title: text,
-      category: 'Design',
+      category: 'Design'
     },
     {
       id: 2,
       img: image,
       title: text,
-      category: 'Development',
+      category: 'Development'
     },
     {
       id: 3,
       img: image,
       title: text,
-      category: 'Movie',
+      category: 'Movie'
     },
     {
       id: 4,
       img: image,
       title: text,
-      category: 'Movie',
+      category: 'Movie'
     },
     {
       id: 5,
       img: image,
       title: text,
-      category: 'App',
+      category: 'App'
     },
     {
       id: 6,
       img: image,
       title: text,
-      category: 'Politics',
-    },
-  ],
-};
+      category: 'Politics'
+    }
+  ]
+}

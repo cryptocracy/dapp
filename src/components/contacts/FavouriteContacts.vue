@@ -27,12 +27,12 @@
                 <v-list-tile
                   :key="item.index"
                   avatar
-                  @click="showContactProfile(item)"> 
+                  @click="showContactProfile(item)">
                   <!-- <v-btn outline fab small color="teal accent-4"><v-icon  large @click="addToContacts(item)" color="teal accent-4">checked</v-icon></v-btn> -->
                   <v-list-tile-avatar class="ml-2">
                     <img v-if="item.profile.hasOwnProperty('image')" :src="item.profile.image[0].contentUrl">
                     <v-icon v-else large color="teal accent-4">person</v-icon>
-                    
+
                   </v-list-tile-avatar>
 
                   <v-list-tile-content>
@@ -63,46 +63,28 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from 'vuex'
+import contactService from '@/services/contacts'
 
 export default {
   name: 'favourite-contacts',
   computed: {
     ...mapGetters({
-      contacts: 'getContacts',
-    }),
-    addedContacts() {
-      const addedContacts = {};
-      if (this.contacts.length > 0) {
-        this.contacts.forEach((item) => {
-          this.$set(addedContacts, item.fullyQualifiedName, item.fullyQualifiedName);
-        });
-      }
-      return addedContacts;
-    },
+      contacts: 'getContacts'
+    })
   },
+  mixins: [contactService],
   methods: {
-    updateContacts(contact, type) {
-      this.$store.dispatch('ACTION_UPDATE_CONTACTS', {
-        fileName: 'my_contacts.json',
-        contact,
-        type,
-        options: { encrypt: true },
-      });
-    },
-    showContactProfile(contact) {
-      this.$store.commit('MUTATION_SET_CONTACT_USER_PROFILE_DATA', contact);
-      this.showProfile = true;
-      this.$store.commit('MUTATION_SET_SEARCH_STATE', false);
-      this.$store.commit('MUTATION_SET_SEARCH_RESULT', []);
-      this.$router.push({ name: 'Profile', params: { id: contact.fullyQualifiedName } });
-    },
+    showContactProfile (contact) {
+      this.$store.commit('MUTATION_SET_USER', contact)
+      this.$store.commit('MUTATION_SET_SEARCH_STATE', false)
+      this.$store.commit('MUTATION_SET_SEARCH_RESULT', [])
+      this.$router.push({ name: 'Profile', params: { id: contact.fullyQualifiedName } })
+    }
   },
-  mounted() {
-    this.$store.dispatch('ACTION_GET_CONTACTS', {
-      fileName: 'my_contacts.json',
-      options: { decrypt: true },
-    });
-  },
-};
+  mounted () {
+    // method from contactService mixin
+    this.getContacts()
+  }
+}
 </script>

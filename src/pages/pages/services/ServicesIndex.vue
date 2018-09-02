@@ -3,11 +3,11 @@
 </template>
 
 <script>
-  import Services from '@/components/pages/services/Services';
+import Services from '@/components/pages/services/Services'
 
-  export default {
-    components: { 'app-service': Services },
-  };
+export default {
+  components: { 'app-service': Services }
+}
 </script>
 
 <style lang="css">

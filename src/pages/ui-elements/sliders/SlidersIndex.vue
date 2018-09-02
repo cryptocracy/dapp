@@ -24,19 +24,19 @@
 </template>
 
 <script>
-  import BasicSlider from '@/components/ui-elements/sliders/BasicSlider';
-  import SliderWithIcon from '@/components/ui-elements/sliders/SliderWithIcon';
-  import CustomColors from '@/components/ui-elements/sliders/CustomColors';
-  import EditableValue from '@/components/ui-elements/sliders/EditableValue';
+import BasicSlider from '@/components/ui-elements/sliders/BasicSlider'
+import SliderWithIcon from '@/components/ui-elements/sliders/SliderWithIcon'
+import CustomColors from '@/components/ui-elements/sliders/CustomColors'
+import EditableValue from '@/components/ui-elements/sliders/EditableValue'
 
-  export default {
-    data: () => ({
-      BasicSlider,
-      SliderWithIcon,
-      CustomColors,
-      EditableValue,
-    }),
-  };
+export default {
+  data: () => ({
+    BasicSlider,
+    SliderWithIcon,
+    CustomColors,
+    EditableValue
+  })
+}
 </script>
 
 <style lang="css">

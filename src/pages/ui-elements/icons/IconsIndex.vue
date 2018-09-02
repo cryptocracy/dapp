@@ -26,17 +26,17 @@
 </template>
 
 <script>
-  import BasicIcons from '@/components/ui-elements/icons/BasicIcons';
-  import ColorIcons from '@/components/ui-elements/icons/ColorIcons';
-  import ButtonIcons from '@/components/ui-elements/icons/ButtonIcons';
+import BasicIcons from '@/components/ui-elements/icons/BasicIcons'
+import ColorIcons from '@/components/ui-elements/icons/ColorIcons'
+import ButtonIcons from '@/components/ui-elements/icons/ButtonIcons'
 
-  export default {
-    data: () => ({
-      BasicIcons,
-      ColorIcons,
-      ButtonIcons,
-    }),
-  };
+export default {
+  data: () => ({
+    BasicIcons,
+    ColorIcons,
+    ButtonIcons
+  })
+}
 </script>
 
 <style lang="css">

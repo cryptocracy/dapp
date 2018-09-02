@@ -14,13 +14,13 @@
 </template>
 
 <script>
-import BarChartThin from '@/components/charts/bar-chart/BarChartThin';
+import BarChartThin from '@/components/charts/bar-chart/BarChartThin'
 
 export default {
   components: {
-    'app-bar-chart-thin': BarChartThin,
-  },
-};
+    'app-bar-chart-thin': BarChartThin
+  }
+}
 </script>
 
 <style lang="css">

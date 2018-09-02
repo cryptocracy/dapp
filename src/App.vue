@@ -19,30 +19,30 @@
             <div>powered by <a href="https://blockstack.org">Blockstack</a> - source code on <a href="https://github.com/cryptocracy/dapp">Github</a></div>
         </v-footer>
       </div>
-      
+
     </div>
   </v-app>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import Header from './components/header/Header';
-import Sidebar from './components/sidebar/Sidebar';
-import Login from './components/other-pages/login/Login';
-import searchResults from './components/Search-results';
+import { mapGetters } from 'vuex'
+import Header from './components/header/Header'
+import Sidebar from './components/sidebar/Sidebar'
+import Login from './components/other-pages/login/Login'
+import searchResults from './components/Search-results'
 
 export default {
   components: {
     'app-header': Header,
     'app-sidebar': Sidebar,
     'search-results': searchResults,
-    login: Login,
+    login: Login
   },
   name: 'app',
 
   data: () => ({
     windowWidth: 0,
-    blockstack: window.blockstack,
+    blockstack: window.blockstack
   }),
 
   methods: {
@@ -52,14 +52,14 @@ export default {
      * @type {function}
      * @return {Boolean} true / false based on sidebarOpen Data
      */
-    getWindowWidth() {
-      this.windowWidth = document.documentElement.clientWidth;
+    getWindowWidth () {
+      this.windowWidth = document.documentElement.clientWidth
       if (this.windowWidth < 991) {
-        this.$store.state.sidebarOpen = false;
+        this.$store.state.sidebarOpen = false
       } else {
-        this.$store.state.sidebarOpen = true;
+        this.$store.state.sidebarOpen = true
       }
-    },
+    }
   },
 
   computed: {
@@ -70,41 +70,39 @@ export default {
     * @return {Boolean} true / false based on sidebarOpen Data
     */
     ...mapGetters({
-      isSearching: 'isSearching',
+      isSearching: 'isSearching'
     }),
-    isSidebarOpen() {
+    isSidebarOpen () {
       return {
         'main-wrapper': true,
-        'sidebar-open': this.$store.state.sidebarOpen,
-      };
-    },
+        'sidebar-open': this.$store.state.sidebarOpen
+      }
+    }
   },
 
-  mounted() {
-    const blockstack = this.blockstack;
+  mounted () {
+    const blockstack = this.blockstack
     if (blockstack.isUserSignedIn()) {
-      this.userData = blockstack.loadUserData();
-      this.user = new blockstack.Person(this.userData.profile);
-      this.user.username = this.userData.username;
-      // console.log('userDATA', this.userData);
-      // console.log('user', this.user);
-      this.$store.commit('MUTATION_SET_USER_PROFILE_DATA', this.userData);
+      this.userData = blockstack.loadUserData()
+      this.user = new blockstack.Person(this.userData.profile)
+      this.user.username = this.userData.username
+      this.$store.commit('MUTATION_SET_USER_PROFILE_DATA', this.userData)
     } else if (blockstack.isSignInPending()) {
       blockstack.handlePendingSignIn()
-      .then(() => {
-        window.location = window.location.origin;
-      });
+        .then(() => {
+          window.location = window.location.origin
+        })
     }
     this.$nextTick(() => {
-      window.addEventListener('resize', this.getWindowWidth);
-      this.getWindowWidth();
-    });
+      window.addEventListener('resize', this.getWindowWidth)
+      this.getWindowWidth()
+    })
   },
 
-  beforeDestroy() {
-    window.removeEventListener('resize', this.getWindowWidth);
-  },
-};
+  beforeDestroy () {
+    window.removeEventListener('resize', this.getWindowWidth)
+  }
+}
 </script>
 
 <style media="screen" scoped>
@@ -123,6 +121,5 @@ export default {
   .fab-mt4 {
     margin-top: 4%;
   }
-  
 
 </style>

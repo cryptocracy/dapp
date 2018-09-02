@@ -1,9 +1,9 @@
-import { Bubble } from 'vue-chartjs';
+import { Bubble } from 'vue-chartjs'
 
 export default {
   extends: Bubble,
 
-  mounted() {
+  mounted () {
     this.renderChart({
       datasets: [
         {
@@ -13,19 +13,19 @@ export default {
             {
               x: 20,
               y: 25,
-              r: 5,
+              r: 5
             },
             {
               x: 40,
               y: 10,
-              r: 10,
+              r: 10
             },
             {
               x: 30,
               y: 22,
-              r: 30,
-            },
-          ],
+              r: 30
+            }
+          ]
         },
         {
           label: 'Data Two',
@@ -34,21 +34,21 @@ export default {
             {
               x: 10,
               y: 30,
-              r: 15,
+              r: 15
             },
             {
               x: 20,
               y: 20,
-              r: 10,
+              r: 10
             },
             {
               x: 15,
               y: 8,
-              r: 30,
-            },
-          ],
-        },
-      ],
-    }, { responsive: true, maintainAspectRatio: false });
-  },
-};
+              r: 30
+            }
+          ]
+        }
+      ]
+    }, { responsive: true, maintainAspectRatio: false })
+  }
+}
