@@ -14,6 +14,21 @@
               <v-card>
                 <v-card-title class="">
                   <div class="display-1">{{userData.profile.name}}</div>
+                  <v-list-tile-action v-if="$route.params.id !== 'my-profile'" class="ml-auto">
+                    <v-tooltip bottom v-if="!isAdded">
+                      <v-btn slot="activator" @click.stop="updateContacts(userData, 'addition')" outline fab small color="teal accent-4">
+                        <v-icon  large color="teal accent-4">person_add</v-icon>
+                      </v-btn>
+                      <span>Add to Contacts</span>
+                    </v-tooltip>
+
+                    <v-tooltip bottom v-else>
+                      <v-btn slot="activator" @click.stop="updateContacts(userData, 'deletion')" outline fab small color="teal accent-4">
+                        <v-icon  large color="teal accent-4">delete</v-icon>
+                      </v-btn>
+                      <span>Remove from Contacts</span>
+                    </v-tooltip>
+                  </v-list-tile-action>
                 </v-card-title>
 
                 <v-list two-line>
@@ -73,48 +88,68 @@
         </div>
       </div>
     </div>
-
+    <div class="mt-5 text-xs-center" v-else-if="!isResolved">
+      <v-progress-circular
+        :size="70"
+        :width="5"
+        color="teal accent-4"
+        indeterminate
+      ></v-progress-circular>
+    </div>
+    <div v-else class="mt-5 text-xs-center">
+      <h1>No contacts found</h1>
+    </div>
   </div>
 
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-// import { eventBus } from '../main';
+import contactService from '@/services/contacts'
 
 export default {
   name: 'Profile',
   computed: {
     ...mapGetters({
       profileData: 'getProfileData',
-      contactUserData: 'getContactData'
+      contacts: 'getContacts',
+      searchedUserProfileData: 'getUserProfileData',
+      isResolved: 'isResolved'
     }),
     imageSize () {
-      // console.log(this.profileData)
+      // breakpoints to dynamically resizing profile image
       switch (this.$vuetify.breakpoint.name) {
         case 'xs': return '80px'
         case 'sm': return '200px'
         default: return '256px'
       }
     },
-    newUserData () {
-      return this.contactUserData || this.profileData
+    // computed property for showing searched user profile data or user's own profile data
+    userData () {
+      return this.searchedUserProfileData || this.profileData
+    },
+    // computed property for showing addition/deletion button
+    isAdded () {
+      if (this.contacts.length > 0) {
+        return this.contacts.find((item) => {
+          return item.fullyQualifiedName === this.searchedUserProfileData.fullyQualifiedName
+        })
+      } else return false
     }
   },
-  watch: {
-    newUserData () {
-      this.userData = this.newUserData
+  mixins: [contactService],
+  created () {
+    // method from contactService mixin
+    this.getContacts()
+    // searching for user profile via params in current route when its not user own profile
+    if (this.$route.params.id !== 'my-profile') {
+      let searchObj = {
+        endpoint: 'search',
+        query: this.$route.params.id
+      }
+      this.$store.commit('MUTATION_SET_SEARCH_RESULT', [])
+      this.$store.dispatch('ACTION_GET_SEARCH_RESULT', searchObj)
     }
-  },
-  props: ['userProfileData'],
-  data: () => ({
-    name: 'Akash',
-    userData: {}
-  }),
-  methods: {
-  },
-  mounted () {
-    this.userData = this.contactUserData || this.profileData
   }
 }
 </script>

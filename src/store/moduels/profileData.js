@@ -1,20 +1,15 @@
 // import { mutations, actions, getters, state } from "module";
 const userProfileData = {
   state: {
-    profileData: {},
-    contactUserData: {}
+    profileData: {}
   },
   mutations: {
     MUTATION_SET_USER_PROFILE_DATA (state, payload) {
       state.profileData = payload
-    },
-    MUTATION_SET_CONTACT_USER_PROFILE_DATA (state, payload) {
-      state.contactUserData = payload
     }
   },
   getters: {
-    getProfileData: state => state.profileData,
-    getContactData: state => state.contactUserData
+    getProfileData: state => state.profileData
   }
 }
 export default userProfileData

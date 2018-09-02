@@ -64,6 +64,7 @@ export default {
   data: () => ({
     toggleNotification: false,
     logo,
+    // for dropdown on the rigth hand side of search bar
     selectItems: [
       { text: 'Contact', value: 'search' },
       { text: 'Project', value: 'project' }
@@ -85,9 +86,11 @@ export default {
     search () {
       const searchText = this.searchText.trim()
       if (searchText === '') {
+        // to remove search page when there is not text in search bar
         this.$store.commit('MUTATION_SET_SEARCH_STATE', false)
         this.$store.commit('MUTATION_SET_SEARCH_RESULT', [])
       } else {
+        // searching for results
         this.$store.commit('MUTATION_SET_SEARCH_RESULT', [])
         this.$store.commit('MUTATION_SET_SEARCH_STATE', true)
         const searchObj = {
