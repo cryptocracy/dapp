@@ -4,7 +4,8 @@
       <div class="row align-items-center">
         <div class="offset-1 col-3">
           <v-avatar :size="imageSize" color="grey lighten-4">
-            <img :src="userData.profile.image[0].contentUrl" :alt="userData.profile.name">
+            <img v-if="userData.profile.hasOwnProperty('image')" :src="userData.profile.image[0].contentUrl" :alt="userData.profile.name">
+            <v-icon v-else large color="teal accent-4">person</v-icon>
           </v-avatar>
         </div>
         <div class="offset-2 col-6 ">
@@ -16,7 +17,7 @@
                 </v-card-title>
 
                 <v-list two-line>
-                  <v-list-tile @click="dummyFunc">
+                  <v-list-tile @click="dummyFunction">
                     <v-list-tile-action>
                       <v-icon color="teal accent-4">person</v-icon>
                     </v-list-tile-action>
@@ -31,7 +32,7 @@
                     </v-list-tile-action>
                   </v-list-tile>
 
-                  <v-list-tile @click="dummyFunc">
+                  <v-list-tile @click="dummyFunction">
                     <v-list-tile-action></v-list-tile-action>
 
                     <v-list-tile-content>
@@ -46,7 +47,7 @@
 
                   <v-divider inset></v-divider>
 
-                  <v-list-tile @click="dummyFunc">
+                  <v-list-tile @click="dummyFunction">
                     <v-list-tile-action>
                       <v-icon color="teal accent-4">mail</v-icon>
                     </v-list-tile-action>
@@ -57,7 +58,7 @@
                     </v-list-tile-content>
                   </v-list-tile>
 
-                  <v-list-tile @click="dummyFunc">
+                  <v-list-tile @click="dummyFunction">
                     <v-list-tile-action></v-list-tile-action>
 
                     <v-list-tile-content>
@@ -111,7 +112,6 @@ export default {
     userData: {}
   }),
   methods: {
-    dummyFunc () {}
   },
   mounted () {
     this.userData = this.contactUserData || this.profileData

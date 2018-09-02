@@ -34,8 +34,10 @@ Vue.use(Vuetify, {
 })
 // eslint-disable-next-line
 export const eventBus = new Vue();
-
+// dummy global function for empty @click functions
 window.dummyFunction = function () {}
+Vue.prototype.dummyFunction = window.dummyFunction
+
 Vue.use(VueGoogleMaps, {
   load: {
     key: 'AIzaSyDLAOmejqle801yXt-mKafbYH4rwLIK2ts',
