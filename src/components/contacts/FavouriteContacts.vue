@@ -72,16 +72,6 @@ export default {
     ...mapGetters({
       contacts: 'getContacts'
     })
-    // computed property for showing addition/deletion button on contacts// computed property for showing addition/deletion button on contacts
-    // addedContacts () {
-    //   const addedContacts = {}
-    //   if (this.contacts.length > 0) {
-    //     this.contacts.forEach((item) => {
-    //       this.$set(addedContacts, item.fullyQualifiedName, item.fullyQualifiedName)
-    //     })
-    //   }
-    //   return addedContacts
-    // }
   },
   mixins: [contactService],
   methods: {
