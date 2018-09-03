@@ -35,7 +35,33 @@
                 label="Address"
                 :disabled="isLoading"
             ></v-text-field>
-            <div>
+            <div class="geo-button-wrapper" v-if="tagProp">
+                <template v-if="!newGeo">
+                    <v-btn
+                        fab
+                        dark
+                        small
+                        color="green pa-2"
+                        @click="updateGeoPosition"
+                    >
+                        <v-icon>location_searching</v-icon>
+                    </v-btn>
+                    <span class="geo-button-text">Update tag geo location</span>
+                </template>
+                <template v-else>
+                    <v-btn
+                        fab
+                        dark
+                        small
+                        color="green pa-2"
+                        @click="rollbackGeoPosition"
+                    >
+                        <v-icon>location_disabled</v-icon>
+                    </v-btn>
+                    <span class="geo-button-text">Rollback to old tag geo location</span>
+                </template>
+            </div>
+            <div class="switch-wrapper">
                 <div class="input-group--text-field primary--text">Privacy</div>
                 <div class="switch-block">
                     <span class="switch-text">Public</span>
@@ -43,7 +69,7 @@
                     <span class="switch-text">Personal</span>
                 </div>
             </div>
-            <div v-if="tagProp">
+            <div class="switch-wrapper" v-if="tagProp">
                 <div class="input-group--text-field primary--text">Archived</div>
                 <div class="switch-block">
                     <span class="switch-text">No</span>
@@ -76,6 +102,7 @@ export default {
     blockstack: window.blockstack,
     isLoading: false,
     valid: false,
+    newGeo: false,
     tag: {
       coordinates: {
         lat: null,
@@ -167,20 +194,29 @@ export default {
     updateFromTagProp () {
       if (this.tagProp) {
         for (let property in this.tagProp) {
-          this.tag[property] = this.tagProp[property]
+          this.tag[property] = this.tagProp[property] instanceof Object ? {...this.tagProp[property]} : this.tagProp[property]
         }
       } else {
         this.clear()
       }
+    },
+    updateGeoPosition () {
+      const geoSuccess = (position) => {
+        this.tag.coordinates.lat = position.coords.latitude
+        this.tag.coordinates.lng = position.coords.longitude
+      }
+      navigator.geolocation.getCurrentPosition(geoSuccess)
+      this.newGeo = true
+    },
+    rollbackGeoPosition () {
+      this.tag.coordinates.lat = this.tagProp.coordinates.lat
+      this.tag.coordinates.lng = this.tagProp.coordinates.lat
+      this.newGeo = false
     }
   },
   mounted () {
+    if (!this.tagProp) this.updateGeoPosition()
     this.updateFromTagProp()
-    const geoSuccess = (position) => {
-      this.tag.coordinates.lat = position.coords.latitude
-      this.tag.coordinates.lng = position.coords.longitude
-    }
-    navigator.geolocation.getCurrentPosition(geoSuccess)
   }
 }
 </script>
@@ -202,5 +238,11 @@ export default {
                 display: none;
             }
         }
+    }
+    .geo-button-wrapper {
+        display: flex;
+        align-items: center;
+        margin-left: -8px;
+        padding-bottom: 10px;
     }
 </style>
