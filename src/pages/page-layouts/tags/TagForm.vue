@@ -69,7 +69,7 @@
 
 <script>
 import ImageUploader from '../../../components/image-uploader/ImageUploader'
-import blockstackStorage from '../../../services/blockstackStorage.js'
+import storageService from '../../../services/blockstack-storage'
 
 export default {
   data: () => ({
@@ -145,10 +145,15 @@ export default {
     saveTag (timestamp) {
       this.blockstack.putFile(this.getTagFilename(timestamp), JSON.stringify(this.tag))
         .then((jsonUrl) => {
-          blockstackStorage.updateTagIndex(jsonUrl.split('/').pop().split('.')[0], this.tag.title)
+          storageService.updateTagIndex(jsonUrl.split('/').pop().split('.')[0], this.tag.title)
             .then(() => {
               this.isLoading = false
-              if (!this.tagProp) this.clear()
+              this.tagProp ? this.$router.push({
+                name: 'TagInfo',
+                params: {
+                  tagName: 'tag_' + this.tag.createdtime,
+                  tagObject: this.tag
+                }}) : this.clear()
             })
         })
     },

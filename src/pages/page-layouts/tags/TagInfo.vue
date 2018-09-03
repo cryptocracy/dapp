@@ -9,7 +9,7 @@
                 <div class="json-address">
                     <v-text-field
                         ref="urlInput"
-                        v-model="tagUrl"
+                        :value="tagUrl"
                         class="url-field"
                         readonly
                     />
@@ -89,7 +89,6 @@ import MapWithMarker from '../../../components/maps/MapWithMarker'
 export default {
   name: 'TagInfo',
   data: () => ({
-    blockstack: window.blockstack,
     copyButtonText: 'Copy'
   }),
   components: {
