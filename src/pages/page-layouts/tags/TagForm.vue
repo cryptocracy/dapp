@@ -40,7 +40,7 @@
                 <div class="switch-block">
                     <span class="switch-text">Public</span>
                     <v-switch v-model="tag.private"></v-switch>
-                    <span class="switch-text">Private</span>
+                    <span class="switch-text">Personal</span>
                 </div>
             </div>
             <div v-if="tagProp">
