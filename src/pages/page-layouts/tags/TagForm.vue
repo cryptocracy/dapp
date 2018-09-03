@@ -47,7 +47,7 @@
                 <div class="input-group--text-field primary--text">Archived</div>
                 <div class="switch-block">
                     <span class="switch-text">No</span>
-                    <v-switch v-model="tag.private"></v-switch>
+                    <v-switch v-model="tag.archived"></v-switch>
                     <span class="switch-text">Yes</span>
                 </div>
             </div>
