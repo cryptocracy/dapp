@@ -115,13 +115,7 @@ export default {
   },
   watch: {
     tagProp () {
-      if (this.tagProp) {
-        for (let property in this.tagProp) {
-          this.tag[property] = this.tagProp[property]
-        }
-      } else {
-        this.clear()
-      }
+      this.updateFromTagProp()
     }
   },
   methods: {
@@ -129,7 +123,7 @@ export default {
       const timestamp = +new Date()
       if (this.$refs.form.validate()) {
         this.isLoading = true
-        this.tag.createdtime = timestamp
+        this.tag.createdtime = this.tagProp ? this.tagProp.createdtime : timestamp
         if (this.tag.image.name) {
           this.blockstack.putFile(`image_${timestamp}.${this.tag.image.name.split('.').pop()}`, this.tag.image)
             .then((imageUrl) => {
@@ -164,16 +158,19 @@ export default {
     },
     getUploadedImage (e) {
       this.tag.image = e
+    },
+    updateFromTagProp () {
+      if (this.tagProp) {
+        for (let property in this.tagProp) {
+          this.tag[property] = this.tagProp[property]
+        }
+      } else {
+        this.clear()
+      }
     }
   },
   mounted () {
-    if (this.tagProp) {
-      for (let property in this.tagProp) {
-        this.tag[property] = this.tagProp[property]
-      }
-    } else {
-      this.clear()
-    }
+    this.updateFromTagProp()
     const geoSuccess = (position) => {
       this.tag.coordinates.lat = position.coords.latitude
       this.tag.coordinates.lng = position.coords.longitude
