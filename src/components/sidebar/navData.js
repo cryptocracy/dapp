@@ -23,7 +23,7 @@ const items = [
     action: 'label',
     title: 'Tags',
     items: [
-      { title: 'Add New', linkTo: { name: 'AddTag', params: { tagObject: null } } },
+      // { title: 'Add New', linkTo: { name: 'AddTag', params: { tagProp: null } } },
       { title: 'Find', linkTo: '/page-layout/banner' },
       { title: 'Favorites', linkTo: '/page-layout/banner' },
       { title: 'Owned', linkTo: '/tags/owned' }
@@ -39,8 +39,8 @@ const items = [
     ]
   },
   {
-    color: 'teal lighten-3',
-    action: 'favorite_border',
+    color: 'indigo lighten-2',
+    action: 'work',
     title: 'Projects',
     items: [
       { title: 'Owned', linkTo: '/page-layout/banner' },

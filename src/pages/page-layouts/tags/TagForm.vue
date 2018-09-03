@@ -68,119 +68,119 @@
 </template>
 
 <script>
-  import ImageUploader from '../../../components/image-uploader/ImageUploader';
-  import blockstackStorage from '../../../services/blockstackStorage.js';
+import ImageUploader from '../../../components/image-uploader/ImageUploader'
+import blockstackStorage from '../../../services/blockstackStorage.js'
 
-  export default {
-    data: () => ({
-      blockstack: window.blockstack,
-      isLoading: false,
-      valid: false,
-      tag: {
-        coordinates: {
-          lat: null,
-          lng: null,
-        },
-        title: '',
-        address: '',
-        detail: '',
-        symbol: null,
-        image: {
-          url: null,
-        },
-        private: false,
-        archived: false,
-        v: '0.0.1',
-        id: '',
+export default {
+  data: () => ({
+    blockstack: window.blockstack,
+    isLoading: false,
+    valid: false,
+    tag: {
+      coordinates: {
+        lat: null,
+        lng: null
       },
-      symbols: ['BTC', 'ETH', 'LTC'],
-      titleRules: [
-        v => !!v || 'Name is required',
-        v => (v && v.length <= 20) || 'Name must be less than 20 characters',
-        v => /^\w+$/.test(v) || 'Letters, numbers and "_" are only allowed',
-      ],
-      addressRules: [
-        v => v ? /^((?!_)[A-z0-9])+$/.test(v) || 'Letters and numbers are only allowed' : true,
-        v => v ? v.length <= 42 || 'Please enter proper address' : true,
-      ],
-    }),
-    components: {
-      ImageUploader,
+      title: '',
+      address: '',
+      detail: '',
+      symbol: null,
+      image: {
+        url: null
+      },
+      private: false,
+      archived: false,
+      v: '0.0.1',
+      id: ''
     },
-    props: {
-      tagProp: {
-        type: [Object, null],
-        default: null,
-      },
-    },
-    watch: {
-      tagProp() {
-        if (this.tagProp) {
-          for (let property in this.tagProp) {
-            this.tag[property] = this.tagProp[property];
-          }
-        } else {
-          this.clear();
-        }
-      },
-    },
-    methods: {
-      submit() {
-        const timestamp = +new Date();
-        if (this.$refs.form.validate()) {
-          this.isLoading = true;
-          this.tag.createdtime = timestamp;
-          if (this.tag.image.name) {
-            this.blockstack.putFile(`image_${timestamp}.${this.tag.image.name.split('.').pop()}`, this.tag.image)
-              .then((imageUrl) => {
-                if (!this.tag.image.url) {
-                  this.tag.image = {
-                    url: imageUrl,
-                  };
-                }
-                this.saveTag(timestamp);
-              });
-          } else {
-            this.saveTag(timestamp);
-          }
-        }
-      },
-      getTagFilename(timestamp) {
-        return this.tagProp ? `tag_${this.tagProp.createdtime}.json` : `tag_${timestamp}.json`;
-      },
-      saveTag(timestamp) {
-        this.blockstack.putFile(this.getTagFilename(timestamp), JSON.stringify(this.tag))
-          .then((jsonUrl) => {
-            blockstackStorage.updateTagIndex(jsonUrl.split('/').pop().split('.')[0], this.tag.title)
-              .then(() => {
-                this.isLoading = false;
-                if (!this.tagProp) this.clear();
-              });
-          });
-      },
-      clear() {
-        this.$refs.form.reset();
-        this.$refs.imageInput.removeFile();
-      },
-      getUploadedImage(e) {
-        this.tag.image = e;
-      },
-    },
-    mounted() {
+    symbols: ['BTC', 'ETH', 'LTC'],
+    titleRules: [
+      v => !!v || 'Name is required',
+      v => (v && v.length <= 20) || 'Name must be less than 20 characters',
+      v => /^\w+$/.test(v) || 'Letters, numbers and "_" are only allowed'
+    ],
+    addressRules: [
+      v => v ? /^((?!_)[A-z0-9])+$/.test(v) || 'Letters and numbers are only allowed' : true,
+      v => v ? v.length <= 42 || 'Please enter proper address' : true
+    ]
+  }),
+  components: {
+    ImageUploader
+  },
+  props: {
+    tagProp: {
+      type: [Object, null],
+      default: null
+    }
+  },
+  watch: {
+    tagProp () {
       if (this.tagProp) {
         for (let property in this.tagProp) {
-          this.tag[property] = this.tagProp[property];
+          this.tag[property] = this.tagProp[property]
         }
       } else {
-        this.clear();
+        this.clear()
       }
-      const geoSuccess = (position) => {
-        this.tag.coordinates.lat = position.coords.latitude;
-        this.tag.coordinates.lng = position.coords.longitude;
-      };
-      navigator.geolocation.getCurrentPosition(geoSuccess);
+    }
+  },
+  methods: {
+    submit () {
+      const timestamp = +new Date()
+      if (this.$refs.form.validate()) {
+        this.isLoading = true
+        this.tag.createdtime = timestamp
+        if (this.tag.image.name) {
+          this.blockstack.putFile(`image_${timestamp}.${this.tag.image.name.split('.').pop()}`, this.tag.image)
+            .then((imageUrl) => {
+              if (!this.tag.image.url) {
+                this.tag.image = {
+                  url: imageUrl
+                }
+              }
+              this.saveTag(timestamp)
+            })
+        } else {
+          this.saveTag(timestamp)
+        }
+      }
     },
-  };
+    getTagFilename (timestamp) {
+      return this.tagProp ? `tag_${this.tagProp.createdtime}.json` : `tag_${timestamp}.json`
+    },
+    saveTag (timestamp) {
+      this.blockstack.putFile(this.getTagFilename(timestamp), JSON.stringify(this.tag))
+        .then((jsonUrl) => {
+          blockstackStorage.updateTagIndex(jsonUrl.split('/').pop().split('.')[0], this.tag.title)
+            .then(() => {
+              this.isLoading = false
+              if (!this.tagProp) this.clear()
+            })
+        })
+    },
+    clear () {
+      this.$refs.form.reset()
+      this.$refs.imageInput.removeFile()
+    },
+    getUploadedImage (e) {
+      this.tag.image = e
+    }
+  },
+  mounted () {
+    if (this.tagProp) {
+      for (let property in this.tagProp) {
+        this.tag[property] = this.tagProp[property]
+      }
+    } else {
+      this.clear()
+    }
+    const geoSuccess = (position) => {
+      this.tag.coordinates.lat = position.coords.latitude
+      this.tag.coordinates.lng = position.coords.longitude
+    }
+    navigator.geolocation.getCurrentPosition(geoSuccess)
+  }
+}
 </script>
 
 <style lang="scss">

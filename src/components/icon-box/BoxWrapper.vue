@@ -39,20 +39,20 @@
 </template>
 
 <script>
-import BoxSingle from './BoxSingle';
+import BoxSingle from './BoxSingle'
 import storageService from '../../services/blockstack-storage'
 export default {
   components: {
     'app-icon-box': BoxSingle,
-    storageService,
+    storageService
   },
   data: () => ({
-    tagCount: 0,
+    tagCount: 0
   }),
-  mounted() {
-    storageService.getFile({ fileName: 'my_tags.json' }).then((res) => { this.tagCount = Object.keys(res).length });
-  },
-};
+  mounted () {
+    storageService.getFile({ fileName: 'my_tags.json' }).then((res) => { this.tagCount = Object.keys(res).length })
+  }
+}
 </script>
 
 <style lang="css">
