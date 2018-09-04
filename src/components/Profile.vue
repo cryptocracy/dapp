@@ -114,7 +114,8 @@ export default {
       profileData: 'getProfileData',
       contacts: 'getContacts',
       searchedUserProfileData: 'getUserProfileData',
-      isResolved: 'isResolved'
+      isResolved: 'isResolved',
+      isRedirected: 'isRedirected'
     }),
     imageSize () {
       // breakpoints to dynamically resizing profile image
@@ -142,7 +143,7 @@ export default {
     // method from contactService mixin
     this.getContacts()
     // searching for user profile via params in current route when its not user own profile
-    if (this.$route.params.id !== 'my-profile') {
+    if (this.$route.params.id !== 'my-profile' && !this.isRedirected) {
       let searchObj = {
         endpoint: 'search',
         query: this.$route.params.id

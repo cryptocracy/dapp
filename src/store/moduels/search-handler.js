@@ -4,6 +4,7 @@ const searchHandler = {
   state: {
     searchResult: [],
     isSearching: false,
+    isRedirected: false,
     isResolved: true,
     userProfileData: {}
   },
@@ -16,6 +17,9 @@ const searchHandler = {
     },
     MUTATION_SET_RESOLVED_STATE (state, payload) {
       state.isResolved = payload
+    },
+    MUTATION_SET_REDIRECTION_STATE (state, payload) {
+      state.isRedirected = payload
     },
     MUTATION_SET_USER (state, payload) {
       state.userProfileData = payload
@@ -54,6 +58,7 @@ const searchHandler = {
     getSearchResult: state => state.searchResult,
     isSearching: state => state.isSearching,
     isResolved: state => state.isResolved,
+    isRedirected: state => state.isRedirected,
     getUserProfileData: state => state.userProfileData
   }
 }
