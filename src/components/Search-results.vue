@@ -99,6 +99,7 @@ export default {
     showContactProfile (contact) {
       // setting user data for quick view of profile (now user does'nt have to wait for API response for searching user profile)
       this.$store.commit('MUTATION_SET_USER', contact)
+      this.$store.commit('MUTATION_SET_REDIRECTION_STATE', true)
       this.$store.commit('MUTATION_SET_SEARCH_STATE', false)
       this.$store.commit('MUTATION_SET_SEARCH_RESULT', [])
       // taking user to profile page with user id as params
