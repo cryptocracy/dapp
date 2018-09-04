@@ -11,9 +11,10 @@
             <router-view v-else/>
           </transition>
         </div>
-        <v-btn fab fixed bottom right dark color="teal accent-4">
-          <v-icon>add</v-icon>
-        </v-btn>
+        <!--<v-btn fab fixed bottom right dark color="teal accent-4">-->
+          <!--<v-icon>add</v-icon>-->
+        <!--</v-btn>-->
+        <floating-button/>
         <v-footer class="pa-3" >
           <v-spacer></v-spacer>
             <div>powered by <a href="https://blockstack.org">Blockstack</a> - source code on <a href="https://github.com/cryptocracy/dapp">Github</a></div>
@@ -30,13 +31,15 @@ import Header from './components/header/Header'
 import Sidebar from './components/sidebar/Sidebar'
 import Login from './components/other-pages/login/Login'
 import searchResults from './components/Search-results'
+import FloatingButton from './components/button/FloatingButton'
 
 export default {
   components: {
     'app-header': Header,
     'app-sidebar': Sidebar,
     'search-results': searchResults,
-    login: Login
+    login: Login,
+    FloatingButton
   },
   name: 'app',
 

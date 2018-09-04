@@ -20,6 +20,12 @@
                                 <v-list-tile-title v-text="tag.title"/>
                                 <v-list-tile-sub-title v-text="tag.detail"/>
                             </v-list-tile-content>
+
+                            <v-list-tile-action>
+                                <v-btn icon :to="{ name: 'EditTag', params: { tagProp: tag } }">
+                                    <v-icon color="grey lighten-1">edit</v-icon>
+                                </v-btn>
+                            </v-list-tile-action>
                         </v-list-tile>
                     </v-list>
                 </v-card>

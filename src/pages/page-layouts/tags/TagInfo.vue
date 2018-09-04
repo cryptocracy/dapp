@@ -2,10 +2,14 @@
     <div class="container">
         <v-list two-line>
             <v-list-tile>
+                <v-divider/>
+                <router-link class="edit-link" :to="{ name: 'EditTag', params: { tagProp: this.tagObject } }">Edit</router-link>
+            </v-list-tile>
+            <v-list-tile>
                 <div class="json-address">
                     <v-text-field
                         ref="urlInput"
-                        v-model="tagUrl"
+                        :value="tagUrl"
                         class="url-field"
                         readonly
                     />
@@ -18,6 +22,18 @@
                     <v-list-tile-title v-html="tagObject.title"></v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
+            <v-list-tile>
+                <v-list-tile-content>
+                    <v-list-tile-sub-title>Privacy</v-list-tile-sub-title>
+                    <v-list-tile-title v-html="tagObject.private ? 'Private' : 'Public'"></v-list-tile-title>
+                </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile>
+                <v-list-tile-content>
+                    <v-list-tile-sub-title>Archived</v-list-tile-sub-title>
+                    <v-list-tile-title v-html="tagObject.archived ? 'Yes' : 'No'"></v-list-tile-title>
+                </v-list-tile-content>
+            </v-list-tile>
             <v-list-tile v-if="tagObject.detail">
                 <v-list-tile-content>
                     <v-list-tile-sub-title>Details</v-list-tile-sub-title>
@@ -28,6 +44,12 @@
                 <v-list-tile-content>
                     <v-list-tile-sub-title>Created time</v-list-tile-sub-title>
                     <v-list-tile-title v-html="new Date(tagObject.createdtime).toLocaleString()"></v-list-tile-title>
+                </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile v-if="tagObject.private">
+                <v-list-tile-content>
+                    <v-list-tile-sub-title>Privacy</v-list-tile-sub-title>
+                    <v-list-tile-title v-html="tagObject.private ? 'Private' : 'Public'"></v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
             <v-list-tile>
@@ -67,7 +89,6 @@ import MapWithMarker from '../../../components/maps/MapWithMarker'
 export default {
   name: 'TagInfo',
   data: () => ({
-    blockstack: window.blockstack,
     copyButtonText: 'Copy'
   }),
   components: {
@@ -81,8 +102,8 @@ export default {
   computed: {
     coordinates () {
       return this.tagObject ? {
-        lat: this.tagObject.coordinates.latitude,
-        lng: this.tagObject.coordinates.longitude
+        lat: this.tagObject.coordinates.lat,
+        lng: this.tagObject.coordinates.lng
       } : {}
     },
     tagUrl () {
@@ -105,6 +126,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+    .edit-link {
+        padding: 10px;
+    }
     .tag-image {
         max-width: 100%;
     }

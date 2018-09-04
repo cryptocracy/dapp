@@ -9,8 +9,8 @@ const imageCompressor = {
     const newHeight = oldHeight * Math.sqrt(limit / (sourceImgFile.size * quality))
     canvas.width = newWidth
     canvas.height = newHeight
-    // const ctx = canvas.getContext('2d').drawImage(origImage, 0, 0, oldWidth, oldHeight, 0, 0, newWidth, newHeight);
-    return new Promise((resolve) => {
+    canvas.getContext('2d').drawImage(origImage, 0, 0, oldWidth, oldHeight, 0, 0, newWidth, newHeight)
+    return new Promise((resolve, reject) => {
       canvas.toBlob((blob) => {
         const file = new File([blob], sourceImgFile.name, {
           type: sourceImgFile.type,
