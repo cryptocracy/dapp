@@ -143,6 +143,7 @@ export default {
     // method from contactService mixin
     this.getContacts()
     // searching for user profile via params in current route when its not user own profile
+    // isRedirected added to stop searching for profiles when user is being redirected from another page by clicking on the user link
     if (this.$route.params.id !== 'my-profile' && !this.isRedirected) {
       let searchObj = {
         endpoint: 'search',
