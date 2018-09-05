@@ -154,6 +154,9 @@ export default {
       this.$store.commit('MUTATION_SET_USER', {})
       this.$store.dispatch('ACTION_GET_SEARCH_RESULT', searchObj)
     }
+  },
+  destroyed () {
+    this.$store.commit('MUTATION_SET_REDIRECTION_STATE', false)
   }
 }
 </script>
