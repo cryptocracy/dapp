@@ -147,7 +147,8 @@ export default {
     if (this.$route.params.id !== 'my-profile' && !this.isRedirected) {
       let searchObj = {
         endpoint: 'search',
-        query: this.$route.params.id
+        query: this.$route.params.id,
+        isAbsolute: this.$route.params.id.split('.').length > 0
       }
       this.$store.commit('MUTATION_SET_SEARCH_RESULT', [])
       this.$store.dispatch('ACTION_GET_SEARCH_RESULT', searchObj)
