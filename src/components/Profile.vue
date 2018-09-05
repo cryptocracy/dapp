@@ -148,7 +148,7 @@ export default {
       let searchObj = {
         endpoint: 'search',
         query: this.$route.params.id,
-        isAbsolute: this.$route.params.id.split('.').length > 0
+        isAbsolute: this.$route.params.id.split('.').length > 1
       }
       this.$store.commit('MUTATION_SET_SEARCH_RESULT', [])
       this.$store.dispatch('ACTION_GET_SEARCH_RESULT', searchObj)
