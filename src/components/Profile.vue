@@ -145,7 +145,6 @@ export default {
     // searching for user profile via params in current route when its not user own profile
     // isRedirected added to stop searching for profiles when user is being redirected from another page by clicking on the user link
     if (this.$route.params.id !== 'my-profile' && !this.isRedirected) {
-      console.log('HEREE', this.$route.params.id.split('.'))
       let searchObj = {
         endpoint: 'search',
         query: this.$route.params.id,
