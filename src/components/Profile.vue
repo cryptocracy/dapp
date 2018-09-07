@@ -114,7 +114,8 @@ export default {
       profileData: 'getProfileData',
       contacts: 'getContacts',
       searchedUserProfileData: 'getUserProfileData',
-      isResolved: 'isResolved'
+      isResolved: 'isResolved',
+      isRedirected: 'isRedirected'
     }),
     imageSize () {
       // breakpoints to dynamically resizing profile image
@@ -142,14 +143,20 @@ export default {
     // method from contactService mixin
     this.getContacts()
     // searching for user profile via params in current route when its not user own profile
-    if (this.$route.params.id !== 'my-profile') {
+    // isRedirected added to stop searching for profiles when user is being redirected from another page by clicking on the user link
+    if (this.$route.params.id !== 'my-profile' && !this.isRedirected) {
       let searchObj = {
         endpoint: 'search',
-        query: this.$route.params.id
+        query: this.$route.params.id,
+        isAbsolute: this.$route.params.id.split('.').length > 1
       }
       this.$store.commit('MUTATION_SET_SEARCH_RESULT', [])
+      this.$store.commit('MUTATION_SET_USER', {})
       this.$store.dispatch('ACTION_GET_SEARCH_RESULT', searchObj)
     }
+  },
+  destroyed () {
+    this.$store.commit('MUTATION_SET_REDIRECTION_STATE', false)
   }
 }
 </script>
