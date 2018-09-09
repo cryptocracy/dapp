@@ -44,7 +44,7 @@
 
                     <v-tooltip bottom>
                       <v-btn slot="activator" @click.stop="updateContacts(item, 'deletion')" outline fab small color="teal accent-4">
-                        <v-icon  large color="teal accent-4">delete</v-icon>
+                        <v-icon  color="teal accent-4">delete</v-icon>
                       </v-btn>
                       <span>Remove from Contacts</span>
                     </v-tooltip>

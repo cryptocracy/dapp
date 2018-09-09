@@ -1,10 +1,14 @@
 {
   "name": "Souq",
-  "start_url": "https://dapp.cryptocracy.io",
+  "short_name": "Souq",
+  "start_url": "/index.html",
   "description": "Decentralized Crypto Crowdfunding",
   "icons": [{
     "src": "https://raw.githubusercontent.com/cryptocracy/images/master/512x512.png",
     "sizes": "400x400",
     "type": "image/png"
-  }]
+  }],
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#4DBA87"
 }

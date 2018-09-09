@@ -1,5 +1,6 @@
 'use strict'
 const utils = require('./utils')
+const fs = require('fs')
 const path = require('path')
 const webpack = require('webpack')
 const config = require('../config')
@@ -30,6 +31,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization",
     },
     hot: true,
+    
     compress: true,
     host: HOST || config.dev.host,
     port: PORT || config.dev.port,
@@ -55,7 +57,9 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'index.html',
-      inject: true
+      inject: true,
+      serviceWorkerLoader: `<script>${fs.readFileSync(path.join(__dirname,
+        './service-worker-dev.js'), 'utf-8')}</script>`
     }),
     // copy custom static assets
     new CopyWebpackPlugin([

@@ -3,9 +3,8 @@
     <v-toolbar dark app clipped-left fixed>
       <!-- Logo and Sidebar toggle icon area -->
       <v-toolbar-title :style="$vuetify.breakpoint.smAndUp ? 'width: 260px; min-width: 250px' : 'min-width: 72px'" class="ml-0 pl-3 d-flex justify-content-between align-items-center">
-
-        <span class="brand"><img :src="logo"></span>
-        <v-btn flat icon color="" @click="sideBarToggle()">
+        <router-link to="/"><span class="brand"><img :src="logo"></span></router-link>
+        <v-btn flat icon color="white" @click="sideBarToggle()">
           <v-icon>sort</v-icon>
         </v-btn>
       </v-toolbar-title>
@@ -25,7 +24,9 @@
 
       <div>
         <v-select
-          class="pl-3"
+          primary
+          style="max-width: 150px;"
+          class="pl-3 hidden-xs-only"
           placeholder="Select search type"
           :items="selectItems"
           v-model="searchType"
@@ -36,7 +37,7 @@
       <!-- Header right side notification and progile menu -->
       <div class="d-flex align-center" style="margin-left: auto">
         <v-btn icon @click.stop="showNotification">
-          <v-icon>notifications</v-icon>
+          <v-icon color="white">notifications</v-icon>
         </v-btn>
         <app-avatar-menu></app-avatar-menu>
       </div>
@@ -110,9 +111,29 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.toolbar {
+.v-toolbar {
   background: linear-gradient(to right, #1ebea5 , #32e8a5);
   box-shadow: 0 6px 25px 0 rgba(38, 50, 56, 0.2);
 }
+.v-toolbar >>> .v-input__slot {
+  background: transparent !important;
+  border-radius: 0;
+  box-shadow: none !important;
+  margin-bottom: 0;
+}
+
+.v-toolbar >>> .v-btn--icon {
+  width: 36px;
+  height: 36px;
+  flex: 0 0 36px!important;
+}
+
+.v-toolbar >>> .v-toolbar__title {
+  padding-left: 0 !important;
+}
+/* .v-menu__content.menuable__content__active.theme--dark .v-select-list.v-card.theme--dark .v-list.theme--dark{
+ background: white !important;
+  color: black !important;
+} */
 
 </style>

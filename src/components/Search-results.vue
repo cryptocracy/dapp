@@ -34,14 +34,14 @@
                     <v-list-tile-action>
                       <v-tooltip bottom v-if="!addedContacts.hasOwnProperty(item.fullyQualifiedName)">
                         <v-btn slot="activator" @click.stop="updateContacts(item, 'addition')" outline fab small color="teal accent-4">
-                          <v-icon  large color="teal accent-4">person_add</v-icon>
+                          <v-icon  color="teal accent-4">person_add</v-icon>
                         </v-btn>
                         <span>Add to Contacts</span>
                       </v-tooltip>
 
                       <v-tooltip bottom v-else>
                         <v-btn slot="activator" @click.stop="updateContacts(item, 'deletion')" outline fab small color="teal accent-4">
-                          <v-icon  large color="teal accent-4">delete</v-icon>
+                          <v-icon  color="teal accent-4">delete</v-icon>
                         </v-btn>
                         <span>Remove from Contacts</span>
                       </v-tooltip>
