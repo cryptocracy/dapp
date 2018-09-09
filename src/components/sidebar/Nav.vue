@@ -89,7 +89,7 @@ a:focus {
 }
 a:hover {
   /* color: #2a3134 !important */
-  color: inherit
+  color: inherit !important
 }
 .v-list >>> .v-list__tile {
     height: 50px;
