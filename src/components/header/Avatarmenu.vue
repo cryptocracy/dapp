@@ -1,5 +1,5 @@
 <template lang="html">
-  <v-menu bottom left min-width=200>
+  <v-menu light bottom left min-width=200>
     <v-btn icon slot="activator" dark>
       <v-avatar size="32px">
         <img v-if="profileData.hasOwnProperty('profile')" :src="profileData.profile.image[0].contentUrl" alt="avatar">

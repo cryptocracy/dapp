@@ -31,7 +31,7 @@
         <img class="img-icon" src="https://raw.githubusercontent.com/cryptocracy/images/master/souq_gradient.png" alt="Souq" height="168" width="168">
         <h1><a href="https://cryptocracy.io" target="_blank">Souq</a></h1>
         <p>Decentralized Crypto Crowdfunding</p>
-        <v-btn class="btn-login" style="color : #33886c;" @click="signIn">Sign In With Blockstack</v-btn>
+        <v-btn class="btn-login pl-4 pr-4" style="color : #33886c;" @click="signIn">Sign In With Blockstack</v-btn>
       </div>
     </div>
     <v-footer class="pa-3" >
@@ -62,13 +62,13 @@ export default {
     align-items: center;
     background: linear-gradient(to right, #3abfa5, #53e7a6);
     justify-content: center;
-    height: 92vh;
+    height: 94.4vh;
   }
   .img-icon {
     // margin-left: 14%;
     margin-bottom: 4%;
   }
-  .application .theme--light.footer, .theme--light .footer {
+  .application .theme--light.footer, .theme--light .v-footer {
     background: linear-gradient(to right, #3abfa5, #53e7a6);
   }
   .application a {

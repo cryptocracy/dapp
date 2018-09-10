@@ -50,7 +50,7 @@ export default {
     tagCount: 0
   }),
   mounted () {
-    storageService.getFile({ fileName: 'my_tags.json' }).then((res) => { this.tagCount = Object.keys(res).length })
+    storageService.getFile({ fileName: 'my_tags.json' }).then((res) => { this.tagCount = res ? Object.keys(res).length : 0 })
   }
 }
 </script>
