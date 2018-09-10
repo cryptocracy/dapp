@@ -118,6 +118,7 @@ export default {
     }
   },
   mounted () {
+    console.log(this.$route.name)
     this.fetchTagFile()
   }
 }
@@ -130,6 +131,8 @@ export default {
         padding: 0 12px;
         .tag-sorting {
             display: flex;
+            align-items: center;
+            padding-top: 18px;
             .input-group {
                 flex-wrap: nowrap;
             }
@@ -137,6 +140,12 @@ export default {
                 display: flex;
                 align-items: center;
                 padding: 0 5px;
+                .v-radio {
+                    margin: 0;
+                }
+                .radio-label {
+                    font-size: 14px;
+                }
             }
         }
         .tag-filter {
@@ -149,6 +158,9 @@ export default {
                 padding: 0 5px;
                 .input-group {
                     flex-wrap: nowrap;
+                }
+                .checkbox-label {
+                    margin-top: -3px;
                 }
             }
         }
