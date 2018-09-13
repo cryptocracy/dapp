@@ -141,7 +141,6 @@ export default {
   methods: {
     getFavTagName () {
       const tagUrlArr = this.tagUrl.split('/')
-      // console.log(`${tagUrlArr.pop().split('.')[0]}_${tagUrlArr.pop()}`)
       return `${tagUrlArr.pop().split('.')[0]}_${tagUrlArr.pop()}`
     },
     copyUrl (e) {
@@ -171,14 +170,12 @@ export default {
     storageService.getFile({fileName: 'my_fav_tags.json'})
       .then(res => {
         if (res) {
-          console.log(this.getFavTagName())
           this.isFavorite = !!res[this.getFavTagName()]
         }
       })
     storageService.getFile({fileName: 'my_fav_tags.json'})
       .then(res => {
         if (res) {
-          console.log(this.getFavTagName())
           this.isFavorite = !!res[this.getFavTagName()]
         }
       })
