@@ -2,8 +2,29 @@
     <div class="container">
         <v-list two-line>
             <v-list-tile>
-                <v-divider/>
-                <router-link class="edit-link" :to="{ name: 'EditTag', params: { tagProp: this.tagObject } }">Edit</router-link>
+                <template v-if="isLoading">
+                    <v-progress-linear
+                        indeterminate
+                        color="grey lighten-1"
+                        class="mb-0"
+                    ></v-progress-linear>
+                </template>
+                <template v-else>
+                    <v-divider/>
+                    <a v-if="isFavorite" class="tag-action" @click="removeFromFavorite">
+                        <v-icon color="grey lighten-1">favorite_border</v-icon>
+                        Remove from Favorite
+                    </a>
+                    <a v-else class="tag-action" @click="addToFavorite">
+                        <v-icon color="grey lighten-1">favorite</v-icon>
+                        Add to Favorite
+                    </a>
+                    <v-divider class="divider-intermediate"/>
+                    <router-link class="tag-action" :to="{ name: 'EditTag', params: { tagProp: this.tagObject } }">
+                        <v-icon color="grey lighten-1">edit</v-icon>
+                        Edit
+                    </router-link>
+                </template>
             </v-list-tile>
             <v-list-tile>
                 <div class="json-address">
@@ -85,11 +106,14 @@
 
 <script>
 import MapWithMarker from '../../../components/maps/MapWithMarker'
+import storageService from '../../../services/blockstack-storage'
 
 export default {
   name: 'TagInfo',
   data: () => ({
-    copyButtonText: 'Copy'
+    copyButtonText: 'Copy',
+    isFavorite: false,
+    isLoading: false
   }),
   components: {
     MapWithMarker
@@ -115,19 +139,76 @@ export default {
     }
   },
   methods: {
+    getFavTagName () {
+      const tagUrlArr = this.tagUrl.split('/')
+      // console.log(`${tagUrlArr.pop().split('.')[0]}_${tagUrlArr.pop()}`)
+      return `${tagUrlArr.pop().split('.')[0]}_${tagUrlArr.pop()}`
+    },
     copyUrl (e) {
       this.$refs.urlInput.$refs.input.select()
       document.execCommand('copy')
       this.copyButtonText = 'Copied!'
       setTimeout(() => { this.copyButtonText = 'Copy' }, 2000)
+    },
+    addToFavorite () {
+      this.isLoading = true
+      storageService.updateFavoriteTagIndex(this.getFavTagName(), this.tagObject.title)
+        .then(() => {
+          this.isFavorite = true
+          this.isLoading = false
+        })
+    },
+    removeFromFavorite () {
+      this.isLoading = true
+      storageService.reduceFavoriteTagIndex(this.getFavTagName(), this.tagObject.title)
+        .then(() => {
+          this.isFavorite = false
+          this.isLoading = false
+        })
     }
+  },
+  mounted () {
+    storageService.getFile({fileName: 'my_fav_tags.json'})
+      .then(res => {
+        if (res) {
+          console.log(this.getFavTagName())
+          this.isFavorite = !!res[this.getFavTagName()]
+        }
+      })
+    storageService.getFile({fileName: 'my_fav_tags.json'})
+      .then(res => {
+        if (res) {
+          console.log(this.getFavTagName())
+          this.isFavorite = !!res[this.getFavTagName()]
+        }
+      })
   }
 }
 </script>
 
 <style scoped lang="scss">
-    .edit-link {
+    .divider-intermediate {
+        flex: 0 15px;
+    }
+    .tag-action {
+        cursor: pointer;
         padding: 10px;
+        display: flex;
+        align-items: center;
+        color: #1ebea5;
+        &:not([href]) {
+            color: #1ebea5;
+        }
+        .v-icon {
+            font-size: 18px;
+            padding-bottom: 2px;
+            padding-right: 5px;
+        }
+        &:hover {
+            .v-icon {
+                color: rgba(0,0,0,0.87) !important;
+            }
+        }
     }
     .tag-image {
         max-width: 100%;
