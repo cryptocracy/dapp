@@ -57,7 +57,8 @@ import Profile from '@/components/Profile'
 import favContacts from '@/components/contacts/FavouriteContacts'
 
 import TagForm from '@/pages/page-layouts/tags/TagForm'
-import ListTags from '@/pages/page-layouts/tags/ListTags'
+import MyTagList from '@/pages/page-layouts/tags/MyTagList'
+import FavoriteTagList from '@/pages/page-layouts/tags/FavoriteTagList'
 import TagInfo from '@/pages/page-layouts/tags/TagInfo'
 
 /**
@@ -127,7 +128,8 @@ const routes = [
   { path: '/page-layout/banner', name: 'BannerLayout', component: BannerLayout },
   { path: '/tags/add-tag', name: 'AddTag', props: true, component: TagForm },
   { path: '/tags/edit-tag', name: 'EditTag', props: true, component: TagForm },
-  { path: '/tags/owned', name: 'Owned', component: ListTags },
+  { path: '/tags/owned', name: 'Owned', component: MyTagList },
+  { path: '/tags/favorites', name: 'Favorites', component: FavoriteTagList },
   { path: '/tags/:tagName', name: 'TagInfo', props: true, component: TagInfo },
   { path: '/maps', name: 'Maps', component: Maps }
 ]

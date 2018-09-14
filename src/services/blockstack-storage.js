@@ -9,15 +9,23 @@ const storageService = {
     const { fileName, options } = dataObj
     return window.blockstack.getFile(fileName, options).then(res => JSON.parse(res))
   },
-  updateTagIndex: (key, value) => window.blockstack.getFile('my_tags.json')
+  updateIndex: (jsonName, data, slice = false) => window.blockstack.getFile(jsonName)
     .then((currentContent) => {
+      let [key, value] = data
       if (!currentContent) {
-        window.blockstack.putFile('my_tags.json', JSON.stringify({[key]: value}))
+        window.blockstack.putFile(jsonName, JSON.stringify({[key]: value}))
       } else {
         const parsedCurrentContent = JSON.parse(currentContent)
-        parsedCurrentContent[key] = value
-        window.blockstack.putFile('my_tags.json', JSON.stringify(parsedCurrentContent))
+        if (slice) {
+          delete parsedCurrentContent[key]
+        } else {
+          parsedCurrentContent[key] = value
+        }
+        window.blockstack.putFile(jsonName, JSON.stringify(parsedCurrentContent))
       }
-    })
+    }),
+  updateTagIndex: (key, value) => storageService.updateIndex('my_tags.json', [key, value]),
+  updateFavoriteTagIndex: (name, tagTitle) => storageService.updateIndex('my_fav_tags.json', [name, tagTitle]),
+  reduceFavoriteTagIndex: (name, tagTitle) => storageService.updateIndex('my_fav_tags.json', [name, tagTitle], true)
 }
 export default storageService
