@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <v-card class="container">
         <v-list two-line>
             <v-list-tile>
                 <template v-if="isLoading">
@@ -101,7 +101,7 @@
                 </v-list-tile-content>
             </v-list-tile>
         </v-list>
-    </div>
+    </v-card>
 </template>
 
 <script>

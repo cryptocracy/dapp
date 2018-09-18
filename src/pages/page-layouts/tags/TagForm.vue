@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <v-card class="container">
         <v-form ref="form" v-model="valid" lazy-validation>
             <image-uploader
                 accept="image/*"
@@ -90,7 +90,7 @@
                 clear
             </v-btn>
         </v-form>
-    </div>
+    </v-card>
 </template>
 
 <script>
