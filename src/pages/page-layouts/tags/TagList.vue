@@ -58,8 +58,8 @@
                                 <v-btn v-if="owned" icon :to="{ name: 'EditTag', params: { tagProp: tag } }">
                                     <v-icon color="grey lighten-1">edit</v-icon>
                                 </v-btn>
-                                <v-btn v-else icon @click="removeFavorite">
-                                    <v-icon color="grey lighten-1">favorite</v-icon>
+                                <v-btn v-else icon @click.stop.prevent="removeFavorite($event, tag)">
+                                    <v-icon color="grey lighten-1">favorite_border</v-icon>
                                 </v-btn>
                             </v-list-tile-action>
                         </v-list-tile>
@@ -71,13 +71,16 @@
 </template>
 
 <script>
+import storageService from '../../../services/blockstack-storage'
+
 export default {
   name: 'TagList',
   data: () => ({
     blockstack: window.blockstack,
     filterArchived: true,
     filterActive: true,
-    sortBy: 'name'
+    sortBy: 'name',
+    tags: []
   }),
   props: {
     tagsArray: {
@@ -86,8 +89,7 @@ export default {
       default: () => []
     },
     owned: {
-      type: Boolean,
-      default: false
+      type: Boolean
     }
   },
   computed: {
@@ -102,13 +104,20 @@ export default {
     },
     filteredTagsArray () {
       let sortFunc = (prev, next) => this.sortBy === 'name' ? prev.title.localeCompare(next.title) : prev.createdtime - next.createdtime
-      return this.tagsArray.filter(tag => (this.filterArchived && tag.archived) || (this.filterActive && !tag.archived)).slice(0).sort(sortFunc)
+      return this.tags.filter(tag => (this.filterArchived && tag.archived) || (this.filterActive && !tag.archived)).slice(0).sort(sortFunc)
     }
   },
   methods: {
-    removeFavorite (e) {
-      console.log(e)
+    getFavTagName (tag) {
+      return `tag_${tag.createdtime}_${JSON.parse(localStorage['blockstack-gaia-hub-config']).address}`
+    },
+    removeFavorite (e, tag) {
+      storageService.reduceFavoriteTagIndex(this.getFavTagName(tag), tag.title)
+      this.tags = this.tags.filter(item => item.createdtime !== tag.createdtime)
     }
+  },
+  mounted () {
+    this.tags = this.tagsArray
   }
 }
 </script>
