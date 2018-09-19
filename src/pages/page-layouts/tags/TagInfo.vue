@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <v-card class="container">
         <v-list two-line>
             <v-list-tile>
                 <template v-if="isLoading">
@@ -85,7 +85,7 @@
                     <v-list-tile-sub-title>Map</v-list-tile-sub-title>
                 </v-list-tile-content>
             </v-list-tile>
-            <map-with-marker
+            <open-map-with-marker
                 v-if="tagObject.coordinates"
                 :center="coordinates"/>
             <v-list-tile v-if="tagObject.symbol">
@@ -101,11 +101,12 @@
                 </v-list-tile-content>
             </v-list-tile>
         </v-list>
-    </div>
+    </v-card>
 </template>
 
 <script>
 import MapWithMarker from '../../../components/maps/MapWithMarker'
+import OpenMapWithMarker from '../../../components/maps/OpenMapWithMarker'
 import storageService from '../../../services/blockstack-storage'
 
 export default {
@@ -116,7 +117,7 @@ export default {
     isLoading: false
   }),
   components: {
-    MapWithMarker
+    OpenMapWithMarker
   },
   props: {
     tagObject: {
