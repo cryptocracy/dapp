@@ -30,7 +30,7 @@
       <div class="text-center">
         <img class="img-icon" src="https://raw.githubusercontent.com/cryptocracy/images/master/souq_gradient.png" alt="Souq" height="168" width="168">
         <h1><a href="https://cryptocracy.io" target="_blank">Souq</a></h1>
-        <h2>Decentralized Crypto Crowdfunding</h2>
+        <h4>Decentralized Crypto Crowdfunding</h4>
         <v-btn class="btn-login pl-4 pr-4" style="color : #33886c;" @click="signIn">Sign In With Blockstack</v-btn>
         <p></p>
         <h6>(Warning: This is dapp is still in beta and thus subject to breaking changes)</h6>
