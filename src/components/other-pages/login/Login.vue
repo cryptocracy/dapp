@@ -33,7 +33,7 @@
         <h4>Decentralized Crypto Crowdfunding</h4>
         <v-btn class="btn-login pl-4 pr-4" style="color : #33886c;" @click="signIn">Sign In With Blockstack</v-btn>
         <p></p>
-        <h6>(Warning: This is dapp is still in beta and thus subject to breaking changes)</h6>
+        <h6>(Warning: This dapp is still in beta and thus subject to breaking changes)</h6>
       </div>
     </div>
     <v-footer class="pa-3" >
