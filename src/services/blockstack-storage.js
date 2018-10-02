@@ -25,6 +25,7 @@ const storageService = {
       }
     }),
   updateTagIndex: (key, value) => storageService.updateIndex('my_tags.json', [key, value]),
+  updateWalletIndex: (key, value) => storageService.updateIndex('my_wallet.json', [key, value]),
   updateFavoriteTagIndex: (name, tagTitle) => storageService.updateIndex('my_fav_tags.json', [name, tagTitle]),
   reduceFavoriteTagIndex: (name, tagTitle) => storageService.updateIndex('my_fav_tags.json', [name, tagTitle], true)
 }

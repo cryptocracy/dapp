@@ -61,6 +61,10 @@ import MyTagList from '@/pages/page-layouts/tags/MyTagList'
 import FavoriteTagList from '@/pages/page-layouts/tags/FavoriteTagList'
 import TagInfo from '@/pages/page-layouts/tags/TagInfo'
 
+import WalletSummary from '@/pages/page-layouts/wallet/Summary'
+import WalletReceive from '@/pages/page-layouts/wallet/Receive'
+import WalletHistory from '@/pages/page-layouts/wallet/History'
+
 /**
 * Routes Data
 *
@@ -131,7 +135,11 @@ const routes = [
   { path: '/tags/owned', name: 'Owned', component: MyTagList },
   { path: '/tags/favorites', name: 'Favorites', component: FavoriteTagList },
   { path: '/tags/:tagName', name: 'TagInfo', props: true, component: TagInfo },
-  { path: '/maps', name: 'Maps', component: Maps }
+  { path: '/maps', name: 'Maps', component: Maps },
+
+  { path: '/wallet/summary', name: 'Summary', component: WalletSummary },
+  { path: '/wallet/receive', name: 'Receive', component: WalletReceive },
+  { path: '/wallet/history', name: 'History', component: WalletHistory }
 ]
 
 export default routes
