@@ -24,7 +24,9 @@
                                 <v-list-tile-sub-title v-html="item.address"></v-list-tile-sub-title>
                             </v-list-tile-content>
                             <v-list-tile-action>
-                                <img class="qr-image" :scr="item.qrSrc">
+                                <!--<img src="https://www.kortado-bhp.pl/galeria/plaszcz-przeciwdeszczowy-z-poliestru.1.1.jpg" class="qr-image">-->
+                                <img :src="item.qrSrc" class="qr-image">
+
                             </v-list-tile-action>
                         </v-list-tile>
                     </template>
