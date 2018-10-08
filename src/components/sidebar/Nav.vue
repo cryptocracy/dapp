@@ -97,6 +97,10 @@ a:hover {
 .no-child .v-list__group__header__append-icon {
   display: none;
 }
+.v-list__group__header__append-icon .v-icon{
+  font-size: 16px;
+  margin-right: 5px;
+}
 .v-list >>> .primary--text.list__tile--active.list__tile.list__tile--link {
   color: rgba(0,0,0,.87) !important;
 }

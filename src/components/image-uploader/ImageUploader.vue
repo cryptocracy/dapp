@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import imageCompressor from '../../services/imageCompressor'
+import imageCompressor from '../../services/image-compressor'
 
 export default {
   props: {
