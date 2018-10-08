@@ -8,6 +8,7 @@ module.exports = {
   dev: {
 
     // Paths
+    disableHostCheck: true,
     assetsSubDirectory: '',
     assetsPublicPath: '/',
     proxyTable: {},
