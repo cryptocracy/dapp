@@ -55,8 +55,11 @@
                             </v-list-tile-content>
 
                             <v-list-tile-action>
-                                <v-btn icon :to="{ name: 'EditTag', params: { tagProp: tag } }">
+                                <v-btn v-if="owned" icon :to="{ name: 'EditTag', params: { tagProp: tag } }">
                                     <v-icon color="grey lighten-1">edit</v-icon>
+                                </v-btn>
+                                <v-btn v-else icon @click.stop.prevent="removeFavorite($event, tag)">
+                                    <v-icon color="grey lighten-1">favorite_border</v-icon>
                                 </v-btn>
                             </v-list-tile-action>
                         </v-list-tile>
@@ -68,57 +71,53 @@
 </template>
 
 <script>
-const STORAGE_FILE = 'my_tags.json'
+import storageService from '../../../services/blockstack-storage'
 
 export default {
-  name: 'ListTags',
+  name: 'TagList',
   data: () => ({
     blockstack: window.blockstack,
-    tags: [],
-    tagsArray: [],
     filterArchived: true,
     filterActive: true,
-    sortBy: 'name'
+    sortBy: 'name',
+    tags: []
   }),
+  props: {
+    tagsArray: {
+      type: Array,
+      required: true,
+      default: () => []
+    },
+    owned: {
+      type: Boolean
+    }
+  },
   computed: {
     filterAll: {
       get () {
         return this.filterArchived && this.filterActive
       },
       set () {
-        // if (this.filterAll) {
         this.filterArchived = true
         this.filterActive = true
-        // }
       }
     },
     filteredTagsArray () {
       let sortFunc = (prev, next) => this.sortBy === 'name' ? prev.title.localeCompare(next.title) : prev.createdtime - next.createdtime
-      // this.tagsArray.sort(sortFunc)
-      return this.tagsArray.filter(tag => (this.filterArchived && tag.archived) || (this.filterActive && !tag.archived)).slice(0).sort(sortFunc)
+      return this.tags.filter(tag => (this.filterArchived && tag.archived) || (this.filterActive && !tag.archived)).slice(0).sort(sortFunc)
     }
   },
   methods: {
-    fetchTagFile () {
-      // fetching project list
-      this.blockstack.getFile(STORAGE_FILE)
-        .then((tagsText) => {
-          this.tags = JSON.parse(tagsText || '[]')
-          // looping over project list to fetch unique json files for every project
-          for (let tag in this.tags) {
-            this.blockstack.getFile(`${tag}.json`).then((tagJson) => {
-              let tagData = typeof tagJson === 'string' ? JSON.parse(tagJson) : {}
-              // this[data.id] = tagData
-              // this[data.id].tasks = this[data.id].tasks || []
-              // creating task array for listing tasks under their respective project
-              this.tagsArray.push(tagData)
-            })
-          }
-        })
+    getFavTagName (tag) {
+      return `tag_${tag.createdtime}_${JSON.parse(localStorage['blockstack-gaia-hub-config']).address}`
+    },
+    removeFavorite (e, tag) {
+      storageService.reduceFavoriteTagIndex(this.getFavTagName(tag), tag.title)
+      this.tags = this.tags.filter(item => item.createdtime !== tag.createdtime)
     }
   },
   mounted () {
-    this.fetchTagFile()
+    this.tags = this.tagsArray
   }
 }
 </script>
@@ -130,6 +129,8 @@ export default {
         padding: 0 12px;
         .tag-sorting {
             display: flex;
+            align-items: center;
+            padding-top: 18px;
             .input-group {
                 flex-wrap: nowrap;
             }
@@ -137,18 +138,26 @@ export default {
                 display: flex;
                 align-items: center;
                 padding: 0 5px;
+                .v-radio {
+                    margin: 0;
+                }
+                .radio-label {
+                    font-size: 14px;
+                }
             }
         }
         .tag-filter {
             display: flex;
             padding-top: 18px;
-
             .tag-check-group {
                 display: flex;
                 align-items: center;
                 padding: 0 5px;
                 .input-group {
                     flex-wrap: nowrap;
+                }
+                .checkbox-label {
+                    margin-top: -3px;
                 }
             }
         }

@@ -24,9 +24,9 @@ const items = [
     title: 'Tags',
     items: [
       // { title: 'Add New', linkTo: { name: 'AddTag', params: { tagProp: null } } },
-      { title: 'Find', linkTo: '/page-layout/banner' },
-      { title: 'Favorites', linkTo: '/page-layout/banner' },
-      { title: 'Owned', linkTo: '/tags/owned' }
+      // { title: 'Find', linkTo: '/page-layout/banner' },
+      { title: 'Owned', linkTo: '/tags/owned' },
+      { title: 'Favorites', linkTo: '/tags/favorites' }
     ]
   },
   {
@@ -62,10 +62,7 @@ const items = [
     color: 'purple lighten-3',
     action: 'contacts',
     title: 'Contacts',
-    items: [
-      { title: 'List', linkTo: '/page-layout/banner' },
-      { title: 'Favorites', linkTo: '/favourite-contacts' }
-    ]
+    linkTo: '/favourite-contacts'
   },
   {
     color: 'grey lighten-1',
@@ -73,7 +70,7 @@ const items = [
     title: 'Settings',
     items: [
       { title: 'Theme', linkTo: '/page-layout/banner' },
-      { title: 'BNS', linkTo: '/page-layout/banner' }
+      { title: 'More', linkTo: '/page-layout/banner' }
     ]
   }
   //  {

@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="re-page-banner" :style="style">
     <div class="overlay"></div>
-    <h1>Page with banner</h1>
+    <h1>Still Under Construction</h1>
   </div>
 
 </template>

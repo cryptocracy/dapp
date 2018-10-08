@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <v-card class="container">
         <v-form ref="form" v-model="valid" lazy-validation>
             <image-uploader
                 accept="image/*"
@@ -90,7 +90,7 @@
                 clear
             </v-btn>
         </v-form>
-    </div>
+    </v-card>
 </template>
 
 <script>
@@ -151,6 +151,7 @@ export default {
       if (this.$refs.form.validate()) {
         this.isLoading = true
         this.tag.createdtime = this.tagProp ? this.tagProp.createdtime : timestamp
+        this.tag.owner = JSON.parse(localStorage['blockstack-gaia-hub-config']).address
         if (this.tag.image.name) {
           this.blockstack.putFile(`image_${timestamp}.${this.tag.image.name.split('.').pop()}`, this.tag.image)
             .then((imageUrl) => {

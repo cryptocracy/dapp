@@ -4,6 +4,8 @@ import Vue from 'vue'
 import Vuetify from 'vuetify'
 // Google map vue plugin
 import * as VueGoogleMaps from 'vue2-google-maps'
+// OpenStreetMaps
+import 'leaflet/dist/leaflet.css'
 
 import App from './App'
 import router from './router'
