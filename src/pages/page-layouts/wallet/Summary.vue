@@ -1,57 +1,31 @@
 <template>
-    <v-layout row>
-        <v-flex xs12 sm8 offset-sm2>
-            <v-card>
-                <v-list three-line>
-                    <v-list-tile
-                        avatar
-                    >
-                        <v-list-tile-avatar>
-                            <v-icon class="coin-icon">fa-{{ icon }}</v-icon>
-                        </v-list-tile-avatar>
-
-                        <v-list-tile-content>
-                            <v-list-tile-sub-title class="coin-sub-title">coin:&nbsp;&nbsp;</v-list-tile-sub-title>
-                            <v-list-tile-sub-title class="coin-sub-title">address:&nbsp;&nbsp;</v-list-tile-sub-title>
-                            <v-list-tile-sub-title class="coin-sub-title">balance:&nbsp;&nbsp;</v-list-tile-sub-title>
-                        </v-list-tile-content>
-                        <v-list-tile-content>
-                            <v-list-tile-title v-html="title"></v-list-tile-title>
-                            <v-list-tile-title v-html="address"></v-list-tile-title>
-                            <v-list-tile-title v-html="amount"></v-list-tile-title>
-                        </v-list-tile-content>
-                    </v-list-tile>
-                </v-list>
-            </v-card>
-        </v-flex>
-    </v-layout>
+    <wallet-template>
+        <template slot="balance-title">
+            <v-list-tile-sub-title class="coin-sub-title">balance:&nbsp;&nbsp;</v-list-tile-sub-title>
+        </template>
+        <template slot="balance">
+            <v-list-tile-title v-html="balance"/>
+        </template>
+    </wallet-template>
 </template>
 
 <script>
-// import storageService from '../../../services/blockstack-storage'
-// import CoinKey from 'coinkey'
+import WalletTemplate from './WalletTemplate'
 import axios from 'axios'
-// const buffer = new Buffer(JSON.parse(localStorage['blockstack-gaia-hub-config']).address, 'hex')
 const btcAddress = JSON.parse(localStorage['blockstack-gaia-hub-config']).address
-const username = JSON.parse(localStorage['blockstack']).username
 
 export default {
   name: 'Summary',
+  components: {
+    WalletTemplate
+  },
   data: () => ({
-    title: '',
-    address: btcAddress,
-    amount: '',
-    icon: ''
+    balance: ''
   }),
   mounted () {
     axios.get('https://blockchain.info/q/addressbalance/' + btcAddress)
       .then(res => {
-        this.amount = res.data + ''
-      })
-    axios.get('https://core.blockstack.org/v1/names/' + username)
-      .then(res => {
-        this.icon = res.data.blockchain
-        this.title = res.data.blockchain
+        this.balance = res.data + ''
       })
   }
 }

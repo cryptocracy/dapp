@@ -2,52 +2,57 @@
     <v-layout row>
         <v-flex xs12 sm8 offset-sm2>
             <v-card>
-                <v-list three-line>
+                <v-layout class="wallet-card">
                     <v-list-tile avatar>
-                        <v-list-tile-avatar>
+                        <v-avatar
+                        size=60
+                        >
                             <v-icon class="coin-icon">fa-{{ icon }}</v-icon>
-                        </v-list-tile-avatar>
-
-                        <v-list-tile-content>
-                            <v-list-tile-sub-title class="coin-sub-title">coin:&nbsp;&nbsp;</v-list-tile-sub-title>
-                            <v-list-tile-sub-title class="coin-sub-title">address:&nbsp;&nbsp;</v-list-tile-sub-title>
-                            <!--<v-list-tile-sub-title class="coin-sub-title">balance:&nbsp;&nbsp;</v-list-tile-sub-title>-->
+                        </v-avatar>
+                        <div class="wallet-block">
+                            <v-list-tile-sub-title class="coin-sub-title">coin:</v-list-tile-sub-title>
+                            <v-list-tile-sub-title class="coin-sub-title">address:</v-list-tile-sub-title>
                             <slot name="balance-title"></slot>
-                        </v-list-tile-content>
-                        <v-list-tile-content>
-                            <v-list-tile-title v-html="title"></v-list-tile-title>
-                            <v-list-tile-title v-html="address"></v-list-tile-title>
+                        </div>
+                        <div class="wallet-block">
+                            <v-list-tile-title v-html="title"/>
+                            <v-list-tile-title v-html="address" @click="copyAddress" id="coinAddress"></v-list-tile-title>
                             <!--<v-list-tile-title v-html="amount"></v-list-tile-title>-->
                             <slot name="balance"></slot>
-                        </v-list-tile-content>
+                        </div>
                     </v-list-tile>
-                    <v-list-tile>
-                        <slot name="qr"></slot>
-                    </v-list-tile>
-                </v-list>
+                    <slot name="qr"></slot>
+                </v-layout>
             </v-card>
         </v-flex>
     </v-layout>
 </template>
 
 <script>
-// import storageService from '../../../services/blockstack-storage'
-// import CoinKey from 'coinkey'
 import axios from 'axios'
-// const buffer = new Buffer(JSON.parse(localStorage['blockstack-gaia-hub-config']).address, 'hex')
-const btcAddress = JSON.parse(localStorage['blockstack-gaia-hub-config']).address
+const coinAddress = JSON.parse(localStorage['blockstack-gaia-hub-config']).address
 const username = JSON.parse(localStorage['blockstack']).username
 
 export default {
   name: 'Summary',
   data: () => ({
     title: '',
-    address: btcAddress,
+    address: coinAddress,
     amount: '',
     icon: ''
   }),
+  methods: {
+    copyAddress () {
+      const tempInput = document.createElement('input')
+      document.body.appendChild(tempInput)
+      tempInput.setAttribute('value', this.address)
+      tempInput.select()
+      document.execCommand('copy')
+      document.body.removeChild(tempInput)
+    }
+  },
   mounted () {
-    axios.get('https://blockchain.info/q/addressbalance/' + btcAddress)
+    axios.get('https://blockchain.info/q/addressbalance/' + coinAddress)
       .then(res => {
         this.amount = res.data + ''
       })
@@ -61,6 +66,18 @@ export default {
 </script>
 
 <style scoped>
+    .wallet-block {
+        margin-left: 5px;
+    }
+    .wallet-card {
+        padding: 15px 0;
+        flex-wrap: wrap;
+        flex-direction: column;
+
+        .coin-sub-title, .v-list__tile__sub-title, .v-list__tile__title {
+            height: 24px;
+        }
+    }
     .coin-sub-title {
         height: 24px;
         display: flex;
@@ -74,5 +91,8 @@ export default {
         .coin-sub-title {
             display: none;
         }
+    }
+    #coinAddress {
+        cursor: pointer;
     }
 </style>
