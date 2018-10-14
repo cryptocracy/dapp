@@ -64,6 +64,7 @@ import TagInfo from '@/pages/page-layouts/tags/TagInfo'
 import WalletSummary from '@/pages/page-layouts/wallet/Summary'
 import WalletReceive from '@/pages/page-layouts/wallet/Receive'
 import WalletHistory from '@/pages/page-layouts/wallet/History'
+import WalletSend from '@/pages/page-layouts/wallet/Send'
 
 /**
 * Routes Data
@@ -139,7 +140,8 @@ const routes = [
 
   { path: '/wallet/summary', name: 'Summary', component: WalletSummary },
   { path: '/wallet/receive', name: 'Receive', component: WalletReceive },
-  { path: '/wallet/history', name: 'History', component: WalletHistory }
+  { path: '/wallet/history', name: 'History', component: WalletHistory },
+  { path: '/wallet/send', name: 'Send', component: WalletSend }
 ]
 
 export default routes

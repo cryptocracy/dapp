@@ -53,7 +53,7 @@ const items = [
     title: 'Wallet',
     items: [
       { title: 'Summary', linkTo: '/wallet/summary' },
-      { title: 'Send', linkTo: '/page-layout/banner' },
+      { title: 'Send', linkTo: '/wallet/send' },
       { title: 'Receive', linkTo: '/wallet/receive' },
       { title: 'History', linkTo: '/wallet/history' }
     ]

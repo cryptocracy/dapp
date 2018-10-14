@@ -1,5 +1,5 @@
 // Font Awesome v5 icons
-import '@fortawesome/fontawesome-free/css/all.css'
+import 'font-awesome/css/font-awesome.css'
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
