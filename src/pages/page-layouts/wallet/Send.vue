@@ -23,7 +23,7 @@
                         :rules="amountRule"
                         suffix="BTC"
                     ></v-text-field>
-                    <div class="fee-title">Recommended fees (in Satoshis)</div>
+                    <div class="fee-title" v-if="fastestFee || halfHourFee || hourFee">Recommended fees (in Satoshis)</div>
                     <div class="fee-hints">
                         <div class="fee-hint" v-if="fastestFee">Fastest fee:&nbsp;
                             <span class="fee-amount" @click="setFee(fastestFee)">{{ fastestFee }}</span>
@@ -35,6 +35,20 @@
                             <span class="fee-amount" @click="setFee(hourFee)">{{ hourFee }}</span>
                         </div>
                     </div>
+                    <div class="form-buttons">
+                        <v-btn
+                        :disabled="!valid || isLoading"
+                        @click="submit"
+                    >
+                        send
+                    </v-btn>
+                        <v-btn
+                            @click="clear"
+                            :disabled="isLoading"
+                        >
+                            clear
+                        </v-btn>
+                    </div>
                 </v-form>
             </v-card>
         </v-flex>
@@ -45,13 +59,17 @@
 const bitcoin = require('bitcoinjs-lib')
 const CoinKey = require('coinkey')
 const axios = require('axios')
+const TestNet = bitcoin.networks.testnet
+let privKey = 'cTEAh2DsC7KE4mzY5YFTYommzr7czbdiBfLPsXZrF6o3zSQLLw9Q'
+const pubKey = 'mqVKYrNJcMkdK2QHFNEd1P6Qfc1Sqs3hu1'
+let apiUrl = 'https://testnet.blockexplorer.com/api/addr/'
 
 export default {
   name: 'Send',
   data: () => ({
-    addressee: '',
-    amountPay: '',
-    amountFee: '',
+    addressee: null,
+    amountPay: null,
+    amountFee: null,
     isLoading: false,
     fastestFee: null,
     halfHourFee: null,
@@ -69,6 +87,14 @@ export default {
   methods: {
     setFee (amount) {
       this.amountFee = (amount / 100000000).toFixed(8)
+    },
+    clear () {
+      this.addressee = null
+      this.amountPay = null
+      this.amountFee = null
+    },
+    submit () {
+      let tx = new bitcoin.TransactionBuilder(TestNet)
     }
   },
   mounted () {
@@ -85,28 +111,45 @@ export default {
     // console.log(JSON.parse(localStorage['blockstack']).appPrivateKey)
     // console.log(ck)
     //     console.log(cl.publicAddress)
-    const buffer = Buffer.from(JSON.parse(localStorage['blockstack']).appPrivateKey, 'hex')
-    const ck = new CoinKey(buffer)
-    console.log(ck.publicAddress)
-    console.log(ck.privateKey.toString('hex'))
-    console.log(ck.privateWif)
-    const TestNet = bitcoin.networks.testnet
+    // const buffer = Buffer.from(JSON.parse(localStorage['blockstack']).appPrivateKey, 'hex')
+    // const buffer = Buffer.from(privKey, 'hex')
+    // const ck = new CoinKey(buffer)
+    // console.log(ck.publicAddress)
+    // console.log(ck.privateKey.toString('hex'))
+    // console.log(ck.privateWif)
     // const keyPair = new bitcoin.ECPair.fromWIF(ck.privateWif, bitcoin.networks.bitcoin)
-    let privKey = 'cTEAh2DsC7KE4mzY5YFTYommzr7czbdiBfLPsXZrF6o3zSQLLw9Q'
-    let ourWallet = new bitcoin.ECPair.fromWIF(privKey, TestNet)
+    // let keyPair = new bitcoin.ECPair.fromWIF(privKey, TestNet)
+    // let keyPair = bitcoin.ECPair.makeRandom({ network: TestNet })
+    var key = bitcoin.ECKey.fromWIF("L1Kzcyy88LyckShYdvoLFg1FYpB5ce1JmTYtieHrhkN65GhVoq73");
+    console.log(key.pub.getAddress().toString())
     // console.log(keyPair)
-    console.log(ourWallet)
+    // console.log(bitcoin.payments.p2pkh({ pubkey: keyPair.publicKey }))
+    // console.log(keyPair.getAddress())
     // const key = bitcoin.ECPair.fromWIF(JSON.parse(localStorage['blockstack']).appPrivateKey)
     //     const key = bitcoin.ECPair.fromWIF('cTEAh2DsC7KE4mzY5YFTYommzr7czbdiBfLPsXZrF6o3zSQLLw9Q')
     // const key = bitcoin.ECPair.fromWIF('cTEAh2DsC7KE4mzY5YFTYommzr7czbdiBfLPsXZrF6o3zSQLLw9Q')
     // console.log(key)
+    // console.log(ourWallet.toWIF())
+    axios.get(apiUrl + keyPair.publicKey.toString('hex') + '/utxo')
+      .then((res) => {
+        console.log('------')
+        console.log(res)
+        console.log('------')
+      })
   }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
     .wallet-card {
         padding: 15px 20px;
+
+        .form-buttons {
+            margin-left: -7px;
+        }
+    }
+    .wallet-title {
+        font-size: 24px;
     }
     .fee-hints {
         display: flex;
