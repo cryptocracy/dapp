@@ -5,7 +5,7 @@
           <app-icon-box
             backgroundColor="#1ebea5"
             icon="favorite_border"
-            title="2"
+            :title="projectCount"
             subtitle="Projects Owned"
             to="/"
           >
@@ -16,7 +16,7 @@
           <app-icon-box
             backgroundColor="#29d4a5"
             icon="list"
-            title="2"
+            :title="taskCount"
             subtitle="Tasks Owned"
             to="/"
           >
@@ -47,7 +47,9 @@ export default {
     storageService
   },
   data: () => ({
-    tagCount: 0
+    tagCount: 0,
+    taskCount: 0,
+    projectCount: 0
   }),
   mounted () {
     storageService.getFile({ fileName: 'my_tags.json' }).then((res) => { this.tagCount = res ? Object.keys(res).length : 0 })
