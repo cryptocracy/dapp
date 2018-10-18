@@ -15,13 +15,13 @@
                         v-model="amountPay"
                         label="Amount to pay"
                         :rules="amountRule"
-                        suffix="BTC"
+                        suffix="BTC (in Satoshi)"
                     ></v-text-field>
                     <v-text-field
                         v-model="amountFee"
                         label="Transaction fee"
                         :rules="amountRule"
-                        suffix="BTC"
+                        suffix="BTC (in Satoshi)"
                     ></v-text-field>
                     <div class="fee-title" v-if="fastestFee || halfHourFee || hourFee">Recommended fees (in Satoshis)</div>
                     <div class="fee-hints">
@@ -61,8 +61,11 @@ const CoinKey = require('coinkey')
 const axios = require('axios')
 const TestNet = bitcoin.networks.testnet
 let privKey = 'cTEAh2DsC7KE4mzY5YFTYommzr7czbdiBfLPsXZrF6o3zSQLLw9Q'
-const pubKey = 'mqVKYrNJcMkdK2QHFNEd1P6Qfc1Sqs3hu1'
+const addressPublic = 'mqVKYrNJcMkdK2QHFNEd1P6Qfc1Sqs3hu1'
+const addressPublic2 = 'minnXa8Qarg5WbxPQg3vjLZdpbZGHavCzC'
 let apiUrl = 'https://testnet.blockexplorer.com/api/addr/'
+let amountOwn = 0
+let txItem
 
 export default {
   name: 'Send',
@@ -86,7 +89,7 @@ export default {
   }),
   methods: {
     setFee (amount) {
-      this.amountFee = (amount / 100000000).toFixed(8)
+      this.amountFee = amount
     },
     clear () {
       this.addressee = null
@@ -94,7 +97,21 @@ export default {
       this.amountFee = null
     },
     submit () {
+      this.isLoading = true
       let tx = new bitcoin.TransactionBuilder(TestNet)
+      tx.addInput(txItem.txid, 0)
+      tx.addOutput(this.addressee, +this.amountPay)
+      tx.addOutput(addressPublic, +txItem.satoshis - this.amountPay - this.amountFee)
+      let keyPair = new bitcoin.ECPair.fromWIF(privKey, TestNet)
+      tx.sign(0, keyPair)
+      let tx_hex = tx.build().toHex()
+      console.log('our beautiful transaction: ', tx_hex)
+      axios.post('testnet.blockexplorer.com/api/tx/send', tx_hex)
+        .then((res) => {
+          console.log(res)
+          this.isLoading = false
+          this.clear()
+        })
     }
   },
   mounted () {
@@ -118,22 +135,32 @@ export default {
     // console.log(ck.privateKey.toString('hex'))
     // console.log(ck.privateWif)
     // const keyPair = new bitcoin.ECPair.fromWIF(ck.privateWif, bitcoin.networks.bitcoin)
-    // let keyPair = new bitcoin.ECPair.fromWIF(privKey, TestNet)
+    let keyPair = new bitcoin.ECPair.fromWIF(privKey, TestNet)
     // let keyPair = bitcoin.ECPair.makeRandom({ network: TestNet })
-    var key = bitcoin.ECKey.fromWIF("L1Kzcyy88LyckShYdvoLFg1FYpB5ce1JmTYtieHrhkN65GhVoq73");
-    console.log(key.pub.getAddress().toString())
+    // console.log(keyPair.getAddress())
+    let publicKey = keyPair.publicKey.toString('hex');
+    let { address } = bitcoin.payments.p2pkh({ pubkey: keyPair.publicKey })
+    let privateKey = keyPair.toWIF()
+    console.log("Public: " + publicKey + " \nPrivate: " + privateKey + " \Address: " + address)
+    // var key = bitcoin.ECKey.fromWIF("L1Kzcyy88LyckShYdvoLFg1FYpB5ce1JmTYtieHrhkN65GhVoq73");
+    // console.log(key.pub.getAddress().toString())
     // console.log(keyPair)
     // console.log(bitcoin.payments.p2pkh({ pubkey: keyPair.publicKey }))
     // console.log(keyPair.getAddress())
     // const key = bitcoin.ECPair.fromWIF(JSON.parse(localStorage['blockstack']).appPrivateKey)
-    //     const key = bitcoin.ECPair.fromWIF('cTEAh2DsC7KE4mzY5YFTYommzr7czbdiBfLPsXZrF6o3zSQLLw9Q')
+    // const key = bitcoin.ECPair.fromWIF('cTEAh2DsC7KE4mzY5YFTYommzr7czbdiBfLPsXZrF6o3zSQLLw9Q')
     // const key = bitcoin.ECPair.fromWIF('cTEAh2DsC7KE4mzY5YFTYommzr7czbdiBfLPsXZrF6o3zSQLLw9Q')
     // console.log(key)
     // console.log(ourWallet.toWIF())
-    axios.get(apiUrl + keyPair.publicKey.toString('hex') + '/utxo')
+    axios.get(apiUrl + addressPublic + '/utxo')
       .then((res) => {
         console.log('------')
         console.log(res)
+        let txs = res.data.sort((prev, next) => next.amount - prev.amount)
+        amountOwn = txs[0].amount
+        console.log(txs)
+        txItem = txs[0]
+        console.log(txItem.txid)
         console.log('------')
       })
   }
