@@ -106,7 +106,7 @@ export default {
       tx.sign(0, keyPair)
       let tx_hex = tx.build().toHex()
       console.log('our beautiful transaction: ', tx_hex)
-      axios.post('testnet.blockexplorer.com/api/tx/send', tx_hex)
+      axios.post('https://testnet.blockexplorer.com/api/tx/send', {rawtx: tx_hex})
         .then((res) => {
           console.log(res)
           this.isLoading = false
