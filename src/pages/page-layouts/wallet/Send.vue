@@ -61,9 +61,11 @@ const CoinKey = require('coinkey')
 const axios = require('axios')
 const TestNet = bitcoin.networks.testnet
 let privKey = 'cTEAh2DsC7KE4mzY5YFTYommzr7czbdiBfLPsXZrF6o3zSQLLw9Q'
-const addressPublic = 'mqVKYrNJcMkdK2QHFNEd1P6Qfc1Sqs3hu1'
+// const addressPublic = 'mqVKYrNJcMkdK2QHFNEd1P6Qfc1Sqs3hu1'
+const addressPublic = JSON.parse(localStorage['blockstack-gaia-hub-config']).address
 const addressPublic2 = 'minnXa8Qarg5WbxPQg3vjLZdpbZGHavCzC'
-let apiUrl = 'https://testnet.blockexplorer.com/api/addr/'
+// let apiUrl = 'https://testnet.blockexplorer.com/api/addr/'
+const apiUrl = 'https://cors-anywhere.herokuapp.com/https://blockchain.info/rawaddr/'
 let amountOwn = 0
 let txItem
 
@@ -98,15 +100,17 @@ export default {
     },
     submit () {
       this.isLoading = true
-      let tx = new bitcoin.TransactionBuilder(TestNet)
-      tx.addInput(txItem.txid, 0)
+      // let tx = new bitcoin.TransactionBuilder(TestNet)
+      let tx = new bitcoin.TransactionBuilder(bitcoin)
+      tx.addInput(txItem.hash, 0)
       tx.addOutput(this.addressee, +this.amountPay)
       tx.addOutput(addressPublic, +txItem.satoshis - this.amountPay - this.amountFee)
-      let keyPair = new bitcoin.ECPair.fromWIF(privKey, TestNet)
+      // let keyPair = new bitcoin.ECPair.fromWIF(privKey, TestNet)
+      let keyPair = new bitcoin.ECPair.fromWIF(JSON.parse(localStorage['blockstack']).appPrivateKey, bitcoin)
       tx.sign(0, keyPair)
       let tx_hex = tx.build().toHex()
       console.log('our beautiful transaction: ', tx_hex)
-      axios.post('https://testnet.blockexplorer.com/api/tx/send', {rawtx: tx_hex})
+      axios.post('https://blockchain.info/api/tx/send', {rawtx: tx_hex})
         .then((res) => {
           console.log(res)
           this.isLoading = false
@@ -117,7 +121,6 @@ export default {
   mounted () {
     axios.get('https://bitcoinfees.earn.com/api/v1/fees/recommended')
       .then((res) => {
-        console.log(res.data)
         this.fastestFee = res.data.fastestFee
         this.halfHourFee = res.data.halfHourFee
         this.hourFee = res.data.hourFee
@@ -128,20 +131,20 @@ export default {
     // console.log(JSON.parse(localStorage['blockstack']).appPrivateKey)
     // console.log(ck)
     //     console.log(cl.publicAddress)
-    // const buffer = Buffer.from(JSON.parse(localStorage['blockstack']).appPrivateKey, 'hex')
+    const buffer = Buffer.from(JSON.parse(localStorage['blockstack']).appPrivateKey, 'hex')
     // const buffer = Buffer.from(privKey, 'hex')
-    // const ck = new CoinKey(buffer)
-    // console.log(ck.publicAddress)
-    // console.log(ck.privateKey.toString('hex'))
-    // console.log(ck.privateWif)
-    // const keyPair = new bitcoin.ECPair.fromWIF(ck.privateWif, bitcoin.networks.bitcoin)
-    let keyPair = new bitcoin.ECPair.fromWIF(privKey, TestNet)
+    const ck = new CoinKey(buffer)
+    console.log('public ' + ck.publicAddress)
+    console.log('private ' + ck.privateKey.toString('hex'))
+    console.log('private wif ' + ck.privateWif)
+    const keyPair = new bitcoin.ECPair.fromWIF(ck.privateWif, bitcoin.networks.bitcoin)
+    // let keyPair = new bitcoin.ECPair.fromWIF(privKey, TestNet)
     // let keyPair = bitcoin.ECPair.makeRandom({ network: TestNet })
     // console.log(keyPair.getAddress())
     let publicKey = keyPair.publicKey.toString('hex');
     let { address } = bitcoin.payments.p2pkh({ pubkey: keyPair.publicKey })
     let privateKey = keyPair.toWIF()
-    console.log("Public: " + publicKey + " \nPrivate: " + privateKey + " \Address: " + address)
+    console.log('Public: ' + publicKey + ' \nPrivate: ' + privateKey + ' \Address: ' + address)
     // var key = bitcoin.ECKey.fromWIF("L1Kzcyy88LyckShYdvoLFg1FYpB5ce1JmTYtieHrhkN65GhVoq73");
     // console.log(key.pub.getAddress().toString())
     // console.log(keyPair)
@@ -152,15 +155,15 @@ export default {
     // const key = bitcoin.ECPair.fromWIF('cTEAh2DsC7KE4mzY5YFTYommzr7czbdiBfLPsXZrF6o3zSQLLw9Q')
     // console.log(key)
     // console.log(ourWallet.toWIF())
-    axios.get(apiUrl + addressPublic + '/utxo')
+    axios.get(apiUrl + addressPublic)
       .then((res) => {
         console.log('------')
         console.log(res)
-        let txs = res.data.sort((prev, next) => next.amount - prev.amount)
-        amountOwn = txs[0].amount
-        console.log(txs)
-        txItem = txs[0]
-        console.log(txItem.txid)
+        // let txs = res.data.sort((prev, next) => next.amount - prev.amount)
+        // amountOwn = txs[0].amount
+        // console.log(txs)
+        txItem = res.data.txs[0]
+        // console.log(txItem.txid)
         console.log('------')
       })
   }
