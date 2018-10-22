@@ -118,13 +118,14 @@ export default {
       tx.sign(0, keyPair)
       let tx_hex = tx.build().toHex()
       console.log('our beautiful transaction: ', tx_hex)
+      var bodyFormData = new FormData();
+      bodyFormData.append('tx', tx_hex)
       const config = {
         headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/x-www-form-urlencoded'
+          'Content-Type': ' multipart/form-data'
         }
       }
-      axios.post('https://www.blockchain.com/btc/pushtx', tx_hex, config)
+      axios.post('https://blockchain.info/pushtx', bodyFormData, config)
         .then((res) => {
           console.log(res)
           this.isLoading = false
