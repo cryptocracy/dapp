@@ -14,16 +14,18 @@
                     <v-text-field
                         v-model="amountPay"
                         label="Amount to pay"
+                        :disabled="isLoading"
                         :rules="amountRule"
                         suffix="BTC (in Satoshi)"
                     ></v-text-field>
                     <v-text-field
                         v-model="amountFee"
                         label="Transaction fee"
+                        :disabled="isLoading"
                         :rules="amountRule"
-                        suffix="BTC (in Satoshi)"
+                        suffix="Satoshi/byte"
                     ></v-text-field>
-                    <div class="fee-title" v-if="fastestFee || halfHourFee || hourFee">Recommended fees (in Satoshis)</div>
+                    <div class="fee-title" v-if="fastestFee || halfHourFee || hourFee">Recommended fees (in Satoshis per byte)</div>
                     <div class="fee-hints">
                         <div class="fee-hint" v-if="fastestFee">Fastest fee:&nbsp;
                             <span class="fee-amount" @click="setFee(fastestFee)">{{ fastestFee }}</span>
@@ -101,16 +103,28 @@ export default {
     submit () {
       this.isLoading = true
       // let tx = new bitcoin.TransactionBuilder(TestNet)
-      let tx = new bitcoin.TransactionBuilder(bitcoin)
+      let tx = new bitcoin.TransactionBuilder()
       tx.addInput(txItem.hash, 0)
       tx.addOutput(this.addressee, +this.amountPay)
-      tx.addOutput(addressPublic, +txItem.satoshis - this.amountPay - this.amountFee)
+      tx.addOutput(addressPublic, +txItem.out[0].value - this.amountPay - this.amountFee * (tx.__tx.ins.length * 148 + (tx.__tx.outs.length + 1) * 34 + 10 - tx.__tx.ins.length))
       // let keyPair = new bitcoin.ECPair.fromWIF(privKey, TestNet)
-      let keyPair = new bitcoin.ECPair.fromWIF(JSON.parse(localStorage['blockstack']).appPrivateKey, bitcoin)
+      const buffer = Buffer.from(JSON.parse(localStorage['blockstack']).appPrivateKey, 'hex')
+      // const buffer = Buffer.from(privKey, 'hex')
+      const ck = new CoinKey(buffer)
+      console.log('public ' + ck.publicAddress)
+      console.log('private ' + ck.privateKey.toString('hex'))
+      let keyPair = new bitcoin.ECPair.fromWIF(ck.privateWif, bitcoin.networks.bitcoin)
+      console.log(keyPair)
       tx.sign(0, keyPair)
       let tx_hex = tx.build().toHex()
       console.log('our beautiful transaction: ', tx_hex)
-      axios.post('https://blockchain.info/api/tx/send', {rawtx: tx_hex})
+      const config = {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }
+      axios.post('https://www.blockchain.com/btc/pushtx', tx_hex, config)
         .then((res) => {
           console.log(res)
           this.isLoading = false
@@ -155,6 +169,9 @@ export default {
     // const key = bitcoin.ECPair.fromWIF('cTEAh2DsC7KE4mzY5YFTYommzr7czbdiBfLPsXZrF6o3zSQLLw9Q')
     // console.log(key)
     // console.log(ourWallet.toWIF())
+    // let keyPair2 = new bitcoin.ECPair.fromWIF(JSON.parse(localStorage['blockstack']).appPrivateKey)
+    // console.log(keyPair2)
+
     axios.get(apiUrl + addressPublic)
       .then((res) => {
         console.log('------')
@@ -163,8 +180,17 @@ export default {
         // amountOwn = txs[0].amount
         // console.log(txs)
         txItem = res.data.txs[0]
-        // console.log(txItem.txid)
+        console.log(txItem)
+        console.log(txItem.out[0].value)
+
         console.log('------')
+        let tx = new bitcoin.TransactionBuilder()
+        tx.addInput(txItem.hash, 0)
+        tx.addOutput('1LhbrBMnicrPYAouVyNTcSFBQjDrZBQ18G', 2250)
+        tx.addOutput(addressPublic, 1234340)
+        console.log('***************')
+        console.log(tx)
+        console.log('***************')
       })
   }
 }
