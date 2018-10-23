@@ -61,12 +61,7 @@
 const bitcoin = require('bitcoinjs-lib')
 const CoinKey = require('coinkey')
 const axios = require('axios')
-const TestNet = bitcoin.networks.testnet
-let privKey = 'cTEAh2DsC7KE4mzY5YFTYommzr7czbdiBfLPsXZrF6o3zSQLLw9Q'
-// const addressPublic = 'mqVKYrNJcMkdK2QHFNEd1P6Qfc1Sqs3hu1'
 const addressPublic = JSON.parse(localStorage['blockstack-gaia-hub-config']).address
-const addressPublic2 = 'minnXa8Qarg5WbxPQg3vjLZdpbZGHavCzC'
-// let apiUrl = 'https://testnet.blockexplorer.com/api/addr/'
 const apiUrl = 'https://cors-anywhere.herokuapp.com/https://blockchain.info/rawaddr/'
 let amountOwn = 0
 let txItem
@@ -102,24 +97,17 @@ export default {
     },
     submit () {
       this.isLoading = true
-      // let tx = new bitcoin.TransactionBuilder(TestNet)
       let tx = new bitcoin.TransactionBuilder()
       tx.addInput(txItem.hash, 0)
       tx.addOutput(this.addressee, +this.amountPay)
       tx.addOutput(addressPublic, +txItem.out[0].value - this.amountPay - this.amountFee * (tx.__tx.ins.length * 148 + (tx.__tx.outs.length + 1) * 34 + 10 - tx.__tx.ins.length))
-      // let keyPair = new bitcoin.ECPair.fromWIF(privKey, TestNet)
       const buffer = Buffer.from(JSON.parse(localStorage['blockstack']).appPrivateKey, 'hex')
-      // const buffer = Buffer.from(privKey, 'hex')
       const ck = new CoinKey(buffer)
-      console.log('public ' + ck.publicAddress)
-      console.log('private ' + ck.privateKey.toString('hex'))
       let keyPair = new bitcoin.ECPair.fromWIF(ck.privateWif, bitcoin.networks.bitcoin)
-      console.log(keyPair)
       tx.sign(0, keyPair)
-      let tx_hex = tx.build().toHex()
-      console.log('our beautiful transaction: ', tx_hex)
-      var bodyFormData = new FormData();
-      bodyFormData.append('tx', tx_hex)
+      let txHex = tx.build().toHex()
+      let bodyFormData = new FormData()
+      bodyFormData.append('tx', txHex)
       const config = {
         headers: {
           'Content-Type': ' multipart/form-data'
@@ -140,58 +128,13 @@ export default {
         this.halfHourFee = res.data.halfHourFee
         this.hourFee = res.data.hourFee
       })
-    // var ck = new CoinKey(new Buffer(JSON.parse(localStorage['blockstack']).appPrivateKey))
-    //
-    //
-    // console.log(JSON.parse(localStorage['blockstack']).appPrivateKey)
-    // console.log(ck)
-    //     console.log(cl.publicAddress)
-    const buffer = Buffer.from(JSON.parse(localStorage['blockstack']).appPrivateKey, 'hex')
-    // const buffer = Buffer.from(privKey, 'hex')
-    const ck = new CoinKey(buffer)
-    console.log('public ' + ck.publicAddress)
-    console.log('private ' + ck.privateKey.toString('hex'))
-    console.log('private wif ' + ck.privateWif)
-    const keyPair = new bitcoin.ECPair.fromWIF(ck.privateWif, bitcoin.networks.bitcoin)
-    // let keyPair = new bitcoin.ECPair.fromWIF(privKey, TestNet)
-    // let keyPair = bitcoin.ECPair.makeRandom({ network: TestNet })
-    // console.log(keyPair.getAddress())
-    let publicKey = keyPair.publicKey.toString('hex');
-    let { address } = bitcoin.payments.p2pkh({ pubkey: keyPair.publicKey })
-    let privateKey = keyPair.toWIF()
-    console.log('Public: ' + publicKey + ' \nPrivate: ' + privateKey + ' \Address: ' + address)
-    // var key = bitcoin.ECKey.fromWIF("L1Kzcyy88LyckShYdvoLFg1FYpB5ce1JmTYtieHrhkN65GhVoq73");
-    // console.log(key.pub.getAddress().toString())
-    // console.log(keyPair)
-    // console.log(bitcoin.payments.p2pkh({ pubkey: keyPair.publicKey }))
-    // console.log(keyPair.getAddress())
-    // const key = bitcoin.ECPair.fromWIF(JSON.parse(localStorage['blockstack']).appPrivateKey)
-    // const key = bitcoin.ECPair.fromWIF('cTEAh2DsC7KE4mzY5YFTYommzr7czbdiBfLPsXZrF6o3zSQLLw9Q')
-    // const key = bitcoin.ECPair.fromWIF('cTEAh2DsC7KE4mzY5YFTYommzr7czbdiBfLPsXZrF6o3zSQLLw9Q')
-    // console.log(key)
-    // console.log(ourWallet.toWIF())
-    // let keyPair2 = new bitcoin.ECPair.fromWIF(JSON.parse(localStorage['blockstack']).appPrivateKey)
-    // console.log(keyPair2)
 
     axios.get(apiUrl + addressPublic)
       .then((res) => {
         console.log('------')
         console.log(res)
-        // let txs = res.data.sort((prev, next) => next.amount - prev.amount)
-        // amountOwn = txs[0].amount
-        // console.log(txs)
-        txItem = res.data.txs[0]
-        console.log(txItem)
-        console.log(txItem.out[0].value)
-
         console.log('------')
-        let tx = new bitcoin.TransactionBuilder()
-        tx.addInput(txItem.hash, 0)
-        tx.addOutput('1LhbrBMnicrPYAouVyNTcSFBQjDrZBQ18G', 2250)
-        tx.addOutput(addressPublic, 1234340)
-        console.log('***************')
-        console.log(tx)
-        console.log('***************')
+        txItem = res.data.txs[0]
       })
   }
 }
