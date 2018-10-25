@@ -113,7 +113,7 @@ export default {
           'Content-Type': ' multipart/form-data'
         }
       }
-      axios.post('https://blockchain.info/pushtx', bodyFormData, config)
+      axios.post('https://blockchain.info/pushtx?cors=true', bodyFormData, config)
         .then((res) => {
           console.log(res)
           this.isLoading = false
