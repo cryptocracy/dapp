@@ -16,18 +16,20 @@
               avatar
             >
               <v-list-tile-avatar>
-                <v-icon>arrow_right_alt</v-icon>
+                <v-icon :class="{ 'tx-rotate': item.balance_diff < 0} ">arrow_right_alt</v-icon>
+                <!--<v-icon v-else>arrow_left_alt</v-icon>-->
+                <!--<v-icon>arrow_right_alt</v-icon>-->
               </v-list-tile-avatar>
 
               <v-list-tile-content>
-                <v-list-tile-title v-html="new Date(item.time).toLocaleString()"></v-list-tile-title>
+                <v-list-tile-title v-html="new Date(+item.created_at * 1000).toLocaleString()"></v-list-tile-title>
                 <v-list-tile-sub-title v-html="item.hash"></v-list-tile-sub-title>
                 <template v-for="(outItem, outIndex) in item.out">
                   <v-list-tile-sub-title :key="outIndex" v-html="outItem.addr"></v-list-tile-sub-title>
                 </template>
               </v-list-tile-content>
                 <v-list-tile-action>
-                  <div>{{ item.result }}</div>
+                  <div>{{ item.balance_diff }}</div>
                 </v-list-tile-action>
             </v-list-tile>
           </template>
@@ -38,11 +40,7 @@
 </template>
 
 <script>
-// import storageService from '../../../services/blockstack-storage'
-// import CoinKey from 'coinkey'
 import axios from 'axios'
-// import qr from 'qr-encode'
-// const buffer = new Buffer(JSON.parse(localStorage['blockstack-gaia-hub-config']).address, 'hex')
 
 export default {
   name: 'Summary',
@@ -51,17 +49,11 @@ export default {
   }),
   mounted () {
     const btcAddress = localStorage['blockstack-gaia-hub-config'] ? JSON.parse(localStorage['blockstack-gaia-hub-config']).address : ''
-    const config = {
-      headers: { 'Access-Control-Allow-Origin': '*', 'crossDomain': true, 'Content-Type': 'application/json' }
-    }
-    axios.get('https://cors-anywhere.herokuapp.com/https://blockchain.info/rawaddr/' + btcAddress + '?cors=true', config)
+    axios.get('https://chain.api.btc.com/v3/address/' + btcAddress + '/tx')
       .then(res => {
         console.log(res)
-        console.log(res.data.txs)
-        this.transactions = res.data.txs
-        // this.coins.filter(item => item.title === 'BTC')[0].amount = res.data
+        this.transactions = res.data.data.list.sort((a, b) => a.created_at < b.created_at)
       })
-    // this.coins.filter(item => item.title === 'BTC')[0].qrSrc = qr(JSON.parse(localStorage['blockstack-gaia-hub-config']).address, {type: 6, size: 6, level: 'Q'})
   }
 }
 </script>
@@ -71,5 +63,8 @@ export default {
       height: 100px;
       width: 100px;
       min-width: 100px;
+  }
+  .tx-rotate {
+    transform: rotate(180deg);
   }
 </style>
