@@ -62,8 +62,6 @@ const bitcoin = require('bitcoinjs-lib')
 const CoinKey = require('coinkey')
 const axios = require('axios')
 const apiUrl = 'https://cors-anywhere.herokuapp.com/https://blockchain.info/rawaddr/'
-// let amountOwn = 0
-let txItem
 
 export default {
   name: 'Send',
@@ -76,6 +74,7 @@ export default {
     fastestFee: null,
     halfHourFee: null,
     hourFee: null,
+    addressData: null,
     addressRules: [
       v => v ? /^((?!_)[A-z0-9])+$/.test(v) || 'Letters and numbers are only allowed' : true,
       v => v ? v.length <= 34 || 'Please enter proper address' : true,
@@ -98,9 +97,15 @@ export default {
     submit () {
       this.isLoading = true
       let tx = new bitcoin.TransactionBuilder()
-      tx.addInput(txItem.hash, 0)
+      for (let txData in this.addressData.txs) {
+        for (let out in txData.out) {
+          if (!out.spent && out.addr === this.addressPublic) {
+            tx.addInput(txData.hash, +out.n)
+          }
+        }
+      }
       tx.addOutput(this.addressee, +this.amountPay)
-      tx.addOutput(this.addressPublic, +txItem.out[0].value - this.amountPay - this.amountFee * (tx.__tx.ins.length * 148 + (tx.__tx.outs.length + 1) * 34 + 10 - tx.__tx.ins.length))
+      tx.addOutput(this.addressPublic, this.addressData.final_balance - this.amountPay - this.amountFee * (tx.__tx.ins.length * 148 + (tx.__tx.outs.length + 1) * 34 + 10 - tx.__tx.ins.length))
       const buffer = Buffer.from(JSON.parse(localStorage['blockstack']).appPrivateKey, 'hex')
       const ck = new CoinKey(buffer) // eslint-disable-next-line
       let keyPair = new bitcoin.ECPair.fromWIF(ck.privateWif, bitcoin.networks.bitcoin)
@@ -135,7 +140,7 @@ export default {
         console.log('------')
         console.log(res)
         console.log('------')
-        txItem = res.data.txs[0]
+        this.addressData = res.data
       })
   }
 }
