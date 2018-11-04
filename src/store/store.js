@@ -20,7 +20,8 @@ const stateObject = {
   teams,
   services,
   blog,
-  sidebarOpen: true
+  sidebarOpen: true,
+  isLoading: false
 }
 
 export default new Vuex.Store({
@@ -33,6 +34,12 @@ export default new Vuex.Store({
   mutations: {
     toggleSidebar: (state) => {
       state.sidebarOpen = !state.sidebarOpen
+    },
+    toggleLoading: (state) => {
+      state.isLoading = !state.isLoading
     }
+  },
+  getters: {
+    isLoading: state => state.isLoading
   }
 })

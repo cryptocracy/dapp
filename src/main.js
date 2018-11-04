@@ -1,3 +1,5 @@
+// Font Awesome v5 icons
+import 'font-awesome/css/font-awesome.css'
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
@@ -32,7 +34,8 @@ Vue.config.productionTip = false
 Vue.use(Vuetify, {
   theme: {
     primary: '#1ebea5'
-  }
+  },
+  iconfont: 'fa'
 })
 // eslint-disable-next-line
 export const eventBus = new Vue();

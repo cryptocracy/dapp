@@ -52,10 +52,10 @@ const items = [
     action: 'account_balance_wallet',
     title: 'Wallet',
     items: [
-      { title: 'Summary', linkTo: '/page-layout/banner' },
-      { title: 'Send', linkTo: '/page-layout/banner' },
-      { title: 'Receive', linkTo: '/page-layout/banner' },
-      { title: 'History', linkTo: '/page-layout/banner' }
+      { title: 'Summary', linkTo: '/wallet/summary' },
+      { title: 'Send', linkTo: '/wallet/send' },
+      { title: 'Receive', linkTo: '/wallet/receive' },
+      { title: 'History', linkTo: '/wallet/history' }
     ]
   },
   {

@@ -14,6 +14,7 @@
         <!--<v-btn fab fixed bottom right dark color="teal accent-4">-->
           <!--<v-icon>add</v-icon>-->
         <!--</v-btn>-->
+        <v-progress-linear v-if="isLoading" :indeterminate="true" class="loading-bar"></v-progress-linear>
         <floating-button/>
         <v-footer class="pa-3" >
           <v-spacer></v-spacer>
@@ -47,7 +48,6 @@ export default {
     windowWidth: 0,
     blockstack: window.blockstack
   }),
-
   methods: {
     /**
      * Get window width to toggle sidebar state value
@@ -73,7 +73,8 @@ export default {
     * @return {Boolean} true / false based on sidebarOpen Data
     */
     ...mapGetters({
-      isSearching: 'isSearching'
+      isSearching: 'isSearching',
+      isLoading: 'isLoading'
     }),
     isSidebarOpen () {
       return {
@@ -123,6 +124,13 @@ export default {
   }
   .fab-mt4 {
     margin-top: 4%;
+  }
+
+  .loading-bar {
+    position: absolute;
+    top: 46px;
+    left: 0;
+    width: 100%;
   }
 
 </style>

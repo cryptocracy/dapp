@@ -1,16 +1,16 @@
 <template>
-    <l-map id="map" :zoom="zoom" :center="centerMap">
+    <l-map id="mapid" :zoom="zoom" :center="centerMap">
         <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
         <l-marker :lat-lng="marker" :icon="icon"></l-marker>
     </l-map>
 </template>
 
 <script>
-import { LMap, LTileLayer, LMarker } from 'vue2-leaflet'
+import { L, LMap, LTileLayer, LMarker } from 'vue2-leaflet'
 
 export default {
   name: 'OpenMapWithMarker',
-  components: { LMap, LTileLayer, LMarker },
+  components: { L, LMap, LTileLayer, LMarker },
   data () {
     return {
       zoom: 13,
