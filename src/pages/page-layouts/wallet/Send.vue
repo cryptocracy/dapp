@@ -1,7 +1,9 @@
 <template>
   <v-layout row v-if="!stateIsLoading">
     <v-flex xs12 sm8 offset-sm2>
-      <v-card class="wallet-card"></v-card>
+      <v-card class="wallet-card wallet-card--balance">
+        Current balance: {{ this.addressData.final_balance }} satoshi
+      </v-card>
       <v-card class="wallet-card">
         <div class="wallet-title">Send to:</div>
         <v-form ref="form" v-model="valid" lazy-validation>
@@ -110,21 +112,17 @@ export default {
         console.log('------')
 
         for (let out of txData.out) {
-          console.log(out)
           if (!out.spent && out.addr === this.addressPublic) {
             tx.addInput(txData.hash, +out.n)
-            console.log('new input')
           }
         }
       }
       tx.addOutput(this.addressee, +this.amountPay)
       tx.addOutput(this.addressPublic, this.addressData.final_balance - this.amountPay - this.amountFee * (tx.__tx.ins.length * 148 + (tx.__tx.outs.length + 1) * 34 + 10 - tx.__tx.ins.length))
-      console.log(tx)
       const buffer = Buffer.from(JSON.parse(localStorage['blockstack']).appPrivateKey, 'hex')
       const ck = new CoinKey(buffer) // eslint-disable-next-line
       let keyPair = new bitcoin.ECPair.fromWIF(ck.privateWif, bitcoin.networks.bitcoin)
       for (let inputIndex in tx.__inputs) {
-        console.log(inputIndex)
         tx.sign(+inputIndex, keyPair)
       }
       let txHex = tx.build().toHex()
@@ -137,7 +135,6 @@ export default {
       }
       axios.post('https://blockchain.info/pushtx?cors=true', bodyFormData, config)
         .then((res) => {
-          console.log(res)
           this.isLoading = false
           this.clear()
         })
@@ -172,6 +169,12 @@ export default {
 
         .form-buttons {
             margin-left: -7px;
+        }
+
+        &.wallet-card--balance {
+          margin-bottom: 20px;
+          text-align: right;
+          font-size: 16px;
         }
     }
     .wallet-title {

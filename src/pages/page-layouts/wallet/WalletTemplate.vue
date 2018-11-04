@@ -50,12 +50,14 @@ export default {
     }
   },
   mounted () {
+    this.$store.commit('toggleLoading')
     const coinAddress = localStorage['blockstack-gaia-hub-config'] ? JSON.parse(localStorage['blockstack-gaia-hub-config']).address : ''
     this.address = coinAddress
     const username = localStorage['blockstack'] ? JSON.parse(localStorage['blockstack']).username : ''
     axios.get('https://blockchain.info/q/addressbalance/' + coinAddress)
       .then(res => {
         this.amount = res.data + ''
+        this.$store.commit('toggleLoading')
       })
     axios.get('https://core.blockstack.org/v1/names/' + username)
       .then(res => {

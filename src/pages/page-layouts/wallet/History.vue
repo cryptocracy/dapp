@@ -48,11 +48,13 @@ export default {
     transactions: []
   }),
   mounted () {
+    this.$store.commit('toggleLoading')
     const btcAddress = localStorage['blockstack-gaia-hub-config'] ? JSON.parse(localStorage['blockstack-gaia-hub-config']).address : ''
     axios.get('https://chain.api.btc.com/v3/address/' + btcAddress + '/tx')
       .then(res => {
         console.log(res)
         this.transactions = res.data.data.list.sort((a, b) => a.created_at < b.created_at)
+        this.$store.commit('toggleLoading')
       })
   }
 }
