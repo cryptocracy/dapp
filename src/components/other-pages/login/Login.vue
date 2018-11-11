@@ -66,7 +66,8 @@ export default {
     align-items: center;
     background: linear-gradient(to right, #3abfa5, #53e7a6);
     justify-content: center;
-    height: 94.4vh;
+    // height: 94.4vh;
+    height: 100vh;
   }
   .img-icon {
     // margin-left: 14%;
@@ -81,5 +82,8 @@ export default {
   .btn-login {
     border-radius: 20px;
     color : #33886c;
+  }
+  .theme--light.application {
+    background: linear-gradient(to right, #3abfa5, #53e7a6);
   }
 </style>

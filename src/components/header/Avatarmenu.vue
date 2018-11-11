@@ -2,7 +2,8 @@
   <v-menu light bottom left min-width=200>
     <v-btn icon slot="activator" dark>
       <v-avatar size="32px">
-        <img v-if="profileData.hasOwnProperty('profile')" :src="profileData.profile.image[0].contentUrl" alt="avatar">
+        <img v-if="profileData.hasOwnProperty('profile') && profileData.profile.hasOwnProperty('image')" :src="profileData.profile.image[0].contentUrl" alt="avatar">
+        <v-icon v-else>account_circle</v-icon>
       </v-avatar>
     </v-btn>
     <v-list>
