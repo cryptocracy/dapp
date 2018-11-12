@@ -3,11 +3,18 @@
   "short_name": "Souq",
   "start_url": "/index.html",
   "description": "Decentralized Crypto Crowdfunding",
-  "icons": [{
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/cryptocracy/images/master/512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
     "src": "./icons/android-chrome-512x512.png",
     "sizes": "512x512",
     "type": "image/png"
-  }],
+    }
+  ],
   "display": "standalone",
   "background_color": "#18d8b2",
   "theme_color": "#4DBA87"

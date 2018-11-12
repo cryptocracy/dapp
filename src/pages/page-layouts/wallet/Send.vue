@@ -6,27 +6,63 @@
       </v-card>
       <v-card class="wallet-card">
         <div class="wallet-title">Send to:</div>
-        <v-form ref="form" v-model="valid" lazy-validation>
+        <v-form ref="form" lazy-validation>
+          <v-combobox
+            v-model="selectedContact"
+            :items="filteredContactList"
+            item-text="fullyQualifiedName"
+            item-value="btcAddress"
+            :disabled="isLoading"
+            chips
+            label="Select from contacts"
+            hint="Showing contacts which has BTC address associated with them."
+            :persistent-hint="true"
+          >
+            <template v-if="selectedContact && Object.keys(selectedContact).length > 0" slot="selection" slot-scope="data">
+              <v-chip
+                :selected="data.selected"
+                :disabled="data.disabled"
+                :key="JSON.stringify(data.item)"
+                :close="true"
+                @input="selectedContact = {}"
+              >
+              <!-- Image will be shown in the chip, if there is not an image then the first character avatar of the user will be shown. -->
+                <v-avatar v-if="data.item.hasOwnProperty('profile') && data.item.profile.hasOwnProperty('image')">
+                  <img :src="data.item.profile.image[0].contentUrl" alt="avatar">
+                </v-avatar>
+                <v-avatar v-else class="primary white--text">
+                  {{ data.item.fullyQualifiedName.slice(0, 1).toUpperCase() }}
+                </v-avatar>
+                {{ data.item.fullyQualifiedName }}
+              </v-chip>
+            </template>
+          </v-combobox>
+
+          <p class="mt-3">Or directly enter the address</p>
+
           <v-text-field
-              v-model="addressee"
-              :rules="addressRules"
-              :disabled="isLoading"
-              label="Addressee"
-              required
+            v-model="addressee"
+            :rules="addressRules"
+            :disabled="isLoading"
+            label="BTC Address"
+            hint="This field will be read-only if you select the contact from above dropdown"
+            :persistent-hint="true"
+            :readonly="selectedContact && Object.keys(selectedContact).length > 0"
+            requiredpo
           ></v-text-field>
           <v-text-field
-              v-model="amountPay"
-              label="Amount to pay"
-              :disabled="isLoading"
-              :rules="amountRule"
-              suffix="BTC (in Satoshi)"
+            v-model="amountPay"
+            label="Amount to pay"
+            :disabled="isLoading"
+            :rules="amountRule"
+            suffix="BTC (in Satoshi)"
           ></v-text-field>
           <v-text-field
-              v-model="amountFee"
-              label="Transaction fee"
-              :disabled="isLoading"
-              :rules="amountRule"
-              suffix="Satoshi/byte"
+            v-model="amountFee"
+            label="Transaction fee"
+            :disabled="isLoading"
+            :rules="amountRule"
+            suffix="Satoshi/byte"
           ></v-text-field>
           <div class="fee-title" v-if="fastestFee || halfHourFee || hourFee">Recommended fees (in Satoshis per byte)</div>
           <div class="fee-hints">
@@ -42,14 +78,14 @@
           </div>
           <div class="form-buttons">
             <v-btn
-                :disabled="!valid || isLoading"
-                @click="submit"
+              :disabled="!valid || isLoading"
+              @click="submit"
             >
               send
             </v-btn>
             <v-btn
-                @click="clear"
-                :disabled="isLoading"
+              @click="clear"
+              :disabled="isLoading"
             >
               clear
             </v-btn>
@@ -62,6 +98,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import contactService from '@/services/contacts'
 const bitcoin = require('bitcoinjs-lib')
 const CoinKey = require('coinkey')
 const axios = require('axios')
@@ -70,6 +107,8 @@ const apiUrl = 'https://cors-anywhere.herokuapp.com/https://blockchain.info/rawa
 export default {
   name: 'Send',
   data: () => ({
+    filteredContactList: [],
+    selectedContact: {},
     addressPublic: '',
     addressee: null,
     amountPay: null,
@@ -78,7 +117,7 @@ export default {
     fastestFee: null,
     halfHourFee: null,
     hourFee: null,
-    addressData: null,
+    addressData: {},
     addressRules: [
       v => v ? /^((?!_)[A-z0-9])+$/.test(v) || 'Letters and numbers are only allowed' : true,
       v => v ? v.length <= 34 || 'Please enter proper address' : true,
@@ -86,15 +125,69 @@ export default {
     ],
     amountRule: [
       v => v ? /^((?!_)[0-9.])+$/.test(v) || 'Numbers are only allowed' : true
-    ],
-    valid: false
+    ]
   }),
+  mixins: [contactService],
   computed: {
     ...mapGetters({
-      stateIsLoading: 'isLoading'
-    })
+      stateIsLoading: 'isLoading',
+      contactList: 'getContacts'
+    }),
+    valid () {
+      return this.addressee && this.amountPay && this.amountFee
+    }
+  },
+  watch: {
+    deep: true,
+    contactList () {
+      if (this.contactList.length > 0) {
+        this.getFilteredContactList(this.contactList)
+      }
+    },
+    selectedContact () {
+      if (this.selectedContact && Object.keys(this.selectedContact).length > 0) {
+        this.getUserDetails()
+      } else {
+        this.addressee = null
+      }
+    }
   },
   methods: {
+    // method to filter contact on the basis of if there is any btc address found in their account.
+    getFilteredContactList (contactList) {
+      this.filteredContactList = []
+      contactList.forEach(contact => {
+        this.filterByService({contact, createList: true})
+      })
+    },
+    // filtering contacts if they have bitcoin service associated
+    filterByService (args) {
+      let {contact, createList} = args
+      if (contact.hasOwnProperty('profile') && Array.isArray(contact.profile.account)) {
+        contact.profile.account.find(account => {
+          if (account.service.toLowerCase() === 'bitcoin') {
+            // filling conatct list array if createList is true
+            createList && this.fillContactList(contact, account)
+            !createList && (this.addressee = account.identifier)
+          }
+        })
+      }
+    },
+    fillContactList (contact, account) {
+      let modifiedContactObject = Object.assign({}, contact)
+      this.$set(modifiedContactObject, 'addressee', account.identifier)
+      this.filteredContactList.push(modifiedContactObject)
+    },
+    async getUserDetails () {
+      this.$store.commit('toggleLoading')
+      let query = this.selectedContact.fullyQualifiedName || this.selectedContact.username
+      let user = await this.$store.dispatch('ACTION_GET_USER', {
+        query,
+        endpoint: `https://core.blockstack.org/v1/users/${query}`
+      })
+      this.$store.commit('toggleLoading')
+      this.filterByService({contact: user, createList: false})
+    },
     setFee (amount) {
       this.amountFee = amount
     },
@@ -141,6 +234,7 @@ export default {
     }
   },
   mounted () {
+    this.getFilteredContactList(this.contactList)
     this.$store.commit('toggleLoading')
     this.addressPublic = JSON.parse(localStorage['blockstack-gaia-hub-config']).address
     //  get info about wallet address
@@ -159,6 +253,10 @@ export default {
         this.halfHourFee = res.data.halfHourFee
         this.hourFee = res.data.hourFee
       })
+  },
+  created () {
+    // method from contactService mixin
+    this.getContacts()
   }
 }
 </script>

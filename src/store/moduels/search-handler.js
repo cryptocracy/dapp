@@ -44,15 +44,15 @@ const searchHandler = {
       // changing resolved state to stop loader
       context.commit('MUTATION_SET_RESOLVED_STATE', true)
       return searchResult
-    }
+    },
     // action to search specific user from /users endpoint (do not delete, will need it in near future)
-    // async ACTION_GET_USER (context, searchObj) {
-    //   context.commit('MUTATION_SET_RESOLVED_STATE', false)
-    //   const user = await searchService.searchUser(searchObj)
-    //   context.commit('MUTATION_SET_USER', user)
-    //   context.commit('MUTATION_SET_RESOLVED_STATE', true)
-    //   return user
-    // }
+    async ACTION_GET_USER (context, searchObj) {
+      context.commit('MUTATION_SET_RESOLVED_STATE', false)
+      const user = await searchService.searchUser(searchObj)
+      context.commit('MUTATION_SET_USER', user)
+      context.commit('MUTATION_SET_RESOLVED_STATE', true)
+      return user
+    }
   },
   getters: {
     getSearchResult: state => state.searchResult,

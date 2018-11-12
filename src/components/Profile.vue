@@ -52,7 +52,8 @@
                     </v-list-tile-action>
 
                     <v-list-tile-content>
-                      <v-list-tile-title>{{userData.fullyQualifiedName || 'None'}}</v-list-tile-title>
+                      <v-list-tile-title v-if="$route.params.id !== 'my-profile'">{{userData.fullyQualifiedName || 'None'}}</v-list-tile-title>
+                      <v-list-tile-title v-else>{{userData.username || 'None'}}</v-list-tile-title>
                       <v-list-tile-sub-title>Fully Qualified Name</v-list-tile-sub-title>
                     </v-list-tile-content>
 
@@ -61,7 +62,7 @@
                     </v-list-tile-action>
                   </v-list-tile>
 
-                  <v-list-tile @click="dummyFunction">
+                  <!-- <v-list-tile @click="dummyFunction">
                     <v-list-tile-action>
                       <v-icon>
                         account_circle
@@ -76,7 +77,7 @@
                     <v-list-tile-action>
                       <v-icon>chat</v-icon>
                     </v-list-tile-action>
-                  </v-list-tile>
+                  </v-list-tile> -->
 
                   <v-divider inset></v-divider>
 

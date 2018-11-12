@@ -8,10 +8,9 @@ const searchService = {
       .catch(e => e)
   },
   // method for searching user via /users endpoint (returns only one result)
-  searchUser: (searchObj) => {
-    return HTTP.get(searchObj.endpoint, { params: { query: searchObj.query } })
-      .then(res => res.data[searchObj.id])
-      .catch(e => e)
+  searchUser: async (searchObj) => {
+    let res = await HTTP.get(searchObj.endpoint)
+    return res.data[searchObj.query]
   }
 }
 export default searchService

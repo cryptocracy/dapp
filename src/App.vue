@@ -14,7 +14,15 @@
         <!--<v-btn fab fixed bottom right dark color="teal accent-4">-->
           <!--<v-icon>add</v-icon>-->
         <!--</v-btn>-->
-        <v-progress-linear v-if="isLoading" :indeterminate="true" class="loading-bar"></v-progress-linear>
+        <!-- <v-progress-linear v-if="isLoading" :indeterminate="true" class="loading-bar"></v-progress-linear> -->
+          <div class="mt-5 text-xs-center loading-bar" v-if="isLoading">
+            <v-progress-circular
+              :size="70"
+              :width="5"
+              color="teal accent-4"
+              indeterminate
+            ></v-progress-circular>
+          </div>
         <floating-button/>
         <v-footer class="pa-3" >
           <v-spacer></v-spacer>
@@ -128,8 +136,8 @@ export default {
 
   .loading-bar {
     position: absolute;
-    top: 46px;
-    left: 0;
+    top: 30%;
+    left: 3%;
     width: 100%;
   }
 
