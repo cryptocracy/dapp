@@ -94,14 +94,6 @@
       </v-card>
     </v-flex>
   </v-layout>
-  <!-- <div class="mt-5 text-xs-center" v-else>
-    <v-progress-circular
-      :size="70"
-      :width="5"
-      color="teal accent-4"
-      indeterminate
-    ></v-progress-circular>
-  </div> -->
 </template>
 
 <script>
