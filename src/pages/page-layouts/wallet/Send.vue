@@ -20,6 +20,8 @@
           >
             <template v-if="selectedContact && Object.keys(selectedContact).length > 0" slot="selection" slot-scope="data">
               <v-chip
+                color="#1ebea5c7"
+                text-color="white"
                 :selected="data.selected"
                 :disabled="data.disabled"
                 :key="JSON.stringify(data.item)"
@@ -192,6 +194,7 @@ export default {
       this.amountFee = amount
     },
     clear () {
+      this.selectedContact = {}
       this.addressee = null
       this.amountPay = null
       this.amountFee = null
