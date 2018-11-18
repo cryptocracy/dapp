@@ -205,7 +205,6 @@ export default {
       for (let txData of this.addressData.txs) {
         console.log('------')
         console.log(txData)
-        console.log('------')
 
         for (let out of txData.out) {
           if (!out.spent && out.addr === this.addressPublic) {
