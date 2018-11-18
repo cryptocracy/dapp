@@ -38,7 +38,7 @@
 import { mapGetters } from 'vuex'
 import Header from './components/header/Header'
 import Sidebar from './components/sidebar/Sidebar'
-import Login from './components/other-pages/login/Login'
+import Login from './components/Login'
 import searchResults from './components/Search-results'
 import FloatingButton from './components/button/FloatingButton'
 

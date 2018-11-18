@@ -1,13 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import notifications from './moduels/notifications'
-import productsTable from './moduels/productsTable'
-import products from './moduels/products'
 import teams from './moduels/teams'
-import services from './moduels/services'
 import searchHandler from './moduels/search-handler'
 import contactsHandler from './moduels/contacts-handler'
-import blog from './moduels/blog'
 import userProfileData from './moduels/profileData'
 
 Vue.use(Vuex)
@@ -15,11 +11,7 @@ Vue.use(Vuex)
 // All store data should place inside state as a central store
 const stateObject = {
   notifications,
-  productsTable,
-  products,
   teams,
-  services,
-  blog,
   sidebarOpen: true,
   isLoading: false
 }
@@ -35,8 +27,8 @@ export default new Vuex.Store({
     toggleSidebar: (state) => {
       state.sidebarOpen = !state.sidebarOpen
     },
-    toggleLoading: (state) => {
-      state.isLoading = !state.isLoading
+    toggleLoading: (state, payload) => {
+      state.isLoading = payload || !state.isLoading
     }
   },
   getters: {
