@@ -8,7 +8,7 @@
       :class="!item.items ? 'no-child' : ''"
       >
 
-      <v-list-tile slot="activator" :to="item.linkTo">
+      <v-list-tile slot="activator" :to="item.linkTo" @click=hideSearchResults>
         <v-list-tile-action>
           <v-icon :color="item.color">{{ item.action }}</v-icon>
         </v-list-tile-action>
@@ -18,7 +18,7 @@
       </v-list-tile>
 
       <!-- Rendering child list item -->
-      <v-list-tile v-if="item.items" v-for="subItem in item.items" v-bind:key="subItem.title" :to="subItem.linkTo">
+      <v-list-tile @click=hideSearchResults v-if="item.items" v-for="subItem in item.items" v-bind:key="subItem.title" :to="subItem.linkTo">
         <v-list-tile-action>
           <v-icon color="grey lighten-1">trending_flat</v-icon>
         </v-list-tile-action>
@@ -41,8 +41,12 @@ export default {
   },
   methods: {
     hideSearchResults () {
+      console.log('HEREEEEEEEEE')
       this.$store.commit('MUTATION_SET_SEARCH_STATE', false)
       this.$store.commit('MUTATION_SET_SEARCH_RESULT', [])
+    },
+    stopLoading () {
+      this.$store.commit('toggleLoading', false)
     }
   }
 }
