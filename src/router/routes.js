@@ -1,7 +1,5 @@
 import Home from '@/components/home/HomeIndex'
 
-import Maps from '@/pages/maps/MapsIndex'
-
 import Profile from '@/components/Profile'
 import favContacts from '@/components/contacts/FavouriteContacts'
 
@@ -35,7 +33,6 @@ const routes = [
   { path: '/tags/owned', name: 'Owned', component: MyTagList },
   { path: '/tags/favorites', name: 'Favorites', component: FavoriteTagList },
   { path: '/tags/:tagName', name: 'TagInfo', props: true, component: TagInfo },
-  { path: '/maps', name: 'Maps', component: Maps },
 
   { path: '/wallet/summary', name: 'Summary', component: WalletSummary },
   { path: '/wallet/receive', name: 'Receive', component: WalletReceive },
