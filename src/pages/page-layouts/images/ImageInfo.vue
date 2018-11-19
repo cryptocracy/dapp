@@ -11,16 +11,16 @@
                 </template>
                 <template v-else>
                     <v-divider/>
-                    <a v-if="isFavorite" class="tag-action" @click="removeFromFavorite">
+                    <a v-if="isFavorite" class="image-action" @click="removeFromFavorite">
                         <v-icon color="grey lighten-1">favorite_border</v-icon>
                         Remove from Favorite
                     </a>
-                    <a v-else class="tag-action" @click="addToFavorite">
+                    <a v-else class="image-action" @click="addToFavorite">
                         <v-icon color="grey lighten-1">favorite</v-icon>
                         Add to Favorite
                     </a>
                     <v-divider class="divider-intermediate"/>
-                    <router-link class="tag-action" :to="{ name: 'EditTag', params: { tagProp: this.tagObject } }">
+                    <router-link class="image-action" :to="{ name: 'EditImage', params: { imageProp: this.imageObject } }">
                         <v-icon color="grey lighten-1">edit</v-icon>
                         Edit
                     </router-link>
@@ -30,53 +30,65 @@
                 <div class="json-address">
                     <v-text-field
                         ref="urlInput"
-                        :value="tagUrl"
+                        :value="imageUrl"
                         class="url-field"
                         readonly
                     />
                     <v-btn class="button-copy" color="#20C3A5" @click="copyUrl">{{ copyButtonText }}</v-btn>
                 </div>
             </v-list-tile>
-            <v-list-tile v-if="tagObject.title">
+            <v-list-tile v-if="imageObject.title">
                 <v-list-tile-content>
                     <v-list-tile-sub-title>Title</v-list-tile-sub-title>
-                    <v-list-tile-title v-html="tagObject.title"></v-list-tile-title>
+                    <v-list-tile-title v-html="imageObject.title"></v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
             <v-list-tile>
                 <v-list-tile-content>
                     <v-list-tile-sub-title>Privacy</v-list-tile-sub-title>
-                    <v-list-tile-title v-html="tagObject.private ? 'Private' : 'Public'"></v-list-tile-title>
+                    <v-list-tile-title v-html="imageObject.private ? 'Private' : 'Public'"></v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
             <v-list-tile>
                 <v-list-tile-content>
                     <v-list-tile-sub-title>Archived</v-list-tile-sub-title>
-                    <v-list-tile-title v-html="tagObject.archived ? 'Yes' : 'No'"></v-list-tile-title>
+                    <v-list-tile-title v-html="imageObject.archived ? 'Yes' : 'No'"></v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile v-if="tagObject.createdtime">
+            <v-list-tile v-if="imageObject.detail">
+                <v-list-tile-content>
+                    <v-list-tile-sub-title>Details</v-list-tile-sub-title>
+                    <v-list-tile-title v-html="imageObject.detail"></v-list-tile-title>
+                </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile v-if="imageObject.createdtime">
                 <v-list-tile-content>
                     <v-list-tile-sub-title>Created time</v-list-tile-sub-title>
-                    <v-list-tile-title v-html="new Date(tagObject.createdtime).toLocaleString()"></v-list-tile-title>
+                    <v-list-tile-title v-html="new Date(imageObject.createdtime).toLocaleString()"></v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile v-if="tagObject.private">
+            <v-list-tile v-if="imageObject.private">
                 <v-list-tile-content>
                     <v-list-tile-sub-title>Privacy</v-list-tile-sub-title>
-                    <v-list-tile-title v-html="tagObject.private ? 'Private' : 'Public'"></v-list-tile-title>
+                    <v-list-tile-title v-html="imageObject.private ? 'Private' : 'Public'"></v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile v-if="tagObject.symbol">
+            <v-list-tile>
+                <v-list-tile-content>
+                    <v-list-tile-sub-title>Image</v-list-tile-sub-title>
+                </v-list-tile-content>
+            </v-list-tile>
+            <img v-if="imageObject.image" :src="imageObject.image" class="image-image">
+            <v-list-tile v-if="imageObject.symbol">
                 <v-list-tile-content>
                     <v-list-tile-sub-title>Symbol</v-list-tile-sub-title>
-                    <v-list-tile-title v-html="tagObject.symbol"></v-list-tile-title>
+                    <v-list-tile-title v-html="imageObject.symbol"></v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile v-if="tagObject.address">
+            <v-list-tile v-if="imageObject.address">
                 <v-list-tile-content>
                     <v-list-tile-sub-title>Address</v-list-tile-sub-title>
-                    <v-list-tile-title v-html="tagObject.address"></v-list-tile-title>
+                    <v-list-tile-title v-html="imageObject.address"></v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
         </v-list>
@@ -84,33 +96,34 @@
 </template>
 
 <script>
+// import MapWithMarker from '../../../components/maps/MapWithMarker'
 import storageService from '../../../services/blockstack-storage'
 
 export default {
-  name: 'TagInfo',
+  name: 'ImageInfo',
   data: () => ({
     copyButtonText: 'Copy',
     isFavorite: false,
     isLoading: false
   }),
   props: {
-    tagObject: {
+    imageObject: {
       type: Object
     }
   },
   computed: {
-    tagUrl () {
+    imageUrl () {
       // parsing blockstack gaia hub cong from localhost for creating hub url
       const urlItems = JSON.parse(localStorage['blockstack-gaia-hub-config'])
       // creating hub url(where our files are stored)
       const hubUrl = `${urlItems.url_prefix}${urlItems.address}/`
-      return this.tagObject ? `${hubUrl}tag_${this.tagObject.createdtime}.json` : ''
+      return this.imageObject ? `${hubUrl}image_${this.imageObject.createdtime}.json` : ''
     }
   },
   methods: {
-    getFavTagName () {
-      const tagUrlArr = this.tagUrl.split('/')
-      return `${tagUrlArr.pop().split('.')[0]}_${tagUrlArr.pop()}`
+    getFavImageName () {
+      const imageUrlArr = this.imageUrl.split('/')
+      return `${imageUrlArr.pop().split('.')[0]}_${imageUrlArr.pop()}`
     },
     copyUrl (e) {
       this.$refs.urlInput.$refs.input.select()
@@ -120,7 +133,7 @@ export default {
     },
     addToFavorite () {
       this.isLoading = true
-      storageService.updateFavoriteTagIndex(this.getFavTagName(), this.tagObject.title)
+      storageService.updateFavoriteImageIndex(this.getFavImageName(), this.imageObject.title)
         .then(() => {
           this.isFavorite = true
           this.isLoading = false
@@ -128,7 +141,7 @@ export default {
     },
     removeFromFavorite () {
       this.isLoading = true
-      storageService.reduceFavoriteTagIndex(this.getFavTagName(), this.tagObject.title)
+      storageService.reduceFavoriteImageIndex(this.getFavImageName(), this.imageObject.title)
         .then(() => {
           this.isFavorite = false
           this.isLoading = false
@@ -136,16 +149,10 @@ export default {
     }
   },
   mounted () {
-    storageService.getFile({fileName: 'my_fav_tags.json'})
+    storageService.getFile({fileName: 'my_fav_images.json'})
       .then(res => {
         if (res) {
-          this.isFavorite = !!res[this.getFavTagName()]
-        }
-      })
-    storageService.getFile({fileName: 'my_fav_tags.json'})
-      .then(res => {
-        if (res) {
-          this.isFavorite = !!res[this.getFavTagName()]
+          this.isFavorite = !!res[this.getFavImageName()]
         }
       })
   }
@@ -156,7 +163,7 @@ export default {
     .divider-intermediate {
         flex: 0 15px;
     }
-    .tag-action {
+    .image-action {
         cursor: pointer;
         padding: 10px;
         display: flex;
@@ -175,6 +182,9 @@ export default {
                 color: rgba(0,0,0,0.87) !important;
             }
         }
+    }
+    .image-image {
+        max-width: 100%;
     }
     .json-address {
         width: 100%;

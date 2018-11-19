@@ -61,6 +61,16 @@ import MyTagList from '@/pages/page-layouts/tags/MyTagList'
 import FavoriteTagList from '@/pages/page-layouts/tags/FavoriteTagList'
 import TagInfo from '@/pages/page-layouts/tags/TagInfo'
 
+import ImageForm from '@/pages/page-layouts/images/ImageForm'
+import MyImageList from '@/pages/page-layouts/images/MyImageList'
+import FavoriteImageList from '@/pages/page-layouts/images/FavoriteImageList'
+import ImageInfo from '@/pages/page-layouts/images/ImageInfo'
+
+import MarkerForm from '@/pages/page-layouts/markers/MarkerForm'
+import MyMarkerList from '@/pages/page-layouts/markers/MyMarkerList'
+import FavoriteMarkerList from '@/pages/page-layouts/markers/FavoriteMarkerList'
+import MarkerInfo from '@/pages/page-layouts/markers/MarkerInfo'
+
 import WalletSummary from '@/pages/page-layouts/wallet/Summary'
 import WalletReceive from '@/pages/page-layouts/wallet/Receive'
 import WalletHistory from '@/pages/page-layouts/wallet/History'
@@ -131,12 +141,25 @@ const routes = [
   { path: '/other-pages/page-404', name: 'PageError', component: PageError },
   { path: '/page-layout/default', name: 'DefaultLayout', component: DefaultLayout },
   { path: '/page-layout/banner', name: 'BannerLayout', component: BannerLayout },
+  { path: '/maps', name: 'Maps', component: Maps },
+
   { path: '/tags/add-tag', name: 'AddTag', props: true, component: TagForm },
   { path: '/tags/edit-tag', name: 'EditTag', props: true, component: TagForm },
   { path: '/tags/owned', name: 'Owned', component: MyTagList },
   { path: '/tags/favorites', name: 'Favorites', component: FavoriteTagList },
   { path: '/tags/:tagName', name: 'TagInfo', props: true, component: TagInfo },
-  { path: '/maps', name: 'Maps', component: Maps },
+
+  { path: '/images/add-image', name: 'AddImage', props: true, component: ImageForm },
+  { path: '/images/edit-image', name: 'EditImage', props: true, component: ImageForm },
+  { path: '/images/owned', name: 'OwnedImages', component: MyImageList },
+  { path: '/images/favorites', name: 'FavoritesImages', component: FavoriteImageList },
+  { path: '/images/:imageName', name: 'ImageInfo', props: true, component: ImageInfo },
+
+  { path: '/markers/add-marker', name: 'AddMarker', props: true, component: MarkerForm },
+  { path: '/markers/edit-marker', name: 'EditMarker', props: true, component: MarkerForm },
+  { path: '/markers/owned', name: 'OwnedMarkers', component: MyMarkerList },
+  { path: '/markers/favorites', name: 'FavoritesMarkers', component: FavoriteMarkerList },
+  { path: '/markers/:markerName', name: 'MarkerInfo', props: true, component: MarkerInfo },
 
   { path: '/wallet/summary', name: 'Summary', component: WalletSummary },
   { path: '/wallet/receive', name: 'Receive', component: WalletReceive },

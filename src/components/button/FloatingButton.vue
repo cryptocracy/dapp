@@ -41,9 +41,27 @@
             dark
             small
             color="blue lighten-1"
-            :to="{ name: 'AddTag', params: { tagProp: null } }"
+            :to="{ name: 'Favorites', params: { tagProp: null } }"
         >
             <v-icon>label</v-icon>
+        </v-btn>
+        <v-btn
+            fab
+            dark
+            small
+            color="green lighten-1"
+            :to="{ name: 'AddImage', params: { tagProp: null } }"
+        >
+            <v-icon>image</v-icon>
+        </v-btn>
+        <v-btn
+            fab
+            dark
+            small
+            color="red lighten-1"
+            :to="{ name: 'AddMarker', params: { tagProp: null } }"
+        >
+            <v-icon>place</v-icon>
         </v-btn>
     </v-speed-dial>
 </template>

@@ -1,22 +1,36 @@
 <template>
     <v-card class="container">
         <v-form ref="form" v-model="valid" lazy-validation>
+            <image-uploader
+                accept="image/*"
+                ref="imageInput"
+                :disabled="isLoading"
+                limit=2000000
+                :value="imageFile"
+                @input="getUploadedImage"
+            />
+
             <v-text-field
-                v-model="tag.title"
+                v-model="image.title"
                 :rules="titleRules"
                 :counter="10"
                 :disabled="isLoading"
                 label="Title"
                 required
             ></v-text-field>
+            <v-text-field
+                v-model="image.detail"
+                label="Detail"
+                :disabled="isLoading"
+            ></v-text-field>
             <v-select
                 :items="symbols"
                 label="Symbol"
-                v-model="tag.symbol"
+                v-model="image.symbol"
                 :disabled="isLoading"
             ></v-select>
             <v-text-field
-                v-model="tag.address"
+                v-model="image.address"
                 :rules="addressRules"
                 :counter="42"
                 label="Address"
@@ -26,20 +40,20 @@
                 <div class="input-group--text-field primary--text">Privacy</div>
                 <div class="switch-block">
                     <span class="switch-text">Public</span>
-                    <v-switch v-model="tag.private"></v-switch>
+                    <v-switch v-model="image.limit"></v-switch>
                     <span class="switch-text">Personal</span>
                 </div>
             </div>
-            <div class="switch-wrapper" v-if="tagProp">
+            <div class="switch-wrapper" v-if="imageProp">
                 <div class="input-group--text-field primary--text">Archived</div>
                 <div class="switch-block">
                     <span class="switch-text">No</span>
-                    <v-switch v-model="tag.archived"></v-switch>
+                    <v-switch v-model="image.archived"></v-switch>
                     <span class="switch-text">Yes</span>
                 </div>
             </div>
             <v-btn
-                :disabled="!valid || isLoading"
+                :disabled="!valid || isLoading || !imageFile"
                 @click="submit"
             >
                 submit
@@ -55,6 +69,7 @@
 </template>
 
 <script>
+import ImageUploader from '../../../components/image-uploader/ImageUploader'
 import storageService from '../../../services/blockstack-storage'
 
 export default {
@@ -62,11 +77,14 @@ export default {
     blockstack: window.blockstack,
     isLoading: false,
     valid: false,
-    tag: {
+    imageFile: null,
+    image: {
       title: '',
+      detail: '',
       address: '',
       symbol: null,
-      private: false,
+      image: null,
+      limit: false,
       archived: false,
       v: '0.0.1',
       id: ''
@@ -82,15 +100,18 @@ export default {
       v => v ? v.length <= 42 || 'Please enter proper address' : true
     ]
   }),
+  components: {
+    ImageUploader
+  },
   props: {
-    tagProp: {
+    imageProp: {
       type: [Object, null],
       default: null
     }
   },
   watch: {
-    tagProp () {
-      this.updateFromTagProp()
+    imageProp () {
+      this.updateFromImageProp()
     }
   },
   methods: {
@@ -98,36 +119,50 @@ export default {
       const timestamp = +new Date()
       if (this.$refs.form.validate()) {
         this.isLoading = true
-        this.tag.createdtime = this.tagProp ? this.tagProp.createdtime : timestamp
-        this.tag.owner = JSON.parse(localStorage['blockstack-gaia-hub-config']).address
-        this.saveTag(timestamp)
+        this.image.createdtime = this.imageProp ? this.imageProp.createdtime : timestamp
+        this.image.owner = JSON.parse(localStorage['blockstack-gaia-hub-config']).address
+        if (this.imageFile.name) {
+          this.blockstack.putFile(`image_${timestamp}.${this.imageFile.name.split('.').pop()}`, this.imageFile)
+            .then((imageUrl) => {
+              // if (!this.imageFile) {
+              this.image.image = imageUrl
+              // }
+              this.saveImage(timestamp)
+            })
+        } else {
+          this.saveImage(timestamp)
+        }
       }
     },
-    getTagFilename (timestamp) {
-      return this.tagProp ? `tag_${this.tagProp.createdtime}.json` : `tag_${timestamp}.json`
+    getImageFilename (timestamp) {
+      return this.imageProp ? `image_${this.imageProp.createdtime}.json` : `image_${timestamp}.json`
     },
-    saveTag (timestamp) {
-      this.blockstack.putFile(this.getTagFilename(timestamp), JSON.stringify(this.tag))
+    saveImage (timestamp) {
+      this.blockstack.putFile(this.getImageFilename(timestamp), JSON.stringify(this.image))
         .then((jsonUrl) => {
-          storageService.updateTagIndex(jsonUrl.split('/').pop().split('.')[0], this.tag.title)
+          storageService.updateImageIndex(jsonUrl.split('/').pop().split('.')[0], this.image.title)
             .then(() => {
               this.isLoading = false
-              this.tagProp ? this.$router.push({
-                name: 'TagInfo',
+              this.imageProp ? this.$router.push({
+                name: 'ImageInfo',
                 params: {
-                  tagName: 'tag_' + this.tag.createdtime,
-                  tagObject: this.tag
+                  imageName: 'image_' + this.image.createdtime,
+                  imageObject: this.image
                 }}) : this.clear()
             })
         })
     },
     clear () {
       this.$refs.form.reset()
+      this.$refs.imageInput.removeFile()
     },
-    updateFromTagProp () {
-      if (this.tagProp) {
-        for (let property in this.tagProp) {
-          this.tag[property] = this.tagProp[property] instanceof Object ? {...this.tagProp[property]} : this.tagProp[property]
+    getUploadedImage (e) {
+      this.imageFile = e
+    },
+    updateFromImageProp () {
+      if (this.imageProp) {
+        for (let property in this.imageProp) {
+          this.image[property] = this.imageProp[property] instanceof Object ? {...this.imageProp[property]} : this.imageProp[property]
         }
       } else {
         this.clear()
@@ -135,7 +170,7 @@ export default {
     }
   },
   mounted () {
-    this.updateFromTagProp()
+    this.updateFromImageProp()
   }
 }
 </script>
@@ -157,5 +192,11 @@ export default {
                 display: none;
             }
         }
+    }
+    .geo-button-wrapper {
+        display: flex;
+        align-items: center;
+        margin-left: -8px;
+        padding-bottom: 10px;
     }
 </style>
