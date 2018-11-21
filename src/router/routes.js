@@ -168,3 +168,18 @@ const routes = [
 ]
 
 export default routes
+
+// import TagForm from '@/pages/page-layouts/tags/TagForm'
+// import MyTagList from '@/pages/page-layouts/tags/MyTagList'
+// import FavoriteTagList from '@/pages/page-layouts/tags/FavoriteTagList'
+// import TagInfo from '@/pages/page-layouts/tags/TagInfo'
+
+// import ImageForm from '@/pages/page-layouts/images/ImageForm'
+// import MyImageList from '@/pages/page-layouts/images/MyImageList'
+// import FavoriteImageList from '@/pages/page-layouts/images/FavoriteImageList'
+// import ImageInfo from '@/pages/page-layouts/images/ImageInfo'
+
+// import MarkerForm from '@/pages/page-layouts/markers/MarkerForm'
+// import MyMarkerList from '@/pages/page-layouts/markers/MyMarkerList'
+// import FavoriteMarkerList from '@/pages/page-layouts/markers/FavoriteMarkerList'
+// import MarkerInfo from '@/pages/page-layouts/markers/MarkerInfo'
