@@ -7,7 +7,6 @@ import Vuetify from 'vuetify'
 // Google map vue plugin
 // import * as VueGoogleMaps from 'vue2-google-maps'
 // OpenStreetMaps
-import { L } from 'vue2-leaflet'
 import 'leaflet/dist/leaflet.css'
 
 import App from './App'

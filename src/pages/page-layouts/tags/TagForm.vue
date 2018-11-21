@@ -4,7 +4,7 @@
             <v-text-field
                 v-model="tag.title"
                 :rules="titleRules"
-                :counter="10"
+                :counter="21"
                 :disabled="isLoading"
                 label="Title"
                 required
@@ -71,10 +71,10 @@ export default {
       v: '0.0.1',
       id: ''
     },
-    symbols: ['BTC', 'ETH', 'LTC'],
+    symbols: ['BTC', 'StX'],
     titleRules: [
       v => !!v || 'Name is required',
-      v => (v && v.length <= 20) || 'Name must be less than 20 characters',
+      v => (v && v.length <= 21) || 'Name must be less than 21 characters',
       v => /^\w+$/.test(v) || 'Letters, numbers and "_" are only allowed'
     ],
     addressRules: [

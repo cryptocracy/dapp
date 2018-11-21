@@ -26,7 +26,7 @@
                 label="Address"
                 :disabled="isLoading"
             ></v-text-field>
-            <open-map-with-marker/>
+            <open-map-with-marker @input="changeCoordinates"/>
             <!--<div class="geo-button-wrapper" v-if="markerProp">-->
                 <!--<template v-if="!newGeo">-->
                     <!--<v-btn-->
@@ -106,7 +106,7 @@ export default {
       v: '0.0.1',
       id: ''
     },
-    symbols: ['BTC', 'ETH', 'LTC'],
+    symbols: ['BTC', 'STX'],
     titleRules: [
       v => !!v || 'Name is required',
       v => (v && v.length <= 20) || 'Name must be less than 20 characters',
@@ -172,22 +172,11 @@ export default {
         this.clear()
       }
     },
-    updateGeoPosition () {
-      const geoSuccess = (position) => {
-        this.marker.coordinates.lat = position.coords.latitude
-        this.marker.coordinates.lng = position.coords.longitude
-      }
-      navigator.geolocation.getCurrentPosition(geoSuccess)
-      this.newGeo = true
-    },
-    rollbackGeoPosition () {
-      this.marker.coordinates.lat = this.markerProp.coordinates.lat
-      this.marker.coordinates.lng = this.markerProp.coordinates.lat
-      this.newGeo = false
+    changeCoordinates (newCoords) {
+      this.marker.coordinates = newCoords
     }
   },
   mounted () {
-    // if (!this.markerProp) this.updateGeoPosition()
     this.updateFromMarkerProp()
   }
 }

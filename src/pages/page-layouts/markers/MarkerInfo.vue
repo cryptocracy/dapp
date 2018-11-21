@@ -79,6 +79,7 @@
                 </v-list-tile-content>
             </v-list-tile>
             <open-map-with-marker
+                readonly
                 v-if="markerObject.coordinates"
                 :center="coordinates"/>
             <v-list-tile v-if="markerObject.symbol">

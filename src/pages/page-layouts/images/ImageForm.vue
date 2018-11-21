@@ -29,6 +29,20 @@
                 v-model="image.symbol"
                 :disabled="isLoading"
             ></v-select>
+            <v-select
+                :items="tags"
+                label="Tag(s)"
+                v-model="image.tags"
+                :disabled="isLoading"
+                multiple
+                chips
+            ></v-select>
+            <v-select
+                :items="markers"
+                label="Marker"
+                v-model="image.marker"
+                :disabled="isLoading"
+            ></v-select>
             <v-text-field
                 v-model="image.address"
                 :rules="addressRules"
@@ -71,17 +85,23 @@
 <script>
 import ImageUploader from '../../../components/image-uploader/ImageUploader'
 import storageService from '../../../services/blockstack-storage'
+const cryptoAddress = JSON.parse(localStorage['blockstack-gaia-hub-config']).address
 
 export default {
+
   data: () => ({
     blockstack: window.blockstack,
     isLoading: false,
     valid: false,
     imageFile: null,
+    markers: [],
+    tags: [],
     image: {
       title: '',
       detail: '',
       address: '',
+      tags: null,
+      marker: null,
       symbol: null,
       image: null,
       limit: false,
@@ -89,7 +109,7 @@ export default {
       v: '0.0.1',
       id: ''
     },
-    symbols: ['BTC', 'ETH', 'LTC'],
+    symbols: ['BTC', 'STX'],
     titleRules: [
       v => !!v || 'Name is required',
       v => (v && v.length <= 20) || 'Name must be less than 20 characters',
@@ -167,10 +187,58 @@ export default {
       } else {
         this.clear()
       }
+    },
+    fetchMarkers () {
+      // fetching markers list
+      this.blockstack.getFile('my_markers.json')
+        .then((markersJSON) => {
+          let markersObj = JSON.parse(markersJSON)
+          if (markersObj) {
+            this.markers = Object.keys(markersObj).map((key) => {
+              return markersObj[key]
+            })
+          }
+          this.blockstack.getFile('my_fav_markers.json')
+            .then((favMarkersJSON) => {
+              let favMarkersObj = JSON.parse(favMarkersJSON)
+              if (favMarkersObj) {
+                Object.keys(favMarkersObj).forEach((key) => {
+                  if (key.split('_')[2] !== cryptoAddress) {
+                    this.markers.push(favMarkersObj[key])
+                  }
+                })
+              }
+            })
+        })
+    },
+    fetchTags () {
+      // fetching tags list
+      this.blockstack.getFile('my_tags.json')
+        .then((tagsJSON) => {
+          let tagsObj = JSON.parse(tagsJSON)
+          if (tagsObj) {
+            this.tags = Object.keys(tagsObj).map((key) => {
+              return tagsObj[key]
+            })
+          }
+          this.blockstack.getFile('my_fav_tags.json')
+            .then((favTagsJSON) => {
+              let favTagsObj = JSON.parse(favTagsJSON)
+              if (favTagsJSON) {
+                Object.keys(favTagsObj).forEach((key) => {
+                  if (key.split('_')[2] !== cryptoAddress) {
+                    this.tags.push(favTagsObj[key])
+                  }
+                })
+              }
+            })
+        })
     }
   },
   mounted () {
     this.updateFromImageProp()
+    this.fetchMarkers()
+    this.fetchTags()
   }
 }
 </script>

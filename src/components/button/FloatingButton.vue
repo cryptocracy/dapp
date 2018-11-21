@@ -41,7 +41,7 @@
             dark
             small
             color="blue lighten-1"
-            :to="{ name: 'Favorites', params: { tagProp: null } }"
+            :to="{ name: 'AddTag', params: { tagProp: null } }"
         >
             <v-icon>label</v-icon>
         </v-btn>
