@@ -55,8 +55,7 @@
 </template>
 
 <script>
-import ImageUploader from '@/components/image-uploader/ImageUploader'
-import storageService from '@/services/blockstack-storage'
+import storageService from '../../../services/blockstack-storage'
 
 export default {
   data: () => ({

@@ -84,9 +84,7 @@
 </template>
 
 <script>
-// import MapWithMarker from '../../../components/maps/MapWithMarker'
-import OpenMapWithMarker from '@/components/maps/OpenMapWithMarker'
-import storageService from '@/services/blockstack-storage'
+import storageService from '../../../services/blockstack-storage'
 
 export default {
   name: 'TagInfo',
