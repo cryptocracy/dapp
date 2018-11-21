@@ -83,8 +83,8 @@
 </template>
 
 <script>
-import ImageUploader from '../../../components/image-uploader/ImageUploader'
-import storageService from '../../../services/blockstack-storage'
+import ImageUploader from '@/components/image-uploader/ImageUploader'
+import storageService from '@/services/blockstack-storage'
 const cryptoAddress = JSON.parse(localStorage['blockstack-gaia-hub-config']).address
 
 export default {

@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import storageService from '../../../services/blockstack-storage'
+import storageService from '@/services/blockstack-storage'
 
 export default {
   data: () => ({

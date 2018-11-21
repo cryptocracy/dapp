@@ -99,8 +99,8 @@
 </template>
 
 <script>
-import OpenMapWithMarker from '../../../components/maps/OpenMapWithMarker'
-import storageService from '../../../services/blockstack-storage'
+import OpenMapWithMarker from '@/components/maps/OpenMapWithMarker'
+import storageService from '@/services/blockstack-storage'
 
 export default {
   name: 'MarkerInfo',

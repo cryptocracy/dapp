@@ -86,8 +86,8 @@
 </template>
 
 <script>
-import storageService from '../../../services/blockstack-storage'
-import OpenMapWithMarker from '../../../components/maps/OpenMapWithMarker'
+import storageService from '@/services/blockstack-storage'
+import OpenMapWithMarker from '@/components/maps/OpenMapWithMarker'
 
 export default {
   data: () => ({

@@ -97,7 +97,7 @@
 
 <script>
 // import MapWithMarker from '../../../components/maps/MapWithMarker'
-import storageService from '../../../services/blockstack-storage'
+import storageService from '@/services/blockstack-storage'
 
 export default {
   name: 'ImageInfo',

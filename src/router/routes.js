@@ -8,15 +8,15 @@ import MyTagList from '@/components/tags/MyTagList'
 import FavoriteTagList from '@/components/tags/FavoriteTagList'
 import TagInfo from '@/components/tags/TagInfo'
 
-import ImageForm from '@/pages/page-layouts/images/ImageForm'
-import MyImageList from '@/pages/page-layouts/images/MyImageList'
-import FavoriteImageList from '@/pages/page-layouts/images/FavoriteImageList'
-import ImageInfo from '@/pages/page-layouts/images/ImageInfo'
+import ImageForm from '@/components/images/ImageForm'
+import MyImageList from '@/components/images/MyImageList'
+import FavoriteImageList from '@/components/images/FavoriteImageList'
+import ImageInfo from '@/components/images/ImageInfo'
 
-import MarkerForm from '@/pages/page-layouts/markers/MarkerForm'
-import MyMarkerList from '@/pages/page-layouts/markers/MyMarkerList'
-import FavoriteMarkerList from '@/pages/page-layouts/markers/FavoriteMarkerList'
-import MarkerInfo from '@/pages/page-layouts/markers/MarkerInfo'
+import MarkerForm from '@/components/markers/MarkerForm'
+import MyMarkerList from '@/components/markers/MyMarkerList'
+import FavoriteMarkerList from '@/components/markers/FavoriteMarkerList'
+import MarkerInfo from '@/components/markers/MarkerInfo'
 
 import WalletSummary from '@/components/wallet/Summary'
 import WalletReceive from '@/components/wallet/Receive'
@@ -63,18 +63,3 @@ const routes = [
 ]
 
 export default routes
-
-// import TagForm from '@/pages/page-layouts/tags/TagForm'
-// import MyTagList from '@/pages/page-layouts/tags/MyTagList'
-// import FavoriteTagList from '@/pages/page-layouts/tags/FavoriteTagList'
-// import TagInfo from '@/pages/page-layouts/tags/TagInfo'
-
-// import ImageForm from '@/pages/page-layouts/images/ImageForm'
-// import MyImageList from '@/pages/page-layouts/images/MyImageList'
-// import FavoriteImageList from '@/pages/page-layouts/images/FavoriteImageList'
-// import ImageInfo from '@/pages/page-layouts/images/ImageInfo'
-
-// import MarkerForm from '@/pages/page-layouts/markers/MarkerForm'
-// import MyMarkerList from '@/pages/page-layouts/markers/MyMarkerList'
-// import FavoriteMarkerList from '@/pages/page-layouts/markers/FavoriteMarkerList'
-// import MarkerInfo from '@/pages/page-layouts/markers/MarkerInfo'
