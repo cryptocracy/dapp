@@ -6,7 +6,7 @@
       v-bind:key="item.title"
       v-model="item.active"
       :class="!item.items ? 'no-child' : ''"
-      >
+    >
 
       <v-list-tile slot="activator" :to="item.linkTo" @click=hideSearchResults>
         <v-list-tile-action>

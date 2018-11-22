@@ -1,57 +1,57 @@
 <template>
-    <v-card class="container">
-        <v-form ref="form" v-model="valid" lazy-validation>
-            <v-text-field
-                v-model="tag.title"
-                :rules="titleRules"
-                :counter="21"
-                :disabled="isLoading"
-                label="Title"
-                required
-            ></v-text-field>
-            <v-select
-                :items="symbols"
-                label="Symbol"
-                v-model="tag.symbol"
-                :disabled="isLoading"
-            ></v-select>
-            <v-text-field
-                v-model="tag.address"
-                :rules="addressRules"
-                :counter="42"
-                label="Address"
-                :disabled="isLoading"
-            ></v-text-field>
-            <div class="switch-wrapper">
-                <div class="input-group--text-field primary--text">Privacy</div>
-                <div class="switch-block">
-                    <span class="switch-text">Public</span>
-                    <v-switch v-model="tag.private"></v-switch>
-                    <span class="switch-text">Personal</span>
-                </div>
-            </div>
-            <div class="switch-wrapper" v-if="tagProp">
-                <div class="input-group--text-field primary--text">Archived</div>
-                <div class="switch-block">
-                    <span class="switch-text">No</span>
-                    <v-switch v-model="tag.archived"></v-switch>
-                    <span class="switch-text">Yes</span>
-                </div>
-            </div>
-            <v-btn
-                :disabled="!valid || isLoading"
-                @click="submit"
-            >
-                submit
-            </v-btn>
-            <v-btn
-                @click="clear"
-                :disabled="isLoading"
-            >
-                clear
-            </v-btn>
-        </v-form>
-    </v-card>
+  <v-card class="container">
+    <v-form ref="form" v-model="valid" lazy-validation>
+      <v-text-field
+        v-model="tag.title"
+        :rules="titleRules"
+        :counter="21"
+        :disabled="isLoading"
+        label="Title"
+        required
+      ></v-text-field>
+      <v-select
+        :items="symbols"
+        label="Symbol"
+        v-model="tag.symbol"
+        :disabled="isLoading"
+      ></v-select>
+      <v-text-field
+        v-model="tag.address"
+        :rules="addressRules"
+        :counter="42"
+        label="Address"
+        :disabled="isLoading"
+      ></v-text-field>
+      <div class="switch-wrapper">
+        <div class="input-group--text-field primary--text">Privacy</div>
+        <div class="switch-block">
+          <span class="switch-text">Public</span>
+          <v-switch v-model="tag.private"></v-switch>
+          <span class="switch-text">Personal</span>
+        </div>
+      </div>
+      <div class="switch-wrapper" v-if="tagProp">
+        <div class="input-group--text-field primary--text">Archived</div>
+        <div class="switch-block">
+          <span class="switch-text">No</span>
+          <v-switch v-model="tag.archived"></v-switch>
+          <span class="switch-text">Yes</span>
+        </div>
+      </div>
+      <v-btn
+        :disabled="!valid || isLoading"
+        @click="submit"
+      >
+        submit
+      </v-btn>
+      <v-btn
+        @click="clear"
+        :disabled="isLoading"
+      >
+        clear
+      </v-btn>
+    </v-form>
+  </v-card>
 </template>
 
 <script>
@@ -71,7 +71,7 @@ export default {
       v: '0.0.1',
       id: ''
     },
-    symbols: ['BTC', 'StX'],
+    symbols: ['BTC', 'STX'],
     titleRules: [
       v => !!v || 'Name is required',
       v => (v && v.length <= 21) || 'Name must be less than 21 characters',
@@ -117,7 +117,7 @@ export default {
                 params: {
                   tagName: 'tag_' + this.tag.createdtime,
                   tagObject: this.tag
-                }}) : this.clear()
+                } }) : this.clear()
             })
         })
     },
@@ -127,7 +127,7 @@ export default {
     updateFromTagProp () {
       if (this.tagProp) {
         for (let property in this.tagProp) {
-          this.tag[property] = this.tagProp[property] instanceof Object ? {...this.tagProp[property]} : this.tagProp[property]
+          this.tag[property] = this.tagProp[property] instanceof Object ? { ...this.tagProp[property] } : this.tagProp[property]
         }
       } else {
         this.clear()

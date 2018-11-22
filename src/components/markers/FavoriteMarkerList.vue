@@ -1,5 +1,5 @@
 <template>
-    <marker-list :markersArray="markersArray"/>
+  <marker-list :markersArray="markersArray"/>
 </template>
 
 <script>

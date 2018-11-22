@@ -1,8 +1,8 @@
 <template>
-    <marker-list
-        :markersArray='markersArray'
-        owned
-    />
+  <marker-list
+    :markersArray='markersArray'
+    owned
+  />
 </template>
 
 <script>

@@ -1,8 +1,8 @@
 <template>
-    <image-list
-        :imagesArray='imagesArray'
-        owned
-    />
+  <image-list
+    :imagesArray='imagesArray'
+    owned
+  />
 </template>
 
 <script>

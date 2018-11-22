@@ -1,31 +1,31 @@
 <template>
+  <div>
     <div>
-        <div>
-            <img
-                id="image"
-                :src="imageUrl"
-                ref="imageUrl"
-                height="150"
-                @click="onPickFile"
-                style="cursor: pointer;"
-            >
-        </div>
-        <div>
-            <v-btn raised @click="onPickFile" :disabled="disabled" v-if="!imageUrl">
-                {{ selectLabel }}
-            </v-btn>
-            <v-btn raised class="error" @click="removeFile" :disabled="disabled" v-else>
-                {{ removeLabel }}
-            </v-btn>
-            <input
-                type="file"
-                ref="image"
-                name="image"
-                :accept="accept"
-                @change="onFilePicked"
-            >
-        </div>
+      <img
+        id="image"
+        :src="imageUrl"
+        ref="imageUrl"
+        height="150"
+        @click="onPickFile"
+        style="cursor: pointer;"
+      >
     </div>
+    <div>
+      <v-btn raised @click="onPickFile" :disabled="disabled" v-if="!imageUrl">
+        {{ selectLabel }}
+      </v-btn>
+      <v-btn raised class="error" @click="removeFile" :disabled="disabled" v-else>
+        {{ removeLabel }}
+      </v-btn>
+      <input
+        type="file"
+        ref="image"
+        name="image"
+        :accept="accept"
+        @change="onFilePicked"
+      >
+    </div>
+  </div>
 </template>
 
 <script>

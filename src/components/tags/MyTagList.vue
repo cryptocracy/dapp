@@ -1,8 +1,8 @@
 <template>
-    <tag-list
-        :tagsArray='tagsArray'
-        owned
-    />
+  <tag-list
+    :tagsArray='tagsArray'
+    owned
+  />
 </template>
 
 <script>

@@ -1,91 +1,91 @@
 <template>
-    <v-card class="container">
-        <v-form ref="form" v-model="valid" lazy-validation>
-            <image-uploader
-                accept="image/*"
-                ref="imageInput"
-                :disabled="isLoading"
-                limit=2000000
-                :value="imageFile"
-                @input="getUploadedImage"
-            />
+  <v-card class="container">
+    <v-form ref="form" v-model="valid" lazy-validation>
+      <image-uploader
+        accept="image/*"
+        ref="imageInput"
+        :disabled="isLoading"
+        limit=2000000
+        :value="imageFile"
+        @input="getUploadedImage"
+      />
 
-            <v-text-field
-                v-model="image.title"
-                :rules="titleRules"
-                :counter="10"
-                :disabled="isLoading"
-                label="Title"
-                required
-            ></v-text-field>
-            <v-text-field
-                v-model="image.detail"
-                label="Detail"
-                :disabled="isLoading"
-            ></v-text-field>
-            <v-select
-                :items="symbols"
-                label="Symbol"
-                v-model="image.symbol"
-                :disabled="isLoading"
-            ></v-select>
-            <v-select
-                :items="tags"
-                label="Tag(s)"
-                v-model="image.tags"
-                :disabled="isLoading"
-                multiple
-                chips
-            ></v-select>
-            <v-select
-                :items="markers"
-                label="Marker"
-                v-model="image.marker"
-                :disabled="isLoading"
-            ></v-select>
-            <v-text-field
-                v-model="image.address"
-                :rules="addressRules"
-                :counter="42"
-                label="Address"
-                :disabled="isLoading"
-            ></v-text-field>
-            <div class="switch-wrapper">
-                <div class="input-group--text-field primary--text">Privacy</div>
-                <div class="switch-block">
-                    <span class="switch-text">Public</span>
-                    <v-switch v-model="image.limit"></v-switch>
-                    <span class="switch-text">Personal</span>
-                </div>
-            </div>
-            <div class="switch-wrapper" v-if="imageProp">
-                <div class="input-group--text-field primary--text">Archived</div>
-                <div class="switch-block">
-                    <span class="switch-text">No</span>
-                    <v-switch v-model="image.archived"></v-switch>
-                    <span class="switch-text">Yes</span>
-                </div>
-            </div>
-            <v-btn
-                :disabled="!valid || isLoading || !imageFile"
-                @click="submit"
-            >
-                submit
-            </v-btn>
-            <v-btn
-                @click="clear"
-                :disabled="isLoading"
-            >
-                clear
-            </v-btn>
-        </v-form>
-    </v-card>
+      <v-text-field
+        v-model="image.title"
+        :rules="titleRules"
+        :counter="10"
+        :disabled="isLoading"
+        label="Title"
+        required
+      ></v-text-field>
+      <v-text-field
+        v-model="image.detail"
+        label="Detail"
+        :disabled="isLoading"
+      ></v-text-field>
+      <v-select
+        :items="symbols"
+        label="Symbol"
+        v-model="image.symbol"
+        :disabled="isLoading"
+      ></v-select>
+      <v-text-field
+        v-model="image.address"
+        :rules="addressRules"
+        :counter="42"
+        label="Address"
+        :disabled="isLoading"
+      ></v-text-field>
+      <v-select
+        :items="tags"
+        label="Tag(s)"
+        v-model="image.tags"
+        :disabled="isLoading"
+        multiple
+        chips
+      ></v-select>
+      <v-select
+        :items="markers"
+        label="Marker"
+        v-model="image.marker"
+        :disabled="isLoading"
+      ></v-select>
+      <div class="switch-wrapper">
+        <div class="input-group--text-field primary--text">Privacy</div>
+        <div class="switch-block">
+          <span class="switch-text">Public</span>
+          <v-switch v-model="image.limit"></v-switch>
+          <span class="switch-text">Personal</span>
+        </div>
+      </div>
+      <div class="switch-wrapper" v-if="imageProp">
+        <div class="input-group--text-field primary--text">Archived</div>
+        <div class="switch-block">
+          <span class="switch-text">No</span>
+          <v-switch v-model="image.archived"></v-switch>
+          <span class="switch-text">Yes</span>
+        </div>
+      </div>
+      <v-btn
+        :disabled="!valid || isLoading || !imageFile"
+        @click="submit"
+      >
+        submit
+      </v-btn>
+      <v-btn
+        @click="clear"
+        :disabled="isLoading"
+      >
+        clear
+      </v-btn>
+    </v-form>
+  </v-card>
 </template>
 
 <script>
 import ImageUploader from '@/components/image-uploader/ImageUploader'
 import storageService from '@/services/blockstack-storage'
-const cryptoAddress = JSON.parse(localStorage['blockstack-gaia-hub-config']).address
+const cryptoAddress = localStorage['blockstack-gaia-hub-config'] ? JSON.parse(localStorage['blockstack-gaia-hub-config']).address : ''
 
 export default {
 
@@ -168,7 +168,7 @@ export default {
                 params: {
                   imageName: 'image_' + this.image.createdtime,
                   imageObject: this.image
-                }}) : this.clear()
+                } }) : this.clear()
             })
         })
     },
@@ -182,7 +182,7 @@ export default {
     updateFromImageProp () {
       if (this.imageProp) {
         for (let property in this.imageProp) {
-          this.image[property] = this.imageProp[property] instanceof Object ? {...this.imageProp[property]} : this.imageProp[property]
+          this.image[property] = this.imageProp[property] instanceof Object ? { ...this.imageProp[property] } : this.imageProp[property]
         }
       } else {
         this.clear()

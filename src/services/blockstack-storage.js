@@ -13,7 +13,7 @@ const storageService = {
     .then((currentContent) => {
       let [key, value] = data
       if (!currentContent) {
-        window.blockstack.putFile(jsonName, JSON.stringify({[key]: value}))
+        window.blockstack.putFile(jsonName, JSON.stringify({ [key]: value }))
       } else {
         const parsedCurrentContent = JSON.parse(currentContent)
         if (slice) {

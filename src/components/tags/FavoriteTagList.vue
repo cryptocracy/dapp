@@ -1,5 +1,5 @@
 <template>
-    <tag-list :tagsArray="tagsArray"/>
+  <tag-list :tagsArray="tagsArray"/>
 </template>
 
 <script>

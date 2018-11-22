@@ -3,66 +3,66 @@
     <div v-if="userData.hasOwnProperty('profile')" class="container profile-info">
       <!-- do not delete -->
       <!-- <div> -->
-        <!-- <div class="offset-1 col-3">
+      <!-- <div class="offset-1 col-3">
           <v-avatar :size="imageSize" color="grey lighten-4">
             <img v-if="userData.profile.hasOwnProperty('image')" :src="userData.profile.image[0].contentUrl" :alt="userData.profile.name">
             <v-icon v-else large color="teal accent-4">person</v-icon>
           </v-avatar>
         </div> -->
-        <!-- <div class="offset-2 col-6 ">></div> -->
-        <div>
-          <v-layout row>
-            <v-flex  xs12 sm6 offset-sm3>
-              <v-card>
-                <v-img
-                  v-if="userData.profile.hasOwnProperty('image')"
-                  :src="userData.profile.image[0].contentUrl"
-                  height="300px">
-                </v-img>
-                <v-img
-                  v-else
-                  height="200px"
-                  src="https://www.freeiconspng.com/uploads/no-image-icon-6.png"
-                  gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)">
-                </v-img>
+      <!-- <div class="offset-2 col-6 ">></div> -->
+      <div>
+        <v-layout row>
+          <v-flex  xs12 sm6 offset-sm3>
+            <v-card>
+              <v-img
+                v-if="userData.profile.hasOwnProperty('image')"
+                :src="userData.profile.image[0].contentUrl"
+                height="300px">
+              </v-img>
+              <v-img
+                v-else
+                height="200px"
+                src="https://www.freeiconspng.com/uploads/no-image-icon-6.png"
+                gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)">
+              </v-img>
 
-                <v-card-title>
-                  <div class="display-1">{{userData.profile.name}}</div>
-                  <v-list-tile-action v-if="$route.params.id !== 'my-profile'" class="ml-auto">
-                    <v-tooltip bottom v-if="!isAdded">
-                      <v-btn slot="activator" @click.stop="updateContacts(userData, 'addition')" outline fab small color="teal accent-4">
-                        <v-icon  color="teal accent-4">person_add</v-icon>
-                      </v-btn>
-                      <span>Add to Contacts</span>
-                    </v-tooltip>
+              <v-card-title>
+                <div class="display-1">{{userData.profile.name}}</div>
+                <v-list-tile-action v-if="$route.params.id !== 'my-profile'" class="ml-auto">
+                  <v-tooltip bottom v-if="!isAdded">
+                    <v-btn slot="activator" @click.stop="updateContacts(userData, 'addition')" outline fab small color="teal accent-4">
+                      <v-icon  color="teal accent-4">person_add</v-icon>
+                    </v-btn>
+                    <span>Add to Contacts</span>
+                  </v-tooltip>
 
-                    <v-tooltip bottom v-else>
-                      <v-btn slot="activator" @click.stop="updateContacts(userData, 'deletion')" outline fab small color="teal accent-4">
-                        <v-icon  color="teal accent-4">delete</v-icon>
-                      </v-btn>
-                      <span>Remove from Contacts</span>
-                    </v-tooltip>
+                  <v-tooltip bottom v-else>
+                    <v-btn slot="activator" @click.stop="updateContacts(userData, 'deletion')" outline fab small color="teal accent-4">
+                      <v-icon  color="teal accent-4">delete</v-icon>
+                    </v-btn>
+                    <span>Remove from Contacts</span>
+                  </v-tooltip>
+                </v-list-tile-action>
+              </v-card-title>
+
+              <v-list two-line>
+                <v-list-tile @click="dummyFunction">
+                  <v-list-tile-action>
+                    <v-icon color="teal accent-4">person</v-icon>
                   </v-list-tile-action>
-                </v-card-title>
 
-                <v-list two-line>
-                  <v-list-tile @click="dummyFunction">
-                    <v-list-tile-action>
-                      <v-icon color="teal accent-4">person</v-icon>
-                    </v-list-tile-action>
+                  <v-list-tile-content>
+                    <v-list-tile-title v-if="$route.params.id !== 'my-profile'">{{userData.fullyQualifiedName || 'None'}}</v-list-tile-title>
+                    <v-list-tile-title v-else>{{userData.username || 'None'}}</v-list-tile-title>
+                    <v-list-tile-sub-title>Fully Qualified Name</v-list-tile-sub-title>
+                  </v-list-tile-content>
 
-                    <v-list-tile-content>
-                      <v-list-tile-title v-if="$route.params.id !== 'my-profile'">{{userData.fullyQualifiedName || 'None'}}</v-list-tile-title>
-                      <v-list-tile-title v-else>{{userData.username || 'None'}}</v-list-tile-title>
-                      <v-list-tile-sub-title>Fully Qualified Name</v-list-tile-sub-title>
-                    </v-list-tile-content>
+                  <v-list-tile-action>
+                    <v-icon>chat</v-icon>
+                  </v-list-tile-action>
+                </v-list-tile>
 
-                    <v-list-tile-action>
-                      <v-icon>chat</v-icon>
-                    </v-list-tile-action>
-                  </v-list-tile>
-
-                  <!-- <v-list-tile @click="dummyFunction">
+                <!-- <v-list-tile @click="dummyFunction">
                     <v-list-tile-action>
                       <v-icon>
                         account_circle
@@ -79,32 +79,32 @@
                     </v-list-tile-action>
                   </v-list-tile> -->
 
-                  <v-divider inset></v-divider>
+                <v-divider inset></v-divider>
 
-                  <v-list-tile @click="dummyFunction">
-                    <v-list-tile-action>
-                      <v-icon color="teal accent-4">mail</v-icon>
-                    </v-list-tile-action>
+                <v-list-tile @click="dummyFunction">
+                  <v-list-tile-action>
+                    <v-icon color="teal accent-4">mail</v-icon>
+                  </v-list-tile-action>
 
-                    <v-list-tile-content>
-                      <v-list-tile-title>{{userData.profile['@type'] || 'None'}}</v-list-tile-title>
-                      <v-list-tile-sub-title>Type</v-list-tile-sub-title>
-                    </v-list-tile-content>
-                  </v-list-tile>
+                  <v-list-tile-content>
+                    <v-list-tile-title>{{userData.profile['@type'] || 'None'}}</v-list-tile-title>
+                    <v-list-tile-sub-title>Type</v-list-tile-sub-title>
+                  </v-list-tile-content>
+                </v-list-tile>
 
-                  <v-list-tile @click="dummyFunction">
-                    <v-list-tile-action><v-icon>account_box</v-icon></v-list-tile-action>
+                <v-list-tile @click="dummyFunction">
+                  <v-list-tile-action><v-icon>account_box</v-icon></v-list-tile-action>
 
-                    <v-list-tile-content>
-                      <v-list-tile-title v-if="userData.profile.hasOwnProperty('account')" >{{userData.profile.account.length || 0}}</v-list-tile-title>
-                      <v-list-tile-sub-title>Account</v-list-tile-sub-title>
-                    </v-list-tile-content>
-                  </v-list-tile>
-                </v-list>
-              </v-card>
-            </v-flex>
-          </v-layout>
-        </div>
+                  <v-list-tile-content>
+                    <v-list-tile-title v-if="userData.profile.hasOwnProperty('account')" >{{userData.profile.account.length || 0}}</v-list-tile-title>
+                    <v-list-tile-sub-title>Account</v-list-tile-sub-title>
+                  </v-list-tile-content>
+                </v-list-tile>
+              </v-list>
+            </v-card>
+          </v-flex>
+        </v-layout>
+      </div>
       <!-- </div> -->
     </div>
     <div class="mt-5 text-xs-center" v-else-if="!isResolved">

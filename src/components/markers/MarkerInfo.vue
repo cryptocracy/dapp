@@ -1,101 +1,101 @@
 <template>
-    <v-card class="container">
-        <v-list two-line>
-            <v-list-tile>
-                <template v-if="isLoading">
-                    <v-progress-linear
-                        indeterminate
-                        color="grey lighten-1"
-                        class="mb-0"
-                    ></v-progress-linear>
-                </template>
-                <template v-else>
-                    <v-divider/>
-                    <a v-if="isFavorite" class="marker-action" @click="removeFromFavorite">
-                        <v-icon color="grey lighten-1">favorite_border</v-icon>
-                        Remove from Favorite
-                    </a>
-                    <a v-else class="marker-action" @click="addToFavorite">
-                        <v-icon color="grey lighten-1">favorite</v-icon>
-                        Add to Favorite
-                    </a>
-                    <v-divider class="divider-intermediate"/>
-                    <router-link class="marker-action" :to="{ name: 'EditMarker', params: { markerProp: this.markerObject } }">
-                        <v-icon color="grey lighten-1">edit</v-icon>
-                        Edit
-                    </router-link>
-                </template>
-            </v-list-tile>
-            <v-list-tile>
-                <div class="json-address">
-                    <v-text-field
-                        ref="urlInput"
-                        :value="markerUrl"
-                        class="url-field"
-                        readonly
-                    />
-                    <v-btn class="button-copy" color="#20C3A5" @click="copyUrl">{{ copyButtonText }}</v-btn>
-                </div>
-            </v-list-tile>
-            <v-list-tile v-if="markerObject.title">
-                <v-list-tile-content>
-                    <v-list-tile-sub-title>Title</v-list-tile-sub-title>
-                    <v-list-tile-title v-html="markerObject.title"></v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
-            <v-list-tile>
-                <v-list-tile-content>
-                    <v-list-tile-sub-title>Privacy</v-list-tile-sub-title>
-                    <v-list-tile-title v-html="markerObject.private ? 'Private' : 'Public'"></v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
-            <v-list-tile>
-                <v-list-tile-content>
-                    <v-list-tile-sub-title>Archived</v-list-tile-sub-title>
-                    <v-list-tile-title v-html="markerObject.archived ? 'Yes' : 'No'"></v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
-            <v-list-tile v-if="markerObject.detail">
-                <v-list-tile-content>
-                    <v-list-tile-sub-title>Details</v-list-tile-sub-title>
-                    <v-list-tile-title v-html="markerObject.detail"></v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
-            <v-list-tile v-if="markerObject.createdtime">
-                <v-list-tile-content>
-                    <v-list-tile-sub-title>Created time</v-list-tile-sub-title>
-                    <v-list-tile-title v-html="new Date(markerObject.createdtime).toLocaleString()"></v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
-            <v-list-tile v-if="markerObject.private">
-                <v-list-tile-content>
-                    <v-list-tile-sub-title>Privacy</v-list-tile-sub-title>
-                    <v-list-tile-title v-html="markerObject.private ? 'Private' : 'Public'"></v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
-            <v-list-tile>
-                <v-list-tile-content>
-                    <v-list-tile-sub-title>Map</v-list-tile-sub-title>
-                </v-list-tile-content>
-            </v-list-tile>
-            <open-map-with-marker
-                readonly
-                v-if="markerObject.coordinates"
-                :center="coordinates"/>
-            <v-list-tile v-if="markerObject.symbol">
-                <v-list-tile-content>
-                    <v-list-tile-sub-title>Symbol</v-list-tile-sub-title>
-                    <v-list-tile-title v-html="markerObject.symbol"></v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
-            <v-list-tile v-if="markerObject.address">
-                <v-list-tile-content>
-                    <v-list-tile-sub-title>Address</v-list-tile-sub-title>
-                    <v-list-tile-title v-html="markerObject.address"></v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
-        </v-list>
-    </v-card>
+  <v-card class="container">
+    <v-list two-line>
+      <v-list-tile>
+        <template v-if="isLoading">
+          <v-progress-linear
+            indeterminate
+            color="grey lighten-1"
+            class="mb-0"
+          ></v-progress-linear>
+        </template>
+        <template v-else>
+          <v-divider/>
+          <a v-if="isFavorite" class="marker-action" @click="removeFromFavorite">
+            <v-icon color="grey lighten-1">favorite_border</v-icon>
+            Remove from Favorite
+          </a>
+          <a v-else class="marker-action" @click="addToFavorite">
+            <v-icon color="grey lighten-1">favorite</v-icon>
+            Add to Favorite
+          </a>
+          <v-divider class="divider-intermediate"/>
+          <router-link class="marker-action" :to="{ name: 'EditMarker', params: { markerProp: this.markerObject } }">
+            <v-icon color="grey lighten-1">edit</v-icon>
+            Edit
+          </router-link>
+        </template>
+      </v-list-tile>
+      <v-list-tile>
+        <div class="json-address">
+          <v-text-field
+            ref="urlInput"
+            :value="markerUrl"
+            class="url-field"
+            readonly
+          />
+          <v-btn class="button-copy" color="#20C3A5" @click="copyUrl">{{ copyButtonText }}</v-btn>
+        </div>
+      </v-list-tile>
+      <v-list-tile v-if="markerObject.title">
+        <v-list-tile-content>
+          <v-list-tile-sub-title>Title</v-list-tile-sub-title>
+          <v-list-tile-title v-html="markerObject.title"></v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile>
+        <v-list-tile-content>
+          <v-list-tile-sub-title>Privacy</v-list-tile-sub-title>
+          <v-list-tile-title v-html="markerObject.private ? 'Private' : 'Public'"></v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile>
+        <v-list-tile-content>
+          <v-list-tile-sub-title>Archived</v-list-tile-sub-title>
+          <v-list-tile-title v-html="markerObject.archived ? 'Yes' : 'No'"></v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile v-if="markerObject.detail">
+        <v-list-tile-content>
+          <v-list-tile-sub-title>Details</v-list-tile-sub-title>
+          <v-list-tile-title v-html="markerObject.detail"></v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile v-if="markerObject.createdtime">
+        <v-list-tile-content>
+          <v-list-tile-sub-title>Created time</v-list-tile-sub-title>
+          <v-list-tile-title v-html="new Date(markerObject.createdtime).toLocaleString()"></v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile v-if="markerObject.private">
+        <v-list-tile-content>
+          <v-list-tile-sub-title>Privacy</v-list-tile-sub-title>
+          <v-list-tile-title v-html="markerObject.private ? 'Private' : 'Public'"></v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile>
+        <v-list-tile-content>
+          <v-list-tile-sub-title>Map</v-list-tile-sub-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <open-map-with-marker
+        readonly
+        v-if="markerObject.coordinates"
+        :center="coordinates"/>
+      <v-list-tile v-if="markerObject.symbol">
+        <v-list-tile-content>
+          <v-list-tile-sub-title>Symbol</v-list-tile-sub-title>
+          <v-list-tile-title v-html="markerObject.symbol"></v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile v-if="markerObject.address">
+        <v-list-tile-content>
+          <v-list-tile-sub-title>Address</v-list-tile-sub-title>
+          <v-list-tile-title v-html="markerObject.address"></v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+    </v-list>
+  </v-card>
 </template>
 
 <script>
@@ -161,13 +161,13 @@ export default {
     }
   },
   mounted () {
-    storageService.getFile({fileName: 'my_fav_markers.json'})
+    storageService.getFile({ fileName: 'my_fav_markers.json' })
       .then(res => {
         if (res) {
           this.isFavorite = !!res[this.getFavMarkerName()]
         }
       })
-    storageService.getFile({fileName: 'my_fav_markers.json'})
+    storageService.getFile({ fileName: 'my_fav_markers.json' })
       .then(res => {
         if (res) {
           this.isFavorite = !!res[this.getFavMarkerName()]

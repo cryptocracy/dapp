@@ -1,5 +1,5 @@
 <template>
-    <image-list :imagesArray="imagesArray"/>
+  <image-list :imagesArray="imagesArray"/>
 </template>
 
 <script>

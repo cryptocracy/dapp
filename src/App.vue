@@ -12,21 +12,21 @@
           </transition>
         </div>
         <!--<v-btn fab fixed bottom right dark color="teal accent-4">-->
-          <!--<v-icon>add</v-icon>-->
+        <!--<v-icon>add</v-icon>-->
         <!--</v-btn>-->
         <!-- <v-progress-linear v-if="isLoading" :indeterminate="true" class="loading-bar"></v-progress-linear> -->
-          <div class="mt-5 text-xs-center loading-bar" v-if="isLoading">
-            <v-progress-circular
-              :size="70"
-              :width="5"
-              color="teal accent-4"
-              indeterminate
-            ></v-progress-circular>
-          </div>
+        <div class="mt-5 text-xs-center loading-bar" v-if="isLoading">
+          <v-progress-circular
+            :size="70"
+            :width="5"
+            color="teal accent-4"
+            indeterminate
+          ></v-progress-circular>
+        </div>
         <floating-button/>
         <v-footer class="pa-3" >
           <v-spacer></v-spacer>
-            <div>powered by <a href="https://blockstack.org">Blockstack</a> - source code on <a href="https://github.com/cryptocracy/dapp">Github</a></div>
+          <div>powered by <a href="https://blockstack.org">Blockstack</a> - source code on <a href="https://github.com/cryptocracy/dapp">Github</a></div>
         </v-footer>
       </div>
 

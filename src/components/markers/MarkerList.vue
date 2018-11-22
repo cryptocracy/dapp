@@ -1,73 +1,73 @@
 <template>
-    <div class="container">
-        <v-layout row v-show="markersArray.length">
+  <div class="container">
+    <v-layout row v-show="markersArray.length">
 
-            <v-flex xs12 sm6 offset-sm3>
-                <v-card>
-                    <div class="marker-preferences">
-                        <div class="marker-filter">
-                            <div class="marker-check-group">
-                                <v-checkbox
-                                    v-model="filterAll"
-                                    :disabled="filterAll"
-                                />
-                                <span class="checkbox-label">All</span>
-                            </div>
-                            <div class="marker-check-group">
-                                <v-checkbox v-model="filterArchived"/>
-                                <span class="checkbox-label">Archived</span>
-                            </div>
-                            <div class="marker-check-group">
-                                <v-checkbox v-model="filterActive"/>
-                                <span class="checkbox-label">Active</span>
-                            </div>
-                        </div>
-                        <div class="marker-sorting">
-                            <v-radio-group v-model="sortBy" row>
-                                <div class="marker-radio-group">
-                                    <v-radio value="name"></v-radio>
-                                    <span class="radio-label">By Name</span>
-                                </div>
-                                <div class="marker-radio-group">
-                                    <v-radio value="date"></v-radio>
-                                    <span class="radio-label">By Date</span>
-                                </div>
-                            </v-radio-group>
-                        </div>
-                    </div>
-                    <v-divider/>
-                    <v-list two-line subheader>
-                        <v-list-tile
-                            v-for="marker in filteredMarkersArray"
-                            :key="marker.createdtime"
-                            :to="{name: 'MarkerInfo', params: {
-                            markerName: 'marker_'+marker.createdtime,
-                            markerObject: marker,
-                            }}"
-                        >
-                            <v-list-tile-avatar>
-                                <v-icon color="blue lighten-4">label</v-icon>
-                            </v-list-tile-avatar>
+      <v-flex xs12 sm6 offset-sm3>
+        <v-card>
+          <div class="marker-preferences">
+            <div class="marker-filter">
+              <div class="marker-check-group">
+                <v-checkbox
+                  v-model="filterAll"
+                  :disabled="filterAll"
+                />
+                <span class="checkbox-label">All</span>
+              </div>
+              <div class="marker-check-group">
+                <v-checkbox v-model="filterArchived"/>
+                <span class="checkbox-label">Archived</span>
+              </div>
+              <div class="marker-check-group">
+                <v-checkbox v-model="filterActive"/>
+                <span class="checkbox-label">Active</span>
+              </div>
+            </div>
+            <div class="marker-sorting">
+              <v-radio-group v-model="sortBy" row>
+                <div class="marker-radio-group">
+                  <v-radio value="name"></v-radio>
+                  <span class="radio-label">By Name</span>
+                </div>
+                <div class="marker-radio-group">
+                  <v-radio value="date"></v-radio>
+                  <span class="radio-label">By Date</span>
+                </div>
+              </v-radio-group>
+            </div>
+          </div>
+          <v-divider/>
+          <v-list two-line subheader>
+            <v-list-tile
+              v-for="marker in filteredMarkersArray"
+              :key="marker.createdtime"
+              :to="{name: 'MarkerInfo', params: {
+                markerName: 'marker_'+marker.createdtime,
+                markerObject: marker,
+              }}"
+            >
+              <v-list-tile-avatar>
+                <v-icon color="blue lighten-4">label</v-icon>
+              </v-list-tile-avatar>
 
-                            <v-list-tile-content>
-                                <v-list-tile-title v-text="marker.title"/>
-                                <v-list-tile-sub-title v-text="marker.detail"/>
-                            </v-list-tile-content>
+              <v-list-tile-content>
+                <v-list-tile-title v-text="marker.title"/>
+                <v-list-tile-sub-title v-text="marker.detail"/>
+              </v-list-tile-content>
 
-                            <v-list-tile-action>
-                                <v-btn v-if="owned" icon :to="{ name: 'EditMarker', params: { markerProp: marker } }">
-                                    <v-icon color="grey lighten-1">edit</v-icon>
-                                </v-btn>
-                                <v-btn v-else icon @click.stop.prevent="removeFavorite($event, marker)">
-                                    <v-icon color="grey lighten-1">favorite_border</v-icon>
-                                </v-btn>
-                            </v-list-tile-action>
-                        </v-list-tile>
-                    </v-list>
-                </v-card>
-            </v-flex>
-        </v-layout>
-    </div>
+              <v-list-tile-action>
+                <v-btn v-if="owned" icon :to="{ name: 'EditMarker', params: { markerProp: marker } }">
+                  <v-icon color="grey lighten-1">edit</v-icon>
+                </v-btn>
+                <v-btn v-else icon @click.stop.prevent="removeFavorite($event, marker)">
+                  <v-icon color="grey lighten-1">favorite_border</v-icon>
+                </v-btn>
+              </v-list-tile-action>
+            </v-list-tile>
+          </v-list>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </div>
 </template>
 
 <script>

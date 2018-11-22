@@ -1,88 +1,88 @@
 <template>
-    <v-card class="container">
-        <v-form ref="form" v-model="valid" lazy-validation>
-            <v-text-field
-                v-model="marker.title"
-                :rules="titleRules"
-                :counter="10"
-                :disabled="isLoading"
-                label="Title"
-                required
-            ></v-text-field>
-            <v-text-field
-                v-model="marker.detail"
-                label="Detail"
-            ></v-text-field>
-            <v-select
-                :items="symbols"
-                label="Symbol"
-                v-model="marker.symbol"
-                :disabled="isLoading"
-            ></v-select>
-            <v-text-field
-                v-model="marker.address"
-                :rules="addressRules"
-                :counter="42"
-                label="Address"
-                :disabled="isLoading"
-            ></v-text-field>
-            <open-map-with-marker @input="changeCoordinates"/>
-            <!--<div class="geo-button-wrapper" v-if="markerProp">-->
-                <!--<template v-if="!newGeo">-->
-                    <!--<v-btn-->
-                        <!--fab-->
-                        <!--dark-->
-                        <!--small-->
-                        <!--color="green pa-2"-->
-                        <!--@click="updateGeoPosition"-->
-                    <!--&gt;-->
-                        <!--<v-icon>location_searching</v-icon>-->
-                    <!--</v-btn>-->
-                    <!--<span class="geo-button-text">Update marker geo location</span>-->
-                <!--</template>-->
-                <!--<template v-else>-->
-                    <!--<v-btn-->
-                        <!--fab-->
-                        <!--dark-->
-                        <!--small-->
-                        <!--color="green pa-2"-->
-                        <!--@click="rollbackGeoPosition"-->
-                    <!--&gt;-->
-                        <!--<v-icon>location_disabled</v-icon>-->
-                    <!--</v-btn>-->
-                    <!--<span class="geo-button-text">Rollback to old marker geo location</span>-->
-                <!--</template>-->
-            <!--</div>-->
-            <div class="switch-wrapper">
-                <div class="input-group--text-field primary--text">Privacy</div>
-                <div class="switch-block">
-                    <span class="switch-text">Public</span>
-                    <v-switch v-model="marker.private"></v-switch>
-                    <span class="switch-text">Personal</span>
-                </div>
-            </div>
-            <div class="switch-wrapper" v-if="markerProp">
-                <div class="input-group--text-field primary--text">Archived</div>
-                <div class="switch-block">
-                    <span class="switch-text">No</span>
-                    <v-switch v-model="marker.archived"></v-switch>
-                    <span class="switch-text">Yes</span>
-                </div>
-            </div>
-            <v-btn
-                :disabled="!valid || isLoading "
-                @click="submit"
-            >
-                submit
-            </v-btn>
-            <v-btn
-                @click="clear"
-                :disabled="isLoading"
-            >
-                clear
-            </v-btn>
-        </v-form>
-    </v-card>
+  <v-card class="container">
+    <v-form ref="form" v-model="valid" lazy-validation>
+      <v-text-field
+        v-model="marker.title"
+        :rules="titleRules"
+        :counter="10"
+        :disabled="isLoading"
+        label="Title"
+        required
+      ></v-text-field>
+      <v-text-field
+        v-model="marker.detail"
+        label="Detail"
+      ></v-text-field>
+      <v-select
+        :items="symbols"
+        label="Symbol"
+        v-model="marker.symbol"
+        :disabled="isLoading"
+      ></v-select>
+      <v-text-field
+        v-model="marker.address"
+        :rules="addressRules"
+        :counter="42"
+        label="Address"
+        :disabled="isLoading"
+      ></v-text-field>
+      <open-map-with-marker @input="changeCoordinates"/>
+      <!--<div class="geo-button-wrapper" v-if="markerProp">-->
+      <!--<template v-if="!newGeo">-->
+      <!--<v-btn-->
+      <!--fab-->
+      <!--dark-->
+      <!--small-->
+      <!--color="green pa-2"-->
+      <!--@click="updateGeoPosition"-->
+      <!--&gt;-->
+      <!--<v-icon>location_searching</v-icon>-->
+      <!--</v-btn>-->
+      <!--<span class="geo-button-text">Update marker geo location</span>-->
+      <!--</template>-->
+      <!--<template v-else>-->
+      <!--<v-btn-->
+      <!--fab-->
+      <!--dark-->
+      <!--small-->
+      <!--color="green pa-2"-->
+      <!--@click="rollbackGeoPosition"-->
+      <!--&gt;-->
+      <!--<v-icon>location_disabled</v-icon>-->
+      <!--</v-btn>-->
+      <!--<span class="geo-button-text">Rollback to old marker geo location</span>-->
+      <!--</template>-->
+      <!--</div>-->
+      <div class="switch-wrapper">
+        <div class="input-group--text-field primary--text">Privacy</div>
+        <div class="switch-block">
+          <span class="switch-text">Public</span>
+          <v-switch v-model="marker.private"></v-switch>
+          <span class="switch-text">Personal</span>
+        </div>
+      </div>
+      <div class="switch-wrapper" v-if="markerProp">
+        <div class="input-group--text-field primary--text">Archived</div>
+        <div class="switch-block">
+          <span class="switch-text">No</span>
+          <v-switch v-model="marker.archived"></v-switch>
+          <span class="switch-text">Yes</span>
+        </div>
+      </div>
+      <v-btn
+        :disabled="!valid || isLoading "
+        @click="submit"
+      >
+        submit
+      </v-btn>
+      <v-btn
+        @click="clear"
+        :disabled="isLoading"
+      >
+        clear
+      </v-btn>
+    </v-form>
+  </v-card>
 </template>
 
 <script>
@@ -155,7 +155,7 @@ export default {
                 params: {
                   markerName: 'marker_' + this.marker.createdtime,
                   markerObject: this.marker
-                }}) : this.clear()
+                } }) : this.clear()
             })
         })
     },
@@ -166,7 +166,7 @@ export default {
       if (this.markerProp) {
         console.log('update')
         for (let property in this.markerProp) {
-          this.marker[property] = this.markerProp[property] instanceof Object ? {...this.markerProp[property]} : this.markerProp[property]
+          this.marker[property] = this.markerProp[property] instanceof Object ? { ...this.markerProp[property] } : this.markerProp[property]
         }
       } else {
         this.clear()

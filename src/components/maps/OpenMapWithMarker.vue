@@ -1,11 +1,11 @@
 <template>
-    <l-map id="mapid" :zoom="zoom" :center="centerMap" @click="setMarker">
-        <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
-        <l-marker :lat-lng="marker" :icon="icon"></l-marker>
-        <v-btn fab small class="map-location" @click.stop="getMyLocation">
-            <v-icon dark>location_on</v-icon>
-        </v-btn>
-    </l-map>
+  <l-map id="mapid" :zoom="zoom" :center="centerMap" @click="setMarker">
+    <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
+    <l-marker :lat-lng="marker" :icon="icon"></l-marker>
+    <v-btn fab small class="map-location" @click.stop="getMyLocation">
+      <v-icon dark>location_on</v-icon>
+    </v-btn>
+  </l-map>
 
 </template>
 
@@ -67,7 +67,7 @@ export default {
     }
   },
   mounted () {
-    this.centerMap = {...this.center}
+    this.centerMap = { ...this.center }
     this.marker = this.center
   }
 }
