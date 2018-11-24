@@ -46,7 +46,7 @@
               }}"
             >
               <v-list-tile-avatar>
-                <v-icon color="blue lighten-4">label</v-icon>
+                <v-icon color="green lighten-4">image</v-icon>
               </v-list-tile-avatar>
 
               <v-list-tile-content>

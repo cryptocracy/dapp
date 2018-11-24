@@ -6,8 +6,8 @@
           backgroundColor="#1ebea5"
           icon="place"
           :title="markerCount"
-          subtitle="Marker Owned"
-          to="/"
+          subtitle="Markers Owned"
+          to="/markers/owned"
         >
         </app-icon-box>
       </div>
@@ -18,7 +18,7 @@
           icon="image"
           :title="imageCount"
           subtitle="Images Owned"
-          to="/"
+          to="/images/owned"
         >
         </app-icon-box>
       </div>

@@ -32,7 +32,7 @@ const items = [
   {
     color: 'green lighten-2',
     action: 'image',
-    title: 'Image',
+    title: 'Images',
     items: [
       // { title: 'Add New', linkTo: { name: 'AddTag', params: { tagProp: null } } },
       // { title: 'Find', linkTo: '/page-layout/banner' },
