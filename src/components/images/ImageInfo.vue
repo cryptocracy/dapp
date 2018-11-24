@@ -43,6 +43,20 @@
           <v-list-tile-title v-html="imageObject.title"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
+      <v-list-tile v-if="imageObject.tags && imageObject.tags.length">
+        <v-list-tile-content>
+          <v-list-tile-sub-title>{{ imageObject.tags.length>1 ? 'Tags' : 'Tag' }}</v-list-tile-sub-title>
+          <span v-for="tag in imageObject.tags" :key="tag.address" >
+            <v-list-tile-title v-html="'#' + tag.title"></v-list-tile-title>
+          </span>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile v-if="imageObject.marker">
+        <v-list-tile-content>
+          <v-list-tile-sub-title>Marker</v-list-tile-sub-title>
+          <v-list-tile-title v-html="imageObject.marker.title"></v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
       <v-list-tile>
         <v-list-tile-content>
           <v-list-tile-sub-title>Privacy</v-list-tile-sub-title>

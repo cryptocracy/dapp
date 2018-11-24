@@ -39,16 +39,20 @@
       <v-select
         :items="tags"
         label="Tag(s)"
+        item-text="title"
         v-model="image.tags"
         :disabled="isLoading"
+        return-object
         multiple
         chips
       ></v-select>
       <v-select
         :items="markers"
         label="Marker"
+        item-text="title"
         v-model="image.marker"
         :disabled="isLoading"
+        return-object
       ></v-select>
       <div class="switch-wrapper">
         <div class="input-group--text-field primary--text">Privacy</div>
@@ -195,7 +199,10 @@ export default {
           let markersObj = JSON.parse(markersJSON)
           if (markersObj) {
             this.markers = Object.keys(markersObj).map((key) => {
-              return markersObj[key]
+              return {
+                address: 'https://gaia.blockstack.org/hub/' + cryptoAddress + '/' + key + '.json',
+                title: markersObj[key]
+              }
             })
           }
           this.blockstack.getFile('my_fav_markers.json')
@@ -204,7 +211,10 @@ export default {
               if (favMarkersObj) {
                 Object.keys(favMarkersObj).forEach((key) => {
                   if (key.split('_')[2] !== cryptoAddress) {
-                    this.markers.push(favMarkersObj[key])
+                    this.tags.push({
+                      address: 'https://gaia.blockstack.org/hub/' + key.split('_')[2] + '/' + key.substr(0, key.lastIndexOf('_')) + '.json',
+                      title: favMarkersObj[key]
+                    })
                   }
                 })
               }
@@ -216,18 +226,26 @@ export default {
       this.blockstack.getFile('my_tags.json')
         .then((tagsJSON) => {
           let tagsObj = JSON.parse(tagsJSON)
+          console.log(tagsObj)
           if (tagsObj) {
             this.tags = Object.keys(tagsObj).map((key) => {
-              return tagsObj[key]
+              return {
+                address: 'https://gaia.blockstack.org/hub/' + cryptoAddress + '/' + key + '.json',
+                title: tagsObj[key]
+              }
             })
           }
           this.blockstack.getFile('my_fav_tags.json')
             .then((favTagsJSON) => {
               let favTagsObj = JSON.parse(favTagsJSON)
+              console.log(favTagsObj)
               if (favTagsJSON) {
                 Object.keys(favTagsObj).forEach((key) => {
                   if (key.split('_')[2] !== cryptoAddress) {
-                    this.tags.push(favTagsObj[key])
+                    this.tags.push({
+                      address: 'https://gaia.blockstack.org/hub/' + key.split('_')[2] + '/' + key.substr(0, key.lastIndexOf('_')) + '.json',
+                      title: favTagsObj[key]
+                    })
                   }
                 })
               }
