@@ -183,8 +183,6 @@ export default {
             .then(res => {
               if (res) {
                 this.markerCenter = res.data.coordinates
-              } else {
-                this.$store.commit('toggleLoading')
               }
             })
             .then(() => {
