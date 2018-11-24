@@ -2,7 +2,7 @@
   <l-map id="mapid" :zoom="zoom" :center="centerMap" @click="setMarker">
     <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
     <l-marker :lat-lng="marker" :icon="icon"></l-marker>
-    <v-btn fab small class="map-location" @click.stop="getMyLocation">
+    <v-btn fab class="map-location" @click.stop="getMyLocation">
       <v-icon dark>location_on</v-icon>
     </v-btn>
   </l-map>
@@ -81,9 +81,20 @@ export default {
 
     .map-location {
         position: absolute;
-        left: 10px;
-        bottom: 10px;
-        z-index: 410
+        left: 5px;
+        bottom: 5px;
+        z-index: 410;
+        height: 30px;
+        width: 30px;
+    }
+
+    .leaflet-control-container {
+      border: 2px red solid;
+
+    .leaflet-bar {
+      border-top-left-radius: 15px;
+      overflow: hidden;
+    }
     }
 }
 </style>

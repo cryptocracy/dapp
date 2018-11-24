@@ -46,17 +46,19 @@
       <v-list-tile v-if="imageObject.tags && imageObject.tags.length">
         <v-list-tile-content>
           <v-list-tile-sub-title>{{ imageObject.tags.length>1 ? 'Tags' : 'Tag' }}</v-list-tile-sub-title>
-          <span v-for="tag in imageObject.tags" :key="tag.address" >
-            <v-list-tile-title v-html="'#' + tag.title"></v-list-tile-title>
-          </span>
+          <div>
+            <template v-for="tag in imageObject.tags">
+              <v-chip :key="tag.address">{{ '#' + tag.title }}</v-chip>
+            </template>
+          </div>
         </v-list-tile-content>
       </v-list-tile>
       <v-list-tile v-if="imageObject.marker">
         <v-list-tile-content>
           <v-list-tile-sub-title>Marker</v-list-tile-sub-title>
-          <v-list-tile-title v-html="imageObject.marker.title"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
+      <open-map-with-marker v-if="markerCenter" :center="markerCenter" readonly/>
       <v-list-tile>
         <v-list-tile-content>
           <v-list-tile-sub-title>Privacy</v-list-tile-sub-title>
@@ -110,7 +112,8 @@
 </template>
 
 <script>
-// import MapWithMarker from '../../../components/maps/MapWithMarker'
+import axios from 'axios'
+import OpenMapWithMarker from '@/components/maps/OpenMapWithMarker'
 import storageService from '@/services/blockstack-storage'
 
 export default {
@@ -118,12 +121,16 @@ export default {
   data: () => ({
     copyButtonText: 'Copy',
     isFavorite: false,
-    isLoading: false
+    isLoading: false,
+    markerCenter: null
   }),
   props: {
     imageObject: {
       type: Object
     }
+  },
+  components: {
+    OpenMapWithMarker
   },
   computed: {
     imageUrl () {
@@ -163,10 +170,26 @@ export default {
     }
   },
   mounted () {
+    this.$store.commit('toggleLoading')
     storageService.getFile({ fileName: 'my_fav_images.json' })
       .then(res => {
         if (res) {
           this.isFavorite = !!res[this.getFavImageName()]
+        }
+      })
+      .then(() => {
+        if (this.imageObject.marker) {
+          axios.get(this.imageObject.marker.address)
+            .then(res => {
+              if (res) {
+                this.markerCenter = res.data.coordinates
+              } else {
+                this.$store.commit('toggleLoading')
+              }
+            })
+            .then(() => {
+              this.$store.commit('toggleLoading')
+            })
         }
       })
   }

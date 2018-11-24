@@ -4,9 +4,9 @@
       <div class="col-md-4">
         <app-icon-box
           backgroundColor="#1ebea5"
-          icon="favorite_border"
-          :title="projectCount"
-          subtitle="Projects Owned"
+          icon="place"
+          :title="markerCount"
+          subtitle="Marker Owned"
           to="/"
         >
         </app-icon-box>
@@ -15,9 +15,9 @@
       <div class="col-md-4">
         <app-icon-box
           backgroundColor="#29d4a5"
-          icon="list"
-          :title="taskCount"
-          subtitle="Tasks Owned"
+          icon="image"
+          :title="imageCount"
+          subtitle="Images Owned"
           to="/"
         >
         </app-icon-box>
@@ -26,7 +26,7 @@
       <div class="col-md-4">
         <app-icon-box
           backgroundColor="#31e6a5"
-          icon="language"
+          icon="label"
           :title="tagCount"
           subtitle="Tags Owned"
           to="/tags/owned"
@@ -48,11 +48,13 @@ export default {
   },
   data: () => ({
     tagCount: 0,
-    taskCount: 0,
-    projectCount: 0
+    imageCount: 0,
+    markerCount: 0
   }),
   mounted () {
     storageService.getFile({ fileName: 'my_tags.json' }).then((res) => { this.tagCount = res ? Object.keys(res).length : 0 })
+    storageService.getFile({ fileName: 'my_markers.json' }).then((res) => { this.markerCount = res ? Object.keys(res).length : 0 })
+    storageService.getFile({ fileName: 'my_images.json' }).then((res) => { this.imageCount = res ? Object.keys(res).length : 0 })
   }
 }
 </script>
