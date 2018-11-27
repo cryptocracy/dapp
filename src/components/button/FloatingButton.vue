@@ -25,6 +25,7 @@
       dark
       small
       color="indigo lighten-1"
+      to="/"
     >
       <v-icon>work</v-icon>
     </v-btn>
@@ -33,6 +34,7 @@
       dark
       small
       color="green lighten-1"
+      to="/"
     >
       <v-icon>list</v-icon>
     </v-btn>
@@ -87,6 +89,7 @@ export default {
 
 <style scoped>
     .floating-button {
-        position: fixed;
+      position: fixed;
+      color: white;
     }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <v-card class="container">
-    <v-form ref="form" v-model="valid" lazy-validation>
+    <v-form ref="form" v-model="valid">
       <image-uploader
         accept="image/*"
         ref="imageInput"
