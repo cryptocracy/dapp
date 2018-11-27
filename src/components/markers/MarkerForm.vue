@@ -26,33 +26,22 @@
         label="Address"
         :disabled="isLoading"
       ></v-text-field>
-      <open-map-with-marker @input="changeCoordinates"/>
-      <!--<div class="geo-button-wrapper" v-if="markerProp">-->
-      <!--<template v-if="!newGeo">-->
-      <!--<v-btn-->
-      <!--fab-->
-      <!--dark-->
-      <!--small-->
-      <!--color="green pa-2"-->
-      <!--@click="updateGeoPosition"-->
-      <!--&gt;-->
-      <!--<v-icon>location_searching</v-icon>-->
-      <!--</v-btn>-->
-      <!--<span class="geo-button-text">Update marker geo location</span>-->
-      <!--</template>-->
-      <!--<template v-else>-->
-      <!--<v-btn-->
-      <!--fab-->
-      <!--dark-->
-      <!--small-->
-      <!--color="green pa-2"-->
-      <!--@click="rollbackGeoPosition"-->
-      <!--&gt;-->
-      <!--<v-icon>location_disabled</v-icon>-->
-      <!--</v-btn>-->
-      <!--<span class="geo-button-text">Rollback to old marker geo location</span>-->
-      <!--</template>-->
-      <!--</div>-->
+      <open-map-with-marker
+        @input="changeCoordinates"
+        :center="coordinates"
+      />
+      <div class="geo-button-wrapper" v-if="geoUpdated && oldGeo">
+        <v-btn
+          fab
+          dark
+          small
+          color="green pa-2"
+          @click="rollbackCoordinates"
+        >
+          <v-icon>settings_backup_restore</v-icon>
+        </v-btn>
+        <span class="geo-button-text">Rollback to original geo location</span>
+      </div>
       <div class="switch-wrapper">
         <div class="input-group--text-field primary--text">Privacy</div>
         <div class="switch-block">
@@ -94,7 +83,7 @@ export default {
     blockstack: window.blockstack,
     isLoading: false,
     valid: false,
-    newGeo: false,
+    oldGeo: false,
     marker: {
       coordinates: null,
       title: '',
@@ -131,6 +120,17 @@ export default {
       this.updateFromMarkerProp()
     }
   },
+  computed: {
+    geoUpdated () {
+      return JSON.stringify(this.oldGeo) !== JSON.stringify(this.marker.coordinates)
+    },
+    coordinates () {
+      return this.marker.coordinates ? {
+        lat: this.marker.coordinates.lat,
+        lng: this.marker.coordinates.lng
+      } : null
+    }
+  },
   methods: {
     submit () {
       const timestamp = +new Date()
@@ -164,9 +164,11 @@ export default {
     },
     updateFromMarkerProp () {
       if (this.markerProp) {
-        console.log('update')
         for (let property in this.markerProp) {
           this.marker[property] = this.markerProp[property] instanceof Object ? { ...this.markerProp[property] } : this.markerProp[property]
+        }
+        if (this.marker.coordinates) {
+          this.oldGeo = {...this.marker.coordinates}
         }
       } else {
         this.clear()
@@ -174,6 +176,9 @@ export default {
     },
     changeCoordinates (newCoords) {
       this.marker.coordinates = newCoords
+    },
+    rollbackCoordinates () {
+      this.marker.coordinates = {...this.oldGeo}
     }
   },
   mounted () {

@@ -1,7 +1,7 @@
 <template>
-  <l-map id="mapid" :zoom="zoom" :center="centerMap" @click="setMarker">
+  <l-map id="mapid" :zoom="zoom" :center="actualCoordinates" @click="setMarker">
     <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
-    <l-marker :lat-lng="marker" :icon="icon"></l-marker>
+    <l-marker :lat-lng="actualCoordinates" :icon="icon"></l-marker>
     <v-btn fab class="map-location" @click.stop="getMyLocation">
       <v-icon dark>location_on</v-icon>
     </v-btn>
@@ -53,6 +53,14 @@ export default {
       default: false
     }
   },
+  computed: {
+    actualCoordinates () {
+      return this.center ? this.center : {
+        lat: 47.413220,
+        lng: -1.219482
+      }
+    }
+  },
   methods: {
     setMarker (e) {
       if (!this.readonly) {
@@ -65,10 +73,6 @@ export default {
         this.centerMap = L.latLng(position.coords.latitude, position.coords.longitude)
       })
     }
-  },
-  mounted () {
-    this.centerMap = { ...this.center }
-    this.marker = this.center
   }
 }
 </script>
