@@ -6,7 +6,7 @@
       v-bind:key="item.title"
       v-model="item.active"
       :class="!item.items ? 'no-child' : ''"
-      >
+    >
 
       <v-list-tile slot="activator" :to="item.linkTo" @click=hideSearchResults>
         <v-list-tile-action>
@@ -20,7 +20,7 @@
       <!-- Rendering child list item -->
       <v-list-tile @click=hideSearchResults v-if="item.items" v-for="subItem in item.items" v-bind:key="subItem.title" :to="subItem.linkTo">
         <v-list-tile-action>
-          <v-icon color="grey lighten-1">trending_flat</v-icon>
+          <v-icon color="grey lighten-1">{{ item.action }}</v-icon>
         </v-list-tile-action>
         <v-list-tile-content>
           <v-list-tile-title>{{ subItem.title }}</v-list-tile-title>

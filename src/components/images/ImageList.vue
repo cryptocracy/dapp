@@ -1,34 +1,34 @@
 <template>
   <div class="container">
-    <v-layout row v-show="tagsArray.length">
+    <v-layout row v-show="imagesArray.length">
 
       <v-flex xs12 sm6 offset-sm3>
         <v-card>
-          <div class="tag-preferences">
-            <div class="tag-filter">
-              <div class="tag-check-group">
+          <div class="image-preferences">
+            <div class="image-filter">
+              <div class="image-check-group">
                 <v-checkbox
                   v-model="filterAll"
                   :disabled="filterAll"
                 />
                 <span class="checkbox-label">All</span>
               </div>
-              <div class="tag-check-group">
+              <div class="image-check-group">
                 <v-checkbox v-model="filterArchived"/>
                 <span class="checkbox-label">Archived</span>
               </div>
-              <div class="tag-check-group">
+              <div class="image-check-group">
                 <v-checkbox v-model="filterActive"/>
                 <span class="checkbox-label">Active</span>
               </div>
             </div>
-            <div class="tag-sorting">
+            <div class="image-sorting">
               <v-radio-group v-model="sortBy" row>
-                <div class="tag-radio-group">
+                <div class="image-radio-group">
                   <v-radio value="name"></v-radio>
                   <span class="radio-label">By Name</span>
                 </div>
-                <div class="tag-radio-group">
+                <div class="image-radio-group">
                   <v-radio value="date"></v-radio>
                   <span class="radio-label">By Date</span>
                 </div>
@@ -38,27 +38,27 @@
           <v-divider/>
           <v-list two-line subheader>
             <v-list-tile
-              v-for="tag in filteredTagsArray"
-              :key="tag.createdtime"
-              :to="{name: 'TagInfo', params: {
-                tagName: 'tag_'+tag.createdtime,
-                tagObject: tag,
+              v-for="image in filteredImagesArray"
+              :key="image.createdtime"
+              :to="{name: 'ImageInfo', params: {
+                imageName: 'image_'+image.createdtime,
+                imageObject: image,
               }}"
             >
               <v-list-tile-avatar>
-                <v-icon color="blue lighten-4">label</v-icon>
+                <v-icon color="green lighten-4">image</v-icon>
               </v-list-tile-avatar>
 
               <v-list-tile-content>
-                <v-list-tile-title v-text="tag.title"/>
-                <v-list-tile-sub-title v-text="tag.detail"/>
+                <v-list-tile-title v-text="image.title"/>
+                <v-list-tile-sub-title v-text="image.detail"/>
               </v-list-tile-content>
 
               <v-list-tile-action>
-                <v-btn v-if="owned" icon :to="{ name: 'EditTag', params: { tagProp: tag } }">
+                <v-btn v-if="owned" icon :to="{ name: 'EditImage', params: { imageProp: image } }">
                   <v-icon color="grey lighten-1">edit</v-icon>
                 </v-btn>
-                <v-btn v-else icon @click.stop.prevent="removeFavorite($event, tag)">
+                <v-btn v-else icon @click.stop.prevent="removeFavorite($event, image)">
                   <v-icon color="grey lighten-1">favorite_border</v-icon>
                 </v-btn>
               </v-list-tile-action>
@@ -74,16 +74,16 @@
 import storageService from '@/services/blockstack-storage'
 
 export default {
-  name: 'TagList',
+  name: 'ImageList',
   data: () => ({
     blockstack: window.blockstack,
     filterArchived: true,
     filterActive: true,
     sortBy: 'name',
-    tags: []
+    images: []
   }),
   props: {
-    tagsArray: {
+    imagesArray: {
       type: Array,
       required: true,
       default: () => []
@@ -102,39 +102,39 @@ export default {
         this.filterActive = true
       }
     },
-    filteredTagsArray () {
+    filteredImagesArray () {
       let sortFunc = (prev, next) => this.sortBy === 'name' ? prev.title.localeCompare(next.title) : prev.createdtime - next.createdtime
-      return this.tags.filter(tag => (this.filterArchived && tag.archived) || (this.filterActive && !tag.archived)).slice(0).sort(sortFunc)
+      return this.images.filter(image => (this.filterArchived && image.archived) || (this.filterActive && !image.archived)).slice(0).sort(sortFunc)
     }
   },
   methods: {
-    getFavTagName (tag) {
-      return `tag_${tag.createdtime}_${JSON.parse(localStorage['blockstack-gaia-hub-config']).address}`
+    getFavImageName (image) {
+      return `image_${image.createdtime}_${JSON.parse(localStorage['blockstack-gaia-hub-config']).address}`
     },
-    removeFavorite (e, tag) {
-      storageService.reduceFavoriteTagIndex(this.getFavTagName(tag), tag.title)
-      this.tags = this.tags.filter(item => item.createdtime !== tag.createdtime)
+    removeFavorite (e, image) {
+      storageService.reduceFavoriteImageIndex(this.getFavImageName(image), image.title)
+      this.images = this.images.filter(item => item.createdtime !== image.createdtime)
     }
   },
   mounted () {
-    this.tags = this.tagsArray
+    this.images = this.imagesArray
   }
 }
 </script>
 
 <style lang="scss" scoped>
-    .tag-preferences {
+    .image-preferences {
         display: flex;
         justify-content: space-between;
         padding: 0 12px;
-        .tag-sorting {
+        .image-sorting {
             display: flex;
             align-items: center;
             padding-top: 18px;
             .input-group {
                 flex-wrap: nowrap;
             }
-            .tag-radio-group {
+            .image-radio-group {
                 display: flex;
                 align-items: center;
                 padding: 0 5px;
@@ -146,10 +146,10 @@ export default {
                 }
             }
         }
-        .tag-filter {
+        .image-filter {
             display: flex;
             padding-top: 18px;
-            .tag-check-group {
+            .image-check-group {
                 display: flex;
                 align-items: center;
                 padding: 0 5px;

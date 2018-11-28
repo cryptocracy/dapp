@@ -19,6 +19,28 @@ const items = [
     linkTo: '/'
   },
   {
+    color: 'red lighten-2',
+    action: 'place',
+    title: 'Markers',
+    items: [
+      // { title: 'Add New', linkTo: { name: 'AddTag', params: { tagProp: null } } },
+      // { title: 'Find', linkTo: '/page-layout/banner' },
+      { title: 'Owned', linkTo: '/markers/owned' },
+      { title: 'Favorites', linkTo: '/markers/favorites' }
+    ]
+  },
+  {
+    color: 'green lighten-2',
+    action: 'image',
+    title: 'Images',
+    items: [
+      // { title: 'Add New', linkTo: { name: 'AddTag', params: { tagProp: null } } },
+      // { title: 'Find', linkTo: '/page-layout/banner' },
+      { title: 'Owned', linkTo: '/images/owned' },
+      { title: 'Favorites', linkTo: '/images/favorites' }
+    ]
+  },
+  {
     color: 'blue lighten-2',
     action: 'label',
     title: 'Tags',

@@ -20,7 +20,7 @@ export default {
   },
   mounted () {
     if (localStorage['blockstack-gaia-hub-config']) {
-      this.qrSrc = qr(JSON.parse(localStorage['blockstack-gaia-hub-config']).address, {type: 6, size: 6, level: 'Q'})
+      this.qrSrc = qr(JSON.parse(localStorage['blockstack-gaia-hub-config']).address, { type: 6, size: 6, level: 'Q' })
     }
   }
 }

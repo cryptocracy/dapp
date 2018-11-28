@@ -1,46 +1,46 @@
 <template>
-  <tag-list
-    :tagsArray='tagsArray'
+  <image-list
+    :imagesArray='imagesArray'
     owned
   />
 </template>
 
 <script>
-import TagList from './TagList'
+import ImageList from './ImageList'
 
-const storageFile = 'my_tags.json'
+const storageFile = 'my_images.json'
 
 export default {
-  name: 'MyTagList',
+  name: 'MyImageList',
   components: {
-    TagList
+    ImageList
   },
   data: () => ({
     blockstack: window.blockstack,
     storageFile: storageFile,
-    tagsArray: []
+    imagesArray: []
   }),
   methods: {
-    fetchTagFile () {
+    fetchImageFile () {
       // fetching project list
       this.blockstack.getFile(this.storageFile)
-        .then((tagsText) => {
-          const tags = JSON.parse(tagsText || '[]')
+        .then((imagesText) => {
+          const images = JSON.parse(imagesText || '[]')
           // looping over project list to fetch unique json files for every project
-          for (let tag in tags) {
-            this.blockstack.getFile(`${tag}.json`).then((tagJson) => {
-              let tagData = typeof tagJson === 'string' ? JSON.parse(tagJson) : {}
-              // this[data.id] = tagData
+          for (let image in images) {
+            this.blockstack.getFile(`${image}.json`).then((imageJson) => {
+              let imageData = typeof imageJson === 'string' ? JSON.parse(imageJson) : {}
+              // this[data.id] = imageData
               // this[data.id].tasks = this[data.id].tasks || []
               // creating task array for listing tasks under their respective project
-              this.tagsArray.push(tagData)
+              this.imagesArray.push(imageData)
             })
           }
         })
     }
   },
   mounted () {
-    this.fetchTagFile()
+    this.fetchImageFile()
   }
 }
 </script>

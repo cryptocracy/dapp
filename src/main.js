@@ -5,7 +5,7 @@ import 'font-awesome/css/font-awesome.css'
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 // Google map vue plugin
-import * as VueGoogleMaps from 'vue2-google-maps'
+// import * as VueGoogleMaps from 'vue2-google-maps'
 // OpenStreetMaps
 import 'leaflet/dist/leaflet.css'
 
@@ -43,15 +43,15 @@ export const eventBus = new Vue();
 window.dummyFunction = function () {}
 Vue.prototype.dummyFunction = window.dummyFunction
 
-Vue.use(VueGoogleMaps, {
-  load: {
-    key: 'AIzaSyDLAOmejqle801yXt-mKafbYH4rwLIK2ts',
-    libraries: 'places' // This is required if you use the Autocomplete plugin
-    // OR: libraries: 'places,drawing'
-    // OR: libraries: 'places,drawing,visualization'
-    // (as you require)
-  }
-})
+// Vue.use(VueGoogleMaps, {
+//   load: {
+//     key: 'AIzaSyDLAOmejqle801yXt-mKafbYH4rwLIK2ts',
+//     libraries: 'places' // This is required if you use the Autocomplete plugin
+//     // OR: libraries: 'places,drawing'
+//     // OR: libraries: 'places,drawing,visualization'
+//     // (as you require)
+//   }
+// })
 
 /** Globally register layout component */
 Vue.component('app-layout', Layout)

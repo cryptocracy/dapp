@@ -28,7 +28,7 @@
                 :close="true"
                 @input="selectedContact = {}"
               >
-              <!-- Image will be shown in the chip, if there is not an image then the first character avatar of the user will be shown. -->
+                <!-- Image will be shown in the chip, if there is not an image then the first character avatar of the user will be shown. -->
                 <v-avatar v-if="data.item.hasOwnProperty('profile') && data.item.profile.hasOwnProperty('image')">
                   <img :src="data.item.profile.image[0].contentUrl" alt="avatar">
                 </v-avatar>
@@ -159,12 +159,12 @@ export default {
     getFilteredContactList (contactList) {
       this.filteredContactList = []
       contactList.forEach(contact => {
-        this.filterByService({contact, createList: true})
+        this.filterByService({ contact, createList: true })
       })
     },
     // filtering contacts if they have bitcoin service associated
     filterByService (args) {
-      let {contact, createList} = args
+      let { contact, createList } = args
       if (contact.hasOwnProperty('profile') && Array.isArray(contact.profile.account)) {
         contact.profile.account.find(account => {
           if (account.service.toLowerCase() === 'bitcoin') {
@@ -188,7 +188,7 @@ export default {
         endpoint: `https://core.blockstack.org/v1/users/${query}`
       })
       this.$store.commit('toggleLoading')
-      this.filterByService({contact: user, createList: false})
+      this.filterByService({ contact: user, createList: false })
     },
     setFee (amount) {
       this.amountFee = amount

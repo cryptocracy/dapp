@@ -11,16 +11,16 @@
         </template>
         <template v-else>
           <v-divider/>
-          <a v-if="isFavorite" class="tag-action" @click="removeFromFavorite">
+          <a v-if="isFavorite" class="marker-action" @click="removeFromFavorite">
             <v-icon color="grey lighten-1">favorite_border</v-icon>
             Remove from Favorite
           </a>
-          <a v-else class="tag-action" @click="addToFavorite">
+          <a v-else class="marker-action" @click="addToFavorite">
             <v-icon color="grey lighten-1">favorite</v-icon>
             Add to Favorite
           </a>
           <v-divider class="divider-intermediate"/>
-          <router-link class="tag-action" :to="{ name: 'EditTag', params: { tagProp: this.tagObject } }">
+          <router-link class="marker-action" :to="{ name: 'EditMarker', params: { markerProp: this.markerObject } }">
             <v-icon color="grey lighten-1">edit</v-icon>
             Edit
           </router-link>
@@ -30,53 +30,68 @@
         <div class="json-address">
           <v-text-field
             ref="urlInput"
-            :value="tagUrl"
+            :value="markerUrl"
             class="url-field"
             readonly
           />
           <v-btn class="button-copy" color="#20C3A5" @click="copyUrl">{{ copyButtonText }}</v-btn>
         </div>
       </v-list-tile>
-      <v-list-tile v-if="tagObject.title">
+      <v-list-tile v-if="markerObject.title">
         <v-list-tile-content>
           <v-list-tile-sub-title>Title</v-list-tile-sub-title>
-          <v-list-tile-title v-html="tagObject.title"></v-list-tile-title>
+          <v-list-tile-title v-html="markerObject.title"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
       <v-list-tile>
         <v-list-tile-content>
           <v-list-tile-sub-title>Privacy</v-list-tile-sub-title>
-          <v-list-tile-title v-html="tagObject.private ? 'Private' : 'Public'"></v-list-tile-title>
+          <v-list-tile-title v-html="markerObject.private ? 'Private' : 'Public'"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
       <v-list-tile>
         <v-list-tile-content>
           <v-list-tile-sub-title>Archived</v-list-tile-sub-title>
-          <v-list-tile-title v-html="tagObject.archived ? 'Yes' : 'No'"></v-list-tile-title>
+          <v-list-tile-title v-html="markerObject.archived ? 'Yes' : 'No'"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
-      <v-list-tile v-if="tagObject.createdtime">
+      <v-list-tile v-if="markerObject.detail">
+        <v-list-tile-content>
+          <v-list-tile-sub-title>Details</v-list-tile-sub-title>
+          <v-list-tile-title v-html="markerObject.detail"></v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile v-if="markerObject.createdtime">
         <v-list-tile-content>
           <v-list-tile-sub-title>Created time</v-list-tile-sub-title>
-          <v-list-tile-title v-html="new Date(tagObject.createdtime).toLocaleString()"></v-list-tile-title>
+          <v-list-tile-title v-html="new Date(markerObject.createdtime).toLocaleString()"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
-      <v-list-tile v-if="tagObject.private">
+      <v-list-tile v-if="markerObject.private">
         <v-list-tile-content>
           <v-list-tile-sub-title>Privacy</v-list-tile-sub-title>
-          <v-list-tile-title v-html="tagObject.private ? 'Private' : 'Public'"></v-list-tile-title>
+          <v-list-tile-title v-html="markerObject.private ? 'Private' : 'Public'"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
-      <v-list-tile v-if="tagObject.symbol">
+      <v-list-tile>
+        <v-list-tile-content>
+          <v-list-tile-sub-title>Map</v-list-tile-sub-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <open-map-with-marker
+        readonly
+        v-if="markerObject.coordinates"
+        :center="coordinates"/>
+      <v-list-tile v-if="markerObject.symbol">
         <v-list-tile-content>
           <v-list-tile-sub-title>Symbol</v-list-tile-sub-title>
-          <v-list-tile-title v-html="tagObject.symbol"></v-list-tile-title>
+          <v-list-tile-title v-html="markerObject.symbol"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
-      <v-list-tile v-if="tagObject.address">
+      <v-list-tile v-if="markerObject.address">
         <v-list-tile-content>
           <v-list-tile-sub-title>Address</v-list-tile-sub-title>
-          <v-list-tile-title v-html="tagObject.address"></v-list-tile-title>
+          <v-list-tile-title v-html="markerObject.address"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
     </v-list>
@@ -84,33 +99,43 @@
 </template>
 
 <script>
+import OpenMapWithMarker from '@/components/maps/OpenMapWithMarker'
 import storageService from '@/services/blockstack-storage'
 
 export default {
-  name: 'TagInfo',
+  name: 'MarkerInfo',
   data: () => ({
     copyButtonText: 'Copy',
     isFavorite: false,
     isLoading: false
   }),
+  components: {
+    OpenMapWithMarker
+  },
   props: {
-    tagObject: {
+    markerObject: {
       type: Object
     }
   },
   computed: {
-    tagUrl () {
+    coordinates () {
+      return this.markerObject ? {
+        lat: this.markerObject.coordinates.lat,
+        lng: this.markerObject.coordinates.lng
+      } : {}
+    },
+    markerUrl () {
       // parsing blockstack gaia hub cong from localhost for creating hub url
       const urlItems = JSON.parse(localStorage['blockstack-gaia-hub-config'])
       // creating hub url(where our files are stored)
       const hubUrl = `${urlItems.url_prefix}${urlItems.address}/`
-      return this.tagObject ? `${hubUrl}tag_${this.tagObject.createdtime}.json` : ''
+      return this.markerObject ? `${hubUrl}marker_${this.markerObject.createdtime}.json` : ''
     }
   },
   methods: {
-    getFavTagName () {
-      const tagUrlArr = this.tagUrl.split('/')
-      return `${tagUrlArr.pop().split('.')[0]}_${tagUrlArr.pop()}`
+    getFavMarkerName () {
+      const markerUrlArr = this.markerUrl.split('/')
+      return `${markerUrlArr.pop().split('.')[0]}_${markerUrlArr.pop()}`
     },
     copyUrl (e) {
       this.$refs.urlInput.$refs.input.select()
@@ -120,7 +145,7 @@ export default {
     },
     addToFavorite () {
       this.isLoading = true
-      storageService.updateFavoriteTagIndex(this.getFavTagName(), this.tagObject.title)
+      storageService.updateFavoriteMarkerIndex(this.getFavMarkerName(), this.markerObject.title)
         .then(() => {
           this.isFavorite = true
           this.isLoading = false
@@ -128,7 +153,7 @@ export default {
     },
     removeFromFavorite () {
       this.isLoading = true
-      storageService.reduceFavoriteTagIndex(this.getFavTagName(), this.tagObject.title)
+      storageService.reduceFavoriteMarkerIndex(this.getFavMarkerName(), this.markerObject.title)
         .then(() => {
           this.isFavorite = false
           this.isLoading = false
@@ -136,16 +161,16 @@ export default {
     }
   },
   mounted () {
-    storageService.getFile({ fileName: 'my_fav_tags.json' })
+    storageService.getFile({ fileName: 'my_fav_markers.json' })
       .then(res => {
         if (res) {
-          this.isFavorite = !!res[this.getFavTagName()]
+          this.isFavorite = !!res[this.getFavMarkerName()]
         }
       })
-    storageService.getFile({ fileName: 'my_fav_tags.json' })
+    storageService.getFile({ fileName: 'my_fav_markers.json' })
       .then(res => {
         if (res) {
-          this.isFavorite = !!res[this.getFavTagName()]
+          this.isFavorite = !!res[this.getFavMarkerName()]
         }
       })
   }
@@ -156,7 +181,7 @@ export default {
     .divider-intermediate {
         flex: 0 15px;
     }
-    .tag-action {
+    .marker-action {
         cursor: pointer;
         padding: 10px;
         display: flex;

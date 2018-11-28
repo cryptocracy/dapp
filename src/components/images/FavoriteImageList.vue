@@ -1,41 +1,41 @@
 <template>
-  <tag-list :tagsArray="tagsArray"/>
+  <image-list :imagesArray="imagesArray"/>
 </template>
 
 <script>
-import TagList from './TagList'
+import ImageList from './ImageList'
 import axios from 'axios'
 
-const storageFile = 'my_fav_tags.json'
+const storageFile = 'my_fav_images.json'
 
 export default {
-  name: 'MyFavoriteTagList',
+  name: 'MyFavoriteImageList',
   components: {
-    TagList
+    ImageList
   },
   data: () => ({
     blockstack: window.blockstack,
     storageFile: storageFile,
-    tagsArray: []
+    imagesArray: []
   }),
   methods: {
-    fetchTagFile () {
+    fetchImageFile () {
       // fetching project list
       this.blockstack.getFile(this.storageFile)
-        .then((tagsText) => {
-          const tags = JSON.parse(tagsText || '[]')
+        .then((imagesText) => {
+          const images = JSON.parse(imagesText || '[]')
           const urlPrefix = JSON.parse(localStorage['blockstack-gaia-hub-config']).url_prefix
           // looping over project list to fetch unique json files for every project
-          for (let tag in tags) {
-            axios.get(`${urlPrefix}${tag.split('_')[2]}/tag_${tag.split('_')[1]}.json`).then((tagJson) => {
-              this.tagsArray.push(tagJson.data)
+          for (let image in images) {
+            axios.get(`${urlPrefix}${image.split('_')[2]}/image_${image.split('_')[1]}.json`).then((imageJson) => {
+              this.imagesArray.push(imageJson.data)
             })
           }
         })
     }
   },
   mounted () {
-    this.fetchTagFile()
+    this.fetchImageFile()
   }
 }
 </script>

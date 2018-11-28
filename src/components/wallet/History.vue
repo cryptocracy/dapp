@@ -28,9 +28,9 @@
                   <v-list-tile-sub-title :key="outIndex" v-html="outItem.addr"></v-list-tile-sub-title>
                 </template>
               </v-list-tile-content>
-                <v-list-tile-action>
-                  <div>{{ item.balance_diff }}</div>
-                </v-list-tile-action>
+              <v-list-tile-action>
+                <div>{{ item.balance_diff }}</div>
+              </v-list-tile-action>
             </v-list-tile>
           </template>
         </v-list>
