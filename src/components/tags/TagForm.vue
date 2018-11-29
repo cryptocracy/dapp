@@ -22,14 +22,14 @@
         label="Address"
         :disabled="isLoading"
       ></v-text-field>
-      <div class="switch-wrapper">
-        <div class="input-group--text-field primary--text">Privacy</div>
-        <div class="switch-block">
-          <span class="switch-text">Public</span>
-          <v-switch v-model="tag.private"></v-switch>
-          <span class="switch-text">Personal</span>
-        </div>
-      </div>
+      <!--<div class="switch-wrapper">-->
+      <!--<div class="input-group&#45;&#45;text-field primary&#45;&#45;text">Privacy</div>-->
+      <!--<div class="switch-block">-->
+      <!--<span class="switch-text">Public</span>-->
+      <!--<v-switch v-model="tag.private"></v-switch>-->
+      <!--<span class="switch-text">Personal</span>-->
+      <!--</div>-->
+      <!--</div>-->
       <div class="switch-wrapper" v-if="tagProp">
         <div class="input-group--text-field primary--text">Archived</div>
         <div class="switch-block">

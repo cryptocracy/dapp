@@ -13,7 +13,7 @@
       <v-text-field
         v-model="image.title"
         :rules="titleRules"
-        :counter="10"
+        :counter="32"
         :disabled="isLoading"
         label="Title"
         required
@@ -54,14 +54,14 @@
         :disabled="isLoading"
         return-object
       ></v-select>
-      <div class="switch-wrapper">
-        <div class="input-group--text-field primary--text">Privacy</div>
-        <div class="switch-block">
-          <span class="switch-text">Public</span>
-          <v-switch v-model="image.limit"></v-switch>
-          <span class="switch-text">Personal</span>
-        </div>
-      </div>
+      <!--<div class="switch-wrapper">-->
+      <!--<div class="input-group&#45;&#45;text-field primary&#45;&#45;text">Privacy</div>-->
+      <!--<div class="switch-block">-->
+      <!--<span class="switch-text">Public</span>-->
+      <!--<v-switch v-model="image.limit"></v-switch>-->
+      <!--<span class="switch-text">Personal</span>-->
+      <!--</div>-->
+      <!--</div>-->
       <div class="switch-wrapper" v-if="imageProp">
         <div class="input-group--text-field primary--text">Archived</div>
         <div class="switch-block">
@@ -116,8 +116,8 @@ export default {
     symbols: ['BTC', 'STX'],
     titleRules: [
       v => !!v || 'Name is required',
-      v => (v && v.length <= 20) || 'Name must be less than 20 characters',
-      v => /^\w+$/.test(v) || 'Letters, numbers and "_" are only allowed'
+      v => (v && v.length <= 32) || 'Name must be less than 32 characters',
+      v => /^[\w ]+$/.test(v) || 'Letters, numbers, spaces and "_" are only allowed'
     ],
     addressRules: [
       v => v ? /^((?!_)[A-z0-9])+$/.test(v) || 'Letters and numbers are only allowed' : true,

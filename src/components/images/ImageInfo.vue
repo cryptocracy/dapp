@@ -83,12 +83,12 @@
           <v-list-tile-title v-html="new Date(imageObject.createdtime).toLocaleString()"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
-      <v-list-tile v-if="imageObject.private">
-        <v-list-tile-content>
-          <v-list-tile-sub-title>Privacy</v-list-tile-sub-title>
-          <v-list-tile-title v-html="imageObject.private ? 'Private' : 'Public'"></v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
+      <!--<v-list-tile v-if="imageObject.private">-->
+      <!--<v-list-tile-content>-->
+      <!--<v-list-tile-sub-title>Privacy</v-list-tile-sub-title>-->
+      <!--<v-list-tile-title v-html="imageObject.private ? 'Private' : 'Public'"></v-list-tile-title>-->
+      <!--</v-list-tile-content>-->
+      <!--</v-list-tile>-->
       <v-list-tile>
         <v-list-tile-content>
           <v-list-tile-sub-title>Image</v-list-tile-sub-title>

@@ -67,12 +67,12 @@
           <v-list-tile-title v-html="new Date(markerObject.createdtime).toLocaleString()"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
-      <v-list-tile v-if="markerObject.private">
-        <v-list-tile-content>
-          <v-list-tile-sub-title>Privacy</v-list-tile-sub-title>
-          <v-list-tile-title v-html="markerObject.private ? 'Private' : 'Public'"></v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
+      <!--<v-list-tile v-if="markerObject.private">-->
+      <!--<v-list-tile-content>-->
+      <!--<v-list-tile-sub-title>Privacy</v-list-tile-sub-title>-->
+      <!--<v-list-tile-title v-html="markerObject.private ? 'Private' : 'Public'"></v-list-tile-title>-->
+      <!--</v-list-tile-content>-->
+      <!--</v-list-tile>-->
       <v-list-tile>
         <v-list-tile-content>
           <v-list-tile-sub-title>Map</v-list-tile-sub-title>
