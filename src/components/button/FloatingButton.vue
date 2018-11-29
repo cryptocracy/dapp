@@ -42,10 +42,10 @@
       fab
       dark
       small
-      color="blue lighten-1"
-      :to="{ name: 'AddTag', params: { tagProp: null } }"
+      color="orange lighten-1"
+      to="/"
     >
-      <v-icon>label</v-icon>
+      <v-icon>today</v-icon>
     </v-btn>
     <v-btn
       fab
@@ -55,6 +55,15 @@
       :to="{ name: 'AddImage', params: { tagProp: null } }"
     >
       <v-icon>image</v-icon>
+    </v-btn>
+    <v-btn
+      fab
+      dark
+      small
+      color="blue lighten-1"
+      :to="{ name: 'AddTag', params: { tagProp: null } }"
+    >
+      <v-icon>label</v-icon>
     </v-btn>
     <v-btn
       fab

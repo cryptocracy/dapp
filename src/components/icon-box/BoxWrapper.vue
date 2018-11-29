@@ -15,10 +15,10 @@
       <div class="col-md-4">
         <app-icon-box
           backgroundColor="#29d4a5"
-          icon="image"
-          :title="imageCount"
-          subtitle="Images Owned"
-          to="/images/owned"
+          icon="label"
+          :title="tagCount"
+          subtitle="Tags Owned"
+          to="/tags/owned"
         >
         </app-icon-box>
       </div>
@@ -26,10 +26,10 @@
       <div class="col-md-4">
         <app-icon-box
           backgroundColor="#31e6a5"
-          icon="label"
-          :title="tagCount"
-          subtitle="Tags Owned"
-          to="/tags/owned"
+          icon="image"
+          :title="imageCount"
+          subtitle="Images Owned"
+          to="/images/owned"
         >
         </app-icon-box>
       </div>

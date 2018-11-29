@@ -30,6 +30,17 @@ const items = [
     ]
   },
   {
+    color: 'blue lighten-2',
+    action: 'label',
+    title: 'Tags',
+    items: [
+      // { title: 'Add New', linkTo: { name: 'AddTag', params: { tagProp: null } } },
+      // { title: 'Find', linkTo: '/page-layout/banner' },
+      { title: 'Owned', linkTo: '/tags/owned' },
+      { title: 'Favorites', linkTo: '/tags/favorites' }
+    ]
+  },
+  {
     color: 'green lighten-2',
     action: 'image',
     title: 'Images',
@@ -41,14 +52,14 @@ const items = [
     ]
   },
   {
-    color: 'blue lighten-2',
-    action: 'label',
-    title: 'Tags',
+    color: 'orange lighten-2',
+    action: 'today',
+    title: 'Events',
     items: [
       // { title: 'Add New', linkTo: { name: 'AddTag', params: { tagProp: null } } },
       // { title: 'Find', linkTo: '/page-layout/banner' },
-      { title: 'Owned', linkTo: '/tags/owned' },
-      { title: 'Favorites', linkTo: '/tags/favorites' }
+      { title: 'Owned', linkTo: '/page-layout/banner' },
+      { title: 'Favorites', linkTo: '/page-layout/banner' }
     ]
   },
   {
@@ -85,16 +96,16 @@ const items = [
     action: 'contacts',
     title: 'Contacts',
     linkTo: '/favourite-contacts'
-  },
-  {
-    color: 'grey lighten-1',
-    action: 'settings',
-    title: 'Settings',
-    items: [
-      { title: 'Theme', linkTo: '/page-layout/banner' },
-      { title: 'More', linkTo: '/page-layout/banner' }
-    ]
   }
+  //  {
+  //    color: 'grey lighten-1',
+  //    action: 'settings',
+  //    title: 'Settings',
+  //    items: [
+  //      { title: 'Theme', linkTo: '/page-layout/banner' },
+  //      { title: 'More', linkTo: '/page-layout/banner' }
+  //    ]
+  //  }
   //  {
   //   color: 'blue darken-2',
   //   action: 'shopping_cart',
