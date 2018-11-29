@@ -1,8 +1,8 @@
 <template lang="html">
   <div class="">
-    <h6>Latest Activities</h6>
-    <div v-for="(notification, index) in notificationData" :key="index">
-      <!-- Notification loop -->
+    <h6>Latest Activities (Coming Soon)</h6>
+    <!-- <div v-for="(notification, index) in notificationData" :key="index">
+    
       <div class="notification-single">
         <div class="avatar" v-if="notification.avatar !== ''" :style="{background: 'url(' + notification.avatar + ')'}"></div>
         <div v-if="notification.avatar === null" class="avatar avatar-icon"><i class="fa fa-user"></i></div>
@@ -17,7 +17,7 @@
         </p>
         <p class="time">{{notification.time}}</p>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
