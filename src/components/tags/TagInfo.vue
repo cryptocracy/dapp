@@ -61,12 +61,12 @@
           <v-list-tile-title v-html="new Date(tagObject.createdtime).toLocaleString()"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
-      <v-list-tile v-if="tagObject.private">
-        <v-list-tile-content>
-          <v-list-tile-sub-title>Privacy</v-list-tile-sub-title>
-          <v-list-tile-title v-html="tagObject.private ? 'Private' : 'Public'"></v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
+      <!--<v-list-tile v-if="tagObject.private">-->
+      <!--<v-list-tile-content>-->
+      <!--<v-list-tile-sub-title>Privacy</v-list-tile-sub-title>-->
+      <!--<v-list-tile-title v-html="tagObject.private ? 'Private' : 'Public'"></v-list-tile-title>-->
+      <!--</v-list-tile-content>-->
+      <!--</v-list-tile>-->
       <v-list-tile v-if="tagObject.symbol">
         <v-list-tile-content>
           <v-list-tile-sub-title>Symbol</v-list-tile-sub-title>
