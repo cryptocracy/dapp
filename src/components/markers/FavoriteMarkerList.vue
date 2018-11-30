@@ -1,41 +1,41 @@
 <template>
-  <tag-list :tagsArray="tagsArray"/>
+  <marker-list :markersArray="markersArray"/>
 </template>
 
 <script>
-import TagList from './TagList'
+import MarkerList from './MarkerList'
 import axios from 'axios'
 
-const storageFile = 'my_fav_tags.json'
+const storageFile = 'my_fav_markers.json'
 
 export default {
-  name: 'MyFavoriteTagList',
+  name: 'MyFavoriteMarkerList',
   components: {
-    TagList
+    MarkerList
   },
   data: () => ({
     blockstack: window.blockstack,
     storageFile: storageFile,
-    tagsArray: []
+    markersArray: []
   }),
   methods: {
-    fetchTagFile () {
+    fetchMarkerFile () {
       // fetching project list
       this.blockstack.getFile(this.storageFile)
-        .then((tagsText) => {
-          const tags = JSON.parse(tagsText || '[]')
+        .then((markersText) => {
+          const markers = JSON.parse(markersText || '[]')
           const urlPrefix = JSON.parse(localStorage['blockstack-gaia-hub-config']).url_prefix
           // looping over project list to fetch unique json files for every project
-          for (let tag in tags) {
-            axios.get(`${urlPrefix}${tag.split('_')[2]}/tag_${tag.split('_')[1]}.json`).then((tagJson) => {
-              this.tagsArray.push(tagJson.data)
+          for (let marker in markers) {
+            axios.get(`${urlPrefix}${marker.split('_')[2]}/marker_${marker.split('_')[1]}.json`).then((markerJson) => {
+              this.markersArray.push(markerJson.data)
             })
           }
         })
     }
   },
   mounted () {
-    this.fetchTagFile()
+    this.fetchMarkerFile()
   }
 }
 </script>

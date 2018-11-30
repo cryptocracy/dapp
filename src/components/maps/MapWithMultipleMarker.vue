@@ -4,7 +4,7 @@
       :center="center"
       :zoom="10"
       style="width: 100%; height: 300px"
-      >
+    >
       <GmapMarker
         :key="index"
         v-for="(m, index) in markers"

@@ -1,100 +1,60 @@
 <template>
-    <v-card class="container">
-        <v-form ref="form" v-model="valid" lazy-validation>
-            <image-uploader
-                accept="image/*"
-                ref="imageInput"
-                :disabled="isLoading"
-                limit=2000000
-                :value="tag.image"
-                @input="getUploadedImage"
-            />
-
-            <v-text-field
-                v-model="tag.title"
-                :rules="titleRules"
-                :counter="10"
-                :disabled="isLoading"
-                label="Title"
-                required
-            ></v-text-field>
-            <v-text-field
-                v-model="tag.detail"
-                label="Detail"
-            ></v-text-field>
-            <v-select
-                :items="symbols"
-                label="Symbol"
-                v-model="tag.symbol"
-                :disabled="isLoading"
-            ></v-select>
-            <v-text-field
-                v-model="tag.address"
-                :rules="addressRules"
-                :counter="42"
-                label="Address"
-                :disabled="isLoading"
-            ></v-text-field>
-            <div class="geo-button-wrapper" v-if="tagProp">
-                <template v-if="!newGeo">
-                    <v-btn
-                        fab
-                        dark
-                        small
-                        color="green pa-2"
-                        @click="updateGeoPosition"
-                    >
-                        <v-icon>location_searching</v-icon>
-                    </v-btn>
-                    <span class="geo-button-text">Update tag geo location</span>
-                </template>
-                <template v-else>
-                    <v-btn
-                        fab
-                        dark
-                        small
-                        color="green pa-2"
-                        @click="rollbackGeoPosition"
-                    >
-                        <v-icon>location_disabled</v-icon>
-                    </v-btn>
-                    <span class="geo-button-text">Rollback to old tag geo location</span>
-                </template>
-            </div>
-            <div class="switch-wrapper">
-                <div class="input-group--text-field primary--text">Privacy</div>
-                <div class="switch-block">
-                    <span class="switch-text">Public</span>
-                    <v-switch v-model="tag.private"></v-switch>
-                    <span class="switch-text">Personal</span>
-                </div>
-            </div>
-            <div class="switch-wrapper" v-if="tagProp">
-                <div class="input-group--text-field primary--text">Archived</div>
-                <div class="switch-block">
-                    <span class="switch-text">No</span>
-                    <v-switch v-model="tag.archived"></v-switch>
-                    <span class="switch-text">Yes</span>
-                </div>
-            </div>
-            <v-btn
-                :disabled="!valid || isLoading || !tag.image"
-                @click="submit"
-            >
-                submit
-            </v-btn>
-            <v-btn
-                @click="clear"
-                :disabled="isLoading"
-            >
-                clear
-            </v-btn>
-        </v-form>
-    </v-card>
+  <v-card class="container">
+    <v-form ref="form" v-model="valid">
+      <v-text-field
+        v-model="tag.title"
+        :rules="titleRules"
+        :counter="21"
+        :disabled="isLoading"
+        label="Title"
+        required
+      ></v-text-field>
+      <v-select
+        :items="symbols"
+        label="Symbol"
+        v-model="tag.symbol"
+        :disabled="isLoading"
+      ></v-select>
+      <v-text-field
+        v-model="tag.address"
+        :rules="addressRules"
+        :counter="42"
+        label="Address"
+        :disabled="isLoading"
+      ></v-text-field>
+      <!--<div class="switch-wrapper">-->
+      <!--<div class="input-group&#45;&#45;text-field primary&#45;&#45;text">Privacy</div>-->
+      <!--<div class="switch-block">-->
+      <!--<span class="switch-text">Public</span>-->
+      <!--<v-switch v-model="tag.private"></v-switch>-->
+      <!--<span class="switch-text">Personal</span>-->
+      <!--</div>-->
+      <!--</div>-->
+      <div class="switch-wrapper" v-if="tagProp">
+        <div class="input-group--text-field primary--text">Archived</div>
+        <div class="switch-block">
+          <span class="switch-text">No</span>
+          <v-switch v-model="tag.archived"></v-switch>
+          <span class="switch-text">Yes</span>
+        </div>
+      </div>
+      <v-btn
+        :disabled="!valid || isLoading"
+        @click="submit"
+      >
+        submit
+      </v-btn>
+      <v-btn
+        @click="clear"
+        :disabled="isLoading"
+      >
+        clear
+      </v-btn>
+    </v-form>
+  </v-card>
 </template>
 
 <script>
-import ImageUploader from '@/components/image-uploader/ImageUploader'
 import storageService from '@/services/blockstack-storage'
 
 export default {
@@ -102,28 +62,19 @@ export default {
     blockstack: window.blockstack,
     isLoading: false,
     valid: false,
-    newGeo: false,
     tag: {
-      coordinates: {
-        lat: null,
-        lng: null
-      },
       title: '',
       address: '',
-      detail: '',
       symbol: null,
-      image: {
-        url: null
-      },
       private: false,
       archived: false,
       v: '0.0.1',
       id: ''
     },
-    symbols: ['BTC', 'ETH', 'LTC'],
+    symbols: ['BTC', 'STX'],
     titleRules: [
       v => !!v || 'Name is required',
-      v => (v && v.length <= 20) || 'Name must be less than 20 characters',
+      v => (v && v.length <= 21) || 'Name must be less than 21 characters',
       v => /^\w+$/.test(v) || 'Letters, numbers and "_" are only allowed'
     ],
     addressRules: [
@@ -131,9 +82,6 @@ export default {
       v => v ? v.length <= 42 || 'Please enter proper address' : true
     ]
   }),
-  components: {
-    ImageUploader
-  },
   props: {
     tagProp: {
       type: [Object, null],
@@ -152,19 +100,7 @@ export default {
         this.isLoading = true
         this.tag.createdtime = this.tagProp ? this.tagProp.createdtime : timestamp
         this.tag.owner = JSON.parse(localStorage['blockstack-gaia-hub-config']).address
-        if (this.tag.image.name) {
-          this.blockstack.putFile(`image_${timestamp}.${this.tag.image.name.split('.').pop()}`, this.tag.image)
-            .then((imageUrl) => {
-              if (!this.tag.image.url) {
-                this.tag.image = {
-                  url: imageUrl
-                }
-              }
-              this.saveTag(timestamp)
-            })
-        } else {
-          this.saveTag(timestamp)
-        }
+        this.saveTag(timestamp)
       }
     },
     getTagFilename (timestamp) {
@@ -181,42 +117,24 @@ export default {
                 params: {
                   tagName: 'tag_' + this.tag.createdtime,
                   tagObject: this.tag
-                }}) : this.clear()
+                } }) : this.clear()
             })
         })
     },
     clear () {
       this.$refs.form.reset()
-      this.$refs.imageInput.removeFile()
-    },
-    getUploadedImage (e) {
-      this.tag.image = e
     },
     updateFromTagProp () {
       if (this.tagProp) {
         for (let property in this.tagProp) {
-          this.tag[property] = this.tagProp[property] instanceof Object ? {...this.tagProp[property]} : this.tagProp[property]
+          this.tag[property] = this.tagProp[property] instanceof Object ? { ...this.tagProp[property] } : this.tagProp[property]
         }
       } else {
         this.clear()
       }
-    },
-    updateGeoPosition () {
-      const geoSuccess = (position) => {
-        this.tag.coordinates.lat = position.coords.latitude
-        this.tag.coordinates.lng = position.coords.longitude
-      }
-      navigator.geolocation.getCurrentPosition(geoSuccess)
-      this.newGeo = true
-    },
-    rollbackGeoPosition () {
-      this.tag.coordinates.lat = this.tagProp.coordinates.lat
-      this.tag.coordinates.lng = this.tagProp.coordinates.lat
-      this.newGeo = false
     }
   },
   mounted () {
-    if (!this.tagProp) this.updateGeoPosition()
     this.updateFromTagProp()
   }
 }
@@ -239,11 +157,5 @@ export default {
                 display: none;
             }
         }
-    }
-    .geo-button-wrapper {
-        display: flex;
-        align-items: center;
-        margin-left: -8px;
-        padding-bottom: 10px;
     }
 </style>

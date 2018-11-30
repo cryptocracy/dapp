@@ -8,6 +8,16 @@ import MyTagList from '@/components/tags/MyTagList'
 import FavoriteTagList from '@/components/tags/FavoriteTagList'
 import TagInfo from '@/components/tags/TagInfo'
 
+import ImageForm from '@/components/images/ImageForm'
+import MyImageList from '@/components/images/MyImageList'
+import FavoriteImageList from '@/components/images/FavoriteImageList'
+import ImageInfo from '@/components/images/ImageInfo'
+
+import MarkerForm from '@/components/markers/MarkerForm'
+import MyMarkerList from '@/components/markers/MyMarkerList'
+import FavoriteMarkerList from '@/components/markers/FavoriteMarkerList'
+import MarkerInfo from '@/components/markers/MarkerInfo'
+
 import WalletSummary from '@/components/wallet/Summary'
 import WalletReceive from '@/components/wallet/Receive'
 import WalletHistory from '@/components/wallet/History'
@@ -33,6 +43,18 @@ const routes = [
   { path: '/tags/owned', name: 'Owned', component: MyTagList },
   { path: '/tags/favorites', name: 'Favorites', component: FavoriteTagList },
   { path: '/tags/:tagName', name: 'TagInfo', props: true, component: TagInfo },
+
+  { path: '/images/add-image', name: 'AddImage', props: true, component: ImageForm },
+  { path: '/images/edit-image', name: 'EditImage', props: true, component: ImageForm },
+  { path: '/images/owned', name: 'OwnedImages', component: MyImageList },
+  { path: '/images/favorites', name: 'FavoritesImages', component: FavoriteImageList },
+  { path: '/images/:imageName', name: 'ImageInfo', props: true, component: ImageInfo },
+
+  { path: '/markers/add-marker', name: 'AddMarker', props: true, component: MarkerForm },
+  { path: '/markers/edit-marker', name: 'EditMarker', props: true, component: MarkerForm },
+  { path: '/markers/owned', name: 'OwnedMarkers', component: MyMarkerList },
+  { path: '/markers/favorites', name: 'FavoritesMarkers', component: FavoriteMarkerList },
+  { path: '/markers/:markerName', name: 'MarkerInfo', props: true, component: MarkerInfo },
 
   { path: '/wallet/summary', name: 'Summary', component: WalletSummary },
   { path: '/wallet/receive', name: 'Receive', component: WalletReceive },

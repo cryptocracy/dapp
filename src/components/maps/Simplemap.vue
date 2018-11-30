@@ -4,7 +4,7 @@
       :center="center"
       :zoom="8"
       style="width: 100%; height: 300px"
-      >
+    >
     </GmapMap>
   </div>
 </template>

@@ -49,10 +49,10 @@ export default {
     this.gradient2.addColorStop(1, 'rgba(245, 124, 0, 1)')
 
     const dataSet = {
-      labels: ['March', 'April', 'May', 'June', 'July', 'August'],
+      labels: ['July', 'August', 'September', 'October', 'November', 'December'],
       datasets: [
         {
-          label: 'Project 1',
+          label: 'Sample 1',
           borderColor: 'rgba(64, 199,65, 1)',
           hoverBackgroundColor: 'rgba(64, 199,65, 1)',
           borderWidth: 1,
@@ -60,7 +60,7 @@ export default {
           data: [40, 39, 10, 40, 39, 80]
         },
         {
-          label: 'Project 2',
+          label: 'Sample 2',
           borderColor: 'rgba(0, 231, 255, 1)',
           hoverBackgroundColor: 'rgba(0, 231, 255, 1)',
           borderWidth: 1,

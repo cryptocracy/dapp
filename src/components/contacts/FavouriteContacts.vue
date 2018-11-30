@@ -4,7 +4,7 @@
       <v-layout v-if="contacts.length > 0" row>
         <v-flex xs12 sm8 offset-sm2>
           <v-card>
-<!--            <v-toolbar color="teal accent-4" dark>
+            <!--            <v-toolbar color="teal accent-4" dark>
               <v-toolbar-side-icon><v-icon>contacts</v-icon></v-toolbar-side-icon>
 
               <v-toolbar-title>My Contacts</v-toolbar-title>

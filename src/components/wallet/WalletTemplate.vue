@@ -16,9 +16,9 @@
             </div>
             <div class="wallet-block">
               <v-list-tile-title v-html="title"/>
-                <v-list-tile-title v-html="address" @click="copyAddress" id="coinAddress"></v-list-tile-title>
-                <!--<v-list-tile-title v-html="amount"></v-list-tile-title>-->
-                <slot name="balance"></slot>
+              <v-list-tile-title v-html="address" @click="copyAddress" id="coinAddress"></v-list-tile-title>
+              <!--<v-list-tile-title v-html="amount"></v-list-tile-title>-->
+              <slot name="balance"></slot>
             </div>
           </v-list-tile>
           <slot name="qr"></slot>

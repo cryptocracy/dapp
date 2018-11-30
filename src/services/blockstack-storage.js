@@ -13,7 +13,7 @@ const storageService = {
     .then((currentContent) => {
       let [key, value] = data
       if (!currentContent) {
-        window.blockstack.putFile(jsonName, JSON.stringify({[key]: value}))
+        window.blockstack.putFile(jsonName, JSON.stringify({ [key]: value }))
       } else {
         const parsedCurrentContent = JSON.parse(currentContent)
         if (slice) {
@@ -25,8 +25,14 @@ const storageService = {
       }
     }),
   updateTagIndex: (key, value) => storageService.updateIndex('my_tags.json', [key, value]),
+  updateImageIndex: (key, value) => storageService.updateIndex('my_images.json', [key, value]),
+  updateMarkerIndex: (key, value) => storageService.updateIndex('my_markers.json', [key, value]),
   updateWalletIndex: (key, value) => storageService.updateIndex('my_wallet.json', [key, value]),
   updateFavoriteTagIndex: (name, tagTitle) => storageService.updateIndex('my_fav_tags.json', [name, tagTitle]),
-  reduceFavoriteTagIndex: (name, tagTitle) => storageService.updateIndex('my_fav_tags.json', [name, tagTitle], true)
+  reduceFavoriteTagIndex: (name, tagTitle) => storageService.updateIndex('my_fav_tags.json', [name, tagTitle], true),
+  updateFavoriteImageIndex: (name, tagTitle) => storageService.updateIndex('my_fav_images.json', [name, tagTitle]),
+  reduceFavoriteImageIndex: (name, tagTitle) => storageService.updateIndex('my_fav_images.json', [name, tagTitle], true),
+  updateFavoriteMarkerIndex: (name, tagTitle) => storageService.updateIndex('my_fav_markers.json', [name, tagTitle]),
+  reduceFavoriteMarkerIndex: (name, tagTitle) => storageService.updateIndex('my_fav_markers.json', [name, tagTitle], true)
 }
 export default storageService
