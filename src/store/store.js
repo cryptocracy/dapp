@@ -13,7 +13,8 @@ const stateObject = {
   notifications,
   teams,
   sidebarOpen: true,
-  isLoading: false
+  isLoading: false,
+  pay_to: {}
 }
 
 export default new Vuex.Store({

@@ -236,6 +236,9 @@ export default {
     }
   },
   mounted () {
+    if (Object.keys(this.$store.pay_to).length > 0) {
+      this.selectedContact = this.$store.pay_to
+    }
     this.getFilteredContactList(this.contactList)
     this.$store.commit('toggleLoading')
     this.addressPublic = JSON.parse(localStorage['blockstack-gaia-hub-config']).address

@@ -4,6 +4,7 @@ import 'font-awesome/css/font-awesome.css'
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import Vuetify from 'vuetify'
+import VueClipboard from 'vue-clipboard2'
 // Google map vue plugin
 // import * as VueGoogleMaps from 'vue2-google-maps'
 // OpenStreetMaps
@@ -29,6 +30,8 @@ import store from './store/store'
 window.blockstack = require('blockstack')
 
 Vue.config.productionTip = false
+
+Vue.use(VueClipboard)
 
 /* Initialize Vuetify for app */
 Vue.use(Vuetify, {

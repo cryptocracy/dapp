@@ -41,7 +41,6 @@ export default {
   },
   methods: {
     hideSearchResults () {
-      console.log('HEREEEEEEEEE')
       this.$store.commit('MUTATION_SET_SEARCH_STATE', false)
       this.$store.commit('MUTATION_SET_SEARCH_RESULT', [])
     },

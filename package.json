@@ -26,6 +26,7 @@
     "secp256k1": "^3.5.2",
     "vue": "^2.5.17",
     "vue-chartjs": "^3.4.0",
+    "vue-clipboard2": "^0.2.1",
     "vue-model-vuex": "^1.2.0",
     "vue-perfect-scrollbar": "0.0.14",
     "vue-router": "^3.0.1",
