@@ -7,7 +7,7 @@
           <p class="subheading">{{address}}</p>
           <img :src="qrSrc" :height="imageSize" class="mt-3 mb-3">
         </v-card-text>
-        <v-card-text v-else class="text-xs-center">No BTC address found associated with Souq.</v-card-text>
+        <v-card-text v-else class="text-xs-center">No BTC Proof found with this associated Blockstack Identity.</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-tooltip top>

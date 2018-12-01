@@ -169,9 +169,9 @@
                       Pay with BTC
                     </v-btn>
                   </v-list-tile-content>
-                  <!-- <v-list-tile-sub-title v-if="$route.params.id === 'my-profile'">You don't want to pay to yourself.</v-list-tile-sub-title>
-                  <v-list-tile-sub-title v-else-if="!hasBTCProof">This user doesn't have a BTC proff setup with Blockstack.</v-list-tile-sub-title>
-                  <v-list-tile-sub-title v-else>You can directly pay this user from your wallet.</v-list-tile-sub-title> -->
+                  <!-- <span v-if="$route.params.id === 'my-profile'">You don't want to pay to yourself.</span>
+                  <span v-else-if="!hasBTCProof">This user doesn't have a BTC proff setup with Blockstack.</span>
+                  <span v-else>You can directly pay this user from your wallet.</span> -->
                 </v-list-tile>
                 <v-divider inset dark></v-divider>
 
@@ -205,7 +205,7 @@
                   </v-list-tile-content>
                 </v-list-tile>
 
-                <v-list-tile @click="dummyFunction">
+                <v-list-tile @click="redirectToTags">
                   <v-list-tile-action>
                     <v-icon color="teal accent-4">label</v-icon>
                   </v-list-tile-action>
@@ -358,6 +358,10 @@ export default {
     redirectUser () {
       this.$store.pay_to = this.searchedUserProfileData
       this.$router.push({name: 'Send'})
+    },
+    redirectToTags () {
+      this.$store.state.hubUrl = this.hubUrl
+      this.$router.push({name: 'Owned'})
     },
     async getResourceCount (url) {
       console.log('HUB URL', url)

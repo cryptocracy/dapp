@@ -11,16 +11,16 @@
         </template>
         <template v-else>
           <v-divider/>
-          <a v-if="isFavorite" class="tag-action" @click="removeFromFavorite">
+          <a v-if="isFavorite && !hubUrl" class="tag-action" @click="removeFromFavorite">
             <v-icon color="grey lighten-1">favorite_border</v-icon>
             Remove from Favorite
           </a>
-          <a v-else class="tag-action" @click="addToFavorite">
+          <a v-if="!isFavorite && !hubUrl" class="tag-action" @click="addToFavorite">
             <v-icon color="grey lighten-1">favorite</v-icon>
             Add to Favorite
           </a>
-          <v-divider class="divider-intermediate"/>
-          <router-link class="tag-action" :to="{ name: 'EditTag', params: { tagProp: this.tagObject } }">
+          <v-divider v-if="!hubUrl" class="divider-intermediate"/>
+          <router-link v-if="!hubUrl" class="tag-action" :to="{ name: 'EditTag', params: { tagProp: this.tagObject } }">
             <v-icon color="grey lighten-1">edit</v-icon>
             Edit
           </router-link>
@@ -96,6 +96,9 @@ export default {
   props: {
     tagObject: {
       type: Object
+    },
+    hubUrl: {
+      type: String
     }
   },
   computed: {
@@ -103,7 +106,7 @@ export default {
       // parsing blockstack gaia hub cong from localhost for creating hub url
       const urlItems = JSON.parse(localStorage['blockstack-gaia-hub-config'])
       // creating hub url(where our files are stored)
-      const hubUrl = `${urlItems.url_prefix}${urlItems.address}/`
+      const hubUrl = this.hubUrl || `${urlItems.url_prefix}${urlItems.address}/`
       return this.tagObject ? `${hubUrl}tag_${this.tagObject.createdtime}.json` : ''
     }
   },

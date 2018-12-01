@@ -14,7 +14,8 @@ const stateObject = {
   teams,
   sidebarOpen: true,
   isLoading: false,
-  pay_to: {}
+  pay_to: {},
+  hubUrl: ''
 }
 
 export default new Vuex.Store({
