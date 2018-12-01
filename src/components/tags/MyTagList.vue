@@ -45,17 +45,11 @@ export default {
       // fetching project list
       axios.get(hubUrl + storageFile)
         .then((tagsText) => {
-          console.log('tagsText', tagsText.data)
           const tags = tagsText.data || {}
-          console.log('TGSSSSSSSSSSSSSs', tags)
           // looping over project list to fetch unique json files for every project
           for (let tag in tags) {
             axios.get(`${hubUrl + tag}.json`).then((tagJson) => {
-              console.log('tagJson', tagJson)
               let tagData = tagJson ? tagJson.data : {}
-              // this[data.id] = tagData
-              // this[data.id].tasks = this[data.id].tasks || []
-              // creating task array for listing tasks under their respective project
               this.tagsArray.push(tagData)
             })
           }
@@ -72,7 +66,6 @@ export default {
     }
   },
   destroyed () {
-    console.log('HEREEEEEEEEEE')
     this.$store.state.hubUrl = null
   }
 }

@@ -78,6 +78,9 @@
           <v-list-tile-sub-title>Address</v-list-tile-sub-title>
           <v-list-tile-title v-html="tagObject.address"></v-list-tile-title>
         </v-list-tile-content>
+        <v-list-tile-action>
+          <v-btn color="teal accent-4" round dark @click="redirectUser(tagObject.address)">Donate</v-btn>
+        </v-list-tile-action>
       </v-list-tile>
     </v-list>
   </v-card>
@@ -111,6 +114,10 @@ export default {
     }
   },
   methods: {
+    redirectUser (address) {
+      this.$store.state.BTCAddress = address
+      this.$router.push({name: 'Send'})
+    },
     getFavTagName () {
       const tagUrlArr = this.tagUrl.split('/')
       return `${tagUrlArr.pop().split('.')[0]}_${tagUrlArr.pop()}`
@@ -139,18 +146,14 @@ export default {
     }
   },
   mounted () {
-    storageService.getFile({ fileName: 'my_fav_tags.json' })
-      .then(res => {
-        if (res) {
-          this.isFavorite = !!res[this.getFavTagName()]
-        }
-      })
-    storageService.getFile({ fileName: 'my_fav_tags.json' })
-      .then(res => {
-        if (res) {
-          this.isFavorite = !!res[this.getFavTagName()]
-        }
-      })
+    if (!this.hubUrl) {
+      storageService.getFile({ fileName: 'my_fav_tags.json' })
+        .then(res => {
+          if (res) {
+            this.isFavorite = !!res[this.getFavTagName()]
+          }
+        })
+    }
   }
 }
 </script>

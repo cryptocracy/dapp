@@ -226,7 +226,6 @@ export default {
       this.blockstack.getFile('my_tags.json')
         .then((tagsJSON) => {
           let tagsObj = JSON.parse(tagsJSON)
-          console.log(tagsObj)
           if (tagsObj) {
             this.tags = Object.keys(tagsObj).map((key) => {
               return {
@@ -238,7 +237,6 @@ export default {
           this.blockstack.getFile('my_fav_tags.json')
             .then((favTagsJSON) => {
               let favTagsObj = JSON.parse(favTagsJSON)
-              console.log(favTagsObj)
               if (favTagsJSON) {
                 Object.keys(favTagsObj).forEach((key) => {
                   if (key.split('_')[2] !== cryptoAddress) {

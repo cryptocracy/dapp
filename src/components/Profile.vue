@@ -194,7 +194,7 @@
               </v-list>
 
               <v-list two-line>
-                <v-list-tile @click="dummyFunction">
+                <v-list-tile @click="redirectToResources('OwnedImages')">
                   <v-list-tile-action>
                     <v-icon color="teal accent-4">photo</v-icon>
                   </v-list-tile-action>
@@ -205,7 +205,7 @@
                   </v-list-tile-content>
                 </v-list-tile>
 
-                <v-list-tile @click="redirectToTags">
+                <v-list-tile @click="redirectToResources('Owned')">
                   <v-list-tile-action>
                     <v-icon color="teal accent-4">label</v-icon>
                   </v-list-tile-action>
@@ -216,7 +216,7 @@
                   </v-list-tile-content>
                 </v-list-tile>
 
-                <v-list-tile @click="dummyFunction">
+                <v-list-tile @click="redirectToResources('OwnedMarkers')">
                   <v-list-tile-action><v-icon color="teal accent-4">place</v-icon></v-list-tile-action>
 
                   <v-list-tile-content>
@@ -327,12 +327,6 @@ export default {
       }
     }
   },
-  watch: {
-    deep: true,
-    hubUrl () {
-      console.log(this.hubUrl)
-    }
-  },
   mixins: [contactService],
   created () {
     // method from contactService mixin
@@ -356,37 +350,32 @@ export default {
   },
   methods: {
     redirectUser () {
-      this.$store.pay_to = this.searchedUserProfileData
+      this.$store.state.pay_to = this.searchedUserProfileData
       this.$router.push({name: 'Send'})
     },
-    redirectToTags () {
+    redirectToResources (resource) {
       this.$store.state.hubUrl = this.hubUrl
-      this.$router.push({name: 'Owned'})
+      this.$router.push({name: resource})
     },
     async getResourceCount (url) {
-      console.log('HUB URL', url)
       if (url) {
         axios.get(url + 'my_tags.json').then(res => {
-          console.log('resssssss1', res)
           this.resources.tags = Object.keys(res.data).length
         })
           .catch(e => {
             this.resources.tags = 0
-            console.log(e)
           })
         axios.get(url + 'my_markers.json').then(res => {
           this.resources.markers = Object.keys(res.data).length
         })
           .catch(e => {
             this.resources.markers = 0
-            console.log(e)
           })
         axios.get(url + 'my_images.json').then(res => {
           this.resources.images = Object.keys(res.data).length
         })
           .catch(e => {
             this.resources.images = 0
-            console.log(e)
           })
         // let [a, b, c] = [await tags, await markers, await images]
       } else {

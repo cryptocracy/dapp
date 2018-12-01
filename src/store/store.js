@@ -15,7 +15,8 @@ const stateObject = {
   sidebarOpen: true,
   isLoading: false,
   pay_to: {},
-  hubUrl: ''
+  hubUrl: '',
+  BTCAddress: ''
 }
 
 export default new Vuex.Store({

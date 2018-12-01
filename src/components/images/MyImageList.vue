@@ -1,11 +1,13 @@
 <template>
   <image-list
     :imagesArray='imagesArray'
-    owned
+    :owned="!!!hubUrl"
+    :hubUrl="hubUrl"
   />
 </template>
 
 <script>
+import axios from 'axios'
 import ImageList from './ImageList'
 
 const storageFile = 'my_images.json'
@@ -18,7 +20,8 @@ export default {
   data: () => ({
     blockstack: window.blockstack,
     storageFile: storageFile,
-    imagesArray: []
+    imagesArray: [],
+    hubUrl: ''
   }),
   methods: {
     fetchImageFile () {
@@ -37,10 +40,34 @@ export default {
             })
           }
         })
+    },
+
+    fetchRedirectedUsersImageFile (hubUrl) {
+      // fetching project list
+      axios.get(hubUrl + storageFile)
+        .then((imagesText) => {
+          const images = imagesText.data || {}
+          // looping over project list to fetch unique json files for every project
+          for (let image in images) {
+            axios.get(`${hubUrl + image}.json`).then((imageJson) => {
+              let imageData = imageJson ? imageJson.data : {}
+              this.imagesArray.push(imageData)
+            })
+          }
+        })
     }
   },
   mounted () {
-    this.fetchImageFile()
+    let hubUrl = this.$store.state.hubUrl
+    if (hubUrl) {
+      this.hubUrl = hubUrl
+      this.fetchRedirectedUsersImageFile(hubUrl)
+    } else {
+      this.fetchImageFile()
+    }
+  },
+  destroyed () {
+    this.$store.state.hubUrl = null
   }
 }
 </script>

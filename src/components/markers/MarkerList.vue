@@ -43,6 +43,7 @@
               :to="{name: 'MarkerInfo', params: {
                 markerName: 'marker_'+marker.createdtime,
                 markerObject: marker,
+                hubUrl
               }}"
             >
               <v-list-tile-avatar>
@@ -58,7 +59,7 @@
                 <v-btn v-if="owned" icon :to="{ name: 'EditMarker', params: { markerProp: marker } }">
                   <v-icon color="grey lighten-1">edit</v-icon>
                 </v-btn>
-                <v-btn v-else icon @click.stop.prevent="removeFavorite($event, marker)">
+                <v-btn v-if="!owned && !hubUrl" icon @click.stop.prevent="removeFavorite($event, marker)">
                   <v-icon color="grey lighten-1">favorite_border</v-icon>
                 </v-btn>
               </v-list-tile-action>
@@ -90,6 +91,9 @@ export default {
     },
     owned: {
       type: Boolean
+    },
+    hubUrl: {
+      type: String
     }
   },
   computed: {

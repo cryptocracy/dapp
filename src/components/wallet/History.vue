@@ -52,7 +52,6 @@ export default {
     const btcAddress = localStorage['blockstack-gaia-hub-config'] ? JSON.parse(localStorage['blockstack-gaia-hub-config']).address : ''
     axios.get('https://chain.api.btc.com/v3/address/' + btcAddress + '/tx')
       .then(res => {
-        console.log(res)
         if (res.data) {
           this.transactions = res.data.data.list.sort((a, b) => a.created_at < b.created_at)
         }
