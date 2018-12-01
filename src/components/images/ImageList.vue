@@ -43,6 +43,7 @@
               :to="{name: 'ImageInfo', params: {
                 imageName: 'image_'+image.createdtime,
                 imageObject: image,
+                hubUrl
               }}"
             >
               <v-list-tile-avatar>
@@ -54,7 +55,7 @@
                 <v-list-tile-sub-title v-text="image.detail"/>
               </v-list-tile-content>
 
-              <v-list-tile-action>
+              <v-list-tile-action v-if="!hubUrl">
                 <v-btn v-if="owned" icon :to="{ name: 'EditImage', params: { imageProp: image } }">
                   <v-icon color="grey lighten-1">edit</v-icon>
                 </v-btn>
@@ -90,6 +91,9 @@ export default {
     },
     owned: {
       type: Boolean
+    },
+    hubUrl: {
+      type: String
     }
   },
   computed: {

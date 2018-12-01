@@ -13,7 +13,10 @@ const stateObject = {
   notifications,
   teams,
   sidebarOpen: true,
-  isLoading: false
+  isLoading: false,
+  pay_to: {},
+  hubUrl: '',
+  BTCAddress: ''
 }
 
 export default new Vuex.Store({

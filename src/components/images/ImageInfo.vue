@@ -11,16 +11,16 @@
         </template>
         <template v-else>
           <v-divider/>
-          <a v-if="isFavorite" class="image-action" @click="removeFromFavorite">
+          <a v-if="isFavorite && !hubUrl" class="image-action" @click="removeFromFavorite">
             <v-icon color="grey lighten-1">favorite_border</v-icon>
             Remove from Favorite
           </a>
-          <a v-else class="image-action" @click="addToFavorite">
+          <a v-if="!isFavorite && !hubUrl" class="image-action" @click="addToFavorite">
             <v-icon color="grey lighten-1">favorite</v-icon>
             Add to Favorite
           </a>
-          <v-divider class="divider-intermediate"/>
-          <router-link class="image-action" :to="{ name: 'EditImage', params: { imageProp: this.imageObject } }">
+          <v-divider v-if="!hubUrl" class="divider-intermediate"/>
+          <router-link v-if="!hubUrl" class="image-action" :to="{ name: 'EditImage', params: { imageProp: this.imageObject } }">
             <v-icon color="grey lighten-1">edit</v-icon>
             Edit
           </router-link>
@@ -106,6 +106,9 @@
           <v-list-tile-sub-title>Address</v-list-tile-sub-title>
           <v-list-tile-title v-html="imageObject.address"></v-list-tile-title>
         </v-list-tile-content>
+        <v-list-tile-action>
+          <v-btn color="teal accent-4" round dark @click="redirectUser(imageObject.address)">Donate</v-btn>
+        </v-list-tile-action>
       </v-list-tile>
     </v-list>
   </v-card>
@@ -127,6 +130,9 @@ export default {
   props: {
     imageObject: {
       type: Object
+    },
+    hubUrl: {
+      type: String
     }
   },
   components: {
@@ -135,13 +141,20 @@ export default {
   computed: {
     imageUrl () {
       // parsing blockstack gaia hub cong from localhost for creating hub url
-      const urlItems = JSON.parse(localStorage['blockstack-gaia-hub-config'])
+      let urlItems = {}
+      if (localStorage['blockstack-gaia-hub-config']) {
+        urlItems = JSON.parse(localStorage['blockstack-gaia-hub-config'])
+      }
       // creating hub url(where our files are stored)
-      const hubUrl = `${urlItems.url_prefix}${urlItems.address}/`
+      const hubUrl = this.hubUrl || `${urlItems.url_prefix}${urlItems.address}/`
       return this.imageObject ? `${hubUrl}image_${this.imageObject.createdtime}.json` : ''
     }
   },
   methods: {
+    redirectUser (address) {
+      this.$store.state.BTCAddress = address
+      this.$router.push({name: 'Send'})
+    },
     getFavImageName () {
       const imageUrlArr = this.imageUrl.split('/')
       return `${imageUrlArr.pop().split('.')[0]}_${imageUrlArr.pop()}`
@@ -170,26 +183,26 @@ export default {
     }
   },
   mounted () {
-    this.$store.commit('toggleLoading')
-    storageService.getFile({ fileName: 'my_fav_images.json' })
-      .then(res => {
-        if (res) {
-          this.isFavorite = !!res[this.getFavImageName()]
-        }
-      })
-      .then(() => {
-        if (this.imageObject.marker) {
-          axios.get(this.imageObject.marker.address)
-            .then(res => {
-              if (res) {
-                this.markerCenter = res.data.coordinates
-              }
-            })
-            .then(() => {
-              this.$store.commit('toggleLoading')
-            })
-        }
-      })
+    if (!this.hubUrl) {
+      this.$store.commit('toggleLoading')
+      storageService.getFile({ fileName: 'my_fav_images.json' })
+        .then(res => {
+          if (res) {
+            this.isFavorite = !!res[this.getFavImageName()]
+          }
+        })
+        .then(() => {
+          if (this.imageObject.marker) {
+            axios.get(this.imageObject.marker.address)
+              .then(res => {
+                if (res) {
+                  this.markerCenter = res.data.coordinates
+                }
+                this.$store.commit('toggleLoading')
+              })
+          }
+        })
+    }
   }
 }
 </script>

@@ -11,16 +11,16 @@
         </template>
         <template v-else>
           <v-divider/>
-          <a v-if="isFavorite" class="marker-action" @click="removeFromFavorite">
+          <a v-if="isFavorite && !hubUrl" class="marker-action" @click="removeFromFavorite">
             <v-icon color="grey lighten-1">favorite_border</v-icon>
             Remove from Favorite
           </a>
-          <a v-else class="marker-action" @click="addToFavorite">
+          <a v-if="!isFavorite && !hubUrl" class="marker-action" @click="addToFavorite">
             <v-icon color="grey lighten-1">favorite</v-icon>
             Add to Favorite
           </a>
-          <v-divider class="divider-intermediate"/>
-          <router-link class="marker-action" :to="{ name: 'EditMarker', params: { markerProp: this.markerObject } }">
+          <v-divider v-if="!hubUrl" class="divider-intermediate"/>
+          <router-link v-if="!hubUrl" class="marker-action" :to="{ name: 'EditMarker', params: { markerProp: this.markerObject } }">
             <v-icon color="grey lighten-1">edit</v-icon>
             Edit
           </router-link>
@@ -93,6 +93,9 @@
           <v-list-tile-sub-title>Address</v-list-tile-sub-title>
           <v-list-tile-title v-html="markerObject.address"></v-list-tile-title>
         </v-list-tile-content>
+        <v-list-tile-action>
+          <v-btn color="teal accent-4" round dark @click="redirectUser(markerObject.address)">Donate</v-btn>
+        </v-list-tile-action>
       </v-list-tile>
     </v-list>
   </v-card>
@@ -115,6 +118,9 @@ export default {
   props: {
     markerObject: {
       type: Object
+    },
+    hubUrl: {
+      type: String
     }
   },
   computed: {
@@ -126,13 +132,20 @@ export default {
     },
     markerUrl () {
       // parsing blockstack gaia hub cong from localhost for creating hub url
-      const urlItems = JSON.parse(localStorage['blockstack-gaia-hub-config'])
+      let urlItems = ''
+      if (localStorage['blockstack-gaia-hub-config']) {
+        urlItems = JSON.parse(localStorage['blockstack-gaia-hub-config'])
+      }
       // creating hub url(where our files are stored)
-      const hubUrl = `${urlItems.url_prefix}${urlItems.address}/`
+      const hubUrl = this.hubUrl || `${urlItems.url_prefix}${urlItems.address}/`
       return this.markerObject ? `${hubUrl}marker_${this.markerObject.createdtime}.json` : ''
     }
   },
   methods: {
+    redirectUser (address) {
+      this.$store.state.BTCAddress = address
+      this.$router.push({name: 'Send'})
+    },
     getFavMarkerName () {
       const markerUrlArr = this.markerUrl.split('/')
       return `${markerUrlArr.pop().split('.')[0]}_${markerUrlArr.pop()}`
@@ -161,18 +174,14 @@ export default {
     }
   },
   mounted () {
-    storageService.getFile({ fileName: 'my_fav_markers.json' })
-      .then(res => {
-        if (res) {
-          this.isFavorite = !!res[this.getFavMarkerName()]
-        }
-      })
-    storageService.getFile({ fileName: 'my_fav_markers.json' })
-      .then(res => {
-        if (res) {
-          this.isFavorite = !!res[this.getFavMarkerName()]
-        }
-      })
+    if (!this.hubUrl) {
+      storageService.getFile({ fileName: 'my_fav_markers.json' })
+        .then(res => {
+          if (res) {
+            this.isFavorite = !!res[this.getFavMarkerName()]
+          }
+        })
+    }
   }
 }
 </script>

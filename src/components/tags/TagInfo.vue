@@ -11,16 +11,16 @@
         </template>
         <template v-else>
           <v-divider/>
-          <a v-if="isFavorite" class="tag-action" @click="removeFromFavorite">
+          <a v-if="isFavorite && !hubUrl" class="tag-action" @click="removeFromFavorite">
             <v-icon color="grey lighten-1">favorite_border</v-icon>
             Remove from Favorite
           </a>
-          <a v-else class="tag-action" @click="addToFavorite">
+          <a v-if="!isFavorite && !hubUrl" class="tag-action" @click="addToFavorite">
             <v-icon color="grey lighten-1">favorite</v-icon>
             Add to Favorite
           </a>
-          <v-divider class="divider-intermediate"/>
-          <router-link class="tag-action" :to="{ name: 'EditTag', params: { tagProp: this.tagObject } }">
+          <v-divider v-if="!hubUrl" class="divider-intermediate"/>
+          <router-link v-if="!hubUrl" class="tag-action" :to="{ name: 'EditTag', params: { tagProp: this.tagObject } }">
             <v-icon color="grey lighten-1">edit</v-icon>
             Edit
           </router-link>
@@ -78,6 +78,9 @@
           <v-list-tile-sub-title>Address</v-list-tile-sub-title>
           <v-list-tile-title v-html="tagObject.address"></v-list-tile-title>
         </v-list-tile-content>
+        <v-list-tile-action>
+          <v-btn color="teal accent-4" round dark @click="redirectUser(tagObject.address)">Donate</v-btn>
+        </v-list-tile-action>
       </v-list-tile>
     </v-list>
   </v-card>
@@ -96,6 +99,9 @@ export default {
   props: {
     tagObject: {
       type: Object
+    },
+    hubUrl: {
+      type: String
     }
   },
   computed: {
@@ -103,11 +109,15 @@ export default {
       // parsing blockstack gaia hub cong from localhost for creating hub url
       const urlItems = JSON.parse(localStorage['blockstack-gaia-hub-config'])
       // creating hub url(where our files are stored)
-      const hubUrl = `${urlItems.url_prefix}${urlItems.address}/`
+      const hubUrl = this.hubUrl || `${urlItems.url_prefix}${urlItems.address}/`
       return this.tagObject ? `${hubUrl}tag_${this.tagObject.createdtime}.json` : ''
     }
   },
   methods: {
+    redirectUser (address) {
+      this.$store.state.BTCAddress = address
+      this.$router.push({name: 'Send'})
+    },
     getFavTagName () {
       const tagUrlArr = this.tagUrl.split('/')
       return `${tagUrlArr.pop().split('.')[0]}_${tagUrlArr.pop()}`
@@ -136,18 +146,14 @@ export default {
     }
   },
   mounted () {
-    storageService.getFile({ fileName: 'my_fav_tags.json' })
-      .then(res => {
-        if (res) {
-          this.isFavorite = !!res[this.getFavTagName()]
-        }
-      })
-    storageService.getFile({ fileName: 'my_fav_tags.json' })
-      .then(res => {
-        if (res) {
-          this.isFavorite = !!res[this.getFavTagName()]
-        }
-      })
+    if (!this.hubUrl) {
+      storageService.getFile({ fileName: 'my_fav_tags.json' })
+        .then(res => {
+          if (res) {
+            this.isFavorite = !!res[this.getFavTagName()]
+          }
+        })
+    }
   }
 }
 </script>

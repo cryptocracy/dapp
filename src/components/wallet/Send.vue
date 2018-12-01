@@ -203,9 +203,6 @@ export default {
       this.isLoading = true
       let tx = new bitcoin.TransactionBuilder()
       for (let txData of this.addressData.txs) {
-        console.log('------')
-        console.log(txData)
-
         for (let out of txData.out) {
           if (!out.spent && out.addr === this.addressPublic) {
             tx.addInput(txData.hash, +out.n)
@@ -236,15 +233,18 @@ export default {
     }
   },
   mounted () {
+    if (Object.keys(this.$store.state.pay_to).length > 0) {
+      this.selectedContact = this.$store.state.pay_to
+    }
+    if (this.$store.state.BTCAddress) {
+      this.addressee = this.$store.state.BTCAddress
+    }
     this.getFilteredContactList(this.contactList)
     this.$store.commit('toggleLoading')
     this.addressPublic = JSON.parse(localStorage['blockstack-gaia-hub-config']).address
     //  get info about wallet address
     axios.get(apiUrl + this.addressPublic)
       .then((res) => {
-        console.log('------')
-        console.log(res)
-        console.log('------')
         this.addressData = res.data
         this.$store.commit('toggleLoading')
       })
@@ -259,6 +259,9 @@ export default {
   created () {
     // method from contactService mixin
     this.getContacts()
+  },
+  destroyed () {
+    this.$store.state.BTCAddress = null
   }
 }
 </script>

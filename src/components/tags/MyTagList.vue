@@ -1,12 +1,14 @@
 <template>
   <tag-list
     :tagsArray='tagsArray'
-    owned
+    :hubUrl='hubUrl'
+    :owned="!!!hubUrl"
   />
 </template>
 
 <script>
 import TagList from './TagList'
+import axios from 'axios'
 
 const storageFile = 'my_tags.json'
 
@@ -18,7 +20,8 @@ export default {
   data: () => ({
     blockstack: window.blockstack,
     storageFile: storageFile,
-    tagsArray: []
+    tagsArray: [],
+    hubUrl: ''
   }),
   methods: {
     fetchTagFile () {
@@ -37,10 +40,33 @@ export default {
             })
           }
         })
+    },
+    fetchRedirectedUsersTagFile (hubUrl) {
+      // fetching project list
+      axios.get(hubUrl + storageFile)
+        .then((tagsText) => {
+          const tags = tagsText.data || {}
+          // looping over project list to fetch unique json files for every project
+          for (let tag in tags) {
+            axios.get(`${hubUrl + tag}.json`).then((tagJson) => {
+              let tagData = tagJson ? tagJson.data : {}
+              this.tagsArray.push(tagData)
+            })
+          }
+        })
     }
   },
   mounted () {
-    this.fetchTagFile()
+    let hubUrl = this.$store.state.hubUrl
+    if (hubUrl) {
+      this.hubUrl = hubUrl
+      this.fetchRedirectedUsersTagFile(hubUrl)
+    } else {
+      this.fetchTagFile()
+    }
+  },
+  destroyed () {
+    this.$store.state.hubUrl = null
   }
 }
 </script>
