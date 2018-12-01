@@ -327,6 +327,12 @@ export default {
       }
     }
   },
+  watch: {
+    deep: true,
+    // this is necessary, do not remove it
+    hubUrl () {
+    }
+  },
   mixins: [contactService],
   created () {
     // method from contactService mixin
