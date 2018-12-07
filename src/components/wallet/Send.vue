@@ -262,6 +262,7 @@ export default {
   },
   destroyed () {
     this.$store.state.BTCAddress = null
+    this.$store.state.pay_to = {}
   }
 }
 </script>
