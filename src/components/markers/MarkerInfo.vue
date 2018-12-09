@@ -11,16 +11,16 @@
         </template>
         <template v-else>
           <v-divider/>
-          <a v-if="isFavorite && !hubUrl" class="marker-action" @click="removeFromFavorite">
+          <a v-if="isFavorite" class="marker-action" @click="removeFromFavorite">
             <v-icon color="grey lighten-1">favorite_border</v-icon>
             Remove from Favorite
           </a>
-          <a v-if="!isFavorite && !hubUrl" class="marker-action" @click="addToFavorite">
+          <a v-if="!isFavorite" class="marker-action" @click="addToFavorite">
             <v-icon color="grey lighten-1">favorite</v-icon>
             Add to Favorite
           </a>
-          <v-divider v-if="!hubUrl" class="divider-intermediate"/>
-          <router-link v-if="!hubUrl" class="marker-action" :to="{ name: 'EditMarker', params: { markerProp: this.markerObject } }">
+          <v-divider v-if="!hubUrl && isOwned" class="divider-intermediate"/>
+          <router-link v-if="!hubUrl && isOwned" class="marker-action" :to="{ name: 'EditMarker', params: { markerProp: this.markerObject } }">
             <v-icon color="grey lighten-1">edit</v-icon>
             Edit
           </router-link>
@@ -137,8 +137,11 @@ export default {
         urlItems = JSON.parse(localStorage['blockstack-gaia-hub-config'])
       }
       // creating hub url(where our files are stored)
-      const hubUrl = this.hubUrl || `${urlItems.url_prefix}${urlItems.address}/`
+      const hubUrl = this.hubUrl || `${urlItems.url_prefix}${this.markerObject.owner}/`
       return this.markerObject ? `${hubUrl}marker_${this.markerObject.createdtime}.json` : ''
+    },
+    isOwned () {
+      return storageService.isResourceOwned(this.markerObject.owner)
     }
   },
   methods: {

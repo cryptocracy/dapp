@@ -9,21 +9,26 @@ const storageService = {
     const { fileName, options } = dataObj
     return window.blockstack.getFile(fileName, options).then(res => JSON.parse(res))
   },
-  updateIndex: (jsonName, data, slice = false) => window.blockstack.getFile(jsonName)
-    .then((currentContent) => {
-      let [key, value] = data
-      if (!currentContent) {
-        window.blockstack.putFile(jsonName, JSON.stringify({ [key]: value }))
+  updateIndex: (jsonName, data, slice = false) => window.blockstack.getFile(jsonName).then((currentContent) => {
+    let [key, value] = data
+    if (!currentContent) {
+      window.blockstack.putFile(jsonName, JSON.stringify({ [key]: value }))
+    } else {
+      const parsedCurrentContent = JSON.parse(currentContent)
+      if (slice) {
+        delete parsedCurrentContent[key]
       } else {
-        const parsedCurrentContent = JSON.parse(currentContent)
-        if (slice) {
-          delete parsedCurrentContent[key]
-        } else {
-          parsedCurrentContent[key] = value
-        }
-        window.blockstack.putFile(jsonName, JSON.stringify(parsedCurrentContent))
+        parsedCurrentContent[key] = value
       }
-    }),
+      window.blockstack.putFile(jsonName, JSON.stringify(parsedCurrentContent))
+    }
+  }),
+
+  isResourceOwned: (resourceAddress) => {
+    if (localStorage['blockstack-gaia-hub-config']) {
+      return JSON.parse(localStorage['blockstack-gaia-hub-config']).address === resourceAddress
+    } else return false
+  },
   updateTagIndex: (key, value) => storageService.updateIndex('my_tags.json', [key, value]),
   updateImageIndex: (key, value) => storageService.updateIndex('my_images.json', [key, value]),
   updateMarkerIndex: (key, value) => storageService.updateIndex('my_markers.json', [key, value]),
