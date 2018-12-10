@@ -11,16 +11,16 @@
         </template>
         <template v-else>
           <v-divider/>
-          <a v-if="isFavorite && !hubUrl" class="image-action" @click="removeFromFavorite">
+          <a v-if="isFavorite" class="image-action" @click="removeFromFavorite">
             <v-icon color="grey lighten-1">favorite_border</v-icon>
             Remove from Favorite
           </a>
-          <a v-if="!isFavorite && !hubUrl" class="image-action" @click="addToFavorite">
+          <a v-if="!isFavorite" class="image-action" @click="addToFavorite">
             <v-icon color="grey lighten-1">favorite</v-icon>
             Add to Favorite
           </a>
-          <v-divider v-if="!hubUrl" class="divider-intermediate"/>
-          <router-link v-if="!hubUrl" class="image-action" :to="{ name: 'EditImage', params: { imageProp: this.imageObject } }">
+          <v-divider v-if="!hubUrl && isOwned" class="divider-intermediate"/>
+          <router-link v-if="!hubUrl && isOwned" class="image-action" :to="{ name: 'EditImage', params: { imageProp: this.imageObject } }">
             <v-icon color="grey lighten-1">edit</v-icon>
             Edit
           </router-link>
@@ -146,8 +146,11 @@ export default {
         urlItems = JSON.parse(localStorage['blockstack-gaia-hub-config'])
       }
       // creating hub url(where our files are stored)
-      const hubUrl = this.hubUrl || `${urlItems.url_prefix}${urlItems.address}/`
+      const hubUrl = this.hubUrl || `${urlItems.url_prefix}${this.imageObject.owner}/`
       return this.imageObject ? `${hubUrl}image_${this.imageObject.createdtime}.json` : ''
+    },
+    isOwned () {
+      return storageService.isResourceOwned(this.imageObject.owner)
     }
   },
   methods: {
@@ -200,6 +203,7 @@ export default {
                 }
                 this.$store.commit('toggleLoading')
               })
+              .catch(e => this.$store.commit('toggleLoading'))
           }
         })
     }
