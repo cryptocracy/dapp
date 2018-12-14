@@ -2,7 +2,7 @@
   <div class="container">
     <v-layout row v-show="eventsArray.length">
 
-      <v-flex xs12 sm6 offset-sm3>
+      <v-flex xs12 sm10 offset-sm1>
         <v-card>
           <div class="event-preferences">
             <div class="event-filter">
@@ -21,6 +21,10 @@
                 <v-checkbox v-model="filterActive"/>
                 <span class="checkbox-label">Active</span>
               </div>
+              <div class="event-check-group">
+                <v-checkbox v-model="filterUpcoming"/>
+                <span class="checkbox-label">Upcoming</span>
+              </div>
             </div>
             <div class="event-sorting">
               <v-radio-group v-model="sortBy" row>
@@ -31,6 +35,10 @@
                 <div class="event-radio-group">
                   <v-radio value="date"></v-radio>
                   <span class="radio-label">By Date</span>
+                </div>
+                <div class="event-radio-group">
+                  <v-radio value="startDate"></v-radio>
+                  <span class="radio-label">By Start Date</span>
                 </div>
               </v-radio-group>
             </div>
@@ -47,7 +55,7 @@
               }}"
             >
               <v-list-tile-avatar>
-                <v-icon color="blue lighten-4">label</v-icon>
+                <v-icon color="orange lighten-4">today</v-icon>
               </v-list-tile-avatar>
 
               <v-list-tile-content>
@@ -80,6 +88,7 @@ export default {
     blockstack: window.blockstack,
     filterArchived: true,
     filterActive: true,
+    filterUpcoming: true,
     sortBy: 'name',
     events: []
   }),
@@ -104,11 +113,16 @@ export default {
       set () {
         this.filterArchived = true
         this.filterActive = true
+        this.filterUpcoming = true
       }
     },
     filteredEventsArray () {
-      let sortFunc = (prev, next) => this.sortBy === 'name' ? prev.title.localeCompare(next.title) : prev.createdtime - next.createdtime
-      return this.events.filter(event => (this.filterArchived && event.archived) || (this.filterActive && !event.archived)).slice(0).sort(sortFunc)
+      let sortFunc = (prev, next) => {
+        if (this.sortBy === 'name') return prev.title.localeCompare(next.title)
+        else if (this.sortBy === 'date') return prev.createdtime - next.createdtime
+        else return +new Date(prev.start) - new Date(next.start)
+      }
+      return this.events.filter(event => (this.filterArchived && event.archived) || (this.filterActive && !event.archived) || (+new Date() < +new Date(event.start))).slice(0).sort(sortFunc)
     }
   },
   methods: {
@@ -131,10 +145,11 @@ export default {
         display: flex;
         justify-content: space-between;
         padding: 0 12px;
+        margin-bottom: -14px;
         .event-sorting {
+            flex-basis: 0;
             display: flex;
             align-items: center;
-            padding-top: 18px;
             .input-group {
                 flex-wrap: nowrap;
             }
@@ -147,12 +162,12 @@ export default {
                 }
                 .radio-label {
                     font-size: 14px;
+                    white-space: nowrap
                 }
             }
         }
         .event-filter {
             display: flex;
-            padding-top: 18px;
             .event-check-group {
                 display: flex;
                 align-items: center;

@@ -40,7 +40,7 @@ const storageService = {
   reduceFavoriteImageIndex: (name, title) => storageService.updateIndex('my_fav_images.json', [name, title], true),
   updateFavoriteMarkerIndex: (name, title) => storageService.updateIndex('my_fav_markers.json', [name, title]),
   reduceFavoriteMarkerIndex: (name, title) => storageService.updateIndex('my_fav_markers.json', [name, title], true),
-  updateFavoriteEventIndex: (name, ttTitle) => storageService.updateIndex('my_fav_events.json', [name, ttTitle]),
-  reduceFavoriteEventIndex: (name, ttTitle) => storageService.updateIndex('my_fav_events.json', [name, ttTitle], true)
+  updateFavoriteEventIndex: (name, title) => storageService.updateIndex('my_fav_events.json', [name, title]),
+  reduceFavoriteEventIndex: (name, title) => storageService.updateIndex('my_fav_events.json', [name, title], true)
 }
 export default storageService

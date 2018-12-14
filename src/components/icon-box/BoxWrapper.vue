@@ -1,7 +1,18 @@
 <template lang="html">
   <div class="iconbox-wrapper">
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-3">
+        <app-icon-box
+          backgroundColor="#31e6a5"
+          icon="today"
+          :title="eventCount"
+          subtitle="Events Owned"
+          to="/events/owned"
+        >
+        </app-icon-box>
+      </div>
+
+      <div class="col-md-3">
         <app-icon-box
           backgroundColor="#1ebea5"
           icon="place"
@@ -12,7 +23,7 @@
         </app-icon-box>
       </div>
 
-      <div class="col-md-4">
+      <div class="col-md-3">
         <app-icon-box
           backgroundColor="#29d4a5"
           icon="label"
@@ -23,7 +34,7 @@
         </app-icon-box>
       </div>
 
-      <div class="col-md-4">
+      <div class="col-md-3">
         <app-icon-box
           backgroundColor="#31e6a5"
           icon="image"
@@ -49,9 +60,11 @@ export default {
   data: () => ({
     tagCount: 0,
     imageCount: 0,
-    markerCount: 0
+    markerCount: 0,
+    eventCount: 0
   }),
   mounted () {
+    storageService.getFile({ fileName: 'my_events.json' }).then((res) => { this.eventCount = res ? Object.keys(res).length : 0 })
     storageService.getFile({ fileName: 'my_tags.json' }).then((res) => { this.tagCount = res ? Object.keys(res).length : 0 })
     storageService.getFile({ fileName: 'my_markers.json' }).then((res) => { this.markerCount = res ? Object.keys(res).length : 0 })
     storageService.getFile({ fileName: 'my_images.json' }).then((res) => { this.imageCount = res ? Object.keys(res).length : 0 })

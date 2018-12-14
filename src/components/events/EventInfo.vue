@@ -201,6 +201,7 @@ export default {
   },
   mounted () {
     if (!this.hubUrl) {
+      this.$store.commit('toggleLoading')
       storageService.getFile({ fileName: 'my_fav_events.json' })
         .then(res => {
           if (res) {
