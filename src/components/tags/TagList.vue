@@ -3,7 +3,7 @@
     <v-layout row v-show="tagsArray.length">
 
       <v-flex xs12 sm6 offset-sm3>
-        <v-card>
+        <v-card class="br20">
           <div class="tag-preferences">
             <div class="tag-filter">
               <div class="tag-check-group">

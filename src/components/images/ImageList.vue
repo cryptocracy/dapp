@@ -3,7 +3,7 @@
     <v-layout row v-show="imagesArray.length">
 
       <v-flex xs12 sm6 offset-sm3>
-        <v-card>
+        <v-card class="br20">
           <div class="image-preferences">
             <div class="image-filter">
               <div class="image-check-group">

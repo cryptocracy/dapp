@@ -1,16 +1,16 @@
 <template>
   <div>
     <v-dialog v-model="showBTCAddress" width="40em">
-      <v-card>
+      <v-card class="br20">
         <v-card-title class="headline">BTC Address/QR Code</v-card-title>
         <v-card-text v-if="address" class="text-xs-center">
           <p class="subheading">{{address}}</p>
           <img :src="qrSrc" :height="imageSize" class="mt-3 mb-3">
         </v-card-text>
-        <v-card-text v-else class="text-xs-center">No BTC Proof found with this associated Blockstack Identity.</v-card-text>
+        <v-card-text v-else class="text-xs-center">No associated BTC proof found with this Blockstack Identity.</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-tooltip top>
+          <v-tooltip top v-if="address">
             <v-btn
               slot="activator"
               color="teal accent-4"
@@ -32,7 +32,7 @@
     </v-dialog>
 
     <v-dialog v-model="payWithAltcoins" width="35em">
-      <v-card class="text-xs-center">
+      <v-card class="text-xs-center br20">
         <v-card-title class="headline">
           Coming Soon..
         </v-card-title>

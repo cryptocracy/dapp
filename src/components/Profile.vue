@@ -257,8 +257,8 @@ export default {
       }
     },
     address () {
-      if (this.hubUrl) {
-        return this.hubUrl.split('/hub/')[1].split('/')[0]
+      if (this.hasBTCProof) {
+        return this.hasBTCProof.identifier
       } else {
         return null
       }
