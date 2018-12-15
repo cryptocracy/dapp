@@ -134,6 +134,10 @@ export default {
     margin-top: 4%;
   }
 
+  .br20 {
+    border-radius: 20px;
+  }
+
   .loading-bar {
     position: absolute;
     top: 30%;

@@ -3,7 +3,7 @@
     <div>
       <v-layout v-if="contacts.length > 0" row>
         <v-flex xs12 sm8 offset-sm2>
-          <v-card>
+          <v-card class="br20">
             <!--            <v-toolbar color="teal accent-4" dark>
               <v-toolbar-side-icon><v-icon>contacts</v-icon></v-toolbar-side-icon>
 

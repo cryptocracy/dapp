@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="readmin-panel">
+  <div class="readmin-panel br20">
     <div class="panel-heading">
       <h5>{{title}}</h5>
     </div>
