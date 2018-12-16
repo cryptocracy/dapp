@@ -1,7 +1,7 @@
 <template>
   <v-layout row>
     <v-flex xs12 sm10 offset-sm1>
-      <v-card>
+      <v-card class="br20">
         <v-list three-line>
           <template v-for="(item, index) in transactions">
 

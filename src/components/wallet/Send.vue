@@ -1,10 +1,10 @@
 <template>
   <v-layout row v-if="!stateIsLoading">
     <v-flex xs12 sm8 offset-sm2>
-      <v-card class="wallet-card wallet-card--balance">
+      <v-card class="wallet-card wallet-card--balance br20 text-xs-center">
         Current balance: {{ this.addressData.final_balance }} satoshi
       </v-card>
-      <v-card class="wallet-card">
+      <v-card class="wallet-card br20">
         <div class="wallet-title">Send to:</div>
         <v-form ref="form" lazy-validation>
           <v-combobox

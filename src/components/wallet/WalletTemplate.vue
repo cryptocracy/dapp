@@ -1,7 +1,7 @@
 <template>
   <v-layout row>
     <v-flex xs12 sm8 offset-sm2>
-      <v-card>
+      <v-card class="br20">
         <v-layout class="wallet-card">
           <v-list-tile avatar>
             <v-avatar

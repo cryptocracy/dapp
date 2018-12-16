@@ -211,7 +211,7 @@ export default {
               if (favMarkersObj) {
                 Object.keys(favMarkersObj).forEach((key) => {
                   if (key.split('_')[2] !== cryptoAddress) {
-                    this.tags.push({
+                    this.markers.push({
                       address: 'https://gaia.blockstack.org/hub/' + key.split('_')[2] + '/' + key.substr(0, key.lastIndexOf('_')) + '.json',
                       title: favMarkersObj[key]
                     })

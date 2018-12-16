@@ -3,7 +3,7 @@
     <v-layout row v-show="markersArray.length">
 
       <v-flex xs12 sm6 offset-sm3>
-        <v-card>
+        <v-card class="br20">
           <div class="marker-preferences">
             <div class="marker-filter">
               <div class="marker-check-group">

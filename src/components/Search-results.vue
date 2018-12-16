@@ -4,7 +4,7 @@
       <div>
         <v-layout v-if="searchResult.length > 0 && isResolved" row>
           <v-flex xs12 sm8 offset-sm2>
-            <v-card>
+            <v-card class="br20">
               <v-subheader>Search Results</v-subheader>
               <v-list two-line>
                 <template v-for="(item, index) in searchResult">
