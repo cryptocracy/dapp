@@ -182,6 +182,8 @@ export default {
     },
     clear () {
       this.$refs.form.reset()
+      this.event.start = undefined
+      this.event.end = undefined
     },
     updateFromEventProp () {
       if (this.eventProp) {
@@ -288,17 +290,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-.vdatetime {
-  .vdatetime-popup__header, .vdatetime-calendar__month__day--selected > span > span {
-    background: #00bfa5;
-  }
-  .vdatetime-popup__actions__button {
-    color: #444;
-  }
-  .vdatetime-time-picker__item--selected {
-    color: #00bfa5;
-  }
-}
-</style>
