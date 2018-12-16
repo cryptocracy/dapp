@@ -290,27 +290,15 @@ export default {
 </script>
 
 <style lang="scss">
-  .switch-block {
-    display: flex;
-    height: 30px;
-    margin-bottom: 20px;
-    align-items: center;
-    .switch-text {
-      font-size: 16px;
-    }
-    .input-group {
-      flex: 0;
-      margin: auto 10px;
-
-      .input-group__details {
-        display: none;
-      }
-    }
+.vdatetime {
+  .vdatetime-popup__header, .vdatetime-calendar__month__day--selected > span > span {
+    background: #00bfa5;
   }
-  .geo-button-wrapper {
-    display: flex;
-    align-items: center;
-    margin-left: -8px;
-    padding-bottom: 10px;
+  .vdatetime-popup__actions__button {
+    color: #444;
   }
+  .vdatetime-time-picker__item--selected {
+    color: #00bfa5;
+  }
+}
 </style>

@@ -3,17 +3,6 @@
     <div class="row">
       <div class="col-md-3">
         <app-icon-box
-          backgroundColor="#31e6a5"
-          icon="today"
-          :title="eventCount"
-          subtitle="Events Owned"
-          to="/events/owned"
-        >
-        </app-icon-box>
-      </div>
-
-      <div class="col-md-3">
-        <app-icon-box
           backgroundColor="#1ebea5"
           icon="place"
           :title="markerCount"
@@ -25,7 +14,7 @@
 
       <div class="col-md-3">
         <app-icon-box
-          backgroundColor="#29d4a5"
+          backgroundColor="#25CDA5"
           icon="label"
           :title="tagCount"
           subtitle="Tags Owned"
@@ -36,11 +25,22 @@
 
       <div class="col-md-3">
         <app-icon-box
-          backgroundColor="#31e6a5"
+          backgroundColor="#2CDBA5"
           icon="image"
           :title="imageCount"
           subtitle="Images Owned"
           to="/images/owned"
+        >
+        </app-icon-box>
+      </div>
+
+      <div class="col-md-3">
+        <app-icon-box
+          backgroundColor="#31e6a5"
+          icon="today"
+          :title="eventCount"
+          subtitle="Events Owned"
+          to="/events/owned"
         >
         </app-icon-box>
       </div>

@@ -122,7 +122,7 @@ export default {
         else if (this.sortBy === 'date') return prev.createdtime - next.createdtime
         else return +new Date(prev.start) - new Date(next.start)
       }
-      return this.events.filter(event => (this.filterArchived && event.archived) || (this.filterActive && !event.archived) || (+new Date() < +new Date(event.start))).slice(0).sort(sortFunc)
+      return this.events.filter(event => (this.filterArchived && event.archived) || (this.filterActive && !event.archived) || (+new Date() < +new Date(event.end))).slice(0).sort(sortFunc)
     }
   },
   methods: {
