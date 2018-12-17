@@ -86,8 +86,8 @@ export default {
   name: 'EventList',
   data: () => ({
     blockstack: window.blockstack,
-    filterArchived: true,
-    filterActive: true,
+    filterArchived: false,
+    filterActive: false,
     filterUpcoming: true,
     sortBy: 'name',
     events: []
