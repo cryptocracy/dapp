@@ -89,6 +89,9 @@
 <script>
 import ImageUploader from '@/components/image-uploader/ImageUploader'
 import storageService from '@/services/blockstack-storage'
+import objectHelpers from '@/helpers/objectHelpers.js'
+import axios from 'axios'
+
 const cryptoAddress = localStorage['blockstack-gaia-hub-config'] ? JSON.parse(localStorage['blockstack-gaia-hub-config']).address : ''
 
 export default {
@@ -188,6 +191,9 @@ export default {
         for (let property in this.imageProp) {
           this.image[property] = this.imageProp[property] instanceof Object ? { ...this.imageProp[property] } : this.imageProp[property]
         }
+        this.image.tags = objectHelpers.toArray(this.image.tags)
+        this.imageFile = {}
+        this.imageFile.url = this.image.image
       } else {
         this.clear()
       }

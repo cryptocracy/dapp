@@ -97,7 +97,9 @@
 import storageService from '@/services/blockstack-storage'
 import { Datetime } from 'vue-datetime'
 import { Settings } from 'luxon'
+import objectHelpers from '@/helpers/objectHelpers.js'
 import 'vue-datetime/dist/vue-datetime.css'
+
 const cryptoAddress = localStorage['blockstack-gaia-hub-config'] ? JSON.parse(localStorage['blockstack-gaia-hub-config']).address : ''
 
 Settings.defaultLocale = 'en'
@@ -190,6 +192,8 @@ export default {
         for (let property in this.eventProp) {
           this.event[property] = this.eventProp[property] instanceof Object ? { ...this.eventProp[property] } : this.eventProp[property]
         }
+        this.event.images = objectHelpers.toArray(this.event.images)
+        this.event.tags = objectHelpers.toArray(this.event.tags)
       } else {
         this.clear()
       }
