@@ -8,9 +8,9 @@
     <div v-else class="panel-body text-xs-center no-data"  :style="{height: height}">
       <v-icon>fas fa-exchange-alt</v-icon>
       <h4 class="mt-5 no-data">
-        No transactions found.
+        {{error_message_title}}
       </h4>
-      <p>Looks like you have not done any transactions yet.</p>
+      <p>{{error_message}}</p>
     </div>
   </div>
 </template>
@@ -18,7 +18,7 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
-  props: ['title', 'children', 'height'],
+  props: ['title', 'children', 'height', 'error_message_title', 'error_message'],
   computed: {
     ...mapGetters({
       showGraph: 'showGraph'

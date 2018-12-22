@@ -9,6 +9,8 @@
             height="300px"
             title="mBTC Input (Recent Donations)"
             :children="LineChart"
+            error_message_title = "No Donations found."
+            error_message="Be patient, Sometimes it may take a while for other users to start showing interest in your project."
           >
           </app-layout>
         </v-flex>
@@ -17,6 +19,8 @@
             height="300px"
             title="mBTC Output (Recent Payouts)"
             :children="BarChart"
+            error_message_title = "No Payouts found."
+            error_message="Looks like you have not initiated any payouts yet."
           >
           </app-layout>
         </v-flex>
