@@ -10,7 +10,7 @@
             title="mBTC Input (Recent Donations)"
             :children="LineChart"
             error_message_title = "No Donations found."
-            error_message="Be patient, Sometimes it may take a while for other users to start showing interest in your comtent."
+            error_message="Be patient, it may take time for other users to start showing interest in your comtent."
           >
           </app-layout>
         </v-flex>
