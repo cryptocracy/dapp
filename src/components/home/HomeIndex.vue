@@ -54,7 +54,13 @@ export default {
   data: () => ({
     LineChart,
     BarChart
-  })
+  }),
+  created () {
+    this.$store.dispatch('ACTION_GET_TRANSACTIONS_DATA')
+  },
+  destroyed () {
+    this.$store.commit('MUTATION_CHANGE_GRAPH_STATE', false)
+  }
 }
 </script>
 
