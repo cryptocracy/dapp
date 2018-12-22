@@ -7,7 +7,7 @@
         <v-flex md6>
           <app-layout
             height="300px"
-            title="mBTC Input (Recent Donations)"
+            title="Wallet Input (Received)"
             :children="LineChart"
             error_message_title = "No Donations found."
             error_message="Be patient, it may take time for other users to show interest in your content."
@@ -17,7 +17,7 @@
         <v-flex md6>
           <app-layout
             height="300px"
-            title="mBTC Output (Recent Payouts)"
+            title="Wallet Output (Payouts)"
             :children="BarChart"
             error_message_title = "No Payouts found."
             error_message="Looks like you have not initiated any payouts yet."
