@@ -1,12 +1,21 @@
 import { Line } from 'vue-chartjs'
-
+// import transactionService from '@/services/transactions'
+import { mapGetters } from 'vuex'
 export default {
   extends: Line,
+  computed: {
+    ...mapGetters({
+      receivedAmounts: 'getReceivedAmounts',
+      receivedDates: 'getReceivedDates',
+      showGraph: 'showGraph'
+    })
+  },
 
   data () {
     return {
       gradient: null,
-      gradient2: null
+      gradient2: null,
+      address: ''
     }
   },
 
@@ -18,13 +27,32 @@ export default {
         yAxes: [{
           gridLines: {
             display: false
+          },
+          ticks: {
+            beginAtZero: true
           }
         }],
         xAxes: [{
           gridLines: {
             display: false
+          },
+          type: 'time',
+          time: {
+            unit: 'month'
+            // displayFormats: {
+            //   'hour': 'HH:mm'
+            // },
+            // unitStepSize: 3
+            // max: moment.unix(1499817599),
+            // parser : function (utcMoment) {
+            //   return utcMoment.utcOffset('+0000');
+            // }
           }
         }]
+      },
+      tooltips: {
+        enabled: true,
+        mode: 'x-axis'
       },
       legend: {
         display: true,
@@ -47,31 +75,20 @@ export default {
     this.gradient2.addColorStop(0, 'rgba(0, 231, 255, 0.9)')
     this.gradient2.addColorStop(0.5, 'rgba(0, 231, 255, 0.2)')
     this.gradient2.addColorStop(1, 'rgba(0, 231, 255, 0)')
-
     const dataSet = {
-      labels: ['July', 'August', 'September', 'October', 'November', 'December'],
+      labels: [...this.receivedDates],
       datasets: [
         {
-          label: 'Sample 1',
+          label: 'BTC Received',
           borderColor: 'rgba(64, 199,65, 1)',
           pointBackgroundColor: 'rgba(64, 199,65, 1)',
           borderWidth: 1,
           pointBorderColor: 'rgba(64, 199,65, 1)',
           backgroundColor: this.gradient,
-          data: [40, 39, 10, 40, 39, 80]
-        },
-        {
-          label: 'Sample 2',
-          borderColor: 'rgba(0, 231, 255, 1)',
-          pointBackgroundColor: 'rgba(0, 231, 255, 1)',
-          pointBorderColor: 'rgba(0, 231, 255, 1)',
-          borderWidth: 1,
-          backgroundColor: this.gradient2,
-          data: [60, 55, 32, 10, 2, 12]
+          data: [...this.receivedAmounts]
         }
       ]
     }
-
     this.renderChart(dataSet, options)
   }
 }
