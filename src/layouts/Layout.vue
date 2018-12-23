@@ -16,14 +16,8 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 export default {
-  props: ['title', 'children', 'height', 'error_message_title', 'error_message'],
-  computed: {
-    ...mapGetters({
-      showGraph: 'showGraph'
-    })
-  }
+  props: ['title', 'children', 'height', 'error_message_title', 'error_message', 'showGraph']
 }
 </script>
 

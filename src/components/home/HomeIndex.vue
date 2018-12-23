@@ -9,6 +9,7 @@
             height="300px"
             title="Wallet Input (Received)"
             :children="LineChart"
+            :showGraph="showDonationGraph"
             error_message_title = "No Donations found."
             error_message="Be patient, it may take time for other users to show interest in your content."
           >
@@ -19,6 +20,7 @@
             height="300px"
             title="Wallet Output (Payouts)"
             :children="BarChart"
+            :showGraph="showPayoutGraph"
             error_message_title = "No Payouts found."
             error_message="Looks like you have not initiated any payouts yet."
           >
@@ -52,7 +54,9 @@ export default {
     ...mapGetters({
       isSearching: 'isSearching',
       isResolved: 'isResolved',
-      searchResult: 'getSearchResult'
+      searchResult: 'getSearchResult',
+      showDonationGraph: 'showDonationGraph',
+      showPayoutGraph: 'showPayoutGraph'
     })
   },
   data: () => ({
