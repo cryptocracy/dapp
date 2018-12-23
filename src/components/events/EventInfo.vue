@@ -119,7 +119,7 @@
       </v-list-tile>
       <v-list-tile v-if="eventObject.address">
         <v-list-tile-content>
-          <v-list-tile-sub-title>Address</v-list-tile-sub-title>
+          <v-list-tile-sub-title>Crypto Address</v-list-tile-sub-title>
           <v-list-tile-title v-html="eventObject.address"></v-list-tile-title>
         </v-list-tile-content>
         <v-list-tile-action>

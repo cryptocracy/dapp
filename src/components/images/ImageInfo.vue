@@ -1,5 +1,9 @@
 <template>
   <v-card class="container">
+    <div class="image-container">
+      <span v-if="imageObject.title" class="image-title">{{ imageObject.title }}</span>
+      <img v-if="imageObject.image" :src="imageObject.image" class="main-image">
+    </div>
     <v-list two-line>
       <v-list-tile>
         <template v-if="isLoading">
@@ -36,12 +40,6 @@
           />
           <v-btn class="button-copy" color="#20C3A5" @click="copyUrl">{{ copyButtonText }}</v-btn>
         </div>
-      </v-list-tile>
-      <v-list-tile v-if="imageObject.title">
-        <v-list-tile-content>
-          <v-list-tile-sub-title>Title</v-list-tile-sub-title>
-          <v-list-tile-title v-html="imageObject.title"></v-list-tile-title>
-        </v-list-tile-content>
       </v-list-tile>
       <v-list-tile v-if="imageObject.tags && imageObject.tags.length">
         <v-list-tile-content>
@@ -89,12 +87,6 @@
       <!--<v-list-tile-title v-html="imageObject.private ? 'Private' : 'Public'"></v-list-tile-title>-->
       <!--</v-list-tile-content>-->
       <!--</v-list-tile>-->
-      <v-list-tile>
-        <v-list-tile-content>
-          <v-list-tile-sub-title>Image</v-list-tile-sub-title>
-        </v-list-tile-content>
-      </v-list-tile>
-      <img v-if="imageObject.image" :src="imageObject.image" class="image-image">
       <v-list-tile v-if="imageObject.symbol">
         <v-list-tile-content>
           <v-list-tile-sub-title>Symbol</v-list-tile-sub-title>
@@ -103,7 +95,7 @@
       </v-list-tile>
       <v-list-tile v-if="imageObject.address">
         <v-list-tile-content>
-          <v-list-tile-sub-title>Address</v-list-tile-sub-title>
+          <v-list-tile-sub-title>Crypto Address</v-list-tile-sub-title>
           <v-list-tile-title v-html="imageObject.address"></v-list-tile-title>
         </v-list-tile-content>
         <v-list-tile-action>
@@ -210,3 +202,41 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .image-container {
+    width: calc(100% + 32px);
+    margin: -16px -16px 0;
+    max-height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+
+    .image-title {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      font-size: 24px;
+      color: white;
+      mix-blend-mode: difference;
+    }
+
+    .main-image {
+      max-height: 100%;
+      max-width: 100%;
+    }
+  }
+  @media only screen and (min-width: 960px) {
+    .image-container {
+      width: calc(100% + 48px);
+      margin: -24px -24px 0;
+    }
+    .image-title {
+      top: 24px;
+      left: 24px;
+      font-size: 24px;
+    }
+  }
+</style>

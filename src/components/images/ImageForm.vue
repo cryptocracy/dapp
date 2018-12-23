@@ -33,7 +33,7 @@
         v-model="image.address"
         :rules="addressRules"
         :counter="42"
-        label="Address"
+        label="Crypto Address"
         :disabled="isLoading"
       ></v-text-field>
       <v-select

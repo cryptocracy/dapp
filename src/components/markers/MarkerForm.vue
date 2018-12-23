@@ -23,7 +23,7 @@
         v-model="marker.address"
         :rules="addressRules"
         :counter="42"
-        label="Address"
+        label="Crypto Address"
         :disabled="isLoading"
       ></v-text-field>
       <open-map-with-marker
