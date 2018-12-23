@@ -1,17 +1,8 @@
 <template>
   <v-card class="container">
     <v-form ref="form" v-model="valid">
-      <image-uploader
-        accept="image/*"
-        ref="imageInput"
-        :disabled="isLoading"
-        limit=2000000
-        :value="imageFile"
-        @input="getUploadedImage"
-      />
-
       <v-text-field
-        v-model="image.title"
+        v-model="event.title"
         :rules="titleRules"
         :counter="32"
         :disabled="isLoading"
@@ -19,28 +10,47 @@
         required
       ></v-text-field>
       <v-text-field
-        v-model="image.detail"
-        label="Detail"
+        v-model="event.description"
+        label="Description"
         :disabled="isLoading"
       ></v-text-field>
       <v-select
         :items="symbols"
         label="Symbol"
-        v-model="image.symbol"
+        v-model="event.symbol"
         :disabled="isLoading"
       ></v-select>
       <v-text-field
-        v-model="image.address"
+        v-model="event.address"
         :rules="addressRules"
         :counter="42"
         label="Crypto Address"
         :disabled="isLoading"
       ></v-text-field>
+      <div class="date-time-picker">
+        <datetime
+          v-model="event.start"
+          type='datetime'
+          input-id="startDate"
+          :max-datetime="event.end"
+          :min-datetime="new Date().toISOString()"
+        >
+          <label class="v-btn theme--light" for="startDate" slot="before">Start date & time</label>
+        </datetime>
+        <datetime
+          v-model="event.end"
+          type='datetime'
+          input-id="endDate"
+          :min-datetime="event.start"
+        >
+          <label class="v-btn theme--light" for="endDate" slot="before">End date & time</label>
+        </datetime>
+      </div>
       <v-select
         :items="tags"
         label="Tag(s)"
         item-text="title"
-        v-model="image.tags"
+        v-model="event.tags"
         :disabled="isLoading"
         return-object
         multiple
@@ -50,28 +60,38 @@
         :items="markers"
         label="Marker"
         item-text="title"
-        v-model="image.marker"
+        v-model="event.marker"
         :disabled="isLoading"
         return-object
+      ></v-select>
+      <v-select
+        :items="images"
+        label="Image(s)"
+        item-text="title"
+        v-model="event.images"
+        :disabled="isLoading"
+        return-object
+        multiple
+        chips
       ></v-select>
       <!--<div class="switch-wrapper">-->
       <!--<div class="input-group&#45;&#45;text-field primary&#45;&#45;text">Privacy</div>-->
       <!--<div class="switch-block">-->
       <!--<span class="switch-text">Public</span>-->
-      <!--<v-switch v-model="image.limit"></v-switch>-->
+      <!--<v-switch v-model="event.limit"></v-switch>-->
       <!--<span class="switch-text">Personal</span>-->
       <!--</div>-->
       <!--</div>-->
-      <div class="switch-wrapper" v-if="imageProp">
+      <div class="switch-wrapper" v-if="eventProp">
         <div class="input-group--text-field primary--text">Archived</div>
         <div class="switch-block">
           <span class="switch-text">No</span>
-          <v-switch v-model="image.archived"></v-switch>
+          <v-switch v-model="event.archived"></v-switch>
           <span class="switch-text">Yes</span>
         </div>
       </div>
       <v-btn
-        :disabled="!valid || isLoading || !imageFile"
+        :disabled="!valid || isLoading"
         @click="submit"
       >
         submit
@@ -87,11 +107,15 @@
 </template>
 
 <script>
-import ImageUploader from '@/components/image-uploader/ImageUploader'
 import storageService from '@/services/blockstack-storage'
+import { Datetime } from 'vue-datetime'
+import { Settings } from 'luxon'
 import objectHelpers from '@/helpers/objectHelpers.js'
+import 'vue-datetime/dist/vue-datetime.css'
 
 const cryptoAddress = localStorage['blockstack-gaia-hub-config'] ? JSON.parse(localStorage['blockstack-gaia-hub-config']).address : ''
+
+Settings.defaultLocale = 'en'
 
 export default {
 
@@ -99,17 +123,20 @@ export default {
     blockstack: window.blockstack,
     isLoading: false,
     valid: false,
-    imageFile: null,
     markers: [],
     tags: [],
-    image: {
+    images: [],
+    event: {
       title: '',
-      detail: '',
+      description: '',
       address: '',
+      start: null,
+      end: null,
       tags: null,
+      images: null,
       marker: null,
       symbol: null,
-      image: null,
+      event: null,
       limit: false,
       archived: false,
       v: '0.0.1',
@@ -127,17 +154,17 @@ export default {
     ]
   }),
   components: {
-    ImageUploader
+    Datetime
   },
   props: {
-    imageProp: {
+    eventProp: {
       type: [Object, null],
       default: null
     }
   },
   watch: {
-    imageProp () {
-      this.updateFromImageProp()
+    eventProp () {
+      this.updateFromEventProp()
     }
   },
   methods: {
@@ -145,54 +172,42 @@ export default {
       const timestamp = +new Date()
       if (this.$refs.form.validate()) {
         this.isLoading = true
-        this.image.createdtime = this.imageProp ? this.imageProp.createdtime : timestamp
-        this.image.owner = JSON.parse(localStorage['blockstack-gaia-hub-config']).address
-        if (this.imageFile.name) {
-          this.blockstack.putFile(`image_${timestamp}.${this.imageFile.name.split('.').pop()}`, this.imageFile)
-            .then((imageUrl) => {
-              // if (!this.imageFile) {
-              this.image.image = imageUrl
-              // }
-              this.saveImage(timestamp)
-            })
-        } else {
-          this.saveImage(timestamp)
-        }
+        this.event.createdtime = this.eventProp ? this.eventProp.createdtime : timestamp
+        this.event.owner = JSON.parse(localStorage['blockstack-gaia-hub-config']).address
+        this.saveEvent(timestamp)
       }
     },
-    getImageFilename (timestamp) {
-      return this.imageProp ? `image_${this.imageProp.createdtime}.json` : `image_${timestamp}.json`
+    getEventFilename (timestamp) {
+      return this.eventProp ? `event_${this.eventProp.createdtime}.json` : `event_${timestamp}.json`
     },
-    saveImage (timestamp) {
-      this.blockstack.putFile(this.getImageFilename(timestamp), JSON.stringify(this.image))
+    saveEvent (timestamp) {
+      this.blockstack.putFile(this.getEventFilename(timestamp), JSON.stringify(this.event))
         .then((jsonUrl) => {
-          storageService.updateImageIndex(jsonUrl.split('/').pop().split('.')[0], this.image.title)
+          storageService.updateEventIndex(jsonUrl.split('/').pop().split('.')[0], this.event.title)
             .then(() => {
               this.isLoading = false
-              this.imageProp ? this.$router.push({
-                name: 'ImageInfo',
+              this.eventProp ? this.$router.push({
+                name: 'EventInfo',
                 params: {
-                  imageName: 'image_' + this.image.createdtime,
-                  imageObject: this.image
-                } }) : this.clear()
+                  eventName: 'event_' + this.event.createdtime,
+                  eventObject: this.event
+                }
+              }) : this.clear()
             })
         })
     },
     clear () {
       this.$refs.form.reset()
-      this.$refs.imageInput.removeFile()
+      this.event.start = undefined
+      this.event.end = undefined
     },
-    getUploadedImage (e) {
-      this.imageFile = e
-    },
-    updateFromImageProp () {
-      if (this.imageProp) {
-        for (let property in this.imageProp) {
-          this.image[property] = this.imageProp[property] instanceof Object ? { ...this.imageProp[property] } : this.imageProp[property]
+    updateFromEventProp () {
+      if (this.eventProp) {
+        for (let property in this.eventProp) {
+          this.event[property] = this.eventProp[property] instanceof Object ? {...this.eventProp[property]} : this.eventProp[property]
         }
-        this.image.tags = objectHelpers.toArray(this.image.tags)
-        this.imageFile = {}
-        this.imageFile.url = this.image.image
+        this.event.images = objectHelpers.toArray(this.event.images)
+        this.event.tags = objectHelpers.toArray(this.event.tags)
       } else {
         this.clear()
       }
@@ -254,12 +269,42 @@ export default {
               }
             })
         })
+    },
+    fetchImages () {
+      // fetching images list
+      this.blockstack.getFile('my_images.json')
+        .then((imagesJSON) => {
+          let imagesObj = JSON.parse(imagesJSON)
+          if (imagesObj) {
+            this.images = Object.keys(imagesObj).map((key) => {
+              return {
+                address: 'https://gaia.blockstack.org/hub/' + cryptoAddress + '/' + key + '.json',
+                title: imagesObj[key]
+              }
+            })
+          }
+          this.blockstack.getFile('my_fav_images.json')
+            .then((favTagsJSON) => {
+              let favTagsObj = JSON.parse(favTagsJSON)
+              if (favTagsJSON) {
+                Object.keys(favTagsObj).forEach((key) => {
+                  if (key.split('_')[2] !== cryptoAddress) {
+                    this.images.push({
+                      address: 'https://gaia.blockstack.org/hub/' + key.split('_')[2] + '/' + key.substr(0, key.lastIndexOf('_')) + '.json',
+                      title: favTagsObj[key]
+                    })
+                  }
+                })
+              }
+            })
+        })
     }
   },
   mounted () {
-    this.updateFromImageProp()
+    this.updateFromEventProp()
     this.fetchMarkers()
     this.fetchTags()
+    this.fetchImages()
   }
 }
 </script>

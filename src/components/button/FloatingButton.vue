@@ -43,7 +43,7 @@
       dark
       small
       color="orange lighten-1"
-      to="/"
+      :to="{ name: 'AddEvent', params: { eventProp: null } }"
     >
       <v-icon>today</v-icon>
     </v-btn>
@@ -52,7 +52,7 @@
       dark
       small
       color="green lighten-1"
-      :to="{ name: 'AddImage', params: { tagProp: null } }"
+      :to="{ name: 'AddImage', params: { imageProp: null } }"
     >
       <v-icon>image</v-icon>
     </v-btn>
@@ -70,7 +70,7 @@
       dark
       small
       color="red lighten-1"
-      :to="{ name: 'AddMarker', params: { tagProp: null } }"
+      :to="{ name: 'AddMarker', params: { markerProp: null } }"
     >
       <v-icon>place</v-icon>
     </v-btn>

@@ -19,6 +19,7 @@
     "cors": "^2.8.4",
     "font-awesome": "^4.7.0",
     "fontawesome": "^4.7.2",
+    "luxon": "^1.8.2",
     "mime": "^2.3.1",
     "moment": "^2.22.2",
     "node-gyp": "^3.8.0",
@@ -27,13 +28,15 @@
     "vue": "^2.5.17",
     "vue-chartjs": "^3.4.0",
     "vue-clipboard2": "^0.2.1",
+    "vue-datetime": "^1.0.0-beta.8",
     "vue-model-vuex": "^1.2.0",
     "vue-perfect-scrollbar": "0.0.14",
     "vue-router": "^3.0.1",
     "vue2-google-maps": "^0.9.8",
     "vue2-leaflet": "^1.0.2",
     "vuetify": "^1.2.9",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "weekstart": "^1.0.0"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.4.1",

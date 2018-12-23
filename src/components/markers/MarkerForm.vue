@@ -23,7 +23,7 @@
         v-model="marker.address"
         :rules="addressRules"
         :counter="42"
-        label="Address"
+        label="Crypto Address"
         :disabled="isLoading"
       ></v-text-field>
       <open-map-with-marker
@@ -186,29 +186,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-    .switch-block {
-        display: flex;
-        height: 30px;
-        margin-bottom: 20px;
-        align-items: center;
-        .switch-text {
-            font-size: 16px;
-        }
-        .input-group {
-            flex: 0;
-            margin: auto 10px;
-
-            .input-group__details {
-                display: none;
-            }
-        }
-    }
-    .geo-button-wrapper {
-        display: flex;
-        align-items: center;
-        margin-left: -8px;
-        padding-bottom: 10px;
-    }
-</style>

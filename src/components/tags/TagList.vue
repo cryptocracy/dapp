@@ -4,31 +4,31 @@
 
       <v-flex xs12 sm6 offset-sm3>
         <v-card class="br20">
-          <div class="tag-preferences">
-            <div class="tag-filter">
-              <div class="tag-check-group">
+          <div class="entity-preferences">
+            <div class="entity-filter">
+              <div class="entity-check-group">
                 <v-checkbox
                   v-model="filterAll"
                   :disabled="filterAll"
                 />
                 <span class="checkbox-label">All</span>
               </div>
-              <div class="tag-check-group">
+              <div class="entity-check-group">
                 <v-checkbox v-model="filterArchived"/>
                 <span class="checkbox-label">Archived</span>
               </div>
-              <div class="tag-check-group">
+              <div class="entity-check-group">
                 <v-checkbox v-model="filterActive"/>
                 <span class="checkbox-label">Active</span>
               </div>
             </div>
-            <div class="tag-sorting">
+            <div class="entity-sorting">
               <v-radio-group v-model="sortBy" row>
-                <div class="tag-radio-group">
+                <div class="entity-radio-group">
                   <v-radio value="name"></v-radio>
                   <span class="radio-label">By Name</span>
                 </div>
-                <div class="tag-radio-group">
+                <div class="entity-radio-group">
                   <v-radio value="date"></v-radio>
                   <span class="radio-label">By Date</span>
                 </div>
@@ -125,45 +125,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-    .tag-preferences {
-        display: flex;
-        justify-content: space-between;
-        padding: 0 12px;
-        .tag-sorting {
-            display: flex;
-            align-items: center;
-            padding-top: 18px;
-            .input-group {
-                flex-wrap: nowrap;
-            }
-            .tag-radio-group {
-                display: flex;
-                align-items: center;
-                padding: 0 5px;
-                .v-radio {
-                    margin: 0;
-                }
-                .radio-label {
-                    font-size: 14px;
-                }
-            }
-        }
-        .tag-filter {
-            display: flex;
-            padding-top: 18px;
-            .tag-check-group {
-                display: flex;
-                align-items: center;
-                padding: 0 5px;
-                .input-group {
-                    flex-wrap: nowrap;
-                }
-                .checkbox-label {
-                    margin-top: -3px;
-                }
-            }
-        }
-    }
-</style>

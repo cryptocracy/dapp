@@ -80,3 +80,9 @@
 .br20 {
   border-radius: 20px;
 }
+
+// Entities/Objects style
+@import "./entity/entity";
+
+// DateTime Picker style
+@import "./date-time/date-time";

@@ -1,9 +1,5 @@
 <template>
   <v-card class="container">
-    <div class="image-container">
-      <span v-if="imageObject.title" class="image-title">{{ imageObject.title }}</span>
-      <img v-if="imageObject.image" :src="imageObject.image" class="main-image">
-    </div>
     <v-list two-line>
       <v-list-tile>
         <template v-if="isLoading">
@@ -23,8 +19,8 @@
             <v-icon color="grey lighten-1">favorite</v-icon>
             Add to Favorite
           </a>
-          <v-divider v-if="!hubUrl && isOwned" class="divider-intermediate"/>
-          <router-link v-if="!hubUrl && isOwned" class="entity-action" :to="{ name: 'EditImage', params: { imageProp: this.imageObject } }">
+          <v-divider v-if="isOwned && !hubUrl" class="divider-intermediate"/>
+          <router-link v-if="isOwned && !hubUrl" class="entity-action" :to="{ name: 'EditEvent', params: { eventProp: this.eventObject } }">
             <v-icon color="grey lighten-1">edit</v-icon>
             Edit
           </router-link>
@@ -34,24 +30,58 @@
         <div class="json-address">
           <v-text-field
             ref="urlInput"
-            :value="imageUrl"
+            :value="eventUrl"
             class="url-field"
             readonly
           />
           <v-btn class="button-copy" color="#20C3A5" @click="copyUrl">{{ copyButtonText }}</v-btn>
         </div>
       </v-list-tile>
-      <v-list-tile v-if="imageObject.tags && imageObject.tags.length">
+      <v-list-tile v-if="eventObject.title">
         <v-list-tile-content>
-          <v-list-tile-sub-title>{{ imageObject.tags.length>1 ? 'Tags' : 'Tag' }}</v-list-tile-sub-title>
+          <v-list-tile-sub-title>Title</v-list-tile-sub-title>
+          <v-list-tile-title v-html="eventObject.title"></v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile v-if="eventObject.description">
+        <v-list-tile-content>
+          <v-list-tile-sub-title>Description</v-list-tile-sub-title>
+          <v-list-tile-title v-html="eventObject.description"></v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile v-if="eventObject.start">
+        <v-list-tile-content>
+          <v-list-tile-sub-title>Start date & time</v-list-tile-sub-title>
+          <v-list-tile-title v-html="new Date(eventObject.start).toLocaleString()"></v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile v-if="eventObject.end">
+        <v-list-tile-content>
+          <v-list-tile-sub-title>End date & time</v-list-tile-sub-title>
+          <v-list-tile-title v-html="new Date(eventObject.end).toLocaleString()"></v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile v-if="eventObject.tags && eventObject.tags.length">
+        <v-list-tile-content>
+          <v-list-tile-sub-title>{{ eventObject.tags.length>1 ? 'Tags' : 'Tag' }}</v-list-tile-sub-title>
           <div>
-            <template v-for="tag in imageObject.tags">
+            <template v-for="tag in eventObject.tags">
               <v-chip :key="tag.address">{{ '#' + tag.title }}</v-chip>
             </template>
           </div>
         </v-list-tile-content>
       </v-list-tile>
-      <v-list-tile v-if="imageObject.marker">
+      <v-list-tile v-if="eventObject.images && eventObject.images.length">
+        <v-list-tile-content>
+          <v-list-tile-sub-title>{{ eventObject.images.length>1 ? 'Images' : 'Image' }}</v-list-tile-sub-title>
+          <div>
+            <template v-for="image in eventObject.images">
+              <v-chip :key="image.address">{{ image.title }}</v-chip>
+            </template>
+          </div>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile v-if="eventObject.marker">
         <v-list-tile-content>
           <v-list-tile-sub-title>Marker</v-list-tile-sub-title>
         </v-list-tile-content>
@@ -60,46 +90,40 @@
       <v-list-tile>
         <v-list-tile-content>
           <v-list-tile-sub-title>Privacy</v-list-tile-sub-title>
-          <v-list-tile-title v-html="imageObject.private ? 'Private' : 'Public'"></v-list-tile-title>
+          <v-list-tile-title v-html="eventObject.private ? 'Private' : 'Public'"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
       <v-list-tile>
         <v-list-tile-content>
           <v-list-tile-sub-title>Archived</v-list-tile-sub-title>
-          <v-list-tile-title v-html="imageObject.archived ? 'Yes' : 'No'"></v-list-tile-title>
+          <v-list-tile-title v-html="eventObject.archived ? 'Yes' : 'No'"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
-      <v-list-tile v-if="imageObject.detail">
-        <v-list-tile-content>
-          <v-list-tile-sub-title>Details</v-list-tile-sub-title>
-          <v-list-tile-title v-html="imageObject.detail"></v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
-      <v-list-tile v-if="imageObject.createdtime">
+      <v-list-tile v-if="eventObject.createdtime">
         <v-list-tile-content>
           <v-list-tile-sub-title>Created time</v-list-tile-sub-title>
-          <v-list-tile-title v-html="new Date(imageObject.createdtime).toLocaleString()"></v-list-tile-title>
+          <v-list-tile-title v-html="new Date(eventObject.createdtime).toLocaleString()"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
-      <!--<v-list-tile v-if="imageObject.private">-->
+      <!--<v-list-tile v-if="eventObject.private">-->
       <!--<v-list-tile-content>-->
       <!--<v-list-tile-sub-title>Privacy</v-list-tile-sub-title>-->
-      <!--<v-list-tile-title v-html="imageObject.private ? 'Private' : 'Public'"></v-list-tile-title>-->
+      <!--<v-list-tile-title v-html="eventObject.private ? 'Private' : 'Public'"></v-list-tile-title>-->
       <!--</v-list-tile-content>-->
       <!--</v-list-tile>-->
-      <v-list-tile v-if="imageObject.symbol">
+      <v-list-tile v-if="eventObject.symbol">
         <v-list-tile-content>
           <v-list-tile-sub-title>Symbol</v-list-tile-sub-title>
-          <v-list-tile-title v-html="imageObject.symbol"></v-list-tile-title>
+          <v-list-tile-title v-html="eventObject.symbol"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
-      <v-list-tile v-if="imageObject.address">
+      <v-list-tile v-if="eventObject.address">
         <v-list-tile-content>
           <v-list-tile-sub-title>Crypto Address</v-list-tile-sub-title>
-          <v-list-tile-title v-html="imageObject.address"></v-list-tile-title>
+          <v-list-tile-title v-html="eventObject.address"></v-list-tile-title>
         </v-list-tile-content>
         <v-list-tile-action>
-          <v-btn color="teal accent-4" round dark @click="redirectUser(imageObject.address)">Donate</v-btn>
+          <v-btn color="teal accent-4" round dark @click="redirectUser(eventObject.address)">Donate</v-btn>
         </v-list-tile-action>
       </v-list-tile>
     </v-list>
@@ -108,11 +132,11 @@
 
 <script>
 import axios from 'axios'
-import OpenMapWithMarker from '@/components/maps/OpenMapWithMarker'
 import storageService from '@/services/blockstack-storage'
+import OpenMapWithMarker from '@/components/maps/OpenMapWithMarker'
 
 export default {
-  name: 'ImageInfo',
+  name: 'EventInfo',
   data: () => ({
     copyButtonText: 'Copy',
     isFavorite: false,
@@ -120,7 +144,7 @@ export default {
     markerCenter: null
   }),
   props: {
-    imageObject: {
+    eventObject: {
       type: Object
     },
     hubUrl: {
@@ -131,18 +155,15 @@ export default {
     OpenMapWithMarker
   },
   computed: {
-    imageUrl () {
+    eventUrl () {
       // parsing blockstack gaia hub cong from localhost for creating hub url
-      let urlItems = {}
-      if (localStorage['blockstack-gaia-hub-config']) {
-        urlItems = JSON.parse(localStorage['blockstack-gaia-hub-config'])
-      }
+      const urlItems = JSON.parse(localStorage['blockstack-gaia-hub-config'])
       // creating hub url(where our files are stored)
-      const hubUrl = this.hubUrl || `${urlItems.url_prefix}${this.imageObject.owner}/`
-      return this.imageObject ? `${hubUrl}image_${this.imageObject.createdtime}.json` : ''
+      const hubUrl = this.hubUrl || `${urlItems.url_prefix}${this.eventObject.owner}/`
+      return this.eventObject ? `${hubUrl}event_${this.eventObject.createdtime}.json` : ''
     },
     isOwned () {
-      return storageService.isResourceOwned(this.imageObject.owner)
+      return storageService.isResourceOwned(this.eventObject.owner)
     }
   },
   methods: {
@@ -150,9 +171,9 @@ export default {
       this.$store.state.BTCAddress = address
       this.$router.push({name: 'Send'})
     },
-    getFavImageName () {
-      const imageUrlArr = this.imageUrl.split('/')
-      return `${imageUrlArr.pop().split('.')[0]}_${imageUrlArr.pop()}`
+    getFavEventName () {
+      const eventUrlArr = this.eventUrl.split('/')
+      return `${eventUrlArr.pop().split('.')[0]}_${eventUrlArr.pop()}`
     },
     copyUrl (e) {
       this.$refs.urlInput.$refs.input.select()
@@ -162,7 +183,8 @@ export default {
     },
     addToFavorite () {
       this.isLoading = true
-      storageService.updateFavoriteImageIndex(this.getFavImageName(), this.imageObject.title)
+      console.log('REUTRNNNN', this.getFavEventName())
+      storageService.updateFavoriteEventIndex(this.getFavEventName(), this.eventObject.title)
         .then(() => {
           this.isFavorite = true
           this.isLoading = false
@@ -170,7 +192,7 @@ export default {
     },
     removeFromFavorite () {
       this.isLoading = true
-      storageService.reduceFavoriteImageIndex(this.getFavImageName(), this.imageObject.title)
+      storageService.reduceFavoriteEventIndex(this.getFavEventName(), this.eventObject.title)
         .then(() => {
           this.isFavorite = false
           this.isLoading = false
@@ -180,15 +202,15 @@ export default {
   mounted () {
     if (!this.hubUrl) {
       this.$store.commit('toggleLoading')
-      storageService.getFile({ fileName: 'my_fav_images.json' })
+      storageService.getFile({ fileName: 'my_fav_events.json' })
         .then(res => {
           if (res) {
-            this.isFavorite = !!res[this.getFavImageName()]
+            this.isFavorite = !!res[this.getFavEventName()]
           }
         })
         .then(() => {
-          if (this.imageObject.marker) {
-            axios.get(this.imageObject.marker.address)
+          if (this.eventObject.marker) {
+            axios.get(this.eventObject.marker.address)
               .then(res => {
                 if (res) {
                   this.markerCenter = res.data.coordinates
@@ -196,47 +218,11 @@ export default {
                 this.$store.commit('toggleLoading')
               })
               .catch(e => this.$store.commit('toggleLoading'))
+          } else {
+            this.$store.commit('toggleLoading')
           }
         })
     }
   }
 }
 </script>
-
-<style lang="scss" scoped>
-  .image-container {
-    width: calc(100% + 32px);
-    margin: -16px -16px 0;
-    max-height: 300px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    position: relative;
-
-    .image-title {
-      position: absolute;
-      top: 16px;
-      left: 16px;
-      font-size: 24px;
-      color: white;
-      mix-blend-mode: difference;
-    }
-
-    .main-image {
-      max-height: 100%;
-      max-width: 100%;
-    }
-  }
-  @media only screen and (min-width: 960px) {
-    .image-container {
-      width: calc(100% + 48px);
-      margin: -24px -24px 0;
-    }
-    .image-title {
-      top: 24px;
-      left: 24px;
-      font-size: 24px;
-    }
-  }
-</style>

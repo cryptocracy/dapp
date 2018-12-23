@@ -58,8 +58,8 @@ const items = [
     items: [
       // { title: 'Add New', linkTo: { name: 'AddTag', params: { tagProp: null } } },
       // { title: 'Find', linkTo: '/page-layout/banner' },
-      { title: 'Owned', linkTo: '/page-layout/banner' },
-      { title: 'Favorites', linkTo: '/page-layout/banner' }
+      { title: 'Owned', linkTo: '/events/owned' },
+      { title: 'Favorites', linkTo: '/events/favorites' }
     ]
   },
   {

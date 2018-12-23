@@ -11,16 +11,16 @@
         </template>
         <template v-else>
           <v-divider/>
-          <a v-if="isFavorite" class="tag-action" @click="removeFromFavorite">
+          <a v-if="isFavorite" class="entity-action" @click="removeFromFavorite">
             <v-icon color="grey lighten-1">favorite_border</v-icon>
             Remove from Favorite
           </a>
-          <a v-if="!isFavorite" class="tag-action" @click="addToFavorite">
+          <a v-if="!isFavorite" class="entity-action" @click="addToFavorite">
             <v-icon color="grey lighten-1">favorite</v-icon>
             Add to Favorite
           </a>
           <v-divider v-if="isOwned && !hubUrl" class="divider-intermediate"/>
-          <router-link v-if="isOwned && !hubUrl" class="tag-action" :to="{ name: 'EditTag', params: { tagProp: this.tagObject } }">
+          <router-link v-if="isOwned && !hubUrl" class="entity-action" :to="{ name: 'EditTag', params: { tagProp: this.tagObject } }">
             <v-icon color="grey lighten-1">edit</v-icon>
             Edit
           </router-link>
@@ -75,7 +75,7 @@
       </v-list-tile>
       <v-list-tile v-if="tagObject.address">
         <v-list-tile-content>
-          <v-list-tile-sub-title>Address</v-list-tile-sub-title>
+          <v-list-tile-sub-title>Crypto Address</v-list-tile-sub-title>
           <v-list-tile-title v-html="tagObject.address"></v-list-tile-title>
         </v-list-tile-content>
         <v-list-tile-action>
@@ -161,43 +161,3 @@ export default {
   }
 }
 </script>
-
-<style scoped lang="scss">
-    .divider-intermediate {
-        flex: 0 15px;
-    }
-    .tag-action {
-        cursor: pointer;
-        padding: 10px;
-        display: flex;
-        align-items: center;
-        color: #1ebea5;
-        &:not([href]) {
-            color: #1ebea5;
-        }
-        .v-icon {
-            font-size: 18px;
-            padding-bottom: 2px;
-            padding-right: 5px;
-        }
-        &:hover {
-            .v-icon {
-                color: rgba(0,0,0,0.87) !important;
-            }
-        }
-    }
-    .json-address {
-        width: 100%;
-        display: flex;
-        flex-wrap: nowrap;
-        .button-copy {
-            margin-top: 13px !important;
-            background-color: #20C3A5 !important;
-            color: white;
-            position: relative;
-        }
-        .url-field {
-            max-width: 100%;
-        }
-    }
-</style>

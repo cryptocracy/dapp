@@ -31,13 +31,16 @@ const storageService = {
   },
   updateTagIndex: (key, value) => storageService.updateIndex('my_tags.json', [key, value]),
   updateImageIndex: (key, value) => storageService.updateIndex('my_images.json', [key, value]),
+  updateEventIndex: (key, value) => storageService.updateIndex('my_events.json', [key, value]),
   updateMarkerIndex: (key, value) => storageService.updateIndex('my_markers.json', [key, value]),
   updateWalletIndex: (key, value) => storageService.updateIndex('my_wallet.json', [key, value]),
-  updateFavoriteTagIndex: (name, tagTitle) => storageService.updateIndex('my_fav_tags.json', [name, tagTitle]),
-  reduceFavoriteTagIndex: (name, tagTitle) => storageService.updateIndex('my_fav_tags.json', [name, tagTitle], true),
-  updateFavoriteImageIndex: (name, tagTitle) => storageService.updateIndex('my_fav_images.json', [name, tagTitle]),
-  reduceFavoriteImageIndex: (name, tagTitle) => storageService.updateIndex('my_fav_images.json', [name, tagTitle], true),
-  updateFavoriteMarkerIndex: (name, tagTitle) => storageService.updateIndex('my_fav_markers.json', [name, tagTitle]),
-  reduceFavoriteMarkerIndex: (name, tagTitle) => storageService.updateIndex('my_fav_markers.json', [name, tagTitle], true)
+  updateFavoriteTagIndex: (name, title) => storageService.updateIndex('my_fav_tags.json', [name, title]),
+  reduceFavoriteTagIndex: (name, title) => storageService.updateIndex('my_fav_tags.json', [name, title], true),
+  updateFavoriteImageIndex: (name, title) => storageService.updateIndex('my_fav_images.json', [name, title]),
+  reduceFavoriteImageIndex: (name, title) => storageService.updateIndex('my_fav_images.json', [name, title], true),
+  updateFavoriteMarkerIndex: (name, title) => storageService.updateIndex('my_fav_markers.json', [name, title]),
+  reduceFavoriteMarkerIndex: (name, title) => storageService.updateIndex('my_fav_markers.json', [name, title], true),
+  updateFavoriteEventIndex: (name, title) => storageService.updateIndex('my_fav_events.json', [name, title]),
+  reduceFavoriteEventIndex: (name, title) => storageService.updateIndex('my_fav_events.json', [name, title], true)
 }
 export default storageService

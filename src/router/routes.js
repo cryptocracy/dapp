@@ -13,6 +13,11 @@ import MyImageList from '@/components/images/MyImageList'
 import FavoriteImageList from '@/components/images/FavoriteImageList'
 import ImageInfo from '@/components/images/ImageInfo'
 
+import EventForm from '@/components/events/EventForm'
+import MyEventList from '@/components/events/MyEventList'
+import FavoriteEventList from '@/components/events/FavoriteEventList'
+import EventInfo from '@/components/events/EventInfo'
+
 import MarkerForm from '@/components/markers/MarkerForm'
 import MyMarkerList from '@/components/markers/MyMarkerList'
 import FavoriteMarkerList from '@/components/markers/FavoriteMarkerList'
@@ -49,6 +54,12 @@ const routes = [
   { path: '/images/owned', name: 'OwnedImages', component: MyImageList },
   { path: '/images/favorites', name: 'FavoritesImages', component: FavoriteImageList },
   { path: '/images/:imageName', name: 'ImageInfo', props: true, component: ImageInfo },
+
+  { path: '/events/add-event', name: 'AddEvent', props: true, component: EventForm },
+  { path: '/events/edit-event', name: 'EditEvent', props: true, component: EventForm },
+  { path: '/events/owned', name: 'OwnedEvents', component: MyEventList },
+  { path: '/events/favorites', name: 'FavoritesEvents', component: FavoriteEventList },
+  { path: '/events/:eventName', name: 'EventInfo', props: true, component: EventInfo },
 
   { path: '/markers/add-marker', name: 'AddMarker', props: true, component: MarkerForm },
   { path: '/markers/edit-marker', name: 'EditMarker', props: true, component: MarkerForm },

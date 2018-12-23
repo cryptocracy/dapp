@@ -19,4 +19,7 @@ export default {
 </script>
 
 <style lang="css">
+  .iconbox-single {
+    padding: 30px 15px;
+  }
 </style>
