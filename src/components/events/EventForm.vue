@@ -30,7 +30,7 @@
       <datetime v-model="event.start" type='datetime' input-id="startDate">
         <label for="startDate" slot="before">Start date & time</label>
       </datetime>
-      <datetime v-model="event.end" type='datetime' input-id="endDate">
+      <datetime v-model="event.end" type='datetime' input-id="endDate" :min-datetime="event.start">
         <label for="endDate" slot="before">End date & time</label>
       </datetime>
       <v-select

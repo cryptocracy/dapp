@@ -90,7 +90,6 @@
 import ImageUploader from '@/components/image-uploader/ImageUploader'
 import storageService from '@/services/blockstack-storage'
 import objectHelpers from '@/helpers/objectHelpers.js'
-import axios from 'axios'
 
 const cryptoAddress = localStorage['blockstack-gaia-hub-config'] ? JSON.parse(localStorage['blockstack-gaia-hub-config']).address : ''
 
