@@ -7,16 +7,22 @@
         <v-flex md6>
           <app-layout
             height="300px"
-            title="mBTC Input (Recent Donations)"
+            title="Wallet Input (Received)"
             :children="LineChart"
+            :showGraph="showDonationGraph"
+            error_message_title = "No Donations found."
+            error_message="Be patient, it may take time for other users to show interest in your content."
           >
           </app-layout>
         </v-flex>
         <v-flex md6>
           <app-layout
             height="300px"
-            title="mBTC Output (Recent Payouts)"
+            title="Wallet Output (Payouts)"
             :children="BarChart"
+            :showGraph="showPayoutGraph"
+            error_message_title = "No Payouts found."
+            error_message="Looks like you have not initiated any payouts yet."
           >
           </app-layout>
         </v-flex>
@@ -48,13 +54,21 @@ export default {
     ...mapGetters({
       isSearching: 'isSearching',
       isResolved: 'isResolved',
-      searchResult: 'getSearchResult'
+      searchResult: 'getSearchResult',
+      showDonationGraph: 'showDonationGraph',
+      showPayoutGraph: 'showPayoutGraph'
     })
   },
   data: () => ({
     LineChart,
     BarChart
-  })
+  }),
+  created () {
+    this.$store.dispatch('ACTION_GET_TRANSACTIONS_DATA')
+  },
+  destroyed () {
+    this.$store.commit('MUTATION_CHANGE_GRAPH_STATE', false)
+  }
 }
 </script>
 
