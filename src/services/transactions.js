@@ -4,7 +4,7 @@ const transactionService = {
     this.address = localStorage['blockstack-gaia-hub-config'] ? JSON.parse(localStorage['blockstack-gaia-hub-config']).address : ''
     // this.address = '1LhbrBMnicrPYAouVyNTcSFBQjDrZBQ18G'
     let res = await Axios.get(`https://blockchain.info/address/${this.address}?format=json&cors=true`)
-    return this.a.generateChartData(res.data)
+    return transactionService.generateChartData(res.data)
   },
 
   sum: (arr, type) => {
@@ -17,8 +17,8 @@ const transactionService = {
   filter: (acc, tx) => {
     let input = tx.inputs.filter(input => input.prev_out.addr === this.address)
     let output = tx.out.filter(output => output.addr === this.address)
-    let sentAmount = input.length > 0 ? this.a.sum(input, 'input') : 0
-    let receivedAmount = output.length > 0 ? this.a.sum(output, 'output') : 0
+    let sentAmount = input.length > 0 ? transactionService.sum(input, 'input') : 0
+    let receivedAmount = output.length > 0 ? transactionService.sum(output, 'output') : 0
 
     if (input.length > 0) {
       acc.sentAmounts.unshift((sentAmount - receivedAmount) / 100000000)
@@ -31,7 +31,7 @@ const transactionService = {
     }
   },
   generateChartData: (rawData) => {
-    return rawData.txs.reduce(this.a.filter, {
+    return rawData.txs.reduce(transactionService.filter, {
       sentAmounts: [],
       receivedAmounts: [],
       sentDates: [],
