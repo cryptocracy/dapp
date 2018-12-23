@@ -27,12 +27,25 @@
         label="Address"
         :disabled="isLoading"
       ></v-text-field>
-      <datetime v-model="event.start" type='datetime' input-id="startDate" :max-datetime="event.end" :min-datetime="new Date().toISOString()">
-        <label for="startDate" slot="before">Start date & time</label>
-      </datetime>
-      <datetime v-model="event.end" type='datetime' input-id="endDate" :min-datetime="event.start">
-        <label for="endDate" slot="before">End date & time</label>
-      </datetime>
+      <div class="date-time-picker">
+        <datetime
+          v-model="event.start"
+          type='datetime'
+          input-id="startDate"
+          :max-datetime="event.end"
+          :min-datetime="new Date().toISOString()"
+        >
+          <label class="v-btn theme--light" for="startDate" slot="before">Start date & time</label>
+        </datetime>
+        <datetime
+          v-model="event.end"
+          type='datetime'
+          input-id="endDate"
+          :min-datetime="event.start"
+        >
+          <label class="v-btn theme--light" for="endDate" slot="before">End date & time</label>
+        </datetime>
+      </div>
       <v-select
         :items="tags"
         label="Tag(s)"
@@ -178,7 +191,8 @@ export default {
                 params: {
                   eventName: 'event_' + this.event.createdtime,
                   eventObject: this.event
-                } }) : this.clear()
+                }
+              }) : this.clear()
             })
         })
     },
@@ -190,7 +204,7 @@ export default {
     updateFromEventProp () {
       if (this.eventProp) {
         for (let property in this.eventProp) {
-          this.event[property] = this.eventProp[property] instanceof Object ? { ...this.eventProp[property] } : this.eventProp[property]
+          this.event[property] = this.eventProp[property] instanceof Object ? {...this.eventProp[property]} : this.eventProp[property]
         }
         this.event.images = objectHelpers.toArray(this.event.images)
         this.event.tags = objectHelpers.toArray(this.event.tags)
