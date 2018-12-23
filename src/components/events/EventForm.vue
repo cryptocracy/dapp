@@ -27,7 +27,7 @@
         label="Address"
         :disabled="isLoading"
       ></v-text-field>
-      <datetime v-model="event.start" type='datetime' input-id="startDate">
+      <datetime v-model="event.start" type='datetime' input-id="startDate" :max-datetime="event.end">
         <label for="startDate" slot="before">Start date & time</label>
       </datetime>
       <datetime v-model="event.end" type='datetime' input-id="endDate" :min-datetime="event.start">
