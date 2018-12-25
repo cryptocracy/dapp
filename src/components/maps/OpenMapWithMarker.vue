@@ -65,14 +65,12 @@ export default {
     setMarker (e) {
       if (!this.readonly) {
         this.marker = e.latlng
-        console.log('setMarker', e.latlng.wrap())
         this.$emit('input', e.latlng.wrap())
       }
     },
     getMyLocation () {
       navigator.geolocation.getCurrentPosition((position) => {
         this.centerMap = L.latLng(position.coords.latitude, position.coords.longitude)
-        console.log(this.centerMap)
         this.$emit('getCurrentLocation', this.centerMap)
       })
     }

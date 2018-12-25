@@ -87,7 +87,6 @@ export default {
       options: {decrypt: true}
     }).then(res => {
       if (res) {
-        console.log('RESSSSSSS', res)
         this.$store.commit('MUTATION_CHANGE_SETTINGS', res)
         this.searchProximity(res)
       } else {
@@ -110,9 +109,7 @@ export default {
         distance: settings.searchRadius,
         unit: settings.distanceUnit
       }
-      this.$store.dispatch('ACTION_PROXIMITY_SEARCH', queryObj).then(res => {
-        console.log('RESPONSE', res)
-      })
+      this.$store.dispatch('ACTION_PROXIMITY_SEARCH', queryObj)
     }
   }
 }
