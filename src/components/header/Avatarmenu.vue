@@ -23,7 +23,7 @@
           <v-list-tile-title>Theme</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
-      <v-list-tile @click="dummyFunction">
+      <v-list-tile @click="redirectToSettings">
         <v-list-tile-action>
           <v-icon>settings</v-icon>
         </v-list-tile-action>
@@ -65,6 +65,9 @@ export default {
       this.$store.commit('MUTATION_SET_SEARCH_STATE', false)
       this.$store.commit('MUTATION_SET_SEARCH_RESULT', [])
       this.$router.push({ name: 'Profile', params: { id: 'my-profile' } })
+    },
+    redirectToSettings () {
+      this.$router.push({name: 'Settings'})
     },
     signOut () {
       this.blockstack.signUserOut(window.location.href)

@@ -27,6 +27,7 @@ import WalletSummary from '@/components/wallet/Summary'
 import WalletReceive from '@/components/wallet/Receive'
 import WalletHistory from '@/components/wallet/History'
 import WalletSend from '@/components/wallet/Send'
+import Settings from '@/components/settings/Settings'
 
 /**
 * Routes Data
@@ -42,6 +43,7 @@ const routes = [
   { path: '/', name: 'Home', component: Home },
   { path: '/profile/:id', name: 'Profile', component: Profile },
   { path: '/favourite-contacts', name: 'favourite-contacts', component: favContacts },
+  { path: '/settings', name: 'Settings', component: Settings },
 
   { path: '/tags/add-tag', name: 'AddTag', props: true, component: TagForm },
   { path: '/tags/edit-tag', name: 'EditTag', props: true, component: TagForm },

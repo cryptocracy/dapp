@@ -1,7 +1,9 @@
 <template>
-  <l-map id="mapid" :zoom="zoom" :center="actualCoordinates" @click="setMarker">
+  <l-map id="mapid" :zoom="zoom" :center="center" @click="setMarker">
     <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
-    <l-marker :lat-lng="actualCoordinates" :icon="icon"></l-marker>
+    <l-marker v-for="(marker, index) in markers" :key="index" :lat-lng="marker.coordinates" :icon="icon">
+      <l-popup class="break-all">File Url: {{marker.fileUrl}}</l-popup>
+    </l-marker>
     <v-btn fab class="map-location" @click.stop="getMyLocation">
       <v-icon dark>location_on</v-icon>
     </v-btn>
@@ -11,7 +13,7 @@
 
 <script>
 import L from 'leaflet'
-import { LMap, LTileLayer, LMarker } from 'vue2-leaflet'
+import { LMap, LTileLayer, LMarker, LPopup } from 'vue2-leaflet'
 import iconUrl from 'leaflet/dist/images/marker-icon.png'
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png'
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png'
@@ -19,7 +21,7 @@ import shadowUrl from 'leaflet/dist/images/marker-shadow.png'
 export default {
   name: 'OpenMapWithMarker',
   data: () => ({
-    zoom: 13,
+    zoom: 6,
     centerMap: L.latLng(47.413220, -1.219482),
     url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
@@ -34,7 +36,7 @@ export default {
       popupAnchor: [-3, -76]
     })
   }),
-  components: { LMap, LTileLayer, LMarker },
+  components: { LMap, LTileLayer, LMarker, LPopup },
   props: {
     center: {
       type: Object,
@@ -51,29 +53,23 @@ export default {
     readonly: {
       type: Boolean,
       default: false
+    },
+    markers: {
+      type: Array
     }
   },
   computed: {
-    actualCoordinates () {
-      return this.center ? this.center : {
-        lat: 47.413220,
-        lng: -1.219482
-      }
-    }
   },
   methods: {
     setMarker (e) {
       if (!this.readonly) {
         this.marker = e.latlng
-        console.log('setMarker', e.latlng.wrap())
-        this.$emit('input', e.latlng.wrap())
+        this.$emit('input', e.latlng)
       }
     },
     getMyLocation () {
       navigator.geolocation.getCurrentPosition((position) => {
         this.centerMap = L.latLng(position.coords.latitude, position.coords.longitude)
-        console.log(this.centerMap)
-        this.$emit('getCurrentLocation', this.centerMap)
       })
     }
   }
@@ -81,6 +77,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.break-all {
+  word-break: break-all
+}
 .vue2leaflet-map {
     height: 300px;
     z-index: 0;
