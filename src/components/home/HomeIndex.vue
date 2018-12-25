@@ -90,6 +90,7 @@ export default {
         this.$store.commit('MUTATION_CHANGE_SETTINGS', res)
         this.searchProximity(res)
       } else {
+        this.searchProximity(this.settings)
         this.createFile()
       }
     })
