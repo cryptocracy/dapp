@@ -2,7 +2,7 @@
   <l-map id="mapid" :zoom="zoom" :center="center" @click="setMarker">
     <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
     <l-marker v-for="(marker, index) in markers" :key="index" :lat-lng="marker.coordinates" :icon="icon">
-      <l-popup class="break-all">File Url: {{marker.fileUrl}}</l-popup>
+      <l-popup class="break-all">Content URL: {{marker.fileUrl}}</l-popup>
     </l-marker>
     <v-btn fab class="map-location" @click.stop="getMyLocation">
       <v-icon dark>location_on</v-icon>
