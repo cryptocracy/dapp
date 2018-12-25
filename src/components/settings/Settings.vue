@@ -11,7 +11,7 @@
           >
           </v-autocomplete>
 
-          <v-subheader class="pl-0">Search Radius (in {{settings.distanceUnit}}s)</v-subheader>
+          <v-subheader class="pl-0">Search Radius (in {{settings.distanceUnit === 'mi' ? 'Miles' : 'KMs'}})</v-subheader>
           <v-slider
             v-model="settings.searchRadius"
             thumb-label="always"
