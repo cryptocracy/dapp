@@ -6,6 +6,7 @@ import searchHandler from './moduels/search-handler'
 import contactsHandler from './moduels/contacts-handler'
 import userProfileData from './moduels/profileData'
 import transactionsHandler from '@/store/moduels/transactions-handler'
+import cryptocracyHandler from '@/store/moduels/cryptocracy-handler'
 
 Vue.use(Vuex)
 
@@ -17,7 +18,13 @@ const stateObject = {
   isLoading: false,
   pay_to: {},
   hubUrl: '',
-  BTCAddress: ''
+  BTCAddress: '',
+  settings: {
+    distanceUnit: 'mi',
+    searchRadius: 150,
+    latitude: 45.5122,
+    longitude: -122.6587
+  }
 }
 
 export default new Vuex.Store({
@@ -26,7 +33,8 @@ export default new Vuex.Store({
     userProfileData,
     searchHandler,
     contactsHandler,
-    transactionsHandler
+    transactionsHandler,
+    cryptocracyHandler
   },
   mutations: {
     toggleSidebar: (state) => {
@@ -34,9 +42,13 @@ export default new Vuex.Store({
     },
     toggleLoading: (state, payload) => {
       state.isLoading = payload || !state.isLoading
+    },
+    MUTATION_CHANGE_SETTINGS (state, payload) {
+      state.settings = payload
     }
   },
   getters: {
-    isLoading: state => state.isLoading
+    isLoading: state => state.isLoading,
+    getSettings: state => state.settings
   }
 })

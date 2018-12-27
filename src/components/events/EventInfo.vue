@@ -183,7 +183,6 @@ export default {
     },
     addToFavorite () {
       this.isLoading = true
-      console.log('REUTRNNNN', this.getFavEventName())
       storageService.updateFavoriteEventIndex(this.getFavEventName(), this.eventObject.title)
         .then(() => {
           this.isFavorite = true

@@ -1,6 +1,18 @@
 <template lang="html">
-  <div class="container">
+  <div class="container-fluid">
     <div>
+      <v-layout transition="slide-y-transition" row class="mt-0 mb-3" v-if="proximitySearchResult">
+        <v-flex col>
+          <v-subheader class="pl-0 mt-0"></v-subheader>
+          <span v-if="proximitySearchResult.length > 0" color="grey"></span>
+          <span v-else color="grey"></span>
+          <OpenMapWithMultipleMarkers
+            :markers="proximitySearchResult"
+            :center="{lat: settings.latitude, lng: settings.longitude}"
+          >
+          </OpenMapWithMultipleMarkers>
+        </v-flex>
+      </v-layout>
       <app-box></app-box>
 
       <v-layout row flex-wrap>
@@ -44,11 +56,14 @@
 import BoxWrapper from '@/components/icon-box/BoxWrapper'
 import LineChart from '@/components/charts/line-chart/LineChart'
 import BarChart from '@/components/charts/bar-chart/BarChart'
+import storageService from '@/services/blockstack-storage'
+import OpenMapWithMultipleMarkers from '@/components/maps/OpenMapWithMultipleMarkers'
 import { mapGetters } from 'vuex'
 
 export default {
   components: {
-    'app-box': BoxWrapper
+    'app-box': BoxWrapper,
+    OpenMapWithMultipleMarkers
   },
   computed: {
     ...mapGetters({
@@ -56,7 +71,9 @@ export default {
       isResolved: 'isResolved',
       searchResult: 'getSearchResult',
       showDonationGraph: 'showDonationGraph',
-      showPayoutGraph: 'showPayoutGraph'
+      showPayoutGraph: 'showPayoutGraph',
+      settings: 'getSettings',
+      proximitySearchResult: 'getProximitySearchResult'
     })
   },
   data: () => ({
@@ -65,12 +82,42 @@ export default {
   }),
   created () {
     this.$store.dispatch('ACTION_GET_TRANSACTIONS_DATA')
+    storageService.getFile({
+      fileName: 'settings.json',
+      options: {decrypt: true}
+    }).then(res => {
+      if (res) {
+        this.$store.commit('MUTATION_CHANGE_SETTINGS', res)
+        this.searchProximity(res)
+      } else {
+        this.searchProximity(this.settings)
+        this.createFile()
+      }
+    })
   },
-  destroyed () {
-    this.$store.commit('MUTATION_CHANGE_GRAPH_STATE', false)
+  methods: {
+    createFile () {
+      storageService.putFile({
+        fileName: 'settings.json',
+        data: this.settings,
+        options: {encrypt: true}
+      })
+    },
+    searchProximity (settings) {
+      let queryObj = {
+        lat: settings.latitude,
+        lng: settings.longitude,
+        distance: settings.searchRadius,
+        unit: settings.distanceUnit
+      }
+      this.$store.dispatch('ACTION_PROXIMITY_SEARCH', queryObj)
+    }
   }
 }
 </script>
 
-<style lang="css">
+<style scoped lang="css">
+span {
+  color: grey
+}
 </style>

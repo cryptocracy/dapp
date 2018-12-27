@@ -133,7 +133,6 @@ export default {
     },
     addToFavorite () {
       this.isLoading = true
-      console.log('REUTRNNNN', this.getFavTagName())
       storageService.updateFavoriteTagIndex(this.getFavTagName(), this.tagObject.title)
         .then(() => {
           this.isFavorite = true
