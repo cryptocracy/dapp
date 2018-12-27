@@ -2,7 +2,12 @@
   <l-map id="mapid" :zoom="zoom" :center="center" @click="setMarker">
     <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
     <l-marker v-for="(marker, index) in markers" :key="index" :lat-lng="marker.coordinates" :icon="icon">
-      <l-popup class="break-all">Content URL: {{marker.fileUrl}}</l-popup>
+      <l-popup class="break-all">
+        <div>Content Type: {{getDetails(marker.fileUrl).type}}</div>
+        <div>Owner: {{getDetails(marker.fileUrl).owner}}</div>
+        <div>Created On: {{getDetails(marker.fileUrl).createdOn}}</div>
+        <v-btn @click="redirectUser(marker)" round small color="primary">view details</v-btn>
+      </l-popup>
     </l-marker>
     <v-btn fab class="map-location" @click.stop="getMyLocation">
       <v-icon dark>location_on</v-icon>
@@ -71,6 +76,21 @@ export default {
       navigator.geolocation.getCurrentPosition((position) => {
         this.centerMap = L.latLng(position.coords.latitude, position.coords.longitude)
       })
+    },
+    getDetails (url) {
+      let a = url.split('/')
+      return {
+        'owner': a[4],
+        'type': a[5].split('_')[0].toUpperCase(),
+        'createdOn': new Date(Number(a[5].split('_')[1].split('.')[0])).toLocaleString()
+      }
+    },
+    async redirectUser (content) {
+      await this.$store.dispatch('ACTION_GET_CONTENT', content.fileUrl)
+      if (content.fileUrl.includes('marker')) this.$router.push({name: 'OwnedMarkers'})
+      else if (content.fileUrl.includes('tag')) this.$router.push({name: 'Owned'})
+      else if (content.fileUrl.includes('image')) this.$router.push({name: 'OwnedImages'})
+      else if (content.fileUrl.includes('event')) this.$router.push({name: 'OwnedEvents'})
     }
   }
 }

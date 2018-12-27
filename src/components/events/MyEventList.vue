@@ -9,6 +9,7 @@
 <script>
 import EventList from './EventList'
 import axios from 'axios'
+import { mapGetters } from 'vuex'
 
 const storageFile = 'my_events.json'
 
@@ -23,6 +24,11 @@ export default {
     eventsArray: [],
     hubUrl: ''
   }),
+  computed: {
+    ...mapGetters({
+      contentData: 'getContentData'
+    })
+  },
   methods: {
     fetchEventFile () {
       // fetching project list
@@ -61,12 +67,16 @@ export default {
     if (hubUrl) {
       this.hubUrl = hubUrl
       this.fetchRedirectedUsersEventFile(hubUrl)
+    } else if (this.contentData && Object.keys(this.contentData).length > 0) {
+      this.eventsArray.push(this.contentData)
+      this.hubUrl = this.contentData.owner
     } else {
       this.fetchEventFile()
     }
   },
   destroyed () {
     this.$store.state.hubUrl = null
+    this.$store.commit('MUTATION_SET_CONTENT_DATA', null)
   }
 }
 </script>

@@ -9,6 +9,7 @@
 <script>
 import TagList from './TagList'
 import axios from 'axios'
+import { mapGetters } from 'vuex'
 
 const storageFile = 'my_tags.json'
 
@@ -16,6 +17,11 @@ export default {
   name: 'MyTagList',
   components: {
     TagList
+  },
+  computed: {
+    ...mapGetters({
+      contentData: 'getContentData'
+    })
   },
   data: () => ({
     blockstack: window.blockstack,
@@ -61,12 +67,16 @@ export default {
     if (hubUrl) {
       this.hubUrl = hubUrl
       this.fetchRedirectedUsersTagFile(hubUrl)
+    } else if (this.contentData && Object.keys(this.contentData).length > 0) {
+      this.tagsArray.push(this.contentData)
+      this.hubUrl = this.contentData.owner
     } else {
       this.fetchTagFile()
     }
   },
   destroyed () {
     this.$store.state.hubUrl = null
+    this.$store.commit('MUTATION_SET_CONTENT_DATA', null)
   }
 }
 </script>

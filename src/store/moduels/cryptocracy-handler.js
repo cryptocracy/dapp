@@ -1,7 +1,9 @@
 import cryptocracyServices from '@/services/cryptocracy'
+import axios from 'axios'
 const cryptocracyHandler = {
   state: {
-    searchResult: []
+    searchResult: [],
+    contentData: {}
   },
   mutations: {
     MUTATION_SAVE_SEARCHED_RESULT (state, payload) {
@@ -17,6 +19,9 @@ const cryptocracyHandler = {
         return acc
       }, [])
       state.searchResult = modifiedData
+    },
+    MUTATION_SET_CONTENT_DATA (state, payload) {
+      state.contentData = payload
     }
   },
   actions: {
@@ -24,10 +29,16 @@ const cryptocracyHandler = {
       let res = await cryptocracyServices.proximitySearch(payload)
       context.commit('MUTATION_SAVE_SEARCHED_RESULT', res.data)
       return res
+    },
+    async ACTION_GET_CONTENT (context, fileUrl) {
+      let res = await axios.get(fileUrl)
+      context.commit('MUTATION_SET_CONTENT_DATA', res.data)
+      return res
     }
   },
   getters: {
-    getProximitySearchResult: state => state.searchResult
+    getProximitySearchResult: state => state.searchResult,
+    getContentData: state => state.contentData
   }
 }
 export default cryptocracyHandler

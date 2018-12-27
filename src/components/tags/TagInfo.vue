@@ -109,7 +109,7 @@ export default {
       // parsing blockstack gaia hub cong from localhost for creating hub url
       const urlItems = JSON.parse(localStorage['blockstack-gaia-hub-config'])
       // creating hub url(where our files are stored)
-      const hubUrl = this.hubUrl || `${urlItems.url_prefix}${this.tagObject.owner}/`
+      const hubUrl = this.hubUrl ? `${urlItems.url_prefix}${this.hubUrl}/` : `${urlItems.url_prefix}${this.tagObject.owner}/`
       return this.tagObject ? `${hubUrl}tag_${this.tagObject.createdtime}.json` : ''
     },
     isOwned () {

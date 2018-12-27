@@ -9,6 +9,7 @@
 <script>
 import axios from 'axios'
 import ImageList from './ImageList'
+import { mapGetters } from 'vuex'
 
 const storageFile = 'my_images.json'
 
@@ -16,6 +17,11 @@ export default {
   name: 'MyImageList',
   components: {
     ImageList
+  },
+  computed: {
+    ...mapGetters({
+      contentData: 'getContentData'
+    })
   },
   data: () => ({
     blockstack: window.blockstack,
@@ -62,12 +68,16 @@ export default {
     if (hubUrl) {
       this.hubUrl = hubUrl
       this.fetchRedirectedUsersImageFile(hubUrl)
+    } else if (this.contentData && Object.keys(this.contentData).length > 0) {
+      this.imagesArray.push(this.contentData)
+      this.hubUrl = this.contentData.owner
     } else {
       this.fetchImageFile()
     }
   },
   destroyed () {
     this.$store.state.hubUrl = null
+    this.$store.commit('MUTATION_SET_CONTENT_DATA', null)
   }
 }
 </script>
