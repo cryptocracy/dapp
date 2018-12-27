@@ -14,8 +14,8 @@
 <script>
 import L from 'leaflet'
 import { LMap, LTileLayer, LMarker, LPopup } from 'vue2-leaflet'
-import iconUrl from 'leaflet/dist/images/marker-icon.png'
-import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png'
+// import iconUrl from 'leaflet/dist/images/marker-icon.png'
+// import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png'
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png'
 
 export default {
@@ -28,8 +28,8 @@ export default {
     marker: L.latLng(47.413220, -1.219482),
     riseOnHover: true,
     icon: L.icon({
-      iconRetinaUrl: iconRetinaUrl,
-      iconUrl: iconUrl,
+      iconRetinaUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+      iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
       shadowUrl: shadowUrl,
       iconSize: [38, 58],
       iconAnchor: [22, 57],
