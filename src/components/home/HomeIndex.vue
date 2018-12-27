@@ -3,9 +3,9 @@
     <div>
       <v-layout transition="slide-y-transition" row class="mt-0 mb-3" v-if="proximitySearchResult">
         <v-flex col>
-          <v-subheader class="pl-0 mt-0">Content near you</v-subheader>
-          <span v-if="proximitySearchResult.length > 0" color="grey">Try clicking the marker icon for more details.</span>
-          <span v-else color="grey">Try changing your epicenter or increasing your search radius to discover content.</span>
+          <v-subheader class="pl-0 mt-0"></v-subheader>
+          <span v-if="proximitySearchResult.length > 0" color="grey"></span>
+          <span v-else color="grey"></span>
           <OpenMapWithMultipleMarkers
             :markers="proximitySearchResult"
             :center="{lat: settings.latitude, lng: settings.longitude}"
