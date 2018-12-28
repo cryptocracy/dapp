@@ -9,35 +9,6 @@
           class="mb-0"
         ></v-progress-linear>
       </v-list-tile>
-      <v-list-tile>
-        <div class="json-address">
-          <v-text-field
-            ref="urlInput"
-            :value="markerUrl"
-            class="url-field"
-            readonly
-          />
-          <v-btn class="button-copy" color="#20C3A5" @click="copyUrl">{{ copyButtonText }}</v-btn>
-        </div>
-      </v-list-tile>
-      <v-list-tile v-if="markerObject.ownername">
-        <v-list-tile-content>
-          <v-list-tile-sub-title>Owner Name</v-list-tile-sub-title>
-          <v-list-tile-title v-html="markerObject.ownername"></v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
-      <v-list-tile>
-        <v-list-tile-content>
-          <v-list-tile-sub-title>Privacy</v-list-tile-sub-title>
-          <v-list-tile-title v-html="markerObject.private ? 'Private' : 'Public'"></v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
-      <v-list-tile>
-        <v-list-tile-content>
-          <v-list-tile-sub-title>Archived</v-list-tile-sub-title>
-          <v-list-tile-title v-html="markerObject.archived ? 'Yes' : 'No'"></v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
       <v-list-tile v-if="markerObject.detail">
         <v-list-tile-content>
           <v-list-tile-sub-title>Details</v-list-tile-sub-title>
@@ -50,17 +21,18 @@
           <v-list-tile-title v-html="new Date(markerObject.createdtime).toLocaleString()"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
+      <v-list-tile v-if="markerObject.ownername">
+        <v-list-tile-content>
+          <v-list-tile-sub-title>Owner Name</v-list-tile-sub-title>
+          <v-list-tile-title v-html="markerObject.ownername"></v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
       <!--<v-list-tile v-if="markerObject.private">-->
       <!--<v-list-tile-content>-->
       <!--<v-list-tile-sub-title>Privacy</v-list-tile-sub-title>-->
       <!--<v-list-tile-title v-html="markerObject.private ? 'Private' : 'Public'"></v-list-tile-title>-->
       <!--</v-list-tile-content>-->
       <!--</v-list-tile>-->
-      <v-list-tile>
-        <v-list-tile-content>
-          <v-list-tile-sub-title>Map</v-list-tile-sub-title>
-        </v-list-tile-content>
-      </v-list-tile>
       <v-list-tile v-if="markerObject.symbol">
         <v-list-tile-content>
           <v-list-tile-sub-title>Symbol</v-list-tile-sub-title>
@@ -96,6 +68,29 @@
         </router-link>
       </div>
       <open-map-with-marker v-if="isShowMarker" :center="markerCenter" readonly/>
+      <v-list-tile>
+        <div class="json-address">
+          <v-text-field
+            ref="urlInput"
+            :value="markerUrl"
+            class="url-field"
+            readonly
+          />
+          <v-btn class="button-copy" color="#20C3A5" @click="copyUrl">{{ copyButtonText }}</v-btn>
+        </div>
+      </v-list-tile>
+      <v-list-tile>
+        <v-list-tile-content>
+          <v-list-tile-sub-title>Privacy</v-list-tile-sub-title>
+          <v-list-tile-title v-html="markerObject.private ? 'Private' : 'Public'"></v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile>
+        <v-list-tile-content>
+          <v-list-tile-sub-title>Archived</v-list-tile-sub-title>
+          <v-list-tile-title v-html="markerObject.archived ? 'Yes' : 'No'"></v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
     </v-list>
   </v-card>
 </template>
