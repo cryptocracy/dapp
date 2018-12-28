@@ -11,19 +11,18 @@
       </v-list-tile>
       <v-list-tile v-if="markerObject.detail">
         <v-list-tile-content>
-          <v-list-tile-sub-title>Details</v-list-tile-sub-title>
           <v-list-tile-title v-html="markerObject.detail"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
       <v-list-tile v-if="markerObject.createdtime">
         <v-list-tile-content>
-          <v-list-tile-sub-title>Created time</v-list-tile-sub-title>
+          <v-list-tile-sub-title>Date Created</v-list-tile-sub-title>
           <v-list-tile-title v-html="new Date(markerObject.createdtime).toLocaleString()"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
       <v-list-tile v-if="markerObject.ownername">
         <v-list-tile-content>
-          <v-list-tile-sub-title>Owner Name</v-list-tile-sub-title>
+          <v-list-tile-sub-title>Marker Author</v-list-tile-sub-title>
           <v-list-tile-title v-html="markerObject.ownername"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
@@ -33,18 +32,6 @@
       <!--<v-list-tile-title v-html="markerObject.private ? 'Private' : 'Public'"></v-list-tile-title>-->
       <!--</v-list-tile-content>-->
       <!--</v-list-tile>-->
-      <v-list-tile v-if="markerObject.symbol">
-        <v-list-tile-content>
-          <v-list-tile-sub-title>Symbol</v-list-tile-sub-title>
-          <v-list-tile-title v-html="markerObject.symbol"></v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
-      <v-list-tile v-if="markerObject.address">
-        <v-list-tile-content>
-          <v-list-tile-sub-title>Crypto Address</v-list-tile-sub-title>
-          <v-list-tile-title v-html="markerObject.address"></v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
       <div v-if="!isLoading" class="entity-actions">
         <a v-if="markerCenter" class="entity-action entity-action--marker" @click="isShowMarker = !isShowMarker">
           <v-icon color="red lighten-1">place</v-icon>
@@ -68,6 +55,18 @@
         </router-link>
       </div>
       <open-map-with-marker v-if="isShowMarker" :center="markerCenter" readonly/>
+      <v-list-tile v-if="markerObject.symbol">
+        <v-list-tile-content>
+          <v-list-tile-sub-title>Symbol</v-list-tile-sub-title>
+          <v-list-tile-title v-html="markerObject.symbol"></v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile v-if="markerObject.address">
+        <v-list-tile-content>
+          <v-list-tile-sub-title>Crypto Address</v-list-tile-sub-title>
+          <v-list-tile-title v-html="markerObject.address"></v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
       <v-list-tile>
         <div class="json-address">
           <v-text-field
@@ -152,7 +151,7 @@ export default {
       this.$refs.urlInput.$refs.input.select()
       document.execCommand('copy')
       this.copyButtonText = 'Copied!'
-      setTimeout(() => { this.copyButtonText = 'Copy' }, 2000)
+      setTimeout(() => { this.copyButtonText = 'Copy Gaia URL' }, 2000)
     },
     addToFavorite () {
       this.isLoading = true
