@@ -1,5 +1,5 @@
 <template lang="html">
-  <router-link class="iconbox-single br20" :style="{background: backgroundColor}" :to="to">
+  <router-link class="iconbox-single iconbox-single--equal br20" :style="{background: backgroundColor}" :to="to">
     <div class="box-title">
       <div class="circle-icon" >
         <v-icon>{{ icon }}</v-icon>

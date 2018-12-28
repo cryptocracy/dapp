@@ -80,6 +80,9 @@
 .br20 {
   border-radius: 20px;
 }
+.iconbox-single--equal {
+  height: calc(100% - 30px);
+}
 
 // Entities/Objects style
 @import "./entity/entity";

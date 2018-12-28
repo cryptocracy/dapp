@@ -78,6 +78,8 @@
 import storageService from '@/services/blockstack-storage'
 import OpenMapWithMarker from '@/components/maps/OpenMapWithMarker'
 
+const cryptoName = localStorage['blockstack'] ? JSON.parse(localStorage['blockstack']).username : ''
+
 export default {
   data: () => ({
     blockstack: window.blockstack,
@@ -138,6 +140,7 @@ export default {
         this.isLoading = true
         this.marker.createdtime = this.markerProp ? this.markerProp.createdtime : timestamp
         this.marker.owner = JSON.parse(localStorage['blockstack-gaia-hub-config']).address
+        this.marker.ownername = cryptoName
         this.saveMarker(timestamp)
       }
     },

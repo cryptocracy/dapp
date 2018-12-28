@@ -92,6 +92,7 @@ import storageService from '@/services/blockstack-storage'
 import objectHelpers from '@/helpers/objectHelpers.js'
 
 const cryptoAddress = localStorage['blockstack-gaia-hub-config'] ? JSON.parse(localStorage['blockstack-gaia-hub-config']).address : ''
+const cryptoName = localStorage['blockstack'] ? JSON.parse(localStorage['blockstack']).username : ''
 
 export default {
 
@@ -147,6 +148,7 @@ export default {
         this.isLoading = true
         this.image.createdtime = this.imageProp ? this.imageProp.createdtime : timestamp
         this.image.owner = JSON.parse(localStorage['blockstack-gaia-hub-config']).address
+        this.image.ownername = cryptoName
         if (this.imageFile.name) {
           this.blockstack.putFile(`image_${timestamp}.${this.imageFile.name.split('.').pop()}`, this.imageFile)
             .then((imageUrl) => {
