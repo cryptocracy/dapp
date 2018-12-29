@@ -9,15 +9,15 @@
           class="mb-0"
         ></v-progress-linear>
       </v-list-tile>
+      <v-list-tile v-if="eventObject.description">
+        <v-list-tile-content>
+          <v-list-tile-title v-html="eventObject.description"></v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
       <v-list-tile v-if="eventObject.ownername">
         <v-list-tile-content>
           <v-list-tile-sub-title>Published by</v-list-tile-sub-title>
           <v-list-tile-title v-html="eventObject.ownername"></v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
-      <v-list-tile v-if="eventObject.description">
-        <v-list-tile-content>
-          <v-list-tile-title v-html="eventObject.description"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
       <v-list-tile v-if="eventObject.start">
