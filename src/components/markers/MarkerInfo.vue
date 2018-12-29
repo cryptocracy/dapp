@@ -14,12 +14,6 @@
           <v-list-tile-title v-html="markerObject.detail"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
-      <v-list-tile v-if="markerObject.createdtime">
-        <v-list-tile-content>
-          <v-list-tile-sub-title>Date Created</v-list-tile-sub-title>
-          <v-list-tile-title v-html="new Date(markerObject.createdtime).toLocaleString()"></v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
       <v-list-tile v-if="markerObject.ownername">
         <v-list-tile-content>
           <v-list-tile-sub-title>Published by</v-list-tile-sub-title>
@@ -88,6 +82,12 @@
         <v-list-tile-content>
           <v-list-tile-sub-title>Archived</v-list-tile-sub-title>
           <v-list-tile-title v-html="markerObject.archived ? 'Yes' : 'No'"></v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile v-if="markerObject.createdtime">
+        <v-list-tile-content>
+          <v-list-tile-sub-title>Date Created</v-list-tile-sub-title>
+          <v-list-tile-title v-html="new Date(markerObject.createdtime).toLocaleString()"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
     </v-list>
