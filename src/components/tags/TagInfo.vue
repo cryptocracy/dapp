@@ -9,12 +9,6 @@
           class="mb-0"
         ></v-progress-linear>
       </v-list-tile>
-      <v-list-tile v-if="tagObject.createdtime">
-        <v-list-tile-content>
-          <v-list-tile-sub-title>Created time</v-list-tile-sub-title>
-          <v-list-tile-title v-html="new Date(tagObject.createdtime).toLocaleString()"></v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
       <v-list-tile v-if="tagObject.ownername">
         <v-list-tile-content>
           <v-list-tile-sub-title>Owner Name</v-list-tile-sub-title>
@@ -79,6 +73,12 @@
         <v-list-tile-content>
           <v-list-tile-sub-title>Archived</v-list-tile-sub-title>
           <v-list-tile-title v-html="tagObject.archived ? 'Yes' : 'No'"></v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile v-if="tagObject.createdtime">
+        <v-list-tile-content>
+          <v-list-tile-sub-title>Created time</v-list-tile-sub-title>
+          <v-list-tile-title v-html="new Date(tagObject.createdtime).toLocaleString()"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
     </v-list>
