@@ -77,7 +77,7 @@
       </v-list-tile>
       <v-list-tile v-if="tagObject.createdtime">
         <v-list-tile-content>
-          <v-list-tile-sub-title>Created time</v-list-tile-sub-title>
+          <v-list-tile-sub-title>Date Created</v-list-tile-sub-title>
           <v-list-tile-title v-html="new Date(tagObject.createdtime).toLocaleString()"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
