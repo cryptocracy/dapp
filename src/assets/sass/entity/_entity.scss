@@ -42,17 +42,30 @@
 .divider-intermediate {
   flex: 0 15px;
 }
+
+.entity-actions {
+  display: flex;
+  justify-content: space-around;
+
+  & + div {
+    margin-top: 10px;
+  }
+}
+
 .entity-action {
   cursor: pointer;
   padding: 10px;
   display: flex;
+  font-size: 18px;
   align-items: center;
   color: #1ebea5;
+  text-transform: uppercase;
   &:not([href]) {
     color: #1ebea5;
   }
+
   .v-icon {
-    font-size: 18px;
+    font-size: 22px;
     padding-bottom: 2px;
     padding-right: 5px;
   }
@@ -62,6 +75,7 @@
     }
   }
 }
+
 .json-address {
   width: 100%;
   display: flex;
@@ -77,6 +91,12 @@
   }
 }
 
+.entity-title {
+  margin-top: 5px;
+  margin-left: 15px;
+  font-size: 24px;
+  color: rgba(0,0,0,.87);
+}
 
 .switch-block {
   display: flex;

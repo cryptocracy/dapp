@@ -5,30 +5,74 @@
       <img v-if="imageObject.image" :src="imageObject.image" class="main-image">
     </div>
     <v-list two-line>
-      <v-list-tile>
-        <template v-if="isLoading">
-          <v-progress-linear
-            indeterminate
-            color="grey lighten-1"
-            class="mb-0"
-          ></v-progress-linear>
-        </template>
-        <template v-else>
-          <v-divider/>
-          <a v-if="isFavorite" class="entity-action" @click="removeFromFavorite">
-            <v-icon color="grey lighten-1">favorite_border</v-icon>
-            Remove from Favorite
-          </a>
-          <a v-if="!isFavorite" class="entity-action" @click="addToFavorite">
-            <v-icon color="grey lighten-1">favorite</v-icon>
-            Add to Favorite
-          </a>
-          <v-divider v-if="!hubUrl && isOwned" class="divider-intermediate"/>
-          <router-link v-if="!hubUrl && isOwned" class="entity-action" :to="{ name: 'EditImage', params: { imageProp: this.imageObject } }">
-            <v-icon color="grey lighten-1">edit</v-icon>
-            Edit
-          </router-link>
-        </template>
+      <v-list-tile v-if="isLoading">
+        <v-progress-linear
+          indeterminate
+          color="grey lighten-1"
+          class="mb-0"
+        ></v-progress-linear>
+      </v-list-tile>
+      <v-list-tile v-if="imageObject.detail">
+        <v-list-tile-content>
+          <v-list-tile-title v-html="imageObject.detail"></v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile v-if="imageObject.ownername">
+        <v-list-tile-content>
+          <v-list-tile-sub-title>Published by</v-list-tile-sub-title>
+          <v-list-tile-title v-html="imageObject.ownername"></v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile v-if="imageObject.tags && imageObject.tags.length">
+        <v-list-tile-content>
+          <v-list-tile-sub-title>{{ imageObject.tags.length>1 ? 'Tags' : 'Tag' }}</v-list-tile-sub-title>
+          <div>
+            <template v-for="tag in imageObject.tags">
+              <v-chip :key="tag.address">{{ '#' + tag.title }}</v-chip>
+            </template>
+          </div>
+        </v-list-tile-content>
+      </v-list-tile>
+      <!--<v-list-tile v-if="imageObject.private">-->
+      <!--<v-list-tile-content>-->
+      <!--<v-list-tile-sub-title>Privacy</v-list-tile-sub-title>-->
+      <!--<v-list-tile-title v-html="imageObject.private ? 'Private' : 'Public'"></v-list-tile-title>-->
+      <!--</v-list-tile-content>-->
+      <!--</v-list-tile>-->
+      <div v-if="!isLoading" class="entity-actions">
+        <router-link v-if="!hubUrl && isOwned" color="cyan lighten-1" class="entity-action entity-action--edit" :to="{ name: 'EditImage', params: { imageProp: this.imageObject } }">
+          <v-icon color="cyan lighten-1">edit</v-icon>
+          Edit
+        </router-link>
+        <a v-if="isFavorite" class="entity-action entity-action--favorite" @click="removeFromFavorite">
+          <v-icon color="teal lighten-1">favorite_border</v-icon>
+          <span class="teal--text text--lighten-1">Remove from Favorite</span>
+        </a>
+        <a v-if="!isFavorite" class="entity-action entity-action--favorite" @click="addToFavorite">
+          <v-icon color="teal lighten-1">favorite</v-icon>
+          <span class="teal--text text--lighten-1">Add to Favorite</span>
+        </a>
+        <a class="entity-action entity-action--wallet" color="brown lighten-1" @click="redirectUser(imageObject.address)">
+          <v-icon color="brown lighten-1">account_balance_wallet</v-icon>
+          <span class="brown--text text--lighten-1">Donate Crypto</span>
+        </a>
+        <a v-if="markerCenter" class="entity-action entity-action--marker" @click="isShowMarker = !isShowMarker">
+          <v-icon color="red lighten-1">place</v-icon>
+          <span class="red--text text--lighten-1">View Marker</span>
+        </a>
+      </div>
+      <open-map-with-marker v-if="isShowMarker" :center="markerCenter" readonly/>
+      <v-list-tile v-if="imageObject.symbol">
+        <v-list-tile-content>
+          <v-list-tile-sub-title>Symbol</v-list-tile-sub-title>
+          <v-list-tile-title v-html="imageObject.symbol"></v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile v-if="imageObject.address">
+        <v-list-tile-content>
+          <v-list-tile-sub-title>Crypto Address</v-list-tile-sub-title>
+          <v-list-tile-title v-html="imageObject.address"></v-list-tile-title>
+        </v-list-tile-content>
       </v-list-tile>
       <v-list-tile>
         <div class="json-address">
@@ -41,22 +85,6 @@
           <v-btn class="button-copy" color="#20C3A5" @click="copyUrl">{{ copyButtonText }}</v-btn>
         </div>
       </v-list-tile>
-      <v-list-tile v-if="imageObject.tags && imageObject.tags.length">
-        <v-list-tile-content>
-          <v-list-tile-sub-title>{{ imageObject.tags.length>1 ? 'Tags' : 'Tag' }}</v-list-tile-sub-title>
-          <div>
-            <template v-for="tag in imageObject.tags">
-              <v-chip :key="tag.address">{{ '#' + tag.title }}</v-chip>
-            </template>
-          </div>
-        </v-list-tile-content>
-      </v-list-tile>
-      <v-list-tile v-if="imageObject.marker">
-        <v-list-tile-content>
-          <v-list-tile-sub-title>Marker</v-list-tile-sub-title>
-        </v-list-tile-content>
-      </v-list-tile>
-      <open-map-with-marker v-if="markerCenter" :center="markerCenter" readonly/>
       <v-list-tile>
         <v-list-tile-content>
           <v-list-tile-sub-title>Privacy</v-list-tile-sub-title>
@@ -69,38 +97,11 @@
           <v-list-tile-title v-html="imageObject.archived ? 'Yes' : 'No'"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
-      <v-list-tile v-if="imageObject.detail">
-        <v-list-tile-content>
-          <v-list-tile-sub-title>Details</v-list-tile-sub-title>
-          <v-list-tile-title v-html="imageObject.detail"></v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
       <v-list-tile v-if="imageObject.createdtime">
         <v-list-tile-content>
-          <v-list-tile-sub-title>Created time</v-list-tile-sub-title>
+          <v-list-tile-sub-title>Date Created</v-list-tile-sub-title>
           <v-list-tile-title v-html="new Date(imageObject.createdtime).toLocaleString()"></v-list-tile-title>
         </v-list-tile-content>
-      </v-list-tile>
-      <!--<v-list-tile v-if="imageObject.private">-->
-      <!--<v-list-tile-content>-->
-      <!--<v-list-tile-sub-title>Privacy</v-list-tile-sub-title>-->
-      <!--<v-list-tile-title v-html="imageObject.private ? 'Private' : 'Public'"></v-list-tile-title>-->
-      <!--</v-list-tile-content>-->
-      <!--</v-list-tile>-->
-      <v-list-tile v-if="imageObject.symbol">
-        <v-list-tile-content>
-          <v-list-tile-sub-title>Symbol</v-list-tile-sub-title>
-          <v-list-tile-title v-html="imageObject.symbol"></v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
-      <v-list-tile v-if="imageObject.address">
-        <v-list-tile-content>
-          <v-list-tile-sub-title>Crypto Address</v-list-tile-sub-title>
-          <v-list-tile-title v-html="imageObject.address"></v-list-tile-title>
-        </v-list-tile-content>
-        <v-list-tile-action>
-          <v-btn color="teal accent-4" round dark @click="redirectUser(imageObject.address)">Donate</v-btn>
-        </v-list-tile-action>
       </v-list-tile>
     </v-list>
   </v-card>
@@ -117,6 +118,7 @@ export default {
     copyButtonText: 'Copy',
     isFavorite: false,
     isLoading: false,
+    isShowMarker: false,
     markerCenter: null
   }),
   props: {

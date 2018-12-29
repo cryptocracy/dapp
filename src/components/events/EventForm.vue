@@ -114,6 +114,7 @@ import objectHelpers from '@/helpers/objectHelpers.js'
 import 'vue-datetime/dist/vue-datetime.css'
 
 const cryptoAddress = localStorage['blockstack-gaia-hub-config'] ? JSON.parse(localStorage['blockstack-gaia-hub-config']).address : ''
+const cryptoName = localStorage['blockstack'] ? JSON.parse(localStorage['blockstack']).username : ''
 
 Settings.defaultLocale = 'en'
 
@@ -174,6 +175,7 @@ export default {
         this.isLoading = true
         this.event.createdtime = this.eventProp ? this.eventProp.createdtime : timestamp
         this.event.owner = JSON.parse(localStorage['blockstack-gaia-hub-config']).address
+        this.event.ownername = cryptoName
         this.saveEvent(timestamp)
       }
     },

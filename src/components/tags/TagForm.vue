@@ -56,6 +56,7 @@
 
 <script>
 import storageService from '@/services/blockstack-storage'
+const cryptoName = localStorage['blockstack'] ? JSON.parse(localStorage['blockstack']).username : ''
 
 export default {
   data: () => ({
@@ -100,6 +101,7 @@ export default {
         this.isLoading = true
         this.tag.createdtime = this.tagProp ? this.tagProp.createdtime : timestamp
         this.tag.owner = JSON.parse(localStorage['blockstack-gaia-hub-config']).address
+        this.tag.ownername = cryptoName
         this.saveTag(timestamp)
       }
     },
