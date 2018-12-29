@@ -9,6 +9,49 @@
           class="mb-0"
         ></v-progress-linear>
       </v-list-tile>
+      <v-list-tile v-if="tagObject.createdtime">
+        <v-list-tile-content>
+          <v-list-tile-sub-title>Created time</v-list-tile-sub-title>
+          <v-list-tile-title v-html="new Date(tagObject.createdtime).toLocaleString()"></v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <!--<v-list-tile v-if="tagObject.private">-->
+      <!--<v-list-tile-content>-->
+      <!--<v-list-tile-sub-title>Privacy</v-list-tile-sub-title>-->
+      <!--<v-list-tile-title v-html="tagObject.private ? 'Private' : 'Public'"></v-list-tile-title>-->
+      <!--</v-list-tile-content>-->
+      <!--</v-list-tile>-->
+      <div v-if="!isLoading" class="entity-actions">
+        <a class="entity-action entity-action--wallet" color="brown lighten-1" @click="redirectUser(tagObject.address)">
+          <v-icon color="brown lighten-1">account_balance_wallet</v-icon>
+          <span class="brown--text text--lighten-1">Donate Crypto</span>
+        </a>
+        <a v-if="isFavorite" class="entity-action entity-action--favorite" @click="removeFromFavorite">
+          <v-icon color="teal lighten-1">favorite_border</v-icon>
+          <span class="teal--text text--lighten-1">Remove from Favorite</span>
+        </a>
+        <a v-if="!isFavorite" class="entity-action entity-action--favorite" @click="addToFavorite">
+          <v-icon color="teal lighten-1">favorite</v-icon>
+          <span class="teal--text text--lighten-1">Add to Favorite</span>
+        </a>
+        <router-link v-if="!hubUrl && isOwned" color="cyan lighten-1" class="entity-action entity-action--edit"
+                     :to="{ name: 'EditTag', params: { tagProp: this.tagObject } }">
+          <v-icon color="cyan lighten-1">edit</v-icon>
+          Edit
+        </router-link>
+      </div>
+      <v-list-tile v-if="tagObject.symbol">
+        <v-list-tile-content>
+          <v-list-tile-sub-title>Symbol</v-list-tile-sub-title>
+          <v-list-tile-title v-html="tagObject.symbol"></v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile v-if="tagObject.address">
+        <v-list-tile-content>
+          <v-list-tile-sub-title>Crypto Address</v-list-tile-sub-title>
+          <v-list-tile-title v-html="tagObject.address"></v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
       <v-list-tile>
         <div class="json-address">
           <v-text-field
@@ -38,49 +81,6 @@
           <v-list-tile-title v-html="tagObject.archived ? 'Yes' : 'No'"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
-      <v-list-tile v-if="tagObject.createdtime">
-        <v-list-tile-content>
-          <v-list-tile-sub-title>Created time</v-list-tile-sub-title>
-          <v-list-tile-title v-html="new Date(tagObject.createdtime).toLocaleString()"></v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
-      <!--<v-list-tile v-if="tagObject.private">-->
-      <!--<v-list-tile-content>-->
-      <!--<v-list-tile-sub-title>Privacy</v-list-tile-sub-title>-->
-      <!--<v-list-tile-title v-html="tagObject.private ? 'Private' : 'Public'"></v-list-tile-title>-->
-      <!--</v-list-tile-content>-->
-      <!--</v-list-tile>-->
-      <v-list-tile v-if="tagObject.symbol">
-        <v-list-tile-content>
-          <v-list-tile-sub-title>Symbol</v-list-tile-sub-title>
-          <v-list-tile-title v-html="tagObject.symbol"></v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
-      <v-list-tile v-if="tagObject.address">
-        <v-list-tile-content>
-          <v-list-tile-sub-title>Crypto Address</v-list-tile-sub-title>
-          <v-list-tile-title v-html="tagObject.address"></v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
-      <div v-if="!isLoading" class="entity-actions">
-        <a class="entity-action entity-action--wallet" color="brown lighten-1" @click="redirectUser(tagObject.address)">
-          <v-icon color="brown lighten-1">account_balance_wallet</v-icon>
-          <span class="brown--text text--lighten-1">Donate Crypto</span>
-        </a>
-        <a v-if="isFavorite" class="entity-action entity-action--favorite" @click="removeFromFavorite">
-          <v-icon color="teal lighten-1">favorite_border</v-icon>
-          <span class="teal--text text--lighten-1">Remove from Favorite</span>
-        </a>
-        <a v-if="!isFavorite" class="entity-action entity-action--favorite" @click="addToFavorite">
-          <v-icon color="teal lighten-1">favorite</v-icon>
-          <span class="teal--text text--lighten-1">Add to Favorite</span>
-        </a>
-        <router-link v-if="!hubUrl && isOwned" color="cyan lighten-1" class="entity-action entity-action--edit"
-                     :to="{ name: 'EditTag', params: { tagProp: this.tagObject } }">
-          <v-icon color="cyan lighten-1">edit</v-icon>
-          Edit
-        </router-link>
-      </div>
     </v-list>
   </v-card>
 </template>
