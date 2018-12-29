@@ -11,7 +11,7 @@
       </v-list-tile>
       <v-list-tile v-if="tagObject.ownername">
         <v-list-tile-content>
-          <v-list-tile-sub-title>Owner Name</v-list-tile-sub-title>
+          <v-list-tile-sub-title>Published by</v-list-tile-sub-title>
           <v-list-tile-title v-html="tagObject.ownername"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
