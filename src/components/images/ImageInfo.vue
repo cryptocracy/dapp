@@ -14,19 +14,18 @@
       </v-list-tile>
       <v-list-tile v-if="imageObject.detail">
         <v-list-tile-content>
-          <v-list-tile-sub-title>Details</v-list-tile-sub-title>
           <v-list-tile-title v-html="imageObject.detail"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
       <v-list-tile v-if="imageObject.createdtime">
         <v-list-tile-content>
-          <v-list-tile-sub-title>Created time</v-list-tile-sub-title>
+          <v-list-tile-sub-title>Date Created</v-list-tile-sub-title>
           <v-list-tile-title v-html="new Date(imageObject.createdtime).toLocaleString()"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
       <v-list-tile v-if="imageObject.ownername">
         <v-list-tile-content>
-          <v-list-tile-sub-title>Owner Name</v-list-tile-sub-title>
+          <v-list-tile-sub-title>Published by</v-list-tile-sub-title>
           <v-list-tile-title v-html="imageObject.ownername"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
