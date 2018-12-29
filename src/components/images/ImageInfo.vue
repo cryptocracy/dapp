@@ -17,12 +17,6 @@
           <v-list-tile-title v-html="imageObject.detail"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
-      <v-list-tile v-if="imageObject.createdtime">
-        <v-list-tile-content>
-          <v-list-tile-sub-title>Date Created</v-list-tile-sub-title>
-          <v-list-tile-title v-html="new Date(imageObject.createdtime).toLocaleString()"></v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
       <v-list-tile v-if="imageObject.ownername">
         <v-list-tile-content>
           <v-list-tile-sub-title>Published by</v-list-tile-sub-title>
@@ -101,6 +95,12 @@
         <v-list-tile-content>
           <v-list-tile-sub-title>Archived</v-list-tile-sub-title>
           <v-list-tile-title v-html="imageObject.archived ? 'Yes' : 'No'"></v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile v-if="imageObject.createdtime">
+        <v-list-tile-content>
+          <v-list-tile-sub-title>Date Created</v-list-tile-sub-title>
+          <v-list-tile-title v-html="new Date(imageObject.createdtime).toLocaleString()"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
     </v-list>
