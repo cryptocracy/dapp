@@ -33,14 +33,10 @@
       <!--</v-list-tile-content>-->
       <!--</v-list-tile>-->
       <div v-if="!isLoading" class="entity-actions">
-        <a v-if="markerCenter" class="entity-action entity-action--marker" @click="isShowMarker = !isShowMarker">
-          <v-icon color="red lighten-1">place</v-icon>
-          <span class="red--text text--lighten-1">View Marker</span>
-        </a>
-        <a class="entity-action entity-action--wallet" color="brown lighten-1" @click="redirectUser(markerObject.address)">
-          <v-icon color="brown lighten-1">account_balance_wallet</v-icon>
-          <span class="brown--text text--lighten-1">Donate Crypto</span>
-        </a>
+        <router-link v-if="!hubUrl && isOwned" color="cyan lighten-1" class="entity-action entity-action--edit" :to="{ name: 'EditMarker', params: { markerProp: this.markerObject } }">
+          <v-icon color="cyan lighten-1">edit</v-icon>
+          Edit
+        </router-link>
         <a v-if="isFavorite" class="entity-action entity-action--favorite" @click="removeFromFavorite">
           <v-icon color="teal lighten-1">favorite_border</v-icon>
           <span class="teal--text text--lighten-1">Remove from Favorite</span>
@@ -49,10 +45,14 @@
           <v-icon color="teal lighten-1">favorite</v-icon>
           <span class="teal--text text--lighten-1">Add to Favorite</span>
         </a>
-        <router-link v-if="!hubUrl && isOwned" color="cyan lighten-1" class="entity-action entity-action--edit" :to="{ name: 'EditMarker', params: { markerProp: this.markerObject } }">
-          <v-icon color="cyan lighten-1">edit</v-icon>
-          Edit
-        </router-link>
+        <a class="entity-action entity-action--wallet" color="brown lighten-1" @click="redirectUser(markerObject.address)">
+          <v-icon color="brown lighten-1">account_balance_wallet</v-icon>
+          <span class="brown--text text--lighten-1">Donate Crypto</span>
+        </a>
+        <a v-if="markerCenter" class="entity-action entity-action--marker" @click="isShowMarker = !isShowMarker">
+          <v-icon color="red lighten-1">place</v-icon>
+          <span class="red--text text--lighten-1">View Marker</span>
+        </a>
       </div>
       <open-map-with-marker v-if="isShowMarker" :center="markerCenter" readonly/>
       <v-list-tile v-if="markerObject.symbol">
