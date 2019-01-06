@@ -11,10 +11,7 @@ const cryptocracyHandler = {
         acc.push({
           fileUrl: item[0],
           distance: item[1],
-          coordinates: {
-            lat: item[2][1],
-            lng: item[2][0]
-          }
+          coordinates: [item[2][1], item[2][0]]
         })
         return acc
       }, [])
