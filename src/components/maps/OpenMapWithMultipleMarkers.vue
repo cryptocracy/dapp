@@ -1,24 +1,20 @@
 <template>
-  <l-map id="mapid" :zoom="zoom" :center="center" @click="setMarker">
-    <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
-    <l-marker v-for="(marker, index) in markers" :key="index" :lat-lng="marker.coordinates" :icon="icon">
-      <l-popup class="break-all">
-        <div>Content Type: {{getDetails(marker.fileUrl).type}}</div>
-        <div>Owner: {{getDetails(marker.fileUrl).owner}}</div>
-        <div>Created On: {{getDetails(marker.fileUrl).createdOn}}</div>
-        <v-btn @click="redirectUser(marker)" round small color="primary">view details</v-btn>
-      </l-popup>
-    </l-marker>
-    <v-btn fab class="map-location" @click.stop="getMyLocation">
-      <v-icon dark>location_on</v-icon>
-    </v-btn>
-  </l-map>
+  <div class="map" id="map">
+    <!-- <l-map id="mapid" :zoom="zoom" :center="center" @click="setMarker">
+      <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
+      <v-btn fab class="map-location" @click.stop="getMyLocation">
+        <v-icon dark>location_on</v-icon>
+      </v-btn>
+    </l-map> -->
+  </div>
 
 </template>
 
 <script>
 import L from 'leaflet'
-import { LMap, LTileLayer, LMarker, LPopup } from 'vue2-leaflet'
+import 'leaflet.markercluster'
+// import { LMap, LTileLayer, LMarker, LPopup } from 'vue2-leaflet'
+// import Vue2LeafletMarkerCluster from 'vue2-leaflet-markercluster'
 // import iconUrl from 'leaflet/dist/images/marker-icon.png'
 // import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png'
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png'
@@ -26,22 +22,26 @@ import shadowUrl from 'leaflet/dist/images/marker-shadow.png'
 export default {
   name: 'OpenMapWithMarker',
   data: () => ({
+    map: null,
+    tileLayer: null,
     zoom: 6,
-    centerMap: L.latLng(47.413220, -1.219482),
+    Icon: null,
+    redIcon: null,
+    // centerMap: L.latLng(47.413220, -1.219482),
     url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
-    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-    marker: L.latLng(47.413220, -1.219482),
-    riseOnHover: true,
-    icon: L.icon({
-      iconRetinaUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
-      iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
-      shadowUrl: shadowUrl,
-      iconSize: [38, 58],
-      iconAnchor: [22, 57],
-      popupAnchor: [-3, -76]
-    })
+    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    // marker: L.latLng(47.413220, -1.219482),
+    // riseOnHover: true,
+    // icon: L.icon({
+    //   iconRetinaUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+    //   iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+    //   shadowUrl: shadowUrl,
+    //   iconSize: [38, 58],
+    //   iconAnchor: [22, 57],
+    //   popupAnchor: [-3, -76]
+    // })
   }),
-  components: { LMap, LTileLayer, LMarker, LPopup },
+  // components: { 'l-map': LMap, 'l-tile-layer': LTileLayer, 'l-marker': LMarker, 'l-popup': LPopup, 'l-marker-cluster': Vue2LeafletMarkerCluster },
   props: {
     center: {
       type: Object,
@@ -65,7 +65,52 @@ export default {
   },
   computed: {
   },
+  mounted () {
+    console.log(this.center)
+    this.initMap()
+    this.Icon = L.Icon.extend({
+      shadowUrl: shadowUrl,
+      iconSize: [98, 98],
+      iconAnchor: [55, 57],
+      popupAnchor: [-3, -76]
+    })
+    this.redIcon = new this.Icon({
+      iconRetinaUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+      iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png'
+    })
+    this.initLayers()
+  },
   methods: {
+    initMap () {
+      this.map = L.map('map').setView([this.center.lat, this.center.lng], this.zoom)
+      this.tileLayer = L.tileLayer(
+        'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
+        {
+          attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        }
+      )
+      this.tileLayer.addTo(this.map)
+    },
+    initLayers () {
+      let cluster = L.markerClusterGroup()
+      this.markers.forEach(element => {
+        let marker = L.marker(element.coordinates, {icon: this.redIcon})
+          .bindPopup(`<div>Content Type: ${this.getDetails(element.fileUrl).type}</div>
+            <div>Owner: ${this.getDetails(element.fileUrl).owner}</div>
+            <div>Created On: ${this.getDetails(element.fileUrl).createdOn}</div>
+            <button type="button" class="redirectButton v-btn v-btn--round v-btn--small theme--dark teal accent-4" color="primary">view details</button>`)
+
+        marker.on('mouseover', (e) => {
+          marker.openPopup()
+          let el = document.getElementsByClassName('leaflet-popup-content')
+          el[el.length - 1].childNodes[6].addEventListener('click', () => {
+            this.redirectUser(element)
+          })
+        })
+        cluster.addLayer(marker)
+      })
+      this.map.addLayer(cluster)
+    },
     setMarker (e) {
       if (!this.readonly) {
         this.marker = e.latlng
@@ -96,31 +141,38 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
+@import "leaflet.markercluster/dist/MarkerCluster.css";
+@import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 .break-all {
   word-break: break-all
 }
-.vue2leaflet-map {
-    height: 300px;
-    z-index: 0;
-    position: relative;
-
-    .map-location {
-        position: absolute;
-        left: 5px;
-        bottom: 5px;
-        z-index: 410;
-        height: 30px;
-        width: 30px;
-    }
-
-    .leaflet-control-container {
-      border: 2px red solid;
-
-    .leaflet-bar {
-      border-top-left-radius: 15px;
-      overflow: hidden;
-    }
-    }
+.map {
+  position: relative;
+  height: 350px;
+  z-index: 0;
 }
+// .vue2leaflet-map {
+//     height: 300px;
+//     z-index: 0;
+//     position: relative;
+
+//     // .map-location {
+//     //     position: absolute;
+//     //     left: 5px;
+//     //     bottom: 5px;
+//     //     z-index: 410;
+//     //     height: 30px;
+//     //     width: 30px;
+//     // }
+
+//     .leaflet-control-container {
+//       border: 2px red solid;
+
+//     .leaflet-bar {
+//       border-top-left-radius: 15px;
+//       overflow: hidden;
+//     }
+//     }
+// }
 </style>

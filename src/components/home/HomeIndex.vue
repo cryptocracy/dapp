@@ -1,12 +1,13 @@
 <template lang="html">
   <div class="container-fluid">
     <div>
-      <v-layout transition="slide-y-transition" row class="mt-0 mb-3" v-if="proximitySearchResult">
-        <v-flex col>
+      <v-layout transition="slide-y-transition" row class="mt-0 mb-3" :class="proximitySearchResult.length > 0 ? 'map-wrapper' : 'map-wrapper-ini'" v-if="proximitySearchResult">
+        <v-flex col >
           <v-subheader class="pl-0 mt-0"></v-subheader>
           <span v-if="proximitySearchResult.length > 0" color="grey"></span>
           <span v-else color="grey"></span>
           <OpenMapWithMultipleMarkers
+            v-if="proximitySearchResult.length > 0"
             :markers="proximitySearchResult"
             :center="{lat: settings.latitude, lng: settings.longitude}"
           >
@@ -119,5 +120,11 @@ export default {
 <style scoped lang="css">
 span {
   color: grey
+}
+.map-wrapper-ini {
+  padding-bottom: 37.5%;
+}
+.map-wrapper {
+  padding-bottom: 0%
 }
 </style>
