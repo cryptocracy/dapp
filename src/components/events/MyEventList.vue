@@ -32,12 +32,12 @@ export default {
   methods: {
     fetchEventFile () {
       // fetching project list
-      this.blockstack.getFile(this.storageFile)
+      this.blockstack.getFile(this.storageFile, { decrypt: false })
         .then((eventsText) => {
           const events = JSON.parse(eventsText || '[]')
           // looping over project list to fetch unique json files for every project
           for (let event in events) {
-            this.blockstack.getFile(`${event}.json`).then((eventJson) => {
+            this.blockstack.getFile(`${event}.json`, { decrypt: false }).then((eventJson) => {
               let eventData = typeof eventJson === 'string' ? JSON.parse(eventJson) : {}
               // this[data.id] = eventData
               // this[data.id].tasks = this[data.id].tasks || []

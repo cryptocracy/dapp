@@ -109,7 +109,7 @@ export default {
       return this.tagProp ? `tag_${this.tagProp.createdtime}.json` : `tag_${timestamp}.json`
     },
     saveTag (timestamp) {
-      this.blockstack.putFile(this.getTagFilename(timestamp), JSON.stringify(this.tag))
+      this.blockstack.putFile(this.getTagFilename(timestamp), JSON.stringify(this.tag), { encrypt: false })
         .then((jsonUrl) => {
           storageService.updateTagIndex(jsonUrl.split('/').pop().split('.')[0], this.tag.title)
             .then(() => {

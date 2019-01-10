@@ -149,7 +149,7 @@ export default {
   },
   mounted () {
     if (!this.hubUrl) {
-      storageService.getFile({ fileName: 'my_fav_tags.json' })
+      storageService.getFile({ fileName: 'my_fav_tags.json', options: { decrypt: false } })
         .then(res => {
           if (res) {
             this.isFavorite = !!res[this.getFavTagName()]

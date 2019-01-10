@@ -64,10 +64,10 @@ export default {
     eventCount: 0
   }),
   mounted () {
-    storageService.getFile({ fileName: 'my_events.json' }).then((res) => { this.eventCount = res ? Object.keys(res).length : 0 })
-    storageService.getFile({ fileName: 'my_tags.json' }).then((res) => { this.tagCount = res ? Object.keys(res).length : 0 })
-    storageService.getFile({ fileName: 'my_markers.json' }).then((res) => { this.markerCount = res ? Object.keys(res).length : 0 })
-    storageService.getFile({ fileName: 'my_images.json' }).then((res) => { this.imageCount = res ? Object.keys(res).length : 0 })
+    storageService.getFile({ fileName: 'my_events.json', options: { decrypt: false } }).then((res) => { this.eventCount = res ? Object.keys(res).length : 0 })
+    storageService.getFile({ fileName: 'my_tags.json', options: { decrypt: false } }).then((res) => { this.tagCount = res ? Object.keys(res).length : 0 })
+    storageService.getFile({ fileName: 'my_markers.json', options: { decrypt: false } }).then((res) => { this.markerCount = res ? Object.keys(res).length : 0 })
+    storageService.getFile({ fileName: 'my_images.json', options: { decrypt: false } }).then((res) => { this.imageCount = res ? Object.keys(res).length : 0 })
   }
 }
 </script>

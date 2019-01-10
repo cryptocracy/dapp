@@ -7,12 +7,14 @@ const storageService = {
   // method for fetching data from GAIA storage
   getFile: (dataObj) => {
     const { fileName, options } = dataObj
-    return window.blockstack.getFile(fileName, options).then(res => JSON.parse(res))
+    return window.blockstack.getFile(fileName, options).then(res => {
+      return JSON.parse(res)
+    })
   },
-  updateIndex: (jsonName, data, slice = false) => window.blockstack.getFile(jsonName).then((currentContent) => {
+  updateIndex: (jsonName, data, slice = false) => window.blockstack.getFile(jsonName, { decrypt: false }).then((currentContent) => {
     let [key, value] = data
     if (!currentContent) {
-      window.blockstack.putFile(jsonName, JSON.stringify({ [key]: value }))
+      window.blockstack.putFile(jsonName, JSON.stringify({ [key]: value }), { encrypt: false })
     } else {
       const parsedCurrentContent = JSON.parse(currentContent)
       if (slice) {
@@ -20,7 +22,7 @@ const storageService = {
       } else {
         parsedCurrentContent[key] = value
       }
-      window.blockstack.putFile(jsonName, JSON.stringify(parsedCurrentContent))
+      window.blockstack.putFile(jsonName, JSON.stringify(parsedCurrentContent), { encrypt: false })
     }
   }),
 

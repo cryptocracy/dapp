@@ -21,7 +21,7 @@ export default {
   methods: {
     fetchImageFile () {
       // fetching project list
-      this.blockstack.getFile(this.storageFile)
+      this.blockstack.getFile(this.storageFile, { decrypt: false })
         .then((imagesText) => {
           const images = JSON.parse(imagesText || '[]')
           const urlPrefix = JSON.parse(localStorage['blockstack-gaia-hub-config']).url_prefix

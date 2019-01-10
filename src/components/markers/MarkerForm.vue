@@ -148,7 +148,7 @@ export default {
       return this.markerProp ? `marker_${this.markerProp.createdtime}.json` : `marker_${timestamp}.json`
     },
     saveMarker (timestamp) {
-      this.blockstack.putFile(this.getMarkerFilename(timestamp), JSON.stringify(this.marker))
+      this.blockstack.putFile(this.getMarkerFilename(timestamp), JSON.stringify(this.marker), { encrypt: false })
         .then((jsonUrl) => {
           storageService.updateMarkerIndex(jsonUrl.split('/').pop().split('.')[0], this.marker.title)
             .then(() => {

@@ -32,12 +32,12 @@ export default {
   methods: {
     fetchMarkerFile () {
       // fetching project list
-      this.blockstack.getFile(this.storageFile)
+      this.blockstack.getFile(this.storageFile, { decrypt: false })
         .then((markersText) => {
           const markers = JSON.parse(markersText || '[]')
           // looping over project list to fetch unique json files for every project
           for (let marker in markers) {
-            this.blockstack.getFile(`${marker}.json`).then((markerJson) => {
+            this.blockstack.getFile(`${marker}.json`, { decrypt: false }).then((markerJson) => {
               let markerData = typeof markerJson === 'string' ? JSON.parse(markerJson) : {}
               // this[data.id] = markerData
               // this[data.id].tasks = this[data.id].tasks || []
