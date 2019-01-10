@@ -197,8 +197,10 @@ export default {
                 }
                 this.$store.commit('toggleLoading')
               })
-              .catch(e => this.$store.commit('toggleLoading'))
-          }
+              .catch(e => {
+                this.$store.commit('toggleLoading')
+              })
+          } else this.$store.commit('toggleLoading')
         })
     }
   }
