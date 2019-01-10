@@ -150,7 +150,7 @@ export default {
         this.image.owner = JSON.parse(localStorage['blockstack-gaia-hub-config']).address
         this.image.ownername = cryptoName
         if (this.imageFile.name) {
-          this.blockstack.putFile(`image_${timestamp}.${this.imageFile.name.split('.').pop()}`, this.imageFile)
+          this.blockstack.putFile(`image_${timestamp}.${this.imageFile.name.split('.').pop()}`, this.imageFile, { encrypt: false })
             .then((imageUrl) => {
               // if (!this.imageFile) {
               this.image.image = imageUrl
@@ -166,7 +166,7 @@ export default {
       return this.imageProp ? `image_${this.imageProp.createdtime}.json` : `image_${timestamp}.json`
     },
     saveImage (timestamp) {
-      this.blockstack.putFile(this.getImageFilename(timestamp), JSON.stringify(this.image))
+      this.blockstack.putFile(this.getImageFilename(timestamp), JSON.stringify(this.image), { encrypt: false })
         .then((jsonUrl) => {
           storageService.updateImageIndex(jsonUrl.split('/').pop().split('.')[0], this.image.title)
             .then(() => {
@@ -201,7 +201,7 @@ export default {
     },
     fetchMarkers () {
       // fetching markers list
-      this.blockstack.getFile('my_markers.json')
+      this.blockstack.getFile('my_markers.json', { decrypt: false })
         .then((markersJSON) => {
           let markersObj = JSON.parse(markersJSON)
           if (markersObj) {
@@ -212,7 +212,7 @@ export default {
               }
             })
           }
-          this.blockstack.getFile('my_fav_markers.json')
+          this.blockstack.getFile('my_fav_markers.json', { decrypt: false })
             .then((favMarkersJSON) => {
               let favMarkersObj = JSON.parse(favMarkersJSON)
               if (favMarkersObj) {
@@ -230,7 +230,7 @@ export default {
     },
     fetchTags () {
       // fetching tags list
-      this.blockstack.getFile('my_tags.json')
+      this.blockstack.getFile('my_tags.json', { decrypt: false })
         .then((tagsJSON) => {
           let tagsObj = JSON.parse(tagsJSON)
           if (tagsObj) {
@@ -241,7 +241,7 @@ export default {
               }
             })
           }
-          this.blockstack.getFile('my_fav_tags.json')
+          this.blockstack.getFile('my_fav_tags.json', { decrypt: false })
             .then((favTagsJSON) => {
               let favTagsObj = JSON.parse(favTagsJSON)
               if (favTagsJSON) {

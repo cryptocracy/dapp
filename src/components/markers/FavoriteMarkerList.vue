@@ -21,7 +21,7 @@ export default {
   methods: {
     fetchMarkerFile () {
       // fetching project list
-      this.blockstack.getFile(this.storageFile)
+      this.blockstack.getFile(this.storageFile, { decrypt: false })
         .then((markersText) => {
           const markers = JSON.parse(markersText || '[]')
           const urlPrefix = JSON.parse(localStorage['blockstack-gaia-hub-config']).url_prefix

@@ -21,7 +21,7 @@ export default {
   methods: {
     fetchEventFile () {
       // fetching project list
-      this.blockstack.getFile(this.storageFile)
+      this.blockstack.getFile(this.storageFile, { decrypt: false })
         .then((eventsText) => {
           const events = JSON.parse(eventsText || '[]')
           const urlPrefix = JSON.parse(localStorage['blockstack-gaia-hub-config']).url_prefix

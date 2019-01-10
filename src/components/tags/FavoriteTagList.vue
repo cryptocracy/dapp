@@ -21,7 +21,7 @@ export default {
   methods: {
     fetchTagFile () {
       // fetching project list
-      this.blockstack.getFile(this.storageFile)
+      this.blockstack.getFile(this.storageFile, { decrypt: false })
         .then((tagsText) => {
           const tags = JSON.parse(tagsText || '[]')
           const urlPrefix = JSON.parse(localStorage['blockstack-gaia-hub-config']).url_prefix

@@ -172,7 +172,7 @@ export default {
   },
   mounted () {
     if (!this.hubUrl) {
-      storageService.getFile({ fileName: 'my_fav_markers.json' })
+      storageService.getFile({ fileName: 'my_fav_markers.json', options: { decrypt: false } })
         .then(res => {
           if (res) {
             this.isFavorite = !!res[this.getFavMarkerName()]

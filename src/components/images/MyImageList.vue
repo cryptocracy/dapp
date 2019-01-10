@@ -32,12 +32,12 @@ export default {
   methods: {
     fetchImageFile () {
       // fetching project list
-      this.blockstack.getFile(this.storageFile)
+      this.blockstack.getFile(this.storageFile, { decrypt: false })
         .then((imagesText) => {
           const images = JSON.parse(imagesText || '[]')
           // looping over project list to fetch unique json files for every project
           for (let image in images) {
-            this.blockstack.getFile(`${image}.json`).then((imageJson) => {
+            this.blockstack.getFile(`${image}.json`, { decrypt: false }).then((imageJson) => {
               let imageData = typeof imageJson === 'string' ? JSON.parse(imageJson) : {}
               // this[data.id] = imageData
               // this[data.id].tasks = this[data.id].tasks || []

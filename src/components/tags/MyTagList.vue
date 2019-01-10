@@ -32,12 +32,12 @@ export default {
   methods: {
     fetchTagFile () {
       // fetching project list
-      this.blockstack.getFile(this.storageFile)
+      this.blockstack.getFile(this.storageFile, { decrypt: false })
         .then((tagsText) => {
           const tags = JSON.parse(tagsText || '[]')
           // looping over project list to fetch unique json files for every project
           for (let tag in tags) {
-            this.blockstack.getFile(`${tag}.json`).then((tagJson) => {
+            this.blockstack.getFile(`${tag}.json`, { decrypt: false }).then((tagJson) => {
               let tagData = typeof tagJson === 'string' ? JSON.parse(tagJson) : {}
               // this[data.id] = tagData
               // this[data.id].tasks = this[data.id].tasks || []

@@ -182,7 +182,7 @@ export default {
   mounted () {
     if (!this.hubUrl) {
       this.$store.commit('toggleLoading')
-      storageService.getFile({ fileName: 'my_fav_images.json' })
+      storageService.getFile({ fileName: 'my_fav_images.json', options: { decrypt: false } })
         .then(res => {
           if (res) {
             this.isFavorite = !!res[this.getFavImageName()]
