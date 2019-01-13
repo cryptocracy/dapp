@@ -7,7 +7,7 @@
           <span v-if="proximitySearchResult.length > 0" color="grey"></span>
           <span v-else color="grey"></span>
           <OpenMapWithMultipleMarkers
-            v-if="proximitySearchResult.length > 0"
+            v-if="proximitySearchResult"
             :markers="proximitySearchResult"
             :center="{lat: settings.latitude, lng: settings.longitude}"
           >
@@ -121,10 +121,10 @@ export default {
 span {
   color: grey
 }
-.map-wrapper-ini {
+/* .map-wrapper-ini {
   padding-bottom: 37.5%;
 }
 .map-wrapper {
   padding-bottom: 0%
-}
+} */
 </style>
