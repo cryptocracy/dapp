@@ -70,6 +70,9 @@ export default {
       if (this.markers.length >= 0) {
         this.initLayers(true)
       }
+    },
+    center () {
+      this.map.setView([this.center.lat, this.center.lng], this.zoom)
     }
   },
   mounted () {
