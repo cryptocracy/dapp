@@ -29,7 +29,8 @@ export default {
     redIcon: null,
     // centerMap: L.latLng(47.413220, -1.219482),
     url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
-    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+    markerLayer: []
     // marker: L.latLng(47.413220, -1.219482),
     // riseOnHover: true,
     // icon: L.icon({
@@ -63,25 +64,28 @@ export default {
       type: Array
     }
   },
-  computed: {
+  watch: {
+    deep: true,
+    markers () {
+      if (this.markers.length >= 0) {
+        this.initLayers(true)
+      }
+    },
+    center () {
+      this.map.setView([this.center.lat, this.center.lng], this.zoom)
+    }
   },
   mounted () {
-    console.log(this.center)
-    this.initMap()
-    this.Icon = L.Icon.extend({
-      shadowUrl: shadowUrl,
-      iconSize: [98, 98],
-      iconAnchor: [55, 57],
-      popupAnchor: [-3, -76]
-    })
-    this.redIcon = new this.Icon({
-      iconRetinaUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
-      iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png'
-    })
-    this.initLayers()
+    this.renderMap()
   },
   methods: {
+    renderMap () {
+      this.initMap()
+      this.initIcon()
+      this.initLayers()
+    },
     initMap () {
+      // console.log(Object.keys(L.map('map')))
       this.map = L.map('map').setView([this.center.lat, this.center.lng], this.zoom)
       this.tileLayer = L.tileLayer(
         'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
@@ -90,9 +94,23 @@ export default {
         }
       )
       this.tileLayer.addTo(this.map)
+      this.cluster = L.markerClusterGroup()
     },
-    initLayers () {
-      let cluster = L.markerClusterGroup()
+    initIcon () {
+      this.Icon = L.Icon.extend({
+        shadowUrl: shadowUrl,
+        iconSize: [98, 98],
+        iconAnchor: [55, 57],
+        popupAnchor: [-3, -76]
+      })
+      this.redIcon = new this.Icon({
+        iconRetinaUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png'
+      })
+    },
+    initLayers (watch) {
+      this.cluster.removeLayers(this.markerLayer)
+      this.markerLayer = []
       this.markers.forEach(element => {
         let marker = L.marker(element.coordinates, {icon: this.redIcon})
           .bindPopup(`<div>Content Type: ${this.getDetails(element.fileUrl).type}</div>
@@ -107,9 +125,10 @@ export default {
             this.redirectUser(element)
           })
         })
-        cluster.addLayer(marker)
+        let a = this.cluster.addLayer(marker)
+        this.markerLayer.push(a)
       })
-      this.map.addLayer(cluster)
+      this.map.addLayer(this.cluster)
     },
     setMarker (e) {
       if (!this.readonly) {
