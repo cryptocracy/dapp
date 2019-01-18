@@ -132,7 +132,7 @@ export default {
         distance: this.settings.searchRadius,
         unit: this.settings.distanceUnit
       }
-      this.debounce(this.searchProximity, 500)({ query })
+      this.debounce(this.searchProximity, 1000)({ query })
       // this.timer = setTimeout(this.searchProximity({ query }), 500)
     },
     debounce (func, delay) {
