@@ -18,6 +18,7 @@ import 'leaflet.markercluster'
 // import iconUrl from 'leaflet/dist/images/marker-icon.png'
 // import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png'
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png'
+// import { eventBus } from '@/main'
 
 export default {
   name: 'OpenMapWithMarker',
@@ -95,6 +96,9 @@ export default {
       )
       this.tileLayer.addTo(this.map)
       this.cluster = L.markerClusterGroup()
+      this.map.on('click', () => {
+        this.$emit('updateMap', this.map.getCenter())
+      })
     },
     initIcon () {
       this.Icon = L.Icon.extend({
@@ -109,6 +113,7 @@ export default {
       })
     },
     initLayers (watch) {
+      // this.cir = L.circle([this.center.lat, this.center.lng], 1609*300)
       this.cluster.removeLayers(this.markerLayer)
       this.markerLayer = []
       this.markers.forEach(element => {
