@@ -96,7 +96,7 @@ export default {
       )
       this.tileLayer.addTo(this.map)
       this.cluster = L.markerClusterGroup()
-      this.map.on('move', () => {
+      this.map.on('click', () => {
         this.$emit('updateMap', this.map.getCenter())
       })
     },
