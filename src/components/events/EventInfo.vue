@@ -1,5 +1,5 @@
 <template>
-  <v-card class="container">
+  <v-card class="container mt-4">
     <div class="entity-title" v-if="eventObject.title">{{ eventObject.title }}</div>
     <v-list two-line>
       <v-list-tile v-if="isLoading">

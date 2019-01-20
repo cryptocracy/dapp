@@ -287,7 +287,8 @@ export default {
       let searchObj = {
         endpoint: 'search',
         query: this.$route.params.id,
-        isAbsolute: this.$route.params.id.split('.').length > 1
+        isAbsolute: this.$route.params.id.split('.').length > 1,
+        type: 'contacts'
       }
       this.$store.commit('MUTATION_SET_SEARCH_RESULT', [])
       this.$store.commit('MUTATION_SET_USER', {})
