@@ -1,5 +1,5 @@
 <template>
-  <v-card class="container">
+  <v-card class="container mt-4">
     <div class="image-container">
       <span v-if="imageObject.title" class="image-title">{{ imageObject.title }}</span>
       <img v-if="imageObject.image" :src="imageObject.image" class="main-image">

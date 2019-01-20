@@ -61,19 +61,26 @@ export default {
     'app-notification': Notifications,
     'app-avatar-menu': AvatarMenu
   },
-
   data: () => ({
+    timer: '',
     toggleNotification: false,
     logo,
     // for dropdown on the rigth hand side of search bar
     selectItems: [
-      { text: 'Contact', value: 'search' },
-      { text: 'Project', value: 'project' }
+      { text: 'Contact', value: 'contacts' },
+      { text: 'Tags', value: 'tags' }
     ],
-    searchType: 'search',
+    searchType: 'contacts',
     searchText: ''
   }),
-
+  watch: {
+    searchType () {
+      this.$store.commit('MUTATION_SET_SEARCH_TYPE', this.searchType)
+      this.$store.commit('MUTATION_SET_SEARCH_STATE', false)
+      this.$store.commit('MUTATION_SET_SEARCH_RESULT', [])
+      this.searchText = ''
+    }
+  },
   methods: {
     /**
     * Notification Toggle
@@ -86,22 +93,40 @@ export default {
     },
     search () {
       const searchText = this.searchText.trim()
+      let searchObj = {}
       if (searchText === '') {
         // to remove search page when there is not text in search bar
         this.$store.commit('MUTATION_SET_SEARCH_STATE', false)
         this.$store.commit('MUTATION_SET_SEARCH_RESULT', [])
       } else {
         // searching for results
-        this.$store.commit('MUTATION_SET_SEARCH_RESULT', [])
-        this.$store.commit('MUTATION_SET_SEARCH_STATE', true)
-        const searchObj = {
-          endpoint: 'search',
-          query: searchText
+        if (this.searchType === 'contacts') {
+          searchObj = {
+            endpoint: 'search',
+            query: searchText,
+            type: 'contacts'
+          }
+        } else if (this.searchType === 'tags') {
+          searchObj = {
+            endpoint: 'search',
+            query: {title: searchText},
+            type: 'tags'
+          }
         }
-        this.$store.dispatch('ACTION_GET_SEARCH_RESULT', searchObj)
+        this.debounce(this.activateSearch, 800)(searchObj)
       }
     },
-
+    activateSearch (searchObj) {
+      this.$store.commit('MUTATION_SET_SEARCH_RESULT', [])
+      this.$store.commit('MUTATION_SET_SEARCH_STATE', true)
+      this.$store.dispatch('ACTION_GET_SEARCH_RESULT', searchObj)
+    },
+    debounce (func, delay) {
+      return (args) => {
+        clearTimeout(this.timer)
+        this.timer = setTimeout(() => func.call(this, args), delay)
+      }
+    },
     sideBarToggle () {
       eventBus.$emit('sidebartoggled')
       this.$store.commit('toggleSidebar')
