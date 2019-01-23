@@ -109,7 +109,7 @@ export default {
         } else if (this.searchType === 'tags') {
           searchObj = {
             endpoint: 'search',
-            query: {title: searchText},
+            query: {title: searchText.toLowerCase()},
             type: 'tags'
           }
         }
