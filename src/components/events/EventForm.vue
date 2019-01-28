@@ -47,16 +47,6 @@
         </datetime>
       </div>
       <v-select
-        :items="tags"
-        label="Tag(s)"
-        item-text="title"
-        v-model="event.tags"
-        :disabled="isLoading"
-        return-object
-        multiple
-        chips
-      ></v-select>
-      <v-select
         :items="markers"
         label="Marker"
         item-text="title"
@@ -74,6 +64,14 @@
         multiple
         chips
       ></v-select>
+      <v-combobox
+        v-model="tags"
+        chips
+        multiple
+        label="Tags"
+        hint="Add multiple tags by pressing Enter or Tab button after writing tag name. You can add a maximum of 5 tags."
+        :persistent-hint="true"
+      ></v-combobox>
       <!--<div class="switch-wrapper">-->
       <!--<div class="input-group&#45;&#45;text-field primary&#45;&#45;text">Privacy</div>-->
       <!--<div class="switch-block">-->
@@ -133,7 +131,7 @@ export default {
       address: '',
       start: null,
       end: null,
-      tags: null,
+      tags: [],
       images: null,
       marker: null,
       symbol: null,
@@ -166,6 +164,11 @@ export default {
   watch: {
     eventProp () {
       this.updateFromEventProp()
+    },
+    tags () {
+      if (this.tags.length > 5) {
+        this.tags.pop()
+      }
     }
   },
   methods: {
@@ -176,6 +179,10 @@ export default {
         this.event.createdtime = this.eventProp ? this.eventProp.createdtime : timestamp
         this.event.owner = JSON.parse(localStorage['blockstack-gaia-hub-config']).address
         this.event.ownername = cryptoName
+        this.event.tags = []
+        this.tags.forEach(element => {
+          this.event.tags.push({title: element})
+        })
         this.saveEvent(timestamp)
       }
     },
@@ -209,7 +216,10 @@ export default {
           this.event[property] = this.eventProp[property] instanceof Object ? {...this.eventProp[property]} : this.eventProp[property]
         }
         this.event.images = objectHelpers.toArray(this.event.images)
-        this.event.tags = objectHelpers.toArray(this.event.tags)
+        // this.event.tags = objectHelpers.toArray(this.event.tags)
+        this.eventProp.tags.forEach(item => {
+          this.tags.push(item.title)
+        })
       } else {
         this.clear()
       }
@@ -243,35 +253,35 @@ export default {
             })
         })
     },
-    fetchTags () {
-      // fetching tags list
-      this.blockstack.getFile('my_tags.json', { decrypt: false })
-        .then((tagsJSON) => {
-          let tagsObj = JSON.parse(tagsJSON)
-          if (tagsObj) {
-            this.tags = Object.keys(tagsObj).map((key) => {
-              return {
-                address: 'https://gaia.blockstack.org/hub/' + cryptoAddress + '/' + key + '.json',
-                title: tagsObj[key]
-              }
-            })
-          }
-          this.blockstack.getFile('my_fav_tags.json', { decrypt: false })
-            .then((favTagsJSON) => {
-              let favTagsObj = JSON.parse(favTagsJSON)
-              if (favTagsJSON) {
-                Object.keys(favTagsObj).forEach((key) => {
-                  if (key.split('_')[2] !== cryptoAddress) {
-                    this.tags.push({
-                      address: 'https://gaia.blockstack.org/hub/' + key.split('_')[2] + '/' + key.substr(0, key.lastIndexOf('_')) + '.json',
-                      title: favTagsObj[key]
-                    })
-                  }
-                })
-              }
-            })
-        })
-    },
+    // fetchTags () {
+    //   // fetching tags list
+    //   this.blockstack.getFile('my_tags.json', { decrypt: false })
+    //     .then((tagsJSON) => {
+    //       let tagsObj = JSON.parse(tagsJSON)
+    //       if (tagsObj) {
+    //         this.tags = Object.keys(tagsObj).map((key) => {
+    //           return {
+    //             address: 'https://gaia.blockstack.org/hub/' + cryptoAddress + '/' + key + '.json',
+    //             title: tagsObj[key]
+    //           }
+    //         })
+    //       }
+    //       this.blockstack.getFile('my_fav_tags.json', { decrypt: false })
+    //         .then((favTagsJSON) => {
+    //           let favTagsObj = JSON.parse(favTagsJSON)
+    //           if (favTagsJSON) {
+    //             Object.keys(favTagsObj).forEach((key) => {
+    //               if (key.split('_')[2] !== cryptoAddress) {
+    //                 this.tags.push({
+    //                   address: 'https://gaia.blockstack.org/hub/' + key.split('_')[2] + '/' + key.substr(0, key.lastIndexOf('_')) + '.json',
+    //                   title: favTagsObj[key]
+    //                 })
+    //               }
+    //             })
+    //           }
+    //         })
+    //     })
+    // },
     fetchImages () {
       // fetching images list
       this.blockstack.getFile('my_images.json', { decrypt: false })
@@ -285,27 +295,27 @@ export default {
               }
             })
           }
-          this.blockstack.getFile('my_fav_images.json', { decrypt: false })
-            .then((favTagsJSON) => {
-              let favTagsObj = JSON.parse(favTagsJSON)
-              if (favTagsJSON) {
-                Object.keys(favTagsObj).forEach((key) => {
-                  if (key.split('_')[2] !== cryptoAddress) {
-                    this.images.push({
-                      address: 'https://gaia.blockstack.org/hub/' + key.split('_')[2] + '/' + key.substr(0, key.lastIndexOf('_')) + '.json',
-                      title: favTagsObj[key]
-                    })
-                  }
-                })
-              }
-            })
+          // this.blockstack.getFile('my_fav_images.json', { decrypt: false })
+          //   .then((favTagsJSON) => {
+          //     let favTagsObj = JSON.parse(favTagsJSON)
+          //     if (favTagsJSON) {
+          //       Object.keys(favTagsObj).forEach((key) => {
+          //         if (key.split('_')[2] !== cryptoAddress) {
+          //           this.images.push({
+          //             address: 'https://gaia.blockstack.org/hub/' + key.split('_')[2] + '/' + key.substr(0, key.lastIndexOf('_')) + '.json',
+          //             title: favTagsObj[key]
+          //           })
+          //         }
+          //       })
+          //     }
+          //   })
         })
     }
   },
   mounted () {
     this.updateFromEventProp()
     this.fetchMarkers()
-    this.fetchTags()
+    // this.fetchTags()
     this.fetchImages()
   }
 }

@@ -56,7 +56,7 @@
     >
       <v-icon>image</v-icon>
     </v-btn>
-    <v-btn
+    <!-- <v-btn
       fab
       dark
       small
@@ -64,7 +64,7 @@
       :to="{ name: 'AddTag', params: { tagProp: null } }"
     >
       <v-icon>label</v-icon>
-    </v-btn>
+    </v-btn> -->
     <v-btn
       fab
       dark

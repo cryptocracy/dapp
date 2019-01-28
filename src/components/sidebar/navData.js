@@ -29,17 +29,17 @@ const items = [
       { title: 'Favorites', linkTo: '/markers/favorites' }
     ]
   },
-  {
-    color: 'blue lighten-2',
-    action: 'label',
-    title: 'Tags',
-    items: [
-      // { title: 'Add New', linkTo: { name: 'AddTag', params: { tagProp: null } } },
-      // { title: 'Find', linkTo: '/page-layout/banner' },
-      { title: 'Owned', linkTo: '/tags/owned' },
-      { title: 'Favorites', linkTo: '/tags/favorites' }
-    ]
-  },
+  // {
+  //   color: 'blue lighten-2',
+  //   action: 'label',
+  //   title: 'Tags',
+  //   items: [
+  //     // { title: 'Add New', linkTo: { name: 'AddTag', params: { tagProp: null } } },
+  //     // { title: 'Find', linkTo: '/page-layout/banner' },
+  //     { title: 'Owned', linkTo: '/tags/owned' },
+  //     { title: 'Favorites', linkTo: '/tags/favorites' }
+  //   ]
+  // },
   {
     color: 'green lighten-2',
     action: 'image',

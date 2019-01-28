@@ -20,6 +20,17 @@
           <v-list-tile-title v-html="markerObject.ownername"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
+
+      <v-list-tile v-if="markerObject.tags && markerObject.tags.length">
+        <v-list-tile-content>
+          <v-list-tile-sub-title>{{ markerObject.tags.length>1 ? 'Tags' : 'Tag' }}</v-list-tile-sub-title>
+          <div>
+            <template v-for="(tag, index) in markerObject.tags">
+              <v-chip :key="index+'t'">{{ '#' + tag.title }}</v-chip>
+            </template>
+          </div>
+        </v-list-tile-content>
+      </v-list-tile>
       <!--<v-list-tile v-if="markerObject.private">-->
       <!--<v-list-tile-content>-->
       <!--<v-list-tile-sub-title>Privacy</v-list-tile-sub-title>-->

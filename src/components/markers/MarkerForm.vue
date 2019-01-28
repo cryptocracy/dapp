@@ -26,7 +26,18 @@
         label="Crypto Address"
         :disabled="isLoading"
       ></v-text-field>
+
+      <v-combobox
+        v-model="tags"
+        chips
+        multiple
+        label="Tags"
+        hint="Add multiple tags by pressing Enter or Tab button after writing tag name. You can add a maximum of 5 tags."
+        :persistent-hint="true"
+      ></v-combobox>
+
       <open-map-with-marker
+        class="mt-3"
         @input="changeCoordinates"
         :center="coordinates"
       />
@@ -86,9 +97,11 @@ export default {
     isLoading: false,
     valid: false,
     oldGeo: false,
+    tags: [],
     marker: {
       coordinates: null,
       title: '',
+      tags: [],
       address: '',
       detail: '',
       symbol: null,
@@ -118,8 +131,14 @@ export default {
     OpenMapWithMarker
   },
   watch: {
+    deep: true,
     markerProp () {
       this.updateFromMarkerProp()
+    },
+    tags () {
+      if (this.tags.length > 5) {
+        this.tags.pop()
+      }
     }
   },
   computed: {
@@ -141,6 +160,11 @@ export default {
         this.marker.createdtime = this.markerProp ? this.markerProp.createdtime : timestamp
         this.marker.owner = JSON.parse(localStorage['blockstack-gaia-hub-config']).address
         this.marker.ownername = cryptoName
+        this.marker.tags = []
+        this.tags.forEach(element => {
+          this.marker.tags.push({title: element})
+        })
+        console.log('marker', this.marker)
         this.saveMarker(timestamp)
       }
     },
@@ -173,6 +197,9 @@ export default {
         if (this.marker.coordinates) {
           this.oldGeo = {...this.marker.coordinates}
         }
+        this.markerProp.tags.forEach(item => {
+          this.tags.push(item.title)
+        })
       } else {
         this.clear()
       }
