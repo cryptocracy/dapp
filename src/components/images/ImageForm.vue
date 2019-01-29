@@ -38,12 +38,12 @@
       ></v-text-field>
       <v-combobox
         v-model="tags"
+        :rules="tagsRules"
         :items="itemList"
         chips
         multiple
         label="Tags"
         hint="Add multiple tags by pressing Enter or Tab button after writing tag name. You can add a maximum of 5 tags."
-        :persistent-hint="true"
       ></v-combobox>
       <v-select
         class="mt-1"
@@ -90,6 +90,7 @@
 import ImageUploader from '@/components/image-uploader/ImageUploader'
 import storageService from '@/services/blockstack-storage'
 import objectHelpers from '@/helpers/objectHelpers.js'
+import validationService from '@/helpers/validate'
 
 const cryptoAddress = localStorage['blockstack-gaia-hub-config'] ? JSON.parse(localStorage['blockstack-gaia-hub-config']).address : ''
 const cryptoName = localStorage['blockstack'] ? JSON.parse(localStorage['blockstack']).username : ''
@@ -125,6 +126,9 @@ export default {
     addressRules: [
       v => v ? /^((?!_)[A-z0-9])+$/.test(v) || 'Letters and numbers are only allowed' : true,
       v => v ? v.length <= 42 || 'Please enter proper address' : true
+    ],
+    tagsRules: [
+      v => validationService.validateTags(v)
     ],
     itemList: []
   }),

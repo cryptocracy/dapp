@@ -30,6 +30,7 @@
       <v-combobox
         v-model="tags"
         chips
+        :rules="tagsRules"
         multiple
         label="Tags"
         hint="Add multiple tags by pressing Enter or Tab button after writing tag name. You can add a maximum of 5 tags."
@@ -88,6 +89,7 @@
 <script>
 import storageService from '@/services/blockstack-storage'
 import OpenMapWithMarker from '@/components/maps/OpenMapWithMarker'
+import validationService from '@/helpers/validate'
 
 const cryptoName = localStorage['blockstack'] ? JSON.parse(localStorage['blockstack']).username : ''
 
@@ -119,6 +121,9 @@ export default {
     addressRules: [
       v => v ? /^((?!_)[A-z0-9])+$/.test(v) || 'Letters and numbers are only allowed' : true,
       v => v ? v.length <= 42 || 'Please enter proper address' : true
+    ],
+    tagsRules: [
+      v => validationService.validateTags(v)
     ]
   }),
   props: {
