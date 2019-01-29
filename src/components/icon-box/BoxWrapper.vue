@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="iconbox-wrapper">
     <div class="row">
-      <div class="col-md-3">
+      <div class="col-md-4">
         <app-icon-box
           backgroundColor="#1ebea5"
           icon="place"
@@ -12,7 +12,7 @@
         </app-icon-box>
       </div>
 
-      <div class="col-md-3">
+      <!-- <div class="col-md-3">
         <app-icon-box
           backgroundColor="#25CDA5"
           icon="label"
@@ -21,9 +21,9 @@
           to="/tags/owned"
         >
         </app-icon-box>
-      </div>
+      </div> -->
 
-      <div class="col-md-3">
+      <div class="col-md-4">
         <app-icon-box
           backgroundColor="#2CDBA5"
           icon="image"
@@ -34,7 +34,7 @@
         </app-icon-box>
       </div>
 
-      <div class="col-md-3">
+      <div class="col-md-4">
         <app-icon-box
           backgroundColor="#31e6a5"
           icon="today"

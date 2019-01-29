@@ -36,17 +36,17 @@
         label="Crypto Address"
         :disabled="isLoading"
       ></v-text-field>
-      <v-select
-        :items="tags"
-        label="Tag(s)"
-        item-text="title"
-        v-model="image.tags"
-        :disabled="isLoading"
-        return-object
-        multiple
+      <v-combobox
+        v-model="tags"
+        :rules="tagsRules"
+        :items="itemList"
         chips
-      ></v-select>
+        multiple
+        label="Tags"
+        hint="Add multiple tags by pressing Enter or Tab button after writing tag name. You can add a maximum of 5 tags."
+      ></v-combobox>
       <v-select
+        class="mt-1"
         :items="markers"
         label="Marker"
         item-text="title"
@@ -90,6 +90,7 @@
 import ImageUploader from '@/components/image-uploader/ImageUploader'
 import storageService from '@/services/blockstack-storage'
 import objectHelpers from '@/helpers/objectHelpers.js'
+import validationService from '@/helpers/validate'
 
 const cryptoAddress = localStorage['blockstack-gaia-hub-config'] ? JSON.parse(localStorage['blockstack-gaia-hub-config']).address : ''
 const cryptoName = localStorage['blockstack'] ? JSON.parse(localStorage['blockstack']).username : ''
@@ -107,7 +108,7 @@ export default {
       title: '',
       detail: '',
       address: '',
-      tags: null,
+      tags: [],
       marker: null,
       symbol: null,
       image: null,
@@ -125,7 +126,11 @@ export default {
     addressRules: [
       v => v ? /^((?!_)[A-z0-9])+$/.test(v) || 'Letters and numbers are only allowed' : true,
       v => v ? v.length <= 42 || 'Please enter proper address' : true
-    ]
+    ],
+    tagsRules: [
+      v => validationService.validateTags(v)
+    ],
+    itemList: []
   }),
   components: {
     ImageUploader
@@ -137,8 +142,14 @@ export default {
     }
   },
   watch: {
+    deep: true,
     imageProp () {
       this.updateFromImageProp()
+    },
+    tags () {
+      if (this.tags.length > 5) {
+        this.tags.pop()
+      }
     }
   },
   methods: {
@@ -148,6 +159,10 @@ export default {
         this.isLoading = true
         this.image.createdtime = this.imageProp ? this.imageProp.createdtime : timestamp
         this.image.owner = JSON.parse(localStorage['blockstack-gaia-hub-config']).address
+        this.image.tags = []
+        this.tags.forEach(element => {
+          this.image.tags.push({title: element})
+        })
         this.image.ownername = cryptoName
         if (this.imageFile.name) {
           this.blockstack.putFile(`image_${timestamp}.${this.imageFile.name.split('.').pop()}`, this.imageFile, { encrypt: false })
@@ -195,6 +210,9 @@ export default {
         this.image.tags = objectHelpers.toArray(this.image.tags)
         this.imageFile = {}
         this.imageFile.url = this.image.image
+        this.imageProp.tags.forEach(item => {
+          this.tags.push(item.title)
+        })
       } else {
         this.clear()
       }
@@ -227,41 +245,41 @@ export default {
               }
             })
         })
-    },
-    fetchTags () {
-      // fetching tags list
-      this.blockstack.getFile('my_tags.json', { decrypt: false })
-        .then((tagsJSON) => {
-          let tagsObj = JSON.parse(tagsJSON)
-          if (tagsObj) {
-            this.tags = Object.keys(tagsObj).map((key) => {
-              return {
-                address: 'https://gaia.blockstack.org/hub/' + cryptoAddress + '/' + key + '.json',
-                title: tagsObj[key]
-              }
-            })
-          }
-          this.blockstack.getFile('my_fav_tags.json', { decrypt: false })
-            .then((favTagsJSON) => {
-              let favTagsObj = JSON.parse(favTagsJSON)
-              if (favTagsJSON) {
-                Object.keys(favTagsObj).forEach((key) => {
-                  if (key.split('_')[2] !== cryptoAddress) {
-                    this.tags.push({
-                      address: 'https://gaia.blockstack.org/hub/' + key.split('_')[2] + '/' + key.substr(0, key.lastIndexOf('_')) + '.json',
-                      title: favTagsObj[key]
-                    })
-                  }
-                })
-              }
-            })
-        })
     }
+    // fetchTags () {
+    //   // fetching tags list
+    //   this.blockstack.getFile('my_tags.json', { decrypt: false })
+    //     .then((tagsJSON) => {
+    //       let tagsObj = JSON.parse(tagsJSON)
+    //       if (tagsObj) {
+    //         this.tags = Object.keys(tagsObj).map((key) => {
+    //           return {
+    //             address: 'https://gaia.blockstack.org/hub/' + cryptoAddress + '/' + key + '.json',
+    //             title: tagsObj[key]
+    //           }
+    //         })
+    //       }
+    //       this.blockstack.getFile('my_fav_tags.json', { decrypt: false })
+    //         .then((favTagsJSON) => {
+    //           let favTagsObj = JSON.parse(favTagsJSON)
+    //           if (favTagsJSON) {
+    //             Object.keys(favTagsObj).forEach((key) => {
+    //               if (key.split('_')[2] !== cryptoAddress) {
+    //                 this.tags.push({
+    //                   address: 'https://gaia.blockstack.org/hub/' + key.split('_')[2] + '/' + key.substr(0, key.lastIndexOf('_')) + '.json',
+    //                   title: favTagsObj[key]
+    //                 })
+    //               }
+    //             })
+    //           }
+    //         })
+    //     })
+    // }
   },
   mounted () {
     this.updateFromImageProp()
     this.fetchMarkers()
-    this.fetchTags()
+    // this.fetchTags()
   }
 }
 </script>

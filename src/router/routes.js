@@ -3,10 +3,10 @@ import Home from '@/components/home/HomeIndex'
 import Profile from '@/components/Profile'
 import favContacts from '@/components/contacts/FavouriteContacts'
 
-import TagForm from '@/components/tags/TagForm'
-import MyTagList from '@/components/tags/MyTagList'
-import FavoriteTagList from '@/components/tags/FavoriteTagList'
-import TagInfo from '@/components/tags/TagInfo'
+// import TagForm from '@/components/tags/TagForm'
+// import MyTagList from '@/components/tags/MyTagList'
+// import FavoriteTagList from '@/components/tags/FavoriteTagList'
+// import TagInfo from '@/components/tags/TagInfo'
 
 import ImageForm from '@/components/images/ImageForm'
 import MyImageList from '@/components/images/MyImageList'
@@ -45,11 +45,11 @@ const routes = [
   { path: '/favourite-contacts', name: 'favourite-contacts', component: favContacts },
   { path: '/settings', name: 'Settings', component: Settings },
 
-  { path: '/tags/add-tag', name: 'AddTag', props: true, component: TagForm },
-  { path: '/tags/edit-tag', name: 'EditTag', props: true, component: TagForm },
-  { path: '/tags/owned', name: 'Owned', component: MyTagList },
-  { path: '/tags/favorites', name: 'Favorites', component: FavoriteTagList },
-  { path: '/tags/:tagName', name: 'TagInfo', props: true, component: TagInfo },
+  // { path: '/tags/add-tag', name: 'AddTag', props: true, component: TagForm },
+  // { path: '/tags/edit-tag', name: 'EditTag', props: true, component: TagForm },
+  // { path: '/tags/owned', name: 'Owned', component: MyTagList },
+  // { path: '/tags/favorites', name: 'Favorites', component: FavoriteTagList },
+  // { path: '/tags/:tagName', name: 'TagInfo', props: true, component: TagInfo },
 
   { path: '/images/add-image', name: 'AddImage', props: true, component: ImageForm },
   { path: '/images/edit-image', name: 'EditImage', props: true, component: ImageForm },

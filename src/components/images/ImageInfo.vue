@@ -27,8 +27,8 @@
         <v-list-tile-content>
           <v-list-tile-sub-title>{{ imageObject.tags.length>1 ? 'Tags' : 'Tag' }}</v-list-tile-sub-title>
           <div>
-            <template v-for="tag in imageObject.tags">
-              <v-chip :key="tag.address">{{ '#' + tag.title }}</v-chip>
+            <template v-for="(tag, index) in imageObject.tags">
+              <v-chip :key="index+'t'">{{ '#' + tag.title }}</v-chip>
             </template>
           </div>
         </v-list-tile-content>
