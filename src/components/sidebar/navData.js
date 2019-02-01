@@ -13,6 +13,12 @@
 
 const items = [
   {
+    color: 'blue darken-1',
+    action: 'thumbs_up_down',
+    title: 'Quorum',
+    linkTo: '/quorum'
+  },
+  {
     color: 'teal lighten-3',
     action: 'dashboard',
     title: 'Dashboard',
