@@ -3,7 +3,7 @@
     <div class="entity-title d-flex justify-space-between" v-if="eventObject.title">
       {{ eventObject.title }}
       <v-flex xs2>
-        <Voter :itemsObject="eventObject"></Voter>
+        <Voter :itemsObject="eventObject" type="event"></Voter>
       </v-flex>
     </div>
     <v-list two-line>

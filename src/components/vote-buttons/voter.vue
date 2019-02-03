@@ -28,7 +28,8 @@ export default {
     },
     hubUrl: {
       type: String
-    }
+    },
+    type: String
   },
   watch: {
     deep: true,
@@ -92,6 +93,13 @@ export default {
       }
     },
     updateMyVote () {
+      let urlItems = {}
+      if (localStorage['blockstack-gaia-hub-config']) {
+        urlItems = JSON.parse(localStorage['blockstack-gaia-hub-config'])
+      }
+      // creating hub url(where our files are stored)
+      const contentUrl = `${urlItems.url_prefix}${this.itemsObject.owner}/${this.type}_${this.itemsObject.createdtime}.json`
+      this.itemsObject['contentUrl'] = contentUrl
       if (this.currentVoteStatus && this.currentVoteStatus['vote']) {
         this.updateVoteStatus(this.currentVoteStatus)
       } else {
@@ -105,11 +113,10 @@ export default {
       } else {
         this.myVoteData.push(this.itemsObject)
       }
-
       storageService.putFile({
         fileName: 'my_votes.json',
         data: this.myVoteData,
-        options: {encrypt: false}
+        options: { encrypt: false }
       })
     }
   }

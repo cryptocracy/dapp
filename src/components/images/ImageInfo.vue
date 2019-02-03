@@ -17,7 +17,7 @@
           <v-list-tile-title v-html="imageObject.detail"></v-list-tile-title>
         </v-list-tile-content>
         <v-flex xs2>
-          <Voter :itemsObject="imageObject"></Voter>
+          <Voter :itemsObject="imageObject" type="image"></Voter>
         </v-flex>
       </v-list-tile>
       <v-list-tile v-if="imageObject.ownername">
@@ -145,7 +145,7 @@ export default {
         urlItems = JSON.parse(localStorage['blockstack-gaia-hub-config'])
       }
       // creating hub url(where our files are stored)
-      const hubUrl = this.hubUrl || `${urlItems.url_prefix}${this.imageObject.owner}/`
+      const hubUrl = `${urlItems.url_prefix}${this.imageObject.owner}/`
       return this.imageObject ? `${hubUrl}image_${this.imageObject.createdtime}.json` : ''
     },
     isOwned () {

@@ -3,7 +3,7 @@
     <div class="entity-title d-flex justify-space-between" v-if="markerObject.title">
       {{ markerObject.title }}
       <v-flex xs2>
-        <Voter :itemsObject="markerObject"></Voter>
+        <Voter :itemsObject="markerObject" type="marker"></Voter>
       </v-flex>
     </div>
     <v-list two-line>
