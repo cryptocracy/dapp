@@ -1,10 +1,10 @@
 <template>
   <v-layout row>
     <v-flex class="disFlex" xs12 justify-space-around>
-      <v-btn fab dark class="hoverAnimation m-0" :color="upvote?'pink':'grey'" @click="voteUp()">
+      <v-btn fab dark class="hoverAnimation m-0" :color="upvote?'green':'grey'" @click="voteUp()">
         <v-icon dark>thumb_up_alt</v-icon>
       </v-btn>
-      <v-btn fab dark class="hoverAnimation m-0" :color="downvote?'blue':'grey'" @click="voteDown()">
+      <v-btn fab dark class="hoverAnimation m-0" :color="downvote?'red':'grey'" @click="voteDown()">
         <v-icon dark>thumb_down_alt</v-icon>
       </v-btn>
     </v-flex>
