@@ -2,7 +2,7 @@
   <v-card class="container mt-4">
     <div class="entity-title d-flex justify-space-between" v-if="eventObject.title">
       {{ eventObject.title }}
-      <v-flex xs2>
+      <v-flex xs3>
         <Voter :itemsObject="eventObject" type="event"></Voter>
       </v-flex>
     </div>

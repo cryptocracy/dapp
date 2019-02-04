@@ -1,18 +1,25 @@
 <template>
   <v-layout row>
     <v-flex class="disFlex" xs12 justify-space-around>
-      <v-btn fab dark class="hoverAnimation m-0" :color="upvote?'green':'grey'" @click="voteUp()">
-        <v-icon dark>thumb_up_alt</v-icon>
-      </v-btn>
-      <v-btn fab dark class="hoverAnimation m-0" :color="downvote?'red':'grey'" @click="voteDown()">
-        <v-icon dark>thumb_down_alt</v-icon>
-      </v-btn>
+      <div class="flex xs6 disFlex justify-space-around align-center pr-0">
+        <span class="count green--text">2</span>
+        <v-btn fab dark class="hoverAnimation m-0" :color="upvote?'green':'grey'" @click="voteUp()">
+          <v-icon dark>thumb_up_alt</v-icon>
+        </v-btn>
+      </div>
+      <div class="flex xs6 disFlex justify-space-around align-center pr-0">
+        <v-btn fab dark class="hoverAnimation m-0" :color="downvote?'red':'grey'" @click="voteDown()">
+          <v-icon dark>thumb_down_alt</v-icon>
+        </v-btn>
+        <span class="count red--text">2</span>
+      </div>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
 import storageService from '@/services/blockstack-storage'
+import cryptocracyServices from '@/services/cryptocracy'
 
 export default {
   name: 'voter',
@@ -35,6 +42,9 @@ export default {
     deep: true,
     currentVoteStatus (newValue, oldValue) {
       if (newValue) {
+        cryptocracyServices.countVotes({gaia: newValue.contentUrl}).then((res) => {
+          console.log('got counts in comp: ', res)
+        })
         if (newValue['votedOn'] && newValue['vote'] === 1) {
           this.upvote = true
           this.downvote = false
@@ -42,9 +52,6 @@ export default {
           this.downvote = true
           this.upvote = false
         }
-      } else {
-        this.upvote = true
-        this.downvote = true
       }
     }
   },
@@ -84,6 +91,16 @@ export default {
       this.updateMyVote()
     },
     updateVoteStatus (item) {
+      if (!item['contentUrl']) {
+        let urlItems = {}
+        if (localStorage['blockstack-gaia-hub-config']) {
+          urlItems = JSON.parse(localStorage['blockstack-gaia-hub-config'])
+        }
+        // creating hub url(where our files are stored)
+        const contentUrl = `${urlItems.url_prefix}${item.owner}/${this.type}_${item.createdtime}.json`
+        item['contentUrl'] = contentUrl
+      }
+
       let currentDate = new Date().getTime()
       if (item['votedOn']) {
         item['voteUpdatedOn'] = currentDate
@@ -93,13 +110,6 @@ export default {
       }
     },
     updateMyVote () {
-      let urlItems = {}
-      if (localStorage['blockstack-gaia-hub-config']) {
-        urlItems = JSON.parse(localStorage['blockstack-gaia-hub-config'])
-      }
-      // creating hub url(where our files are stored)
-      const contentUrl = `${urlItems.url_prefix}${this.itemsObject.owner}/${this.type}_${this.itemsObject.createdtime}.json`
-      this.itemsObject['contentUrl'] = contentUrl
       if (this.currentVoteStatus && this.currentVoteStatus['vote']) {
         this.updateVoteStatus(this.currentVoteStatus)
       } else {
@@ -123,9 +133,12 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .disFlex {
     display: flex;
+  }
+  .count {
+    font-size: 20px;
   }
   .hoverAnimation:hover {
     animation: swing 2s -1.2s ease-out;

@@ -16,7 +16,7 @@
         <v-list-tile-content>
           <v-list-tile-title v-html="imageObject.detail"></v-list-tile-title>
         </v-list-tile-content>
-        <v-flex xs2>
+        <v-flex xs3>
           <Voter :itemsObject="imageObject" type="image"></Voter>
         </v-flex>
       </v-list-tile>
