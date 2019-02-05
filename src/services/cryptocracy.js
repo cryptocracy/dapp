@@ -10,7 +10,6 @@ const cryptocracyServices = {
   },
   countVotes: async (query) => {
     let res = await Axios.get('https://search.cryptocracy.io/souq/quorum/votes', { params: {...query} })
-    console.log('got votes: ', res)
     return res.data
   }
 }

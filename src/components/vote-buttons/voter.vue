@@ -2,16 +2,16 @@
   <v-layout row>
     <v-flex class="disFlex" xs12 justify-space-around>
       <div class="flex xs6 disFlex justify-space-around align-center pr-0">
-        <span class="count green--text">2</span>
-        <v-btn fab dark class="hoverAnimation m-0" :color="upvote?'green':'grey'" @click="voteUp()">
+        <span class="count green--text">{{totalUpVotes}}</span>
+        <v-btn fab dark class="hoverAnimation m-0" :class="{'unClickable': upvote}" :color="upvote?'green':'grey'" @click="voteUp()">
           <v-icon dark>thumb_up_alt</v-icon>
         </v-btn>
       </div>
       <div class="flex xs6 disFlex justify-space-around align-center pr-0">
-        <v-btn fab dark class="hoverAnimation m-0" :color="downvote?'red':'grey'" @click="voteDown()">
+        <v-btn fab dark class="hoverAnimation m-0" :class="{'unClickable': downvote}" :color="downvote?'red':'grey'" @click="voteDown()">
           <v-icon dark>thumb_down_alt</v-icon>
         </v-btn>
-        <span class="count red--text">2</span>
+        <span class="count red--text">{{totalDownVotes}}</span>
       </div>
     </v-flex>
   </v-layout>
@@ -27,6 +27,9 @@ export default {
     upvote: false,
     downvote: false,
     myVoteData: [],
+    totalVotesData: [],
+    totalUpVotes: 0,
+    totalDownVotes: 0,
     currentVoteStatus: {}
   }),
   props: {
@@ -40,11 +43,14 @@ export default {
   },
   watch: {
     deep: true,
+    totalVotesData (newValue, oldValue) {
+      if (newValue && newValue.length > 0) {
+        this.getTotalUpVotes(newValue)
+        this.getTotalDownVotes(newValue)
+      }
+    },
     currentVoteStatus (newValue, oldValue) {
       if (newValue) {
-        cryptocracyServices.countVotes({gaia: newValue.contentUrl}).then((res) => {
-          console.log('got counts in comp: ', res)
-        })
         if (newValue['votedOn'] && newValue['vote'] === 1) {
           this.upvote = true
           this.downvote = false
@@ -63,42 +69,85 @@ export default {
       this.myVoteData = res.length ? res : []
       this.currentVoteStatus = this.myVoteData[this.getIndex()]
     })
+    this.getTotalVotes()
   },
   methods: {
+    async getTotalVotes () {
+      this.totalVotesData = await cryptocracyServices.countVotes({gaia: this.getContentUrl(this.itemsObject)})
+    },
+    getTotalUpVotes (votes = []) {
+      if (votes.length > 0) {
+        this.totalUpVotes = votes.reduce((acc, curr) => {
+          if (curr === 1 || curr === '1') {
+            acc = acc + 1
+            return acc
+          } else {
+            return acc
+          }
+        }, 0)
+        return this.totalUpVotes
+      }
+      return 0
+    },
+    getTotalDownVotes (votes = []) {
+      if (votes.length > 0) {
+        this.totalDownVotes = votes.reduce((acc, curr) => {
+          if (curr === -1 || curr === '-1') {
+            acc = acc + 1
+            return acc
+          } else {
+            return acc
+          }
+        }, 0)
+        return this.totalDownVotes
+      }
+      return 0
+    },
     getIndex () {
       return this.myVoteData.findIndex((item, index) => {
         return item.title === this.itemsObject.title
       })
     },
-    voteUp () {
-      this.upvote = true
-      this.downvote = false
-      if (this.currentVoteStatus && this.currentVoteStatus['vote']) {
-        this.currentVoteStatus['vote'] = 1
-      } else {
-        this.itemsObject['vote'] = 1
+    getContentUrl (item) {
+      let urlItems = {}
+      if (localStorage['blockstack-gaia-hub-config']) {
+        urlItems = JSON.parse(localStorage['blockstack-gaia-hub-config'])
       }
-      this.updateMyVote()
+      // creating hub url(where our files are stored)
+      const contentUrl = `${urlItems.url_prefix}${item.owner}/${this.type}_${item.createdtime}.json`
+      return contentUrl
+    },
+    voteUp () {
+      if (this.downvote) {
+        this.upvote = true
+        this.totalUpVotes++
+        this.totalDownVotes = this.totalDownVotes > 0 ? --this.totalDownVotes : 0
+        this.downvote = false
+        if (this.currentVoteStatus && this.currentVoteStatus['vote']) {
+          this.currentVoteStatus['vote'] = 1
+        } else {
+          this.itemsObject['vote'] = 1
+        }
+        this.updateMyVote()
+      }
     },
     voteDown () {
-      this.downvote = true
-      this.upvote = false
-      if (this.currentVoteStatus && this.currentVoteStatus['vote']) {
-        this.currentVoteStatus['vote'] = -1
-      } else {
-        this.itemsObject['vote'] = -1
+      if (this.upvote) {
+        this.downvote = true
+        this.totalDownVotes++
+        this.totalUpVotes = this.totalUpVotes > 0 ? --this.totalUpVotes : 0
+        this.upvote = false
+        if (this.currentVoteStatus && this.currentVoteStatus['vote']) {
+          this.currentVoteStatus['vote'] = -1
+        } else {
+          this.itemsObject['vote'] = -1
+        }
+        this.updateMyVote()
       }
-      this.updateMyVote()
     },
     updateVoteStatus (item) {
       if (!item['contentUrl']) {
-        let urlItems = {}
-        if (localStorage['blockstack-gaia-hub-config']) {
-          urlItems = JSON.parse(localStorage['blockstack-gaia-hub-config'])
-        }
-        // creating hub url(where our files are stored)
-        const contentUrl = `${urlItems.url_prefix}${item.owner}/${this.type}_${item.createdtime}.json`
-        item['contentUrl'] = contentUrl
+        item['contentUrl'] = this.getContentUrl(item)
       }
 
       let currentDate = new Date().getTime()
@@ -139,6 +188,9 @@ export default {
   }
   .count {
     font-size: 20px;
+  }
+  .unClickable {
+    pointer-events: none !important;
   }
   .hoverAnimation:hover {
     animation: swing 2s -1.2s ease-out;
