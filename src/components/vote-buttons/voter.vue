@@ -26,6 +26,7 @@ export default {
   data: () => ({
     upvote: false,
     downvote: false,
+    isVoted: false,
     myVoteData: [],
     totalVotesData: [],
     totalUpVotes: 0,
@@ -51,6 +52,9 @@ export default {
     },
     currentVoteStatus (newValue, oldValue) {
       if (newValue) {
+        if (newValue['vote']) {
+          this.isVoted = true
+        }
         if (newValue['votedOn'] && newValue['vote'] === 1) {
           this.upvote = true
           this.downvote = false
@@ -105,7 +109,7 @@ export default {
     },
     getIndex () {
       return this.myVoteData.findIndex((item, index) => {
-        return item.title === this.itemsObject.title
+        return item.title === this.itemsObject.title && item.createdtime === this.itemsObject.createdtime
       })
     },
     getContentUrl (item) {
@@ -118,11 +122,12 @@ export default {
       return contentUrl
     },
     voteUp () {
-      if (this.downvote) {
+      if (this.downvote || !(this.isVoted)) {
         this.upvote = true
         this.totalUpVotes++
         this.totalDownVotes = this.totalDownVotes > 0 ? --this.totalDownVotes : 0
         this.downvote = false
+        this.isVoted = true
         if (this.currentVoteStatus && this.currentVoteStatus['vote']) {
           this.currentVoteStatus['vote'] = 1
         } else {
@@ -132,11 +137,12 @@ export default {
       }
     },
     voteDown () {
-      if (this.upvote) {
+      if (this.upvote || !(this.isVoted)) {
         this.downvote = true
         this.totalDownVotes++
         this.totalUpVotes = this.totalUpVotes > 0 ? --this.totalUpVotes : 0
         this.upvote = false
+        this.isVoted = true
         if (this.currentVoteStatus && this.currentVoteStatus['vote']) {
           this.currentVoteStatus['vote'] = -1
         } else {
@@ -166,11 +172,11 @@ export default {
       }
 
       let index = this.getIndex() ? this.getIndex() : 0
-
       if (index >= 0) {
         this.myVoteData[index] = this.currentVoteStatus
       } else {
         this.myVoteData.push(this.itemsObject)
+        this.currentVoteStatus = this.itemsObject
       }
       storageService.putFile({
         fileName: 'my_votes.json',
@@ -178,6 +184,14 @@ export default {
         options: { encrypt: false }
       })
     }
+    // To empty the my_votes.json file at once use this function
+    // changeFileStatus () {
+    //   storageService.putFile({
+    //     fileName: 'my_votes.json',
+    //     data: '',
+    //     options: { encrypt: false }
+    //   })
+    // }
   }
 }
 </script>
