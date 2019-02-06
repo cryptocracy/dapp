@@ -31,6 +31,9 @@ const cryptocracyHandler = {
       let res = await axios.get(fileUrl)
       context.commit('MUTATION_SET_CONTENT_DATA', res.data)
       return res
+    },
+    ACTION_NOTIFY_SERVER (context, fqn) {
+      cryptocracyServices.notifyServer(fqn)
     }
   },
   getters: {

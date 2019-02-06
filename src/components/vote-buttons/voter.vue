@@ -20,6 +20,7 @@
 <script>
 import storageService from '@/services/blockstack-storage'
 import cryptocracyServices from '@/services/cryptocracy'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'voter',
@@ -33,6 +34,11 @@ export default {
     totalDownVotes: 0,
     currentVoteStatus: {}
   }),
+  computed: {
+    ...mapGetters({
+      profileData: 'getProfileData'
+    })
+  },
   props: {
     itemsObject: {
       type: Object
@@ -182,6 +188,8 @@ export default {
         fileName: 'my_votes.json',
         data: this.myVoteData,
         options: { encrypt: false }
+      }).then(res => {
+        if (res) this.$store.dispatch('ACTION_NOTIFY_SERVER', this.profileData.username)
       })
     }
     // To empty the my_votes.json file at once use this function

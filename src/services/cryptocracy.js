@@ -11,6 +11,10 @@ const cryptocracyServices = {
   countVotes: async (query) => {
     let res = await Axios.get('https://search.cryptocracy.io/souq/quorum/votes', { params: {...query} })
     return res.data
+  },
+  notifyServer: async (fqn) => {
+    let res = await Axios.put(`https://search.cryptocracy.io/souq/quorum/check?user=${fqn}`)
+    return res.data
   }
 }
 export default cryptocracyServices
