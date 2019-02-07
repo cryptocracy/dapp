@@ -1,6 +1,11 @@
 <template>
   <v-card class="container mt-4">
-    <div class="entity-title" v-if="eventObject.title">{{ eventObject.title }}</div>
+    <div class="entity-title d-flex justify-space-between" v-if="eventObject.title">
+      {{ eventObject.title }}
+      <v-flex xs3>
+        <Voter :itemsObject="eventObject" type="event"></Voter>
+      </v-flex>
+    </div>
     <v-list two-line>
       <v-list-tile v-if="isLoading">
         <v-progress-linear
@@ -130,6 +135,7 @@
 import axios from 'axios'
 import storageService from '@/services/blockstack-storage'
 import OpenMapWithMarker from '@/components/maps/OpenMapWithMarker'
+import Voter from '@/components/vote-buttons/voter'
 
 export default {
   name: 'EventInfo',
@@ -149,7 +155,8 @@ export default {
     }
   },
   components: {
-    OpenMapWithMarker
+    OpenMapWithMarker,
+    Voter
   },
   computed: {
     eventUrl () {

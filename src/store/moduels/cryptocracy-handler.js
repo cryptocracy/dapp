@@ -3,7 +3,8 @@ import axios from 'axios'
 const cryptocracyHandler = {
   state: {
     searchResult: [],
-    contentData: {}
+    contentData: {},
+    quorumData: []
   },
   mutations: {
     MUTATION_SAVE_SEARCHED_RESULT (state, payload) {
@@ -19,6 +20,23 @@ const cryptocracyHandler = {
     },
     MUTATION_SET_CONTENT_DATA (state, payload) {
       state.contentData = payload
+    },
+    MUTATION_SET_QUORUM_DATA (state, payload) {
+      let modifiedData = payload.reduce((acc, item, index) => {
+        if (!(index % 2)) {
+          let url = payload[index + 1].split('_')
+          url.splice(0, 1)
+          let createdOn = url[url.length - 1].split('.')[0]
+          let contentUrl = url.join('_')
+          acc.push({
+            'votes': item,
+            'contentUrl': contentUrl,
+            'createdOn': createdOn
+          })
+        }
+        return acc
+      }, [])
+      state.quorumData = modifiedData
     }
   },
   actions: {
@@ -31,11 +49,20 @@ const cryptocracyHandler = {
       let res = await axios.get(fileUrl)
       context.commit('MUTATION_SET_CONTENT_DATA', res.data)
       return res
+    },
+    async ACTION_GET_QUORUM_DATA (context, query) {
+      let res = await cryptocracyServices.getQuorumContent(query)
+      context.commit('MUTATION_SET_QUORUM_DATA', res)
+      return res
+    },
+    ACTION_NOTIFY_SERVER (context, fqn) {
+      cryptocracyServices.notifyServer(fqn)
     }
   },
   getters: {
     getProximitySearchResult: state => state.searchResult,
-    getContentData: state => state.contentData
+    getContentData: state => state.contentData,
+    getQuorumData: state => state.quorumData
   }
 }
 export default cryptocracyHandler

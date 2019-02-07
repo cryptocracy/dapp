@@ -90,6 +90,7 @@ export default {
   }),
   created () {
     this.$store.dispatch('ACTION_GET_TRANSACTIONS_DATA')
+    this.$store.dispatch('ACTION_GET_QUORUM_DATA', { sort: 'pop' })
     storageService.getFile({
       fileName: 'settings.json',
       options: {decrypt: true}

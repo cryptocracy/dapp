@@ -1,6 +1,11 @@
 <template>
   <v-card class="container mt-4">
-    <div class="entity-title" v-if="markerObject.title">{{ markerObject.title }}</div>
+    <div class="entity-title d-flex justify-space-between" v-if="markerObject.title">
+      {{ markerObject.title }}
+      <v-flex xs3>
+        <Voter :itemsObject="markerObject" type="marker"></Voter>
+      </v-flex>
+    </div>
     <v-list two-line>
       <v-list-tile v-if="isLoading">
         <v-progress-linear
@@ -108,6 +113,7 @@
 <script>
 import OpenMapWithMarker from '@/components/maps/OpenMapWithMarker'
 import storageService from '@/services/blockstack-storage'
+import Voter from '@/components/vote-buttons/voter'
 
 export default {
   name: 'MarkerInfo',
@@ -118,7 +124,8 @@ export default {
     isShowMarker: true
   }),
   components: {
-    OpenMapWithMarker
+    OpenMapWithMarker,
+    Voter
   },
   props: {
     markerObject: {

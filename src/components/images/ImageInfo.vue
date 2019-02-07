@@ -16,6 +16,9 @@
         <v-list-tile-content>
           <v-list-tile-title v-html="imageObject.detail"></v-list-tile-title>
         </v-list-tile-content>
+        <v-flex xs3>
+          <Voter :itemsObject="imageObject" type="image"></Voter>
+        </v-flex>
       </v-list-tile>
       <v-list-tile v-if="imageObject.ownername">
         <v-list-tile-content>
@@ -111,6 +114,7 @@
 import axios from 'axios'
 import OpenMapWithMarker from '@/components/maps/OpenMapWithMarker'
 import storageService from '@/services/blockstack-storage'
+import Voter from '@/components/vote-buttons/voter'
 
 export default {
   name: 'ImageInfo',
@@ -130,7 +134,8 @@ export default {
     }
   },
   components: {
-    OpenMapWithMarker
+    OpenMapWithMarker,
+    Voter
   },
   computed: {
     imageUrl () {
@@ -140,7 +145,7 @@ export default {
         urlItems = JSON.parse(localStorage['blockstack-gaia-hub-config'])
       }
       // creating hub url(where our files are stored)
-      const hubUrl = this.hubUrl || `${urlItems.url_prefix}${this.imageObject.owner}/`
+      const hubUrl = `${urlItems.url_prefix}${this.imageObject.owner}/`
       return this.imageObject ? `${hubUrl}image_${this.imageObject.createdtime}.json` : ''
     },
     isOwned () {

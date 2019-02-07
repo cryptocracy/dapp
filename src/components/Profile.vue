@@ -225,7 +225,10 @@ export default {
     }),
     // computed property for showing searched user profile data or user's own profile data
     userData () {
-      return this.searchedUserProfileData || this.profileData
+      if (this.searchedUserProfileData && Object.keys(this.searchedUserProfileData).length > 0) {
+        return this.searchedUserProfileData
+      }
+      return this.profileData
     },
     // computed property for showing addition/deletion button
     isAdded () {
@@ -250,11 +253,12 @@ export default {
       } else if (this.$route.params.id !== 'my-profile') {
         this.getResourceCount(null)
         return null
-      } else {
+      } else if (this.profileData && this.profileData.profile) {
         let url = this.profileData.profile.apps[window.location.origin] || this.profileData.profile.apps['https://dapp_cryptocracy_io']
         this.getResourceCount(url)
         return url
       }
+      return ''
     },
     address () {
       if (this.hasBTCProof) {
