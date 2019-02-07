@@ -57,12 +57,12 @@ const searchHandler = {
         // and the Id he entered in URL giving multiple results
         // with search state active, multiple search-results are going to render
         // and user can seelct one of them to view their profiles
-        if (searchResult.length > 1 && !searchObj.isAbsolute) {
+        if (searchResult.data.length > 1 && !searchObj.isAbsolute) {
           context.commit('MUTATION_SET_SEARCH_STATE', true)
         }
         // again this is when user user comes on profile page directly via URL
         // and to show the profile of user when only single result is returned from API
-        context.commit('MUTATION_SET_USER', searchResult[0] || {})
+        context.commit('MUTATION_SET_USER', searchResult.data[0] || {})
       }
       if (searchObj.type === 'tags') {
         searchResult.data = await cryptocracyService.searchTags(searchObj.query)

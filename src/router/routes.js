@@ -28,6 +28,7 @@ import WalletReceive from '@/components/wallet/Receive'
 import WalletHistory from '@/components/wallet/History'
 import WalletSend from '@/components/wallet/Send'
 import Settings from '@/components/settings/Settings'
+import Quorum from '@/components/quorum/Quorum'
 
 /**
 * Routes Data
@@ -72,7 +73,9 @@ const routes = [
   { path: '/wallet/summary', name: 'Summary', component: WalletSummary },
   { path: '/wallet/receive', name: 'Receive', component: WalletReceive },
   { path: '/wallet/history', name: 'History', component: WalletHistory },
-  { path: '/wallet/send', name: 'Send', component: WalletSend }
+  { path: '/wallet/send', name: 'Send', component: WalletSend },
+
+  { path: '/quorum', name: 'Quorum', component: Quorum }
 ]
 
 export default routes
