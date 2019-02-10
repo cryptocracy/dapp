@@ -169,7 +169,6 @@ export default {
         this.tags.forEach(element => {
           this.marker.tags.push({title: element})
         })
-        console.log('marker', this.marker)
         this.saveMarker(timestamp)
       }
     },
