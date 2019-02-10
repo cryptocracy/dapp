@@ -21,6 +21,7 @@
                 <v-btn dark color="teal accent-4" icon><v-icon dark>keyboard_arrow_right</v-icon></v-btn>
               </v-flex>
             </v-layout>
+            <div>{{type(item.contentUrl)}}</div>
             <div class="v-list__tile__sub-title" v-if="lazyLoadedData[item.contentUrl]" >{{lazyLoadedData[item.contentUrl].description}}</div>
             <div class="v-list__tile__sub-title">Votes: {{item.votes}}</div>
             <div class="v-list__tile__sub-title">Content URL: <span>{{item.contentUrl}}</span></div>
@@ -63,15 +64,22 @@ export default {
     deep: true,
     contentUrlsData () {
       this.lazyLoadedData = {}
-      console.log('getcontentUrlsData', this.contentUrlsData)
       this.contentUrlsData.forEach(element => {
         this.lazyLoadedData[element.contentUrl] = element
       })
     }
   },
   methods: {
+    type (contentUrl) {
+      let type = contentUrl.includes('marker') ? 'MARKER'
+        : contentUrl.includes('image') ? 'IMAGE'
+          : contentUrl.includes('event') ? 'EVENT' : ''
+      return type
+    },
     async redirectUser (content) {
+      this.$store.commit('toggleLoading')
       await this.$store.dispatch('ACTION_GET_CONTENT', content.contentUrl)
+      this.$store.commit('toggleLoading')
       if (content.contentUrl.includes('marker')) this.$router.push({name: 'OwnedMarkers'})
       else if (content.contentUrl.includes('tag')) this.$router.push({name: 'Owned'})
       else if (content.contentUrl.includes('image')) this.$router.push({name: 'OwnedImages'})

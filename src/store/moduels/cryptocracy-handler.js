@@ -70,7 +70,6 @@ const cryptocracyHandler = {
       contentUrls.forEach(async item => {
         let res = await axios.get(item)
         context.commit('MUTATION_SET_CONTENT_URLS_DATA', {url: item, data: res.data})
-        console.log('RESSSSSSSSSSSS', res.data)
       })
     },
     ACTION_NOTIFY_SERVER (context, fqn) {
