@@ -23,6 +23,11 @@ import MyMarkerList from '@/components/markers/MyMarkerList'
 import FavoriteMarkerList from '@/components/markers/FavoriteMarkerList'
 import MarkerInfo from '@/components/markers/MarkerInfo'
 
+import TaskForm from '@/components/tasks/TaskForm'
+import MyTaskList from '@/components/tasks/MyTaskList'
+import FavoriteTaskList from '@/components/tasks/FavoriteTaskList'
+import TaskInfo from '@/components/tasks/TaskInfo'
+
 import WalletSummary from '@/components/wallet/Summary'
 import WalletReceive from '@/components/wallet/Receive'
 import WalletHistory from '@/components/wallet/History'
@@ -69,6 +74,12 @@ const routes = [
   { path: '/markers/owned', name: 'OwnedMarkers', component: MyMarkerList },
   { path: '/markers/favorites', name: 'FavoritesMarkers', component: FavoriteMarkerList },
   { path: '/markers/:markerName', name: 'MarkerInfo', props: true, component: MarkerInfo },
+
+  { path: '/tasks/add-task', name: 'AddTask', props: true, component: TaskForm },
+  { path: '/tasks/edit-task', name: 'EditTask', props: true, component: TaskForm },
+  { path: '/tasks/owned', name: 'OwnedTasks', component: MyTaskList },
+  { path: '/tasks/favorites', name: 'FavoritesTasks', component: FavoriteTaskList },
+  { path: '/tasks/:taskName', name: 'TaskInfo', props: true, component: TaskInfo },
 
   { path: '/wallet/summary', name: 'Summary', component: WalletSummary },
   { path: '/wallet/receive', name: 'Receive', component: WalletReceive },

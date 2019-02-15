@@ -73,8 +73,8 @@ const items = [
     action: 'list',
     title: 'Tasks',
     items: [
-      { title: 'Owned', linkTo: '/page-layout/banner' },
-      { title: 'Favorites', linkTo: '/page-layout/banner' }
+      { title: 'Owned', linkTo: '/tasks/owned' },
+      { title: 'Favorites', linkTo: '/tasks/favorites' }
     ]
   },
   {
