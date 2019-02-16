@@ -62,6 +62,8 @@
         item-text="title"
         v-model="task.images"
         :disabled="isLoading"
+        hint="Add multiple images by click. You can add a maximum of 5 images."
+        :rule="max5rule"
         return-object
         multiple
         chips
@@ -71,19 +73,23 @@
         chips
         :rules="tagsRules"
         multiple
-        label="Tags"
+        label="Tag(s)"
         hint="Add multiple tags by pressing Enter or Tab button after writing tag name. You can add a maximum of 5 tags."
         :persistent-hint="true"
       ></v-combobox>
-      <v-combobox
-        v-model="events"
-        chips
-        :rules="tagsRules"
+      <v-select
+        :items="events"
+        label="Event(s)"
+        item-text="title"
+        v-model="task.events"
+        :disabled="isLoading"
+        hint="Add multiple events by click. You can add a maximum of 5 events."
+        persistent-hint
+        :rule="max5rule"
+        return-object
         multiple
-        label="Events"
-        hint="Add multiple events by pressing Enter or Tab button after writing tag name. You can add a maximum of 5 events."
-        :persistent-hint="true"
-      ></v-combobox>
+        chips
+      ></v-select>
       <!--<div class="switch-wrapper">-->
       <!--<div class="input-group&#45;&#45;text-field primary&#45;&#45;text">Privacy</div>-->
       <!--<div class="switch-block">-->
@@ -137,6 +143,7 @@ export default {
     valid: false,
     markers: [],
     tags: [],
+    events: [],
     stages: [
       'To Do',
       'In progress',
@@ -144,6 +151,9 @@ export default {
       'Done'
     ],
     images: [],
+    max5rule: [
+      (v) => (v && v.length <= 5) || 'Not more than 5 items'
+    ],
     task: {
       title: '',
       description: '',
@@ -242,7 +252,7 @@ export default {
           this.task[property] = this.taskProp[property] instanceof Object ? {...this.taskProp[property]} : this.taskProp[property]
         }
         this.task.images = objectHelpers.toArray(this.task.images)
-        // this.task.tags = objectHelpers.toArray(this.task.tags)
+        this.task.events = objectHelpers.toArray(this.task.events)
         this.taskProp.tags.forEach(item => {
           this.tags.push(item.title)
         })
@@ -279,35 +289,35 @@ export default {
             })
         })
     },
-    // fetchTags () {
-    //   // fetching tags list
-    //   this.blockstack.getFile('my_tags.json', { decrypt: false })
-    //     .then((tagsJSON) => {
-    //       let tagsObj = JSON.parse(tagsJSON)
-    //       if (tagsObj) {
-    //         this.tags = Object.keys(tagsObj).map((key) => {
-    //           return {
-    //             address: 'https://gaia.blockstack.org/hub/' + cryptoAddress + '/' + key + '.json',
-    //             title: tagsObj[key]
-    //           }
-    //         })
-    //       }
-    //       this.blockstack.getFile('my_fav_tags.json', { decrypt: false })
-    //         .then((favTagsJSON) => {
-    //           let favTagsObj = JSON.parse(favTagsJSON)
-    //           if (favTagsJSON) {
-    //             Object.keys(favTagsObj).forEach((key) => {
-    //               if (key.split('_')[2] !== cryptoAddress) {
-    //                 this.tags.push({
-    //                   address: 'https://gaia.blockstack.org/hub/' + key.split('_')[2] + '/' + key.substr(0, key.lastIndexOf('_')) + '.json',
-    //                   title: favTagsObj[key]
-    //                 })
-    //               }
-    //             })
-    //           }
-    //         })
-    //     })
-    // },
+    fetchEvents () {
+      // fetching events list
+      this.blockstack.getFile('my_events.json', { decrypt: false })
+        .then((eventsJSON) => {
+          let eventsObj = JSON.parse(eventsJSON)
+          if (eventsObj) {
+            this.events = Object.keys(eventsObj).map((key) => {
+              return {
+                address: 'https://gaia.blockstack.org/hub/' + cryptoAddress + '/' + key + '.json',
+                title: eventsObj[key]
+              }
+            })
+          }
+          this.blockstack.getFile('my_fav_events.json', { decrypt: false })
+            .then((favEventsJSON) => {
+              let favEventsObj = JSON.parse(favEventsJSON)
+              if (favEventsJSON) {
+                Object.keys(favEventsObj).forEach((key) => {
+                  if (key.split('_')[2] !== cryptoAddress) {
+                    this.events.push({
+                      address: 'https://gaia.blockstack.org/hub/' + key.split('_')[2] + '/' + key.substr(0, key.lastIndexOf('_')) + '.json',
+                      title: favEventsObj[key]
+                    })
+                  }
+                })
+              }
+            })
+        })
+    },
     fetchImages () {
       // fetching images list
       this.blockstack.getFile('my_images.json', { decrypt: false })
@@ -341,7 +351,7 @@ export default {
   mounted () {
     this.updateFromTaskProp()
     this.fetchMarkers()
-    // this.fetchTags()
+    this.fetchEvents()
     this.fetchImages()
   }
 }
