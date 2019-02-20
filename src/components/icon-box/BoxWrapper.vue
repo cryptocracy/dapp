@@ -48,7 +48,7 @@
       <div class="col-md-3">
         <app-icon-box
           backgroundColor="#32e8a5"
-          icon="today"
+          icon="list"
           :title="taskCount"
           subtitle="Tasks Owned"
           to="/tasks/owned"
