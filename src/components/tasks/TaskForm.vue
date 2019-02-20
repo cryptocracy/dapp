@@ -37,6 +37,7 @@
         v-model="task.amount"
         label="Amount"
         :disabled="isLoading"
+        hint="Specify the amount of funding you seek."
       ></v-text-field>
       <div class="date-time-picker">
         <datetime
@@ -54,6 +55,7 @@
         item-text="title"
         v-model="task.marker"
         :disabled="isLoading"
+        hint="Specify a maximum of 1 Marker."
         return-object
       ></v-select>
       <v-select
@@ -62,7 +64,7 @@
         item-text="title"
         v-model="task.images"
         :disabled="isLoading"
-        hint="Add multiple images by click. You can add a maximum of 5 images."
+        hint="Specify a maximum of 5 Images."
         :rule="max5rule"
         persistent-hint
         return-object
@@ -75,7 +77,7 @@
         :rules="tagsRules"
         multiple
         label="Tag(s)"
-        hint="Add multiple tags by click. You can add a maximum of 5 tags."
+        hint="Specify a maximum of 5 Tags."
         :persistent-hint="true"
       ></v-combobox>
       <v-select
@@ -84,7 +86,7 @@
         item-text="title"
         v-model="task.events"
         :disabled="isLoading"
-        hint="Add multiple events by click. You can add a maximum of 5 events."
+        hint="Specify a maximum of 5 Events."
         persistent-hint
         :rule="max5rule"
         return-object
