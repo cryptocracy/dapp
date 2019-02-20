@@ -55,7 +55,7 @@
               }}"
             >
               <v-list-tile-avatar>
-                <v-icon color="orange lighten-4">today</v-icon>
+                <v-icon color="green lighten-4">list</v-icon>
               </v-list-tile-avatar>
 
               <v-list-tile-content>
@@ -122,7 +122,7 @@ export default {
         else if (this.sortBy === 'date') return prev.createdtime - next.createdtime
         else return +new Date(prev.start) - new Date(next.start)
       }
-      return this.tasks.filter(task => (this.filterArchived && task.archived) || (this.filterActive && !task.archived) || (this.filterUpcoming && (+new Date() < +new Date(task.end)))).slice(0).sort(sortFunc)
+      return this.tasks.filter(task => (this.filterArchived && task.archived) || (this.filterActive && !task.archived) || (this.filterUpcoming && (+new Date() < +new Date(task.due)))).slice(0).sort(sortFunc)
     }
   },
   methods: {

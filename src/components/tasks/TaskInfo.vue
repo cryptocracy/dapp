@@ -31,10 +31,10 @@
           <v-list-tile-title v-html="taskObject.ownername"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
-      <v-list-tile v-if="taskObject.start">
+      <v-list-tile v-if="taskObject.due">
         <v-list-tile-content>
           <v-list-tile-sub-title>Due date</v-list-tile-sub-title>
-          <v-list-tile-title v-html="new Date(taskObject.due).toLocaleString()"></v-list-tile-title>
+          <v-list-tile-title v-html="new Date(taskObject.due).toLocaleDateString()"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
       <v-list-tile v-if="taskObject.tags && taskObject.tags.length">
@@ -43,6 +43,16 @@
           <div>
             <template v-for="tag in taskObject.tags">
               <v-chip :key="tag.address">{{ '#' + tag.title }}</v-chip>
+            </template>
+          </div>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile v-if="taskObject.events && taskObject.events.length">
+        <v-list-tile-content>
+          <v-list-tile-sub-title>{{ taskObject.events.length>1 ? 'Events' : 'Event' }}</v-list-tile-sub-title>
+          <div>
+            <template v-for="event in taskObject.events">
+              <v-chip :key="event.address">{{ event.title }}</v-chip>
             </template>
           </div>
         </v-list-tile-content>

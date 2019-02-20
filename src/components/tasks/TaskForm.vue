@@ -41,7 +41,7 @@
       <div class="date-time-picker">
         <datetime
           v-model="task.due"
-          type='datetime'
+          type='date'
           input-id="startDate"
           :min-datetime="new Date().toISOString()"
         >
@@ -64,6 +64,7 @@
         :disabled="isLoading"
         hint="Add multiple images by click. You can add a maximum of 5 images."
         :rule="max5rule"
+        persistent-hint
         return-object
         multiple
         chips
@@ -74,7 +75,7 @@
         :rules="tagsRules"
         multiple
         label="Tag(s)"
-        hint="Add multiple tags by pressing Enter or Tab button after writing tag name. You can add a maximum of 5 tags."
+        hint="Add multiple tags by click. You can add a maximum of 5 tags."
         :persistent-hint="true"
       ></v-combobox>
       <v-select
@@ -243,8 +244,7 @@ export default {
     },
     clear () {
       this.$refs.form.reset()
-      this.task.start = undefined
-      this.task.end = undefined
+      this.task.due = undefined
     },
     updateFromTaskProp () {
       if (this.taskProp) {
