@@ -25,6 +25,12 @@
           <v-list-tile-title v-html="taskObject.stage"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
+      <v-list-tile v-if="taskObject.amount && currentAmount">
+        <v-list-tile-content>
+          <v-list-tile-sub-title>Amount</v-list-tile-sub-title>
+          <v-progress-circular :value="currentAmount/taskObject.amount" color="teal">{{currentAmount}}</v-progress-circular>
+        </v-list-tile-content>
+      </v-list-tile>
       <v-list-tile v-if="taskObject.ownername">
         <v-list-tile-content>
           <v-list-tile-sub-title>Published by</v-list-tile-sub-title>
@@ -108,11 +114,6 @@
           <v-list-tile-title v-html="taskObject.address"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
-      <v-list-tile v-if="taskObject.amount">
-        <v-list-tile-content>
-          <v-list-tile-title v-html="taskObject.amount"></v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
       <v-list-tile>
         <div class="json-address">
           <v-text-field
@@ -159,7 +160,8 @@ export default {
     isFavorite: false,
     isLoading: false,
     isShowMarker: false,
-    markerCenter: null
+    markerCenter: null,
+    currentAmount: null
   }),
   props: {
     taskObject: {
@@ -240,7 +242,22 @@ export default {
             this.$store.commit('toggleLoading')
           }
         })
+        .then(() => {
+          axios.get('https://blockchain.info/q/addressbalance/' + this.taskObject.address)
+            .then((res) => {
+              console.log(res)
+              this.currentAmount = res.data
+            })
+        })
     }
   }
 }
 </script>
+
+<style scoped>
+  .v-progress-circular__info {
+    transform: translate(0, -50%);
+    left: 100%;
+    padding-left: 10px;
+  }
+</style>

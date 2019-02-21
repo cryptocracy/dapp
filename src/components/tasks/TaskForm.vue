@@ -37,6 +37,10 @@
         v-model="task.amount"
         label="Amount"
         :disabled="isLoading"
+        type="number"
+        :rules="amountRule"
+        min="0.01"
+        max="100000.00"
       ></v-text-field>
       <div class="date-time-picker">
         <datetime
@@ -154,6 +158,9 @@ export default {
     images: [],
     max5rule: [
       (v) => (v && v.length <= 5) || 'Not more than 5 items'
+    ],
+    amountRule: [
+      (v) => (v && v <= 100000.00 && v >= 0.01) || 'Amount should be in range between 0.01 and 100000.00'
     ],
     task: {
       title: '',

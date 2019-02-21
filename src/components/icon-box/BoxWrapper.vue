@@ -48,7 +48,7 @@
       <div class="col-md-3">
         <app-icon-box
           backgroundColor="#32e8a5"
-          icon="today"
+          icon="list"
           :title="taskCount"
           subtitle="Tasks Owned"
           to="/tasks/owned"
@@ -80,7 +80,7 @@ export default {
     storageService.getFile({ fileName: 'my_tags.json', options: { decrypt: false } }).then((res) => { this.tagCount = res ? Object.keys(res).length : 0 })
     storageService.getFile({ fileName: 'my_markers.json', options: { decrypt: false } }).then((res) => { this.markerCount = res ? Object.keys(res).length : 0 })
     storageService.getFile({ fileName: 'my_images.json', options: { decrypt: false } }).then((res) => { this.imageCount = res ? Object.keys(res).length : 0 })
-    storageService.getFile({ fileName: 'my_tasks.json', options: { decrypt: false } }).then((res) => { this.tasksCount = res ? Object.keys(res).length : 0 })
+    storageService.getFile({ fileName: 'my_tasks.json', options: { decrypt: false } }).then((res) => { this.taskCount = res ? Object.keys(res).length : 0 })
   }
 }
 </script>
