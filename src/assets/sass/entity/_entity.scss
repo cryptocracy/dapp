@@ -136,8 +136,14 @@
 }
 
 
-.v-progress-circular.task-progress .v-progress-circular__info {
-  transform: translate(0, -50%);
-  left: 100%;
-  padding-left: 10px;
+.v-progress-circular.task-progress {
+  .v-progress-circular__info {
+    transform: translate(0, -50%);
+    left: 100%;
+    padding-left: 10px;
+  }
+
+  .v-list__tile__content {
+    height: auto;
+  }
 }
