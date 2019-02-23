@@ -23,6 +23,10 @@
             height="300px"
             title="Wallet Input (Received)"
             :children="LineChart"
+            class='step4'
+            data-step="6"
+            data-intro="This is step 1"
+            data-position="bottom"
             :showGraph="showDonationGraph"
             error_message_title = "No Donations found."
             error_message="Be patient, it may take time for other users to show interest in your content."
@@ -34,6 +38,10 @@
             height="300px"
             title="Wallet Output (Payouts)"
             :children="BarChart"
+            class='step5'
+            data-step="7"
+            data-intro="This is step 1"
+            data-position="bottom"
             :showGraph="showPayoutGraph"
             error_message_title = "No Payouts found."
             error_message="Looks like you have not initiated any payouts yet."

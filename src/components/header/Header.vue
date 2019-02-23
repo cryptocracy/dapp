@@ -2,7 +2,7 @@
   <div>
     <v-toolbar dark app clipped-left fixed>
       <!-- Logo and Sidebar toggle icon area -->
-      <v-toolbar-title :style="$vuetify.breakpoint.smAndUp ? 'width: 260px; min-width: 250px' : 'min-width: 72px'" class="ml-0 pl-3 d-flex justify-content-between align-items-center">
+      <v-toolbar-title :style="$vuetify.breakpoint.smAndUp ? 'width: 260px; min-width: 250px' : 'min-width: 72px'" class="step6 ml-0 pl-3 d-flex justify-content-between align-items-center">
         <router-link to="/"><span class="brand"><img :src="logo"></span></router-link>
         <v-btn flat icon color="white" @click="sideBarToggle()">
           <v-icon>sort</v-icon>
@@ -12,6 +12,7 @@
       <!-- Search Box -->
       <v-text-field
         dark
+        id='introClass'
         class="hidden-xs-only"
         prepend-icon="search"
         placeholder="Search"
@@ -22,9 +23,13 @@
       >
       </v-text-field>
 
-      <div>
+      <div class='step7'>
         <v-select
           primary
+          id='introDataStep'
+          data-step="2"
+          data-intro="This is step 2"
+          data-position="bottom"
           style="max-width: 150px;"
           class="pl-3 hidden-xs-only"
           placeholder="Select search type"
@@ -33,7 +38,13 @@
         >
         </v-select>
       </div>
-
+      <v-btn
+        flat
+        class='livehelp_position'
+        @click="showHelp()">
+        <v-icon>live_help
+        </v-icon>
+      </v-btn>
       <!-- Header right side notification and progile menu -->
       <div class="d-flex align-center" style="margin-left: auto">
         <v-btn icon @click.stop="showNotification">
@@ -55,12 +66,14 @@ import { eventBus } from '../../main'
 import Notifications from '../notifications/Notifications'
 import AvatarMenu from './Avatarmenu'
 import logo from '../../assets/img/logo.svg'
+import { tourMixin } from '@/helpers/tourHelper'
 
 export default {
   components: {
     'app-notification': Notifications,
     'app-avatar-menu': AvatarMenu
   },
+  mixins: [tourMixin],
   data: () => ({
     timer: '',
     toggleNotification: false,
@@ -139,6 +152,10 @@ export default {
 .v-toolbar {
   background: linear-gradient(to right, #1ebea5 , #32e8a5);
   box-shadow: 0 6px 25px 0 rgba(38, 50, 56, 0.2);
+}
+.livehelp_position {
+  position: relative;
+  left: 12.6%;
 }
 .v-toolbar >>> .v-input__slot {
   background: transparent !important;

@@ -1,7 +1,10 @@
 <template>
   <v-speed-dial
-    class="floating-button"
+    class="floating-button step8"
     v-model="fab"
+    data-step="8"
+    data-intro="This is step 1"
+    data-position="bottom"
     :top="top"
     :bottom="bottom"
     :right="right"
@@ -24,6 +27,7 @@
       fab
       dark
       small
+      class='step10'
       color="indigo lighten-1"
       to="/"
     >

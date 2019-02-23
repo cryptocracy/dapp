@@ -13,19 +13,21 @@
             </v-select>
           </v-flex>
         </v-layout>
-        <v-card :hover="true" @click="redirectUser(item)" class="br20 mt-2" v-for="(item, index) in quorumData" :key="index">
-          <v-list two-line>
-            <v-list-tile-action></v-list-tile-action>
-            <v-list-tile>
-              <v-list-tile-content>
-                <v-list-tile-sub-title>Votes: {{item.votes}}</v-list-tile-sub-title>
-                <v-list-tile-sub-title>Content URL: <span>{{item.contentUrl}}</span></v-list-tile-sub-title>
-                <!-- <v-list-tile-title></v-list-tile-title> -->
-                <v-list-tile-sub-title>Created On: {{new Date(Number(item.createdOn)).toDateString()}}</v-list-tile-sub-title>
-              </v-list-tile-content>
-            </v-list-tile>
-          </v-list>
-        </v-card>
+        <v-flex class='marker1'>
+          <v-card :hover="true" @click="redirectUser(item)" class="br20 mt-2" v-for="(item, index) in quorumData" :key="index">
+            <v-list two-line>
+              <v-list-tile-action></v-list-tile-action>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-list-tile-sub-title>Votes: {{item.votes}}</v-list-tile-sub-title>
+                  <v-list-tile-sub-title>Content URL: <span>{{item.contentUrl}}</span></v-list-tile-sub-title>
+                  <!-- <v-list-tile-title></v-list-tile-title> -->
+                  <v-list-tile-sub-title>Created On: {{new Date(Number(item.createdOn)).toDateString()}}</v-list-tile-sub-title>
+                </v-list-tile-content>
+              </v-list-tile>
+            </v-list>
+          </v-card>
+        </v-flex>
       </v-flex>
     </v-layout>
   </v-container>
