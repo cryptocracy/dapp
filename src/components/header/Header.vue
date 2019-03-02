@@ -1,6 +1,6 @@
 <template lang="html">
   <div>
-    <v-toolbar dark app clipped-left fixed>
+    <v-toolbar id='headerTour' dark app clipped-left fixed>
       <!-- Logo and Sidebar toggle icon area -->
       <v-toolbar-title :style="$vuetify.breakpoint.smAndUp ? 'width: 260px; min-width: 250px' : 'min-width: 72px'" class="step6 ml-0 pl-3 d-flex justify-content-between align-items-center">
         <router-link to="/"><span class="brand"><img :src="logo"></span></router-link>
@@ -170,6 +170,9 @@ export default {
   flex: 0 0 36px!important;
 }
 
+.headerClass {
+  z-index: '99999 !important'
+}
 .v-toolbar >>> .v-toolbar__title {
   padding-left: 0 !important;
 }

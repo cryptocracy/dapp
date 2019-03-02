@@ -7,6 +7,14 @@ let customTour = () => {
     tipData[routeKey] = []
     tourMsg[routeKey].forEach(data => {
       for (let key in data) {
+        // let getIntroClass = document.getElementsByClassName('step6')
+        // console.log('step6666666', getIntroClass)
+        let tagName = document.getElementById('headerTour')
+        if (key === 'step1') {
+          tagName.classList.remove('introjs-fixParent')
+          tagName.classList.add('headerClass')
+          console.log('tag==>', tagName)
+          }
         tipData[routeKey].push(
           {
             element: '.' + key,
