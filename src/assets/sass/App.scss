@@ -83,6 +83,10 @@
 .iconbox-single--equal {
   height: calc(100% - 30px);
 }
+.moreTransparent {
+  // position: absolute !important;
+  background-color: rgba(255,255,255,0.5) !important;
+}
 
 // Entities/Objects style
 @import "./entity/entity";

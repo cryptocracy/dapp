@@ -2,9 +2,9 @@
   <div>
     <v-toolbar id='headerTour' dark app clipped-left fixed>
       <!-- Logo and Sidebar toggle icon area -->
-      <v-toolbar-title :style="$vuetify.breakpoint.smAndUp ? 'width: 260px; min-width: 250px' : 'min-width: 72px'" class="step6 ml-0 pl-3 d-flex justify-content-between align-items-center">
+      <v-toolbar-title :style="$vuetify.breakpoint.smAndUp ? 'width: 260px; min-width: 250px' : 'min-width: 72px'" class="ml-0 pl-3 d-flex justify-content-between align-items-center">
         <router-link to="/"><span class="brand"><img :src="logo"></span></router-link>
-        <v-btn flat icon color="white" @click="sideBarToggle()">
+        <v-btn flat icon class="step6" color="white" @click="sideBarToggle()">
           <v-icon>sort</v-icon>
         </v-btn>
       </v-toolbar-title>
@@ -67,6 +67,7 @@ import Notifications from '../notifications/Notifications'
 import AvatarMenu from './Avatarmenu'
 import logo from '../../assets/img/logo.svg'
 import { tourMixin } from '@/helpers/tourHelper'
+import {intro} from '@/helpers/tour'
 
 export default {
   components: {
@@ -86,6 +87,31 @@ export default {
     searchType: 'contacts',
     searchText: ''
   }),
+  created () {
+    intro.onbeforechange((targetElement) => {
+      let {navbar, introShadowBox, introNumber, numberRefrenceLayer} = this.getElements()
+      console.log('introShadowBox: ', introShadowBox)
+      if (targetElement.classList.contains('step6') || targetElement.classList.contains('step7')) {
+        console.log('navbar: ', navbar)
+        this.$nextTick(() => {
+          navbar.classList.remove('introjs-fixParent')
+          navbar.classList.add('z-important')
+          // introShadowBox.classList.remove('introjs-fixedTooltip')
+          // numberRefrenceLayer.classList.remove('introjs-fixedTooltip')
+          introShadowBox.classList.add('moreTransparent')
+          introNumber.style.top = '-5px'
+          introNumber.style.left = '-24px'
+        })
+      } else {
+        if (navbar.classList.contains('z-important')) {
+          navbar.classList.remove('z-important')
+        }
+        if ((introShadowBox && introShadowBox.classList.contains('moreTransparent'))) {
+          introShadowBox.classList.remove('moreTransparent')
+        }
+      }
+    })
+  },
   watch: {
     searchType () {
       this.$store.commit('MUTATION_SET_SEARCH_TYPE', this.searchType)
@@ -103,6 +129,14 @@ export default {
     */
     showNotification () {
       this.toggleNotification = !this.toggleNotification
+    },
+    getElements () {
+      return {
+        introShadowBox: document.querySelector('.introjs-helperLayer'),
+        introNumber: document.querySelector('.introjs-helperNumberLayer'),
+        navbar: document.getElementsByTagName('nav')[0],
+        numberRefrenceLayer: document.querySelector('.introjs-tooltipReferenceLayer')
+      }
     },
     search () {
       const searchText = this.searchText.trim()
@@ -170,9 +204,10 @@ export default {
   flex: 0 0 36px!important;
 }
 
-.headerClass {
-  z-index: '99999 !important'
+.z-important {
+  z-index: 1000000 !important;
 }
+
 .v-toolbar >>> .v-toolbar__title {
   padding-left: 0 !important;
 }

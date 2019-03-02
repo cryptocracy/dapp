@@ -14,7 +14,7 @@ let customTour = () => {
           tagName.classList.remove('introjs-fixParent')
           tagName.classList.add('headerClass')
           console.log('tag==>', tagName)
-          }
+        }
         tipData[routeKey].push(
           {
             element: '.' + key,
@@ -27,15 +27,17 @@ let customTour = () => {
   return tipData
 }
 
+const intro = introJs()
+
 let start = (routeName) => {
   console.log('start', routeName)
   let tour = customTour()
-  console.log('tour', tour)
-  const intro = introJs()
+  console.log('intro', intro)
   intro.setOptions({
-    steps: tour[routeName]
+    steps: tour[routeName],
+    scrollToElement: true
   })
   intro.start()
 }
 
-export {start, tourMsg}
+export {start, tourMsg, intro}
