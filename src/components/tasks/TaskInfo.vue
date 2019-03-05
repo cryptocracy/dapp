@@ -28,7 +28,7 @@
       <v-list-tile v-if="taskObject.amount" class="tile-progress">
         <v-list-tile-content>
           <v-list-tile-sub-title>Amount</v-list-tile-sub-title>
-          <v-progress-circular size="96" width="12" class="task-progress" :value="+currentAmount/100000000/taskObject.amount" color="teal">{{+currentAmount/100000000}}/{{taskObject.amount}}</v-progress-circular>
+          <v-progress-circular size="96" width="12" class="task-progress" :value="+currentAmount/100000000/taskObject.amount*100" color="teal">{{+currentAmount/100000000}}/{{taskObject.amount}}</v-progress-circular>
         </v-list-tile-content>
       </v-list-tile>
       <v-list-tile v-if="taskObject.ownername">
