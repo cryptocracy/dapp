@@ -4,34 +4,34 @@ const tourMsg = {
       step1: 'You use this button to create crowdfunding content, such as Markers, Images, Events, or Tasks. Note: Projects are coming soon.'
     },
     {
-      step2: 'Here you have your Markers summary tile, showing you of how many active owned Markers you have, simply click to view the list.'
+      step2: 'This is your Markers summary tile, showing you how many active owned Markers you have, simply click to view the list.'
     },
     {
-      step3: 'Here you have your Images summary tile, showing you of how many active owned Images you have, simply click to view the list.'
+      step3: 'This is your Images summary tile, showing you how many active owned Images you have, simply click to view the list.'
     },
     {
-      step4: 'Here you have your Events summary tile, showing you of how many active owned Events you have, simply click to view the list.'
+      step4: 'This is your Events summary tile, showing you how many active owned Events you have, simply click to view the list.'
     },
     {
-      step5: 'Here you have your Tasks summary tile, showing you of how many active owned Tasks you have, simply click to view the list.'
+      step5: 'This is your Tasks summary tile, showing you how many active owned Tasks you have, simply click to view the list.'
     },
     {
-      step6: 'Projects are still under development, but Here you have your Projects summary tile, showing you of how many active owned Projects you have, simply click to view the list.'
+      step6: 'Projects are still under development, but this is your Projects summary tile, showing you how many active owned Projects you have, simply click to view the list.'
     },
     {
-      step7: 'Here you have your Input Graph of your Bitcoin Wallet, showing you how and when you have received Bitcoin.'
+      step7: 'This is your Input Graph of your Bitcoin Wallet, showing you how and when you have received Bitcoin.'
     },
     {
-      step8: 'Here you have your Output Graph of your Bitcoin Wallet, showing you how and when you have sent Bitcoin.'
+      step8: 'This is your Output Graph of your Bitcoin Wallet, showing you how and when you have sent Bitcoin.'
     },
     {
-      step9: 'Here you have your Dashboard Map where you can click to search for content in that area clicked.'
+      step9: 'This is your Dashboard Map where you can click to search for content in that area clicked.'
     },
     {
-      step10: 'Here you have your Main Menu where you can click to explorer the various components of Cryptocracy.'
+      step10: 'This is how you access Main Menu, where you can click to explorer the various components of Cryptocracy.'
     },
     {
-      step11: 'Here you can change the type of search you are performing, to search for Contacts by name, or to search for content by Tag.'
+      step11: 'This is how you change the type of search you are performing, to search for Contacts by name, or to search for content by Tag.'
     }
   ],
   OwnedMarkers: [
