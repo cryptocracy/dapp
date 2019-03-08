@@ -16,7 +16,7 @@ const tourMsg = {
       step5: 'Here you have your Tasks summary tile, showing you of how many active owned Tasks you have, simply click to view the list.'
     },
     {
-      step6: 'Here you have your Projects summary tile, showing you of how many active owned Projects you have, simply click to view the list.'
+      step6: 'PROJECTS ARE STILL UNDER DEVELOPMENT, Here you have your Projects summary tile, showing you of how many active owned Projects you have, simply click to view the list.'
     },
     {
       step7: 'Here you have your Input Graph of your Bitcoin Wallet, showing you how and when you have received Bitcoin.'
