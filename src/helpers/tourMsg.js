@@ -1,31 +1,31 @@
 const tourMsg = {
   Home: [
     {
-      step1: 'All your enabled services show up in this menu.'
+      step1: 'You use this button to create crowdfunding content, such as Markers, Images, Events, or Tasks. Note: Projects are coming soon.'
     },
     {
-      step2: 'You can subscribe to available apps or enable services from the Apps & Services marketplace.'
+      step2: 'Here you have your Markers summary tile, showing you of how many active owned Markers you have, simply click to view the list.'
     },
     {
-      step3: 'All your financial and transactional data can be viewed in this section.'
+      step3: 'Here you have your Images summary tile, showing you of how many active owned Images you have, simply click to view the list.'
     },
     {
-      step4: 'This is for the notification section.'
+      step4: 'Here you have your Events summary tile, showing you of how many active owned Events you have, simply click to view the list.'
     },
     {
-      step5: 'This is for the notification section.'
+      step5: 'Here you have your Tasks summary tile, showing you of how many active owned Tasks you have, simply click to view the list.'
     },
     {
-      step6: 'This is for the notification section.'
+      step6: 'Here you have your Projects summary tile, showing you of how many active owned Projects you have, simply click to view the list.'
     },
     {
-      step7: 'This is for the notification section.'
+      step7: 'Here you have your Input Graph of your Bitcoin Wallet, showing you how and when you have received Bitcoin.'
     },
     {
-      step8: 'This is for the notification section.'
+      step8: 'Here you have your Output Graph of your Bitcoin Wallet, showing you how and when you have sent Bitcoin.'
     },
     {
-      step9: 'All your enabled services show up in this menu.'
+      step9: 'Here you have your Dashboard Map where you can click to search for content in that area clicked.'
     }
   ],
   OwnedMarkers: [
