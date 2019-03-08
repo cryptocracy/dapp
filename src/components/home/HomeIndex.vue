@@ -23,9 +23,9 @@
             height="300px"
             title="Wallet Input (Received)"
             :children="LineChart"
-            class='step4'
-            data-step="6"
-            data-intro="This is step 1"
+            class='step7'
+            data-step="7"
+            data-intro="This is step 7"
             data-position="bottom"
             :showGraph="showDonationGraph"
             error_message_title = "No Donations found."
@@ -38,9 +38,9 @@
             height="300px"
             title="Wallet Output (Payouts)"
             :children="BarChart"
-            class='step5'
-            data-step="7"
-            data-intro="This is step 1"
+            class='step8'
+            data-step="8"
+            data-intro="This is step 8"
             data-position="bottom"
             :showGraph="showPayoutGraph"
             error_message_title = "No Payouts found."
