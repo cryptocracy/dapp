@@ -18,7 +18,7 @@
 
       <!-- <div class="col-md-3">
         <app-icon-box
-          backgroundColor="#25CDA5"
+          backgroundColor="#1ebea5"
           icon="label"
           :title="tagCount"
           subtitle="Tags Owned"
@@ -44,7 +44,7 @@
 
       <div class="col-md-4">
         <app-icon-box
-          backgroundColor="#31e6a5"
+          backgroundColor="#2CDBA5"
           icon="today"
           class='step4'
           data-step="4"
@@ -56,6 +56,37 @@
         >
         </app-icon-box>
       </div>
+      
+      <div class="col-md-4">
+        <app-icon-box
+          backgroundColor="#31e6a5"
+          icon="list"
+          data-step="5"
+          data-intro="This is step 5"
+          data-position="bottom"
+          :title="taskCount"
+          class='step5'
+          subtitle="Images Owned"
+          to="/tasks/owned"
+        >
+        </app-icon-box>
+      </div>
+
+      <div class="col-md-4">
+        <app-icon-box
+          backgroundColor="#31e6a5"
+          icon="work"
+          data-step="6"
+          data-intro="This is step 6"
+          data-position="bottom"
+          :title="projectCount"
+          class='step6'
+          subtitle="Projects Owned"
+          to="/projects/owned"
+        >
+        </app-icon-box>
+      </div>
+
     </div>
   </div>
 
@@ -73,13 +104,17 @@ export default {
     tagCount: 0,
     imageCount: 0,
     markerCount: 0,
-    eventCount: 0
+    eventCount: 0,
+    taskCount: 0,
+    projectCount: 0
   }),
   mounted () {
     storageService.getFile({ fileName: 'my_events.json', options: { decrypt: false } }).then((res) => { this.eventCount = res ? Object.keys(res).length : 0 })
     storageService.getFile({ fileName: 'my_tags.json', options: { decrypt: false } }).then((res) => { this.tagCount = res ? Object.keys(res).length : 0 })
     storageService.getFile({ fileName: 'my_markers.json', options: { decrypt: false } }).then((res) => { this.markerCount = res ? Object.keys(res).length : 0 })
     storageService.getFile({ fileName: 'my_images.json', options: { decrypt: false } }).then((res) => { this.imageCount = res ? Object.keys(res).length : 0 })
+    storageService.getFile({ fileName: 'my_tasks.json', options: { decrypt: false } }).then((res) => { this.taskCount = res ? Object.keys(res).length : 0 })
+    storageService.getFile({ fileName: 'my_projects.json', options: { decrypt: false } }).then((res) => { this.projectCount = res ? Object.keys(res).length : 0 })
   }
 }
 </script>
