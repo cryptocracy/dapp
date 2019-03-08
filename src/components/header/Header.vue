@@ -4,7 +4,7 @@
       <!-- Logo and Sidebar toggle icon area -->
       <v-toolbar-title :style="$vuetify.breakpoint.smAndUp ? 'width: 260px; min-width: 250px' : 'min-width: 72px'" class="ml-0 pl-3 d-flex justify-content-between align-items-center">
         <router-link to="/"><span class="brand"><img :src="logo"></span></router-link>
-        <v-btn flat icon class="step6" color="white" @click="sideBarToggle()">
+        <v-btn flat icon class="step10" color="white" @click="sideBarToggle()">
           <v-icon>sort</v-icon>
         </v-btn>
       </v-toolbar-title>
@@ -23,7 +23,7 @@
       >
       </v-text-field>
 
-      <div class='step7'>
+      <div class='step11'>
         <v-select
           primary
           id='introDataStep'
