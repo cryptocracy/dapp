@@ -5,9 +5,9 @@
         <app-icon-box
           backgroundColor="#1ebea5"
           icon="place"
-          class='step1'
-          data-step="3"
-          data-intro="This is step 3"
+          class='step2'
+          data-step="2"
+          data-intro="This is step 2"
           data-position="bottom"
           :title="markerCount"
           subtitle="Markers Owned"
@@ -31,11 +31,11 @@
         <app-icon-box
           backgroundColor="#2CDBA5"
           icon="image"
-          data-step="4"
-          data-intro="This is step 4"
+          data-step="3"
+          data-intro="This is step 3"
           data-position="bottom"
           :title="imageCount"
-          class='step2'
+          class='step3'
           subtitle="Images Owned"
           to="/images/owned"
         >
@@ -46,9 +46,9 @@
         <app-icon-box
           backgroundColor="#31e6a5"
           icon="today"
-          class='step3'
-          data-step="5"
-          data-intro="This is step 5"
+          class='step4'
+          data-step="4"
+          data-intro="This is step 4"
           data-position="bottom"
           :title="eventCount"
           subtitle="Events Owned"
