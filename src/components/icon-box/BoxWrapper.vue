@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="iconbox-wrapper">
     <div class="row step2">
-      <div class="col-md-3">
+       <!-- <div class="col-md-3">
         <app-icon-box
           backgroundColor="#1ebea5"
           icon="place"
@@ -13,7 +13,7 @@
           to="/markers/owned"
         >
         </app-icon-box>
-      </div>
+      </div> -->
 
       <!-- <div class="col-md-3">
         <app-icon-box
@@ -28,7 +28,7 @@
 
       <div class="col-md-3">
         <app-icon-box
-          backgroundColor="#2CDBA5"
+          backgroundColor="#1ebea5"
           icon="image"
           data-step="3"
           data-intro="This is step 3"
