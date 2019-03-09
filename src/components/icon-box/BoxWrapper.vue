@@ -1,11 +1,10 @@
 <template lang="html">
   <div class="iconbox-wrapper">
-    <div class="row">
+    <div class="row step2">
       <div class="col-md-3">
         <app-icon-box
           backgroundColor="#1ebea5"
           icon="place"
-          class='step2'
           data-step="2"
           data-intro="This is step 2"
           data-position="bottom"
@@ -35,7 +34,6 @@
           data-intro="This is step 3"
           data-position="bottom"
           :title="imageCount"
-          class='step3'
           subtitle="Images Owned"
           to="/images/owned"
         >
@@ -46,7 +44,6 @@
         <app-icon-box
           backgroundColor="#2CDBA5"
           icon="today"
-          class='step4'
           data-step="4"
           data-intro="This is step 4"
           data-position="bottom"
@@ -65,7 +62,6 @@
           data-intro="This is step 5"
           data-position="bottom"
           :title="taskCount"
-          class='step5'
           subtitle="Images Owned"
           to="/tasks/owned"
         >
@@ -80,7 +76,6 @@
           data-intro="This is step 6"
           data-position="bottom"
           :title="projectCount"
-          class='step6'
           subtitle="Projects Owned"
           to="/projects/owned"
         >
