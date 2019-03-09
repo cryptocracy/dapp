@@ -38,7 +38,10 @@ const tourMsg = {
   ],
   Quorum: [
     {
-      marker1: 'This is a list of all available disks and volumes.'
+      quorumtour1: 'The is a list of all the content that has received votes.'
+    },
+    {
+      quorumtour2: 'Here you can change the sort order of listed content by total number of votes received (Popularity), or by the output of the Votes (Vote Sum).'
     }
   ]
   // VolumeSnapshots: [
