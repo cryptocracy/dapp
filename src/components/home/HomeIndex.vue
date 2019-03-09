@@ -11,6 +11,7 @@
             :markers="proximitySearchResult"
             :center="mapCenter"
             @updateMap="getNewData"
+            class="step5"
           >
           </OpenMapWithMultipleMarkers>
         </v-flex>
