@@ -62,7 +62,7 @@
           data-intro="This is step 5"
           data-position="bottom"
           :title="taskCount"
-          subtitle="Images Owned"
+          subtitle="Tasks Owned"
           to="/tasks/owned"
         >
         </app-icon-box>
