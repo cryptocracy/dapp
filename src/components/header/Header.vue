@@ -23,7 +23,7 @@
       >
       </v-text-field>
 
-      <div class='step7'>
+      <div class='step11'>
         <v-select
           primary
           id='introDataStep'

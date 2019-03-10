@@ -48,7 +48,6 @@
         >
         </app-icon-box>
       </div>
-
       <div class="col-md-3">
         <app-icon-box
           backgroundColor="#31e6a5"
