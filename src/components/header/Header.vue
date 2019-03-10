@@ -98,7 +98,9 @@ export default {
           navbar.classList.add('z-important')
           // introShadowBox.classList.remove('introjs-fixedTooltip')
           // numberRefrenceLayer.classList.remove('introjs-fixedTooltip')
-          introShadowBox.classList.add('moreTransparent')
+          if (!targetElement.classList.contains('step2')) {
+            introShadowBox.classList.add('moreTransparent')
+          }
           introNumber.style.top = '-5px'
           introNumber.style.left = '-24px'
         })
