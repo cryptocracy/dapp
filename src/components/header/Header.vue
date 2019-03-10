@@ -4,7 +4,7 @@
       <!-- Logo and Sidebar toggle icon area -->
       <v-toolbar-title :style="$vuetify.breakpoint.smAndUp ? 'width: 260px; min-width: 250px' : 'min-width: 72px'" class="ml-0 pl-3 d-flex justify-content-between align-items-center">
         <router-link to="/"><span class="brand"><img :src="logo"></span></router-link>
-        <v-btn flat icon class="step6" color="white" @click="sideBarToggle()">
+        <v-btn flat icon class="step8" color="white" @click="sideBarToggle()">
           <v-icon>sort</v-icon>
         </v-btn>
       </v-toolbar-title>
@@ -13,7 +13,7 @@
       <v-text-field
         dark
         id='introClass'
-        class="hidden-xs-only"
+        class="hidden-xs-only step6"
         prepend-icon="search"
         placeholder="Search"
         elevation-5
@@ -90,8 +90,8 @@ export default {
   created () {
     intro.onbeforechange((targetElement) => {
       let {navbar, introShadowBox, introNumber, numberRefrenceLayer} = this.getElements()
-      console.log('introShadowBox: ', introShadowBox)
-      if (targetElement.classList.contains('step6') || targetElement.classList.contains('step7')) {
+      console.log('introShadowBox: ', introShadowBox, introNumber, numberRefrenceLayer)
+      if (targetElement.classList.contains('step2') || targetElement.classList.contains('step6') || targetElement.classList.contains('step7') || targetElement.classList.contains('step8')) {
         console.log('navbar: ', navbar)
         this.$nextTick(() => {
           navbar.classList.remove('introjs-fixParent')

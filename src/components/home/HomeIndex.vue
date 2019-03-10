@@ -11,6 +11,7 @@
             :markers="proximitySearchResult"
             :center="mapCenter"
             @updateMap="getNewData"
+            class="step1"
           >
           </OpenMapWithMultipleMarkers>
         </v-flex>
@@ -24,8 +25,8 @@
             title="Wallet Input (Received)"
             :children="LineChart"
             class='step4'
-            data-step="6"
-            data-intro="This is step 1"
+            data-step="3"
+            data-intro="This is step 3"
             data-position="bottom"
             :showGraph="showDonationGraph"
             error_message_title = "No Donations found."
@@ -39,8 +40,8 @@
             title="Wallet Output (Payouts)"
             :children="BarChart"
             class='step5'
-            data-step="7"
-            data-intro="This is step 1"
+            data-step="4"
+            data-intro="This is step 4"
             data-position="bottom"
             :showGraph="showPayoutGraph"
             error_message_title = "No Payouts found."

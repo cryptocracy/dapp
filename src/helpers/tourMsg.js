@@ -1,31 +1,28 @@
 const tourMsg = {
   Home: [
     {
-      step1: 'All your enabled services show up in this menu.'
+      step1: 'This is your Dashboard Map where you can click to search for content in that area clicked.'
     },
     {
-      step2: 'You can subscribe to available apps or enable services from the Apps & Services marketplace.'
+      step2: 'You use this button to create crowdfunding content, such as Markers, Images, Events, or Tasks. Note: Projects are coming soon.'
     },
     {
-      step3: 'All your financial and transactional data can be viewed in this section.'
+      step3: 'These are your summary tiles, showing you exactly how many owned content objects you have, simply click to view their lists.'
     },
     {
-      step4: 'This is for the notification section.'
+      step4: 'This is your Input Graph of your Bitcoin Wallet, showing you how and when you have received Bitcoin.'
     },
     {
-      step5: 'This is for the notification section.'
+      step5: 'This is your Output Graph of your Bitcoin Wallet, showing you how and when you have sent Bitcoin.'
     },
     {
-      step6: 'This is for the notification section.'
+      step6: 'You can use this searchbar to search for people on Blockstack or to search for content by Tag.'
     },
     {
-      step7: 'This is for the notification section.'
+      step7: 'This is how you change the type of search you are performing, to search for Contacts by name, or to search for content by Tag.'
     },
     {
-      step8: 'This is for the notification section.'
-    },
-    {
-      step9: 'All your enabled services show up in this menu.'
+      step8: 'This is how you access Main Menu, where you can click to explorer the various components of Cryptocracy.'
     }
   ],
   OwnedMarkers: [
@@ -44,7 +41,10 @@ const tourMsg = {
   ],
   Quorum: [
     {
-      marker1: 'This is a list of all available disks and volumes.'
+      quorumtour1: 'The is a list of all the content that has received votes.'
+    },
+    {
+      quorumtour2: 'Here you can change the sort order of listed content by total number of votes received (Popularity), or by the output of the Votes (Vote Sum).'
     }
   ]
   // VolumeSnapshots: [

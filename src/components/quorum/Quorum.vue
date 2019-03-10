@@ -3,7 +3,7 @@
     <v-layout row wrap justify-center>
       <v-flex xs10>
         <v-layout justify-end row wrap>
-          <v-flex xs3>
+          <v-flex xs3 class='quorumtour2'>
             <v-select
               label="Sort By"
               :items="list"
@@ -13,7 +13,7 @@
             </v-select>
           </v-flex>
         </v-layout>
-        <v-flex class='marker1'>
+        <v-flex class='quorumtour1'>
           <v-card :hover="true" @click="redirectUser(item)" class="br20 mt-2" v-for="(item, index) in quorumData" :key="index">
             <v-list two-line>
               <v-list-tile-action></v-list-tile-action>
