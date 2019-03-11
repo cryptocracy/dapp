@@ -23,12 +23,12 @@
       >
       </v-text-field>
 
-      <div class='step11'>
+      <div class='step7'>
         <v-select
           primary
           id='introDataStep'
-          data-step="2"
-          data-intro="This is step 2"
+          data-step="7"
+          data-intro="This is step 7"
           data-position="bottom"
           style="max-width: 150px;"
           class="pl-3 hidden-xs-only"
