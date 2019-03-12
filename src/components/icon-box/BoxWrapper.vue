@@ -98,6 +98,7 @@
 import BoxSingle from './BoxSingle'
 import storageService from '../../services/blockstack-storage'
 import Shepherd from 'shepherd.js'
+
 export default {
   components: {
     'app-icon-box': BoxSingle,
@@ -114,10 +115,11 @@ export default {
   methods: {
     shepherdTour () {
       let shepTour = new Shepherd.Tour({
-        defaultStepOptions: {
-          classes: 'shepherd-theme-square-dark',
-          scrollTo: true
-        }
+        useModalOverlay: true
+        // defaultStepOptions: {
+        //   // classes: 'shadow-md bg-purple-dark',
+        //   scrollTo: true
+        // }
       })
       shepTour.addStep('example-step', {
         text: 'This is Shepherd js IMAGE tour experiment.',

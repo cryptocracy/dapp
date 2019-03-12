@@ -33,6 +33,7 @@ import Layout from './layouts/Layout'
 import './assets/sass/vendors/font-awesome/font-awesome.scss'
 import './assets/sass/vendor-styles.scss'
 import './assets/sass/App.scss'
+// import Shepherd from 'shepherd.js'
 
 /* Import Vuetify stylesheets for material deisgn */
 import '../node_modules/vuetify/dist/vuetify.min.css'
