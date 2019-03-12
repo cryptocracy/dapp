@@ -1,6 +1,6 @@
 <template>
   <v-speed-dial
-    class="floating-button step1"
+    class="floating-button floatShepherd step1"
     v-model="fab"
     data-step="8"
     data-intro="This is step 1"

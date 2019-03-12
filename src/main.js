@@ -10,9 +10,22 @@ import VueClipboard from 'vue-clipboard2'
 // OpenStreetMaps
 import 'leaflet/dist/leaflet.css'
 import 'intro.js/introjs.css'
+// import 'shepherd.js/dist/css/shepherd-theme-square-dark.css'
+// import 'shepherd.js/dist/css/shepherd-theme-dark.css'
+import 'shepherd.js/dist/css/shepherd-theme-square.css'
+// import 'shepherd.js/dist/css/shepherd-theme-default.css'
+// import 'shepherd.js/src/scss/_base.scss'
+// import 'shepherd.js/src/scss/_functions.scss'
+// import 'shepherd.js/src/scss/_helpers.scss'
+// import 'shepherd.js/src/scss/_mixins.scss'
+// import 'shepherd.js/src/scss/_tippy.scss'
+// import 'shepherd.js/src/scss/_variables.scss'
+// import 'shepherd.js/src/scss/shepherd-theme-default.scss'
+// import 'shepherd.js/src/scss/_modal-overlay.scss'
 import App from './App'
 import router from './router'
-
+// import Shepherd from 'shepherd.js'
+// Vue.use(Shepherd)
 // Import layout file to use for all
 import Layout from './layouts/Layout'
 

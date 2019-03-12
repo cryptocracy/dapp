@@ -13,7 +13,7 @@
       <v-text-field
         dark
         id='introClass'
-        class="hidden-xs-only"
+        class="hidden-xs-only searchShepherd"
         prepend-icon="search"
         placeholder="Search"
         elevation-5
@@ -31,7 +31,7 @@
           data-intro="This is step 2"
           data-position="bottom"
           style="max-width: 150px;"
-          class="pl-3 hidden-xs-only"
+          class="pl-3 hidden-xs-only contactShepherd"
           placeholder="Select search type"
           :items="selectItems"
           v-model="searchType"
@@ -89,7 +89,7 @@ export default {
   }),
   created () {
     intro.onbeforechange((targetElement) => {
-      let {navbar, introShadowBox, introNumber, numberRefrenceLayer} = this.getElements()
+      let {navbar, introShadowBox, introNumber} = this.getElements()
       console.log('introShadowBox: ', introShadowBox)
       if (targetElement.classList.contains('step6') || targetElement.classList.contains('step7')) {
         console.log('navbar: ', navbar)
