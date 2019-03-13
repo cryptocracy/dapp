@@ -1,10 +1,7 @@
 <template>
   <v-speed-dial
-    class="floating-button floatShepherd step1"
+    class="floating-button floatShepherd"
     v-model="fab"
-    data-step="8"
-    data-intro="This is step 1"
-    data-position="bottom"
     :top="top"
     :bottom="bottom"
     :right="right"
