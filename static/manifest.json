@@ -1,8 +1,8 @@
 {
-  "name": "Souq",
-  "short_name": "Souq",
+  "name": "Cryptocracy",
+  "short_name": "Cryptocracy",
   "start_url": "/index.html",
-  "description": "Decentralized Crypto Crowdfunding",
+  "description": "Democratized Crowdfunding",
   "icons": [
     {
       "src": "https://raw.githubusercontent.com/cryptocracy/images/master/512x512.png",
