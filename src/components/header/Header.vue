@@ -12,7 +12,6 @@
       <!-- Search Box -->
       <v-text-field
         dark
-        id='introClass'
         class="hidden-xs-only searchShepherd"
         prepend-icon="search"
         placeholder="Search"
@@ -26,7 +25,6 @@
       <div>
         <v-select
           primary
-          id='introDataStep'
           style="max-width: 150px;"
           class="pl-3 hidden-xs-only"
           placeholder="Select search type"
@@ -99,14 +97,6 @@ export default {
     */
     showNotification () {
       this.toggleNotification = !this.toggleNotification
-    },
-    getElements () {
-      return {
-        introShadowBox: document.querySelector('.introjs-helperLayer'),
-        introNumber: document.querySelector('.introjs-helperNumberLayer'),
-        navbar: document.getElementsByTagName('nav')[0],
-        numberRefrenceLayer: document.querySelector('.introjs-tooltipReferenceLayer')
-      }
     },
     search () {
       const searchText = this.searchText.trim()

@@ -12,8 +12,6 @@ import 'leaflet/dist/leaflet.css'
 import 'shepherd.js/dist/css/shepherd-theme-square.css'
 import App from './App'
 import router from './router'
-// import Shepherd from 'shepherd.js'
-// Vue.use(Shepherd)
 // Import layout file to use for all
 import Layout from './layouts/Layout'
 
@@ -21,7 +19,6 @@ import Layout from './layouts/Layout'
 import './assets/sass/vendors/font-awesome/font-awesome.scss'
 import './assets/sass/vendor-styles.scss'
 import './assets/sass/App.scss'
-// import Shepherd from 'shepherd.js'
 
 /* Import Vuetify stylesheets for material deisgn */
 import '../node_modules/vuetify/dist/vuetify.min.css'
