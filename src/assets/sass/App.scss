@@ -97,13 +97,18 @@
   font-weight: 800;
   font-family: auto;
 }
- .stepFont {
-    box-shadow: 3px 3px 4px -2px #ccc;
-    font-size: 14px;
-    border: 2px solid red;
-    border-color: lightgray;
-    border-radius: 7px
- }
+.stepFont {
+  box-shadow: 3px 3px 4px -2px #ccc;
+  font-size: 14px;
+  border: 2px solid red;
+  border-color: lightgray;
+  border-radius: 7px
+}
+
+.disabledNext {
+  pointer-events: none !important;
+}
+
 // Entities/Objects style
 @import "./entity/entity";
 

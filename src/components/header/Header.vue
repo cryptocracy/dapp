@@ -35,15 +35,12 @@
         >
         </v-select>
       </div>
-      <v-btn
-        flat
-        class='livehelp_position'
-        @click="showHelp()">
-        <v-icon>live_help
-        </v-icon>
-      </v-btn>
       <!-- Header right side notification and progile menu -->
       <div class="d-flex align-center" style="margin-left: auto">
+        <v-btn flat class='livehelp_position' @click="showHelp()">
+          <v-icon>live_help
+          </v-icon>
+        </v-btn>
         <v-btn icon @click.stop="showNotification">
           <v-icon color="white">notifications</v-icon>
         </v-btn>
@@ -162,7 +159,7 @@ export default {
 }
 .livehelp_position {
   position: relative;
-  left: 12.6%;
+  left: 11.6%;
 }
 .v-toolbar >>> .v-input__slot {
   background: transparent !important;
