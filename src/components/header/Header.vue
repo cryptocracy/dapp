@@ -57,8 +57,9 @@
 import { eventBus } from '../../main'
 import Notifications from '../notifications/Notifications'
 import AvatarMenu from './Avatarmenu'
-import logo from '../../assets/img/logo.svg'
+// import logo from '../../assets/img/logo.svg'
 import { tourMixin } from '@/helpers/tourHelper'
+import logo from '../../assets/img/logo_gradient.png'
 
 export default {
   components: {

@@ -4,7 +4,9 @@ const cryptocracyHandler = {
   state: {
     searchResult: [],
     contentData: {},
-    quorumData: []
+    quorumData: [],
+    contentUrlArray: [],
+    contentUrlsData: {}
   },
   mutations: {
     MUTATION_SAVE_SEARCHED_RESULT (state, payload) {
@@ -21,13 +23,20 @@ const cryptocracyHandler = {
     MUTATION_SET_CONTENT_DATA (state, payload) {
       state.contentData = payload
     },
+    MUTATION_SET_CONTENT_URLS_DATA (state, payload) {
+      payload.data['contentUrl'] = payload.url
+      state.contentUrlsData.push(payload.data)
+    },
     MUTATION_SET_QUORUM_DATA (state, payload) {
+      state.contentUrlArray = []
+      state.contentUrlsData = []
       let modifiedData = payload.reduce((acc, item, index) => {
         if (!(index % 2)) {
           let url = payload[index + 1].split('_')
           url.splice(0, 1)
           let createdOn = url[url.length - 1].split('.')[0]
           let contentUrl = url.join('_')
+          state.contentUrlArray.push(contentUrl)
           acc.push({
             'votes': item,
             'contentUrl': contentUrl,
@@ -53,7 +62,15 @@ const cryptocracyHandler = {
     async ACTION_GET_QUORUM_DATA (context, query) {
       let res = await cryptocracyServices.getQuorumContent(query)
       context.commit('MUTATION_SET_QUORUM_DATA', res)
+      this.dispatch('ACTION_GET_CONTENT_URL_DATA', this.getters.contentUrlArray)
+      // console.log('yooooooo', this, this.getters.contentUrlArray)
       return res
+    },
+    ACTION_GET_CONTENT_URL_DATA (context, contentUrls) {
+      contentUrls.forEach(async item => {
+        let res = await axios.get(item)
+        context.commit('MUTATION_SET_CONTENT_URLS_DATA', {url: item, data: res.data})
+      })
     },
     ACTION_NOTIFY_SERVER (context, fqn) {
       cryptocracyServices.notifyServer(fqn)
@@ -62,7 +79,9 @@ const cryptocracyHandler = {
   getters: {
     getProximitySearchResult: state => state.searchResult,
     getContentData: state => state.contentData,
-    getQuorumData: state => state.quorumData
+    getQuorumData: state => state.quorumData,
+    contentUrlArray: state => state.contentUrlArray,
+    getcontentUrlsData: state => state.contentUrlsData
   }
 }
 export default cryptocracyHandler

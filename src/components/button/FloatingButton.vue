@@ -34,7 +34,7 @@
       dark
       small
       color="green lighten-1"
-      to="/"
+      :to="{ name: 'AddTask', params: { taskProp: null } }"
     >
       <v-icon>list</v-icon>
     </v-btn>

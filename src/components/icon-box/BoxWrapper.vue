@@ -2,6 +2,7 @@
   <div class="iconbox-wrapper summaryTitle">
     <div class="row">
       <!-- <div class="col-md-3">
+      <div class="col-md-3">
         <app-icon-box
           backgroundColor="#1ebea5"
           icon="place"
@@ -22,6 +23,7 @@
         >
         </app-icon-box>
       </div> -->
+
       <div class="col-md-3">
         <app-icon-box
           backgroundColor="#1ebea5"
@@ -43,9 +45,10 @@
         >
         </app-icon-box>
       </div>
+
       <div class="col-md-3">
         <app-icon-box
-          backgroundColor="#31e6a5"
+          backgroundColor="#32e8a5"
           icon="list"
           :title="taskCount"
           subtitle="Tasks Owned"
@@ -84,8 +87,8 @@ export default {
     imageCount: 0,
     markerCount: 0,
     eventCount: 0,
-    taskCount: 0,
-    projectCount: 0
+    projectCount: 0,
+    taskCount: 0
   }),
   mounted () {
     storageService.getFile({ fileName: 'my_events.json', options: { decrypt: false } }).then((res) => { this.eventCount = res ? Object.keys(res).length : 0 })
