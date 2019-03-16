@@ -26,7 +26,7 @@
         <v-select
           primary
           style="max-width: 150px;"
-          class="pl-3 hidden-xs-only"
+          class="pl-3 hidden-xs-only changeSearch"
           placeholder="Select search type"
           :items="selectItems"
           v-model="searchType"
