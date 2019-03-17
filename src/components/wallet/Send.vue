@@ -104,7 +104,8 @@ import contactService from '@/services/contacts'
 const bitcoin = require('bitcoinjs-lib')
 const CoinKey = require('coinkey')
 const axios = require('axios')
-const apiUrl = 'https://cors-anywhere.herokuapp.com/https://blockchain.info/rawaddr/'
+const apiUrl = `https://blockchain.info/rawaddr/`
+// const apiUrl = 'https://cors-anywhere.herokuapp.com/https://blockchain.info/rawaddr/'
 
 export default {
   name: 'Send',
@@ -243,7 +244,7 @@ export default {
     this.$store.commit('toggleLoading')
     this.addressPublic = JSON.parse(localStorage['blockstack-gaia-hub-config']).address
     //  get info about wallet address
-    axios.get(apiUrl + this.addressPublic)
+    axios.get(apiUrl + this.addressPublic + '?format=json&cors=true')
       .then((res) => {
         this.addressData = res.data
         this.$store.commit('toggleLoading')
