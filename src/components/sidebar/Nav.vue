@@ -8,7 +8,7 @@
       :class="!item.items ? 'no-child' : ''"
     >
 
-      <v-list-tile slot="activator" :to="item.linkTo" @click=hideSearchResults>
+      <v-list-tile :class="item.class" slot="activator" :to="item.linkTo" @click=hideSearchResults>
         <v-list-tile-action>
           <v-icon :color="item.color">{{ item.action }}</v-icon>
         </v-list-tile-action>

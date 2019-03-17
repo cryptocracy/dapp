@@ -16,7 +16,8 @@ const items = [
     color: 'blue darken-1',
     action: 'thumbs_up_down',
     title: 'Quorum',
-    linkTo: '/quorum'
+    linkTo: '/quorum',
+    class: 'step9'
   },
   {
     color: 'teal lighten-3',

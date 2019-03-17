@@ -1,6 +1,6 @@
 <template>
   <v-speed-dial
-    class="floating-button"
+    class="floating-button floatShepherd"
     v-model="fab"
     :top="top"
     :bottom="bottom"

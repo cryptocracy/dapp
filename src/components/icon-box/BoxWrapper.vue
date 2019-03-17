@@ -1,6 +1,7 @@
 <template lang="html">
-  <div class="iconbox-wrapper">
+  <div class="iconbox-wrapper summaryTitle">
     <div class="row">
+      <!-- <div class="col-md-3">
       <div class="col-md-3">
         <app-icon-box
           backgroundColor="#1ebea5"
@@ -10,11 +11,11 @@
           to="/markers/owned"
         >
         </app-icon-box>
-      </div>
+      </div> -->
 
       <!-- <div class="col-md-3">
         <app-icon-box
-          backgroundColor="#25CDA5"
+          backgroundColor="#1ebea5"
           icon="label"
           :title="tagCount"
           subtitle="Tags Owned"
@@ -25,7 +26,7 @@
 
       <div class="col-md-3">
         <app-icon-box
-          backgroundColor="#2CDBA5"
+          backgroundColor="#1ebea5"
           icon="image"
           :title="imageCount"
           subtitle="Images Owned"
@@ -36,7 +37,7 @@
 
       <div class="col-md-3">
         <app-icon-box
-          backgroundColor="#31e6a5"
+          backgroundColor="#2CDBA5"
           icon="today"
           :title="eventCount"
           subtitle="Events Owned"
@@ -55,6 +56,18 @@
         >
         </app-icon-box>
       </div>
+
+      <div class="col-md-3">
+        <app-icon-box
+          backgroundColor="#31e6a5"
+          icon="work"
+          :title="projectCount"
+          subtitle="Projects Owned"
+          to="/projects/owned"
+        >
+        </app-icon-box>
+      </div>
+
     </div>
   </div>
 
@@ -63,6 +76,7 @@
 <script>
 import BoxSingle from './BoxSingle'
 import storageService from '../../services/blockstack-storage'
+
 export default {
   components: {
     'app-icon-box': BoxSingle,
@@ -73,6 +87,7 @@ export default {
     imageCount: 0,
     markerCount: 0,
     eventCount: 0,
+    projectCount: 0,
     taskCount: 0
   }),
   mounted () {
@@ -81,6 +96,7 @@ export default {
     storageService.getFile({ fileName: 'my_markers.json', options: { decrypt: false } }).then((res) => { this.markerCount = res ? Object.keys(res).length : 0 })
     storageService.getFile({ fileName: 'my_images.json', options: { decrypt: false } }).then((res) => { this.imageCount = res ? Object.keys(res).length : 0 })
     storageService.getFile({ fileName: 'my_tasks.json', options: { decrypt: false } }).then((res) => { this.taskCount = res ? Object.keys(res).length : 0 })
+    storageService.getFile({ fileName: 'my_projects.json', options: { decrypt: false } }).then((res) => { this.projectCount = res ? Object.keys(res).length : 0 })
   }
 }
 </script>

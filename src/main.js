@@ -9,10 +9,9 @@ import VueClipboard from 'vue-clipboard2'
 // import * as VueGoogleMaps from 'vue2-google-maps'
 // OpenStreetMaps
 import 'leaflet/dist/leaflet.css'
-
+import 'shepherd.js/dist/css/shepherd-theme-square.css'
 import App from './App'
 import router from './router'
-
 // Import layout file to use for all
 import Layout from './layouts/Layout'
 

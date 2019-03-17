@@ -3,7 +3,7 @@
     <v-layout row wrap justify-center>
       <v-flex xs10>
         <v-layout justify-end row wrap>
-          <v-flex xs3>
+          <v-flex xs3 class='quorumList'>
             <v-select
               label="Sort By"
               :items="list"
@@ -13,31 +13,34 @@
             </v-select>
           </v-flex>
         </v-layout>
-        <v-card :hover="true" @click="redirectUser(item)" class="br20 mt-2" v-for="(item, index) in quorumData" :key="index">
-          <v-card-text>
-            <v-layout row>
-              <v-flex v-if="lazyLoadedData[item.contentUrl]" class="space-between">
-                <h4 class="inline-block">{{lazyLoadedData[item.contentUrl].title}}</h4>
-                <v-btn dark color="teal accent-4" icon><v-icon dark>keyboard_arrow_right</v-icon></v-btn>
-              </v-flex>
-            </v-layout>
-            <div>{{type(item.contentUrl)}}</div>
-            <div class="v-list__tile__sub-title" v-if="lazyLoadedData[item.contentUrl]" >{{lazyLoadedData[item.contentUrl].description}}</div>
-            <div class="v-list__tile__sub-title">Votes: {{item.votes}}</div>
-            <div class="v-list__tile__sub-title">Content URL: <span>{{item.contentUrl}}</span></div>
-            <div class="v-list__tile__sub-title">Created On: {{new Date(Number(item.createdOn)).toDateString()}}</div>
-          </v-card-text>
-          <!-- <v-list two-line>
-            <v-list-tile-action></v-list-tile-action>
-            <v-list-tile>
-              <v-list-tile-content>
-                <v-list-tile-sub-title>Votes: {{item.votes}}</v-list-tile-sub-title>
-                <v-list-tile-sub-title>Content URL: <span>{{item.contentUrl}}</span></v-list-tile-sub-title>
-                <v-list-tile-sub-title>Created On: {{new Date(Number(item.createdOn)).toDateString()}}</v-list-tile-sub-title>
-              </v-list-tile-content>
-            </v-list-tile>
-          </v-list> -->
-        </v-card>
+
+        <v-flex class="quorumtour">
+          <v-card :hover="true" @click="redirectUser(item)" class="br20 mt-2" v-for="(item, index) in quorumData" :key="index">
+            <v-card-text>
+              <v-layout row>
+                <v-flex v-if="lazyLoadedData[item.contentUrl]" class="space-between">
+                  <h4 class="inline-block">{{lazyLoadedData[item.contentUrl].title}}</h4>
+                  <v-btn dark color="teal accent-4" icon><v-icon dark>keyboard_arrow_right</v-icon></v-btn>
+                </v-flex>
+              </v-layout>
+              <div>{{type(item.contentUrl)}}</div>
+              <div class="v-list__tile__sub-title" v-if="lazyLoadedData[item.contentUrl]" >{{lazyLoadedData[item.contentUrl].description}}</div>
+              <div class="v-list__tile__sub-title">Votes: {{item.votes}}</div>
+              <div class="v-list__tile__sub-title">Content URL: <span>{{item.contentUrl}}</span></div>
+              <div class="v-list__tile__sub-title">Created On: {{new Date(Number(item.createdOn)).toDateString()}}</div>
+            </v-card-text>
+            <!-- <v-list two-line>
+              <v-list-tile-action></v-list-tile-action>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-list-tile-sub-title>Votes: {{item.votes}}</v-list-tile-sub-title>
+                  <v-list-tile-sub-title>Content URL: <span>{{item.contentUrl}}</span></v-list-tile-sub-title>
+                  <v-list-tile-sub-title>Created On: {{new Date(Number(item.createdOn)).toDateString()}}</v-list-tile-sub-title>
+                </v-list-tile-content>
+              </v-list-tile>
+            </v-list> -->
+          </v-card>
+        </v-flex>
       </v-flex>
     </v-layout>
   </v-container>

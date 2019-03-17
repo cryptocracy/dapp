@@ -1,10 +1,10 @@
 <template lang="html">
   <div>
-    <v-toolbar dark app clipped-left fixed>
+    <v-toolbar id='headerTour' dark app clipped-left fixed>
       <!-- Logo and Sidebar toggle icon area -->
       <v-toolbar-title :style="$vuetify.breakpoint.smAndUp ? 'width: 260px; min-width: 250px' : 'min-width: 72px'" class="ml-0 pl-3 d-flex justify-content-between align-items-center">
         <router-link to="/"><span class="brand"><img :src="logo"></span></router-link>
-        <v-btn flat icon color="white" @click="sideBarToggle()">
+        <v-btn flat icon class="mainMenu" color="white" @click="sideBarToggle()">
           <v-icon>sort</v-icon>
         </v-btn>
       </v-toolbar-title>
@@ -12,7 +12,7 @@
       <!-- Search Box -->
       <v-text-field
         dark
-        class="hidden-xs-only"
+        class="hidden-xs-only searchShepherd"
         prepend-icon="search"
         placeholder="Search"
         elevation-5
@@ -26,16 +26,19 @@
         <v-select
           primary
           style="max-width: 150px;"
-          class="pl-3 hidden-xs-only"
+          class="pl-3 hidden-xs-only changeSearch"
           placeholder="Select search type"
           :items="selectItems"
           v-model="searchType"
         >
         </v-select>
       </div>
-
       <!-- Header right side notification and progile menu -->
       <div class="d-flex align-center" style="margin-left: auto">
+        <v-btn flat class='livehelp_position' @click="showHelp()">
+          <v-icon>live_help
+          </v-icon>
+        </v-btn>
         <v-btn icon @click.stop="showNotification">
           <v-icon color="white">notifications</v-icon>
         </v-btn>
@@ -54,6 +57,8 @@
 import { eventBus } from '../../main'
 import Notifications from '../notifications/Notifications'
 import AvatarMenu from './Avatarmenu'
+// import logo from '../../assets/img/logo.svg'
+import { tourMixin } from '@/helpers/tourHelper'
 import logo from '../../assets/img/logo_gradient.png'
 
 export default {
@@ -61,6 +66,7 @@ export default {
     'app-notification': Notifications,
     'app-avatar-menu': AvatarMenu
   },
+  mixins: [tourMixin],
   data: () => ({
     timer: '',
     toggleNotification: false,
@@ -73,6 +79,8 @@ export default {
     searchType: 'contacts',
     searchText: ''
   }),
+  created () {
+  },
   watch: {
     searchType () {
       this.$store.commit('MUTATION_SET_SEARCH_TYPE', this.searchType)
@@ -140,6 +148,10 @@ export default {
   background: linear-gradient(to right, #1ebea5 , #32e8a5);
   box-shadow: 0 6px 25px 0 rgba(38, 50, 56, 0.2);
 }
+.livehelp_position {
+  position: relative;
+  left: 11.6%;
+}
 .v-toolbar >>> .v-input__slot {
   background: transparent !important;
   border-radius: 0;
@@ -151,6 +163,10 @@ export default {
   width: 36px;
   height: 36px;
   flex: 0 0 36px!important;
+}
+
+.z-important {
+  z-index: 1000000 !important;
 }
 
 .v-toolbar >>> .v-toolbar__title {
