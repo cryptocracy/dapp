@@ -15,31 +15,36 @@
         </v-layout>
 
         <v-flex class="quorumtour">
-          <v-card :hover="true" @click="redirectUser(item)" class="br20 mt-2" v-for="(item, index) in quorumData" :key="index">
-            <v-card-text>
-              <v-layout row>
-                <v-flex v-if="lazyLoadedData[item.contentUrl]" class="space-between">
-                  <h4 class="inline-block">{{lazyLoadedData[item.contentUrl].title}}</h4>
-                  <v-btn dark color="teal accent-4" icon><v-icon dark>keyboard_arrow_right</v-icon></v-btn>
-                </v-flex>
-              </v-layout>
-              <div>{{type(item.contentUrl)}}</div>
-              <div class="v-list__tile__sub-title" v-if="lazyLoadedData[item.contentUrl]" >{{lazyLoadedData[item.contentUrl].description}}</div>
-              <div class="v-list__tile__sub-title">Votes: {{item.votes}}</div>
-              <div class="v-list__tile__sub-title">Content URL: <span>{{item.contentUrl}}</span></div>
-              <div class="v-list__tile__sub-title">Created On: {{new Date(Number(item.createdOn)).toDateString()}}</div>
-            </v-card-text>
-            <!-- <v-list two-line>
-              <v-list-tile-action></v-list-tile-action>
-              <v-list-tile>
-                <v-list-tile-content>
-                  <v-list-tile-sub-title>Votes: {{item.votes}}</v-list-tile-sub-title>
-                  <v-list-tile-sub-title>Content URL: <span>{{item.contentUrl}}</span></v-list-tile-sub-title>
-                  <v-list-tile-sub-title>Created On: {{new Date(Number(item.createdOn)).toDateString()}}</v-list-tile-sub-title>
-                </v-list-tile-content>
-              </v-list-tile>
-            </v-list> -->
-          </v-card>
+          <v-expansion-panel :hover="true" class="titlePosition br20 mt-2" v-for="(item, index) in quorumData" :key="index">
+            <span class='quorumTitle' v-if="lazyLoadedData[item.contentUrl]">{{lazyLoadedData[item.contentUrl].title}}</span>
+            <img v-if="lazyLoadedData[item.contentUrl] && lazyLoadedData[item.contentUrl].image" width='759' height='300' :src="lazyLoadedData[item.contentUrl].image" alt="avatar">
+            <v-expansion-panel-content>
+              <div slot="header" v-if="lazyLoadedData[item.contentUrl]" class="fn16 displayFlex justify-space-between">
+                <span><v-icon color='blue'>thumbs_up_down</v-icon></span>
+                <span class='iconGroup'>
+                  <v-icon class='iconStyle'>edit</v-icon>
+                  <v-icon class='iconStyle' color="red ">place</v-icon>
+                  <v-icon class='iconStyle' color="green ">image</v-icon>
+                  <v-icon class='iconStyle' color="yellow ">today</v-icon>
+                  <v-icon class='iconStyle' color="brown ">account_balance_wallet</v-icon>
+                  <v-icon class='iconStyle' color="red ">favorite</v-icon>
+                  <v-icon class='iconStyle' color="green ">share</v-icon>
+                </span>
+              </div>
+              <v-card>
+                <v-card-text class="py12px24">
+                  <v-flex v-if="lazyLoadedData[item.contentUrl]" class="space-between">
+                    <div>{{type(item.contentUrl)}}</div>
+                    <v-btn dark color="teal accent-4" @click="redirectUser(item)" ><v-icon dark>keyboard_arrow_right</v-icon></v-btn>
+                  </v-flex>
+                  <!-- <div class="v-list__tile__sub-title" v-if="lazyLoadedData[item.contentUrl]" >{{lazyLoadedData[item.contentUrl].description}}</div> -->
+                  <div class="v-list__tile__sub-title"><strong>Votes: {{item.votes}}</strong></div>
+                  <div class="v-list__tile__sub-title"><strong>Content URL:</strong> <span>{{item.contentUrl}}</span></div>
+                  <div class="v-list__tile__sub-title"><strong>Created On:</strong> {{new Date(Number(item.createdOn)).toDateString()}}</div>
+                </v-card-text>
+              </v-card>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
         </v-flex>
       </v-flex>
     </v-layout>
@@ -115,5 +120,23 @@ export default {
 }
 .v-list__tile__sub-title {
   color: rgba(0,0,0,.54)
+}
+.iconStyle {
+  margin: 0 6px;
+}
+.quorumTitle {
+  position: absolute;
+  color: white;
+  font-size: 34px;
+  left: 20px;
+}
+.displayFlex {
+  display: flex;
+}
+.titlePosition {
+  position: relative;
+}
+.iconGroup {
+  margin: 0 10px;
 }
 </style>
