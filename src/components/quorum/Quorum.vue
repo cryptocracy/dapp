@@ -63,16 +63,11 @@
               </v-card-title>
 
               <v-card-actions>
-                <v-icon color='blue'>thumbs_up_down</v-icon> <span class="subheading ml-2">{{item.votes}}</span>
+                <v-icon class=" ml-2" color='blue'>thumbs_up_down</v-icon> <span class="subheading ml-2">{{item.votes}}</span>
                 <v-spacer></v-spacer>
                 <span class='iconGroup'>
-                  <!-- <v-icon class='iconStyle'>edit</v-icon> -->
-                  <!-- <v-icon class='iconStyle' color="red ">place</v-icon>
-                  <v-icon class='iconStyle' color="green ">image</v-icon>
-                  <v-icon class='iconStyle' color="yellow ">today</v-icon> -->
                   <v-icon class='iconStyle' color="brown ">account_balance_wallet</v-icon>
                   <v-icon class='iconStyle' color="red ">favorite</v-icon>
-                  <!-- <v-icon class='iconStyle' color="green ">share</v-icon> -->
                 </span>
                 <v-btn icon @click="func(index)">
                   <v-icon>{{ showIndex[index] ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
@@ -87,8 +82,10 @@
                   </v-chip>
                   <!-- <div class="v-list__tile__sub-title" v-if="lazyLoadedData[item.contentUrl]" >{{lazyLoadedData[item.contentUrl].description}}</div> -->
                   <!-- <div class="v-list__tile__sub-title"><strong>Votes: {{item.votes}}</strong></div> -->
-                  <div class="v-list__tile__sub-title"><strong>Content URL:</strong> <span>{{item.contentUrl}}</span></div>
+                  <div class="v-list__tile__sub-title"><strong>Owner Name:</strong> <span>{{lazyLoadedData[item.contentUrl].ownername || 'Na'}}</span></div>
                   <div class="v-list__tile__sub-title"><strong>Created On:</strong> {{new Date(Number(item.createdOn)).toDateString()}}</div>
+                  <div class="v-list__tile__sub-title"><strong>OwnerId:</strong> <span>{{lazyLoadedData[item.contentUrl].owner}}</span></div>
+                  <div class="v-list__tile__sub-title"><strong>Content URL:</strong> <span>{{item.contentUrl}}</span></div>
                 </v-card-text>
               </v-slide-y-transition>
             </v-card>
@@ -170,12 +167,10 @@ export default {
     if (this.quorumData && this.quorumData.length > 0) {
       this.quorumData.forEach((item, index) => {
         this.$set(this.showIndex, index, false)
-        // this.showIndex[index] = false
       })
     }
     this.$store.dispatch('ACTION_GET_QUORUM_DATA', { sort: 'pop' }).then(res => {
-      for (let i = 0; i < res / 2; i++) {
-        // this.showIndex[i] = false
+      for (let i = 0; i < res.length / 2; i++) {
         this.$set(this.showIndex, i, false)
       }
     })
