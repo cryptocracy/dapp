@@ -47,7 +47,7 @@
               </v-expansion-panel-content>
             </v-expansion-panel> -->
 
-            <v-card hover class=" mt-2 br20" >
+            <v-card @click="redirectUser(item)"  hover class=" mt-2 br20" >
               <v-img
                 :src="lazyLoadedData[item.contentUrl] ? lazyLoadedData[item.contentUrl].image : ''"
                 height="250px"
@@ -66,12 +66,20 @@
                 <v-icon class=" ml-2" color='blue'>thumbs_up_down</v-icon> <span class="subheading ml-2">{{item.votes}}</span>
                 <v-spacer></v-spacer>
                 <span class='iconGroup'>
-                  <v-icon class='iconStyle' color="brown ">account_balance_wallet</v-icon>
-                  <v-icon class='iconStyle' color="red ">favorite</v-icon>
+                  <v-tooltip top>
+                    <v-btn slot="activator" icon @click.stop="donate(lazyLoadedData[item.contentUrl].address)">
+                      <v-icon class='iconStyle' color="brown ">account_balance_wallet</v-icon>
+                    </v-btn>
+                    <span>Donate Crypto</span>
+                  </v-tooltip>
+                  <!-- <v-icon class='iconStyle' color="red ">favorite</v-icon> -->
                 </span>
-                <v-btn icon @click="func(index)">
-                  <v-icon>{{ showIndex[index] ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
-                </v-btn>
+                <v-tooltip top>
+                  <v-btn slot="activator" icon @click.stop="showData(index)">
+                    <v-icon>{{ showIndex[index] ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
+                  </v-btn>
+                  <span>More Details</span>
+                </v-tooltip>
               </v-card-actions>
 
               <v-slide-y-transition>
@@ -137,10 +145,14 @@ export default {
     }
   },
   methods: {
-    func (index) {
+    showData (index) {
       console.log('INDEXXX', index)
       this.showIndex[index] = !this.showIndex[index]
       console.log(this.showIndex)
+    },
+    donate (address) {
+      this.$store.state.BTCAddress = address
+      this.$router.push({name: 'Send'})
     },
     type (contentUrl) {
       let type = contentUrl.includes('marker') ? 'MARKER'
