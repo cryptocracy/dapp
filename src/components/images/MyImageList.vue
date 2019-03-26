@@ -1,9 +1,13 @@
 <template>
   <image-list
+    v-if="imagesArray.length"
     :imagesArray='imagesArray'
     :owned="!!!hubUrl"
     :hubUrl="hubUrl"
   />
+  <v-layout v-else align-center justify-center row fill-height class="container">
+    You have not yet created any content of this type yet
+  </v-layout>
 </template>
 
 <script>

@@ -1,9 +1,13 @@
 <template>
   <event-list
+    v-if="eventsArray.length"
     :eventsArray='eventsArray'
     :hubUrl='hubUrl'
     :owned="!!!hubUrl"
   />
+  <v-layout v-else align-center justify-center row fill-height class="container">
+    You have not yet created any content of this type yet
+  </v-layout>
 </template>
 
 <script>
