@@ -16,37 +16,6 @@
 
         <v-layout class="quorumtour" row wrap>
           <v-flex :class="index === 0 ? 'xs12' : 'xs6'" v-for="(item, index) in quorumData" :key="index" >
-            <!-- <v-expansion-panel :hover="true" class="titlePosition br20 mt-2" v-for="(item, index) in quorumData" :key="index">
-              <span class='quorumTitle' v-if="lazyLoadedData[item.contentUrl]">{{lazyLoadedData[item.contentUrl].title}}</span>
-              <img height="200px" v-if="lazyLoadedData[item.contentUrl] && lazyLoadedData[item.contentUrl].image"  :src="lazyLoadedData[item.contentUrl].image" alt="avatar">
-              <v-expansion-panel-content>
-                <div slot="header" v-if="lazyLoadedData[item.contentUrl]" class="fn16 displayFlex justify-space-between">
-                  <span><v-icon color='blue'>thumbs_up_down</v-icon></span>
-                  <span class='iconGroup'>
-                    <v-icon class='iconStyle'>edit</v-icon>
-                    <v-icon class='iconStyle' color="red ">place</v-icon>
-                    <v-icon class='iconStyle' color="green ">image</v-icon>
-                    <v-icon class='iconStyle' color="yellow ">today</v-icon>
-                    <v-icon class='iconStyle' color="brown ">account_balance_wallet</v-icon>
-                    <v-icon class='iconStyle' color="red ">favorite</v-icon>
-                    <v-icon class='iconStyle' color="green ">share</v-icon>
-                  </span>
-                </div>
-                <v-card>
-                  <v-card-text class="py12px24">
-                    <v-flex v-if="lazyLoadedData[item.contentUrl]" class="space-between">
-                      <div>{{type(item.contentUrl)}}</div>
-                      <v-btn dark color="teal accent-4" @click="redirectUser(item)" ><v-icon dark>keyboard_arrow_right</v-icon></v-btn>
-                    </v-flex>
-                    <div class="v-list__tile__sub-title" v-if="lazyLoadedData[item.contentUrl]" >{{lazyLoadedData[item.contentUrl].description}}</div>
-                    <div class="v-list__tile__sub-title"><strong>Votes: {{item.votes}}</strong></div>
-                    <div class="v-list__tile__sub-title"><strong>Content URL:</strong> <span>{{item.contentUrl}}</span></div>
-                    <div class="v-list__tile__sub-title"><strong>Created On:</strong> {{new Date(Number(item.createdOn)).toDateString()}}</div>
-                  </v-card-text>
-                </v-card>
-              </v-expansion-panel-content>
-            </v-expansion-panel> -->
-
             <v-card @click="redirectUser(item)"  hover class=" mt-2 br20" >
               <v-img
                 :src="lazyLoadedData[item.contentUrl] ? lazyLoadedData[item.contentUrl].image : ''"
