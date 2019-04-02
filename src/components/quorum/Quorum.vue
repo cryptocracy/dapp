@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-layout row wrap justify-center>
-      <v-flex xs10>
+      <v-flex xs12>
         <v-layout justify-end row wrap>
           <v-flex xs3 class='quorumList'>
             <v-select
@@ -14,33 +14,60 @@
           </v-flex>
         </v-layout>
 
-        <v-flex class="quorumtour">
-          <v-card :hover="true" @click="redirectUser(item)" class="br20 mt-2" v-for="(item, index) in quorumData" :key="index">
-            <v-card-text>
-              <v-layout row>
-                <v-flex v-if="lazyLoadedData[item.contentUrl]" class="space-between">
-                  <h4 class="inline-block">{{lazyLoadedData[item.contentUrl].title}}</h4>
-                  <v-btn dark color="teal accent-4" icon><v-icon dark>keyboard_arrow_right</v-icon></v-btn>
-                </v-flex>
-              </v-layout>
-              <div>{{type(item.contentUrl)}}</div>
-              <div class="v-list__tile__sub-title" v-if="lazyLoadedData[item.contentUrl]" >{{lazyLoadedData[item.contentUrl].description}}</div>
-              <div class="v-list__tile__sub-title">Votes: {{item.votes}}</div>
-              <div class="v-list__tile__sub-title">Content URL: <span>{{item.contentUrl}}</span></div>
-              <div class="v-list__tile__sub-title">Created On: {{new Date(Number(item.createdOn)).toDateString()}}</div>
-            </v-card-text>
-            <!-- <v-list two-line>
-              <v-list-tile-action></v-list-tile-action>
-              <v-list-tile>
-                <v-list-tile-content>
-                  <v-list-tile-sub-title>Votes: {{item.votes}}</v-list-tile-sub-title>
-                  <v-list-tile-sub-title>Content URL: <span>{{item.contentUrl}}</span></v-list-tile-sub-title>
-                  <v-list-tile-sub-title>Created On: {{new Date(Number(item.createdOn)).toDateString()}}</v-list-tile-sub-title>
-                </v-list-tile-content>
-              </v-list-tile>
-            </v-list> -->
-          </v-card>
-        </v-flex>
+        <v-layout class="quorumtour" row wrap>
+          <v-flex :class="index === 0 ? 'xs12' : 'xs6'" v-for="(item, index) in quorumData" :key="index" >
+            <v-card @click="redirectUser(item)"  hover class=" mt-2 br20" >
+              <v-img
+                :src="lazyLoadedData[item.contentUrl] ? lazyLoadedData[item.contentUrl].image : ''"
+                height="250px"
+                alt="No image"
+              >
+              </v-img>
+
+              <v-card-title v-if="lazyLoadedData[item.contentUrl]" primary-title>
+                <div>
+                  <div class="headline">{{lazyLoadedData[item.contentUrl].title}}</div>
+                  <span class="grey--text">{{lazyLoadedData[item.contentUrl].description || lazyLoadedData[item.contentUrl].detail}}</span>
+                </div>
+              </v-card-title>
+
+              <v-card-actions>
+                <v-icon class=" ml-2" color='blue'>thumbs_up_down</v-icon> <span class="subheading ml-2">{{item.votes}}</span>
+                <v-spacer></v-spacer>
+                <span class='iconGroup'>
+                  <v-tooltip top>
+                    <v-btn slot="activator" icon @click.stop="donate(lazyLoadedData[item.contentUrl].address)">
+                      <v-icon class='iconStyle' color="brown ">account_balance_wallet</v-icon>
+                    </v-btn>
+                    <span>Donate Crypto</span>
+                  </v-tooltip>
+                  <!-- <v-icon class='iconStyle' color="red ">favorite</v-icon> -->
+                </span>
+                <v-tooltip top>
+                  <v-btn slot="activator" icon @click.stop="showData(index)">
+                    <v-icon>{{ showIndex[index] ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
+                  </v-btn>
+                  <span>More Details</span>
+                </v-tooltip>
+              </v-card-actions>
+
+              <v-slide-y-transition>
+                <v-card-text v-if="showIndex[index]">
+
+                  <v-chip color="primary" class="white--text" v-for="(tag, index1) in lazyLoadedData[item.contentUrl].tags || []" :key="index1" >
+                    {{'#' + tag.title}}
+                  </v-chip>
+                  <!-- <div class="v-list__tile__sub-title" v-if="lazyLoadedData[item.contentUrl]" >{{lazyLoadedData[item.contentUrl].description}}</div> -->
+                  <!-- <div class="v-list__tile__sub-title"><strong>Votes: {{item.votes}}</strong></div> -->
+                  <div class="v-list__tile__sub-title"><strong>Owner Name:</strong> <span>{{lazyLoadedData[item.contentUrl].ownername || 'Na'}}</span></div>
+                  <div class="v-list__tile__sub-title"><strong>Created On:</strong> {{new Date(Number(item.createdOn)).toDateString()}}</div>
+                  <div class="v-list__tile__sub-title"><strong>OwnerId:</strong> <span>{{lazyLoadedData[item.contentUrl].owner}}</span></div>
+                  <div class="v-list__tile__sub-title"><strong>Content URL:</strong> <span>{{item.contentUrl}}</span></div>
+                </v-card-text>
+              </v-slide-y-transition>
+            </v-card>
+          </v-flex>
+        </v-layout>
       </v-flex>
     </v-layout>
   </v-container>
@@ -55,13 +82,27 @@ export default {
       { text: 'Votes Sum', value: 'sum' }
     ],
     sortBy: 'pop',
-    lazyLoadedData: {}
+    lazyLoadedData: {},
+    show: false,
+    showIndex: {}
   }),
   computed: {
     ...mapGetters({
       quorumData: 'getQuorumData',
       contentUrlsData: 'getcontentUrlsData'
     })
+    // showIndex () {
+    //   console.log('HEREEEEE')
+    //   if (this.quorumData && this.quorumData.length > 0) {
+    //     let a = {}
+    //     this.quorumData.forEach((item, index) => {
+    //       a[index] = false
+    //     })
+    //     console.log(a)
+    //     return a
+    //   }
+    //   return {}
+    // }
   },
   watch: {
     deep: true,
@@ -73,6 +114,15 @@ export default {
     }
   },
   methods: {
+    showData (index) {
+      console.log('INDEXXX', index)
+      this.showIndex[index] = !this.showIndex[index]
+      console.log(this.showIndex)
+    },
+    donate (address) {
+      this.$store.state.BTCAddress = address
+      this.$router.push({name: 'Send'})
+    },
     type (contentUrl) {
       let type = contentUrl.includes('marker') ? 'MARKER'
         : contentUrl.includes('image') ? 'IMAGE'
@@ -95,7 +145,16 @@ export default {
     }
   },
   created () {
-    this.$store.dispatch('ACTION_GET_QUORUM_DATA', { sort: 'pop' })
+    if (this.quorumData && this.quorumData.length > 0) {
+      this.quorumData.forEach((item, index) => {
+        this.$set(this.showIndex, index, false)
+      })
+    }
+    this.$store.dispatch('ACTION_GET_QUORUM_DATA', { sort: 'pop' }).then(res => {
+      for (let i = 0; i < res.length / 2; i++) {
+        this.$set(this.showIndex, i, false)
+      }
+    })
   }
 }
 </script>
@@ -115,5 +174,23 @@ export default {
 }
 .v-list__tile__sub-title {
   color: rgba(0,0,0,.54)
+}
+.iconStyle {
+  margin: 0 6px;
+}
+.quorumTitle {
+  position: absolute;
+  color: white;
+  font-size: 34px;
+  left: 20px;
+}
+.displayFlex {
+  display: flex;
+}
+.titlePosition {
+  position: relative;
+}
+.iconGroup {
+  margin: 0 10px;
 }
 </style>
