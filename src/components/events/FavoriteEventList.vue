@@ -1,5 +1,8 @@
 <template>
-  <event-list :eventsArray="eventsArray"/>
+  <event-list v-if="eventsArray.length" :eventsArray="eventsArray"/>
+  <v-layout v-else align-center justify-center row fill-height class="container">
+    You have not saved any of this type of content to your favorites yet
+  </v-layout>
 </template>
 
 <script>

@@ -1,5 +1,10 @@
 <template>
-  <task-list :tasksArray="tasksArray"/>
+  <task-list
+    v-if="tasksArray.length"
+    :tasksArray="tasksArray"/>
+  <v-layout v-else align-center justify-center row fill-height class="container">
+    You have not saved any of this type of content to your favorites yet
+  </v-layout>
 </template>
 
 <script>
