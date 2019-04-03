@@ -80,7 +80,7 @@ export default {
   },
   destroyed () {
     this.$store.state.hubUrl = null
-    this.$store.commit('MUTATION_SET_CONTENT_DATA', null)
+    // this.$store.commit('MUTATION_SET_CONTENT_DATA', null)
   }
 }
 </script>

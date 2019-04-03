@@ -48,11 +48,7 @@
             <v-list-tile
               v-for="event in filteredEventsArray"
               :key="event.createdtime"
-              :to="{name: 'EventInfo', params: {
-                eventName: 'event_'+event.createdtime,
-                eventObject: event,
-                hubUrl: hubUrl
-              }}"
+              @click="goTo(event)"
             >
               <v-list-tile-avatar>
                 <v-icon color="orange lighten-4">today</v-icon>
@@ -81,6 +77,7 @@
 
 <script>
 import storageService from '@/services/blockstack-storage'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'EventList',
@@ -126,12 +123,27 @@ export default {
     }
   },
   methods: {
+    ...mapMutations({
+      setObjectData: 'MUTATION_SET_CONTENT_DATA'
+    }),
     getFavEventName (event) {
       return `event_${event.createdtime}_${JSON.parse(localStorage['blockstack-gaia-hub-config']).address}`
     },
     removeFavorite (e, event) {
       storageService.reduceFavoriteEventIndex(this.getFavEventName(event), event.title)
       this.events = this.events.filter(item => item.createdtime !== event.createdtime)
+    },
+    goTo (event) {
+      console.log(event)
+      this.setObjectData(event)
+      this.$router.push({
+        name: 'EventInfo', params: {
+          // eventName: 'event_' + event.createdtime,
+          object: event,
+          hubUrl: this.hubUrl,
+          type: 'event'
+        }
+      })
     }
   },
   mounted () {

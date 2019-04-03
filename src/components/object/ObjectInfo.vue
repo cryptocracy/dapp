@@ -1,9 +1,9 @@
 <template>
   <v-card class="container mt-4">
-    <div class="entity-title d-flex justify-space-between" v-if="eventObject.title">
-      {{ eventObject.title }}
+    <div class="entity-title d-flex justify-space-between" v-if="object.title">
+      {{ object.title }}
       <v-flex xs3>
-        <Voter :itemsObject="eventObject" type="event"></Voter>
+        <Voter :itemsObject="object" :type="type"></Voter>
       </v-flex>
     </div>
     <v-list two-line>
@@ -14,57 +14,58 @@
           class="mb-0"
         ></v-progress-linear>
       </v-list-tile>
-      <v-list-tile v-if="eventObject.description">
+      <v-list-tile v-if="object.description">
         <v-list-tile-content>
-          <v-list-tile-title v-html="eventObject.description"></v-list-tile-title>
+          <v-list-tile-title v-html="object.description"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
-      <v-list-tile v-if="eventObject.ownername">
+      <v-list-tile v-if="object.ownername">
         <v-list-tile-content>
           <v-list-tile-sub-title>Published by</v-list-tile-sub-title>
-          <v-list-tile-title v-html="eventObject.ownername"></v-list-tile-title>
+          <v-list-tile-title v-html="object.ownername"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
-      <v-list-tile v-if="eventObject.start">
+      <v-list-tile v-if="object.start">
         <v-list-tile-content>
           <v-list-tile-sub-title>Start date & time</v-list-tile-sub-title>
-          <v-list-tile-title v-html="new Date(eventObject.start).toLocaleString()"></v-list-tile-title>
+          <v-list-tile-title v-html="new Date(object.start).toLocaleString()"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
-      <v-list-tile v-if="eventObject.end">
+      <v-list-tile v-if="object.end">
         <v-list-tile-content>
           <v-list-tile-sub-title>End date & time</v-list-tile-sub-title>
-          <v-list-tile-title v-html="new Date(eventObject.end).toLocaleString()"></v-list-tile-title>
+          <v-list-tile-title v-html="new Date(object.end).toLocaleString()"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
-      <v-list-tile v-if="eventObject.tags && eventObject.tags.length">
+      <v-list-tile v-if="object.tags && object.tags.length">
         <v-list-tile-content>
-          <v-list-tile-sub-title>{{ eventObject.tags.length>1 ? 'Tags' : 'Tag' }}</v-list-tile-sub-title>
+          <v-list-tile-sub-title>{{ object.tags.length>1 ? 'Tags' : 'Tag' }}</v-list-tile-sub-title>
           <div>
-            <template v-for="tag in eventObject.tags">
+            <template v-for="tag in object.tags">
               <v-chip :key="tag.address">{{ '#' + tag.title }}</v-chip>
             </template>
           </div>
         </v-list-tile-content>
       </v-list-tile>
-      <v-list-tile v-if="eventObject.images && eventObject.images.length">
+      <v-list-tile v-if="object.images && object.images.length">
         <v-list-tile-content>
-          <v-list-tile-sub-title>{{ eventObject.images.length>1 ? 'Images' : 'Image' }}</v-list-tile-sub-title>
+          <v-list-tile-sub-title>{{ object.images.length>1 ? 'Images' : 'Image' }}</v-list-tile-sub-title>
           <div>
-            <template v-for="image in eventObject.images">
+            <template v-for="image in object.images">
               <v-chip :key="image.address">{{ image.title }}</v-chip>
             </template>
           </div>
         </v-list-tile-content>
       </v-list-tile>
-      <!--<v-list-tile v-if="eventObject.private">-->
+      <!--<v-list-tile v-if="object.private">-->
       <!--<v-list-tile-content>-->
       <!--<v-list-tile-sub-title>Privacy</v-list-tile-sub-title>-->
-      <!--<v-list-tile-title v-html="eventObject.private ? 'Private' : 'Public'"></v-list-tile-title>-->
+      <!--<v-list-tile-title v-html="object.private ? 'Private' : 'Public'"></v-list-tile-title>-->
       <!--</v-list-tile-content>-->
       <!--</v-list-tile>-->
       <div v-if="!isLoading" class="entity-actions">
-        <router-link v-if="!hubUrl && isOwned" color="cyan lighten-1" class="entity-action entity-action--edit" :to="{ name: 'EditEvent', params: { eventProp: this.eventObject } }">
+        <router-link v-if="!hubUrl && isOwned" color="cyan lighten-1" class="entity-action entity-action--edit"
+                     :to="{ name: 'Edit' + type.charAt(0).toUpperCase() + type.slice(1)}">
           <v-icon color="cyan lighten-1">edit</v-icon>
           Edit
         </router-link>
@@ -76,7 +77,8 @@
           <v-icon color="teal lighten-1">favorite</v-icon>
           <span class="teal--text text--lighten-1">Add to Favorite</span>
         </a>
-        <a class="entity-action entity-action--wallet" color="brown lighten-1" @click="redirectUser(eventObject.address)">
+        <a class="entity-action entity-action--wallet" color="brown lighten-1"
+           @click="redirectUser(object.address)">
           <v-icon color="brown lighten-1">account_balance_wallet</v-icon>
           <span class="brown--text text--lighten-1">Donate Crypto</span>
         </a>
@@ -86,23 +88,23 @@
         </a>
       </div>
       <open-map-with-marker v-if="isShowMarker" :center="markerCenter" readonly/>
-      <v-list-tile v-if="eventObject.symbol">
+      <v-list-tile v-if="object.symbol">
         <v-list-tile-content>
           <v-list-tile-sub-title>Symbol</v-list-tile-sub-title>
-          <v-list-tile-title v-html="eventObject.symbol"></v-list-tile-title>
+          <v-list-tile-title v-html="object.symbol"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
-      <v-list-tile v-if="eventObject.address">
+      <v-list-tile v-if="object.address">
         <v-list-tile-content>
           <v-list-tile-sub-title>Crypto Address</v-list-tile-sub-title>
-          <v-list-tile-title v-html="eventObject.address"></v-list-tile-title>
+          <v-list-tile-title v-html="object.address"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
       <v-list-tile>
         <div class="json-address">
           <v-text-field
             ref="urlInput"
-            :value="eventUrl"
+            :value="objectUrl"
             class="url-field"
             readonly
           />
@@ -112,19 +114,19 @@
       <v-list-tile>
         <v-list-tile-content>
           <v-list-tile-sub-title>Privacy</v-list-tile-sub-title>
-          <v-list-tile-title v-html="eventObject.private ? 'Private' : 'Public'"></v-list-tile-title>
+          <v-list-tile-title v-html="object.private ? 'Private' : 'Public'"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
       <v-list-tile>
         <v-list-tile-content>
           <v-list-tile-sub-title>Archived</v-list-tile-sub-title>
-          <v-list-tile-title v-html="eventObject.archived ? 'Yes' : 'No'"></v-list-tile-title>
+          <v-list-tile-title v-html="object.archived ? 'Yes' : 'No'"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
-      <v-list-tile v-if="eventObject.createdtime">
+      <v-list-tile v-if="object.createdtime">
         <v-list-tile-content>
           <v-list-tile-sub-title>Date Created</v-list-tile-sub-title>
-          <v-list-tile-title v-html="new Date(eventObject.createdtime).toLocaleString()"></v-list-tile-title>
+          <v-list-tile-title v-html="new Date(object.createdtime).toLocaleString()"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
     </v-list>
@@ -136,9 +138,10 @@ import axios from 'axios'
 import storageService from '@/services/blockstack-storage'
 import OpenMapWithMarker from '@/components/maps/OpenMapWithMarker'
 import Voter from '@/components/vote-buttons/voter'
+import { mapGetters } from 'vuex'
 
 export default {
-  name: 'EventInfo',
+  name: 'ObjectInfo',
   data: () => ({
     copyButtonText: 'Copy',
     isFavorite: false,
@@ -147,8 +150,9 @@ export default {
     markerCenter: null
   }),
   props: {
-    eventObject: {
-      type: Object
+    type: {
+      type: String,
+      required: true
     },
     hubUrl: {
       type: String
@@ -159,15 +163,18 @@ export default {
     Voter
   },
   computed: {
-    eventUrl () {
+    ...mapGetters({
+      object: 'getContentData'
+    }),
+    objectUrl () {
       // parsing blockstack gaia hub cong from localhost for creating hub url
       const urlItems = JSON.parse(localStorage['blockstack-gaia-hub-config'])
       // creating hub url(where our files are stored)
-      const hubUrl = this.hubUrl ? `${urlItems.url_prefix}${this.hubUrl}/` : `${urlItems.url_prefix}${this.eventObject.owner}/`
-      return this.eventObject ? `${hubUrl}event_${this.eventObject.createdtime}.json` : ''
+      const hubUrl = this.hubUrl ? `${urlItems.url_prefix}${this.hubUrl}/` : `${urlItems.url_prefix}${this.object.owner}/`
+      return this.object ? `${hubUrl}${this.type}_${this.object.createdtime}.json` : ''
     },
     isOwned () {
-      return storageService.isResourceOwned(this.eventObject.owner)
+      return storageService.isResourceOwned(this.object.owner)
     }
   },
   methods: {
@@ -175,19 +182,21 @@ export default {
       this.$store.state.BTCAddress = address
       this.$router.push({name: 'Send'})
     },
-    getFavEventName () {
-      const eventUrlArr = this.eventUrl.split('/')
-      return `${eventUrlArr.pop().split('.')[0]}_${eventUrlArr.pop()}`
+    getFavObjectName () {
+      const objectUrlArr = this.objectUrl.split('/')
+      return `${objectUrlArr.pop().split('.')[0]}_${objectUrlArr.pop()}`
     },
     copyUrl (e) {
       this.$refs.urlInput.$refs.input.select()
       document.execCommand('copy')
       this.copyButtonText = 'Copied!'
-      setTimeout(() => { this.copyButtonText = 'Copy' }, 2000)
+      setTimeout(() => {
+        this.copyButtonText = 'Copy'
+      }, 2000)
     },
     addToFavorite () {
       this.isLoading = true
-      storageService.updateFavoriteEventIndex(this.getFavEventName(), this.eventObject.title)
+      storageService.updateFavoriteObjectIndex(this.getFavObjectName(), this.object.title, this.type)
         .then(() => {
           this.isFavorite = true
           this.isLoading = false
@@ -195,7 +204,7 @@ export default {
     },
     removeFromFavorite () {
       this.isLoading = true
-      storageService.reduceFavoriteEventIndex(this.getFavEventName(), this.eventObject.title)
+      storageService.reduceFavoriteObjectIndex(this.getFavObjectName(), this.object.title, this.type)
         .then(() => {
           this.isFavorite = false
           this.isLoading = false
@@ -205,15 +214,15 @@ export default {
   mounted () {
     if (!this.hubUrl) {
       this.$store.commit('toggleLoading')
-      storageService.getFile({ fileName: 'my_fav_events.json', options: { decrypt: false } })
+      storageService.getFile({fileName: 'my_fav_'+this.type+'s.json', options: {decrypt: false}})
         .then(res => {
           if (res) {
-            this.isFavorite = !!res[this.getFavEventName()]
+            this.isFavorite = !!res[this.getFavObjectName()]
           }
         })
         .then(() => {
-          if (this.eventObject.marker) {
-            axios.get(this.eventObject.marker.address)
+          if (this.object.marker) {
+            axios.get(this.object.marker.address)
               .then(res => {
                 if (res) {
                   this.markerCenter = res.data.coordinates
@@ -226,7 +235,6 @@ export default {
           }
         })
     }
-
   }
 }
 </script>

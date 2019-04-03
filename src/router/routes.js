@@ -8,6 +8,8 @@ import favContacts from '@/components/contacts/FavouriteContacts'
 // import FavoriteTagList from '@/components/tags/FavoriteTagList'
 // import TagInfo from '@/components/tags/TagInfo'
 
+import ObjectInfo from '@/components/object/ObjectInfo'
+
 import ImageForm from '@/components/images/ImageForm'
 import MyImageList from '@/components/images/MyImageList'
 import FavoriteImageList from '@/components/images/FavoriteImageList'
@@ -67,7 +69,7 @@ const routes = [
   { path: '/events/edit-event', name: 'EditEvent', props: true, component: EventForm },
   { path: '/events/owned', name: 'OwnedEvents', component: MyEventList },
   { path: '/events/favorites', name: 'FavoritesEvents', component: FavoriteEventList },
-  { path: '/events/:eventName', name: 'EventInfo', props: true, component: EventInfo },
+  { path: '/events/info', name: 'EventInfo', props: true, component: ObjectInfo },
 
   { path: '/markers/add-marker', name: 'AddMarker', props: true, component: MarkerForm },
   { path: '/markers/edit-marker', name: 'EditMarker', props: true, component: MarkerForm },
