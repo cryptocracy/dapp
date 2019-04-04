@@ -1,9 +1,10 @@
 <template>
-  <image-list
+  <object-list
     v-if="imagesArray.length"
-    :imagesArray='imagesArray'
+    :objectsArray='imagesArray'
     :owned="!!!hubUrl"
     :hubUrl="hubUrl"
+    type="image"
   />
   <v-layout v-else align-center justify-center row fill-height class="container">
     You have not yet created any content of this type yet
@@ -12,7 +13,7 @@
 
 <script>
 import axios from 'axios'
-import ImageList from './ImageList'
+import ObjectList from '@/components/object/ObjectList'
 import { mapGetters } from 'vuex'
 
 const storageFile = 'my_images.json'
@@ -20,7 +21,7 @@ const storageFile = 'my_images.json'
 export default {
   name: 'MyImageList',
   components: {
-    ImageList
+    ObjectList
   },
   computed: {
     ...mapGetters({
@@ -81,7 +82,7 @@ export default {
   },
   destroyed () {
     this.$store.state.hubUrl = null
-    this.$store.commit('MUTATION_SET_CONTENT_DATA', null)
+    // this.$store.commit('MUTATION_SET_CONTENT_DATA', null)
   }
 }
 </script>

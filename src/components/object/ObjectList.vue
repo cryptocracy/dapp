@@ -17,11 +17,17 @@
                 <v-checkbox v-model="filterArchived"/>
                 <span class="checkbox-label">Archived</span>
               </div>
-              <div class="entity-check-group">
+              <div
+                v-if="type!='image'"
+                class="entity-check-group"
+              >
                 <v-checkbox v-model="filterActive"/>
                 <span class="checkbox-label">Active</span>
               </div>
-              <div class="entity-check-group">
+              <div
+                v-if="type == 'event' || type == 'task'"
+                class="entity-check-group"
+              >
                 <v-checkbox v-model="filterUpcoming"/>
                 <span class="checkbox-label">Upcoming</span>
               </div>
@@ -36,7 +42,10 @@
                   <v-radio value="date"></v-radio>
                   <span class="radio-label">By Date</span>
                 </div>
-                <div class="entity-radio-group">
+                <div
+                  v-if="type == 'event' || type == 'task'"
+                  class="entity-radio-group"
+                >
                   <v-radio value="startDate"></v-radio>
                   <span class="radio-label">By Start Date</span>
                 </div>
@@ -51,7 +60,22 @@
               @click="goTo(object)"
             >
               <v-list-tile-avatar>
-                <v-icon color="orange lighten-4">today</v-icon>
+                <v-icon
+                  v-if="type=='event'"
+                  color="orange lighten-4"
+                >today</v-icon>
+                <v-icon
+                  v-if="type=='image'"
+                  color="orange lighten-4"
+                >image</v-icon>
+                <v-icon
+                  v-if="type=='task'"
+                  color="orange lighten-4"
+                >list</v-icon>
+                <v-icon
+                  v-if="type=='marker'"
+                  color="orange lighten-4"
+                >place</v-icon>
               </v-list-tile-avatar>
 
               <v-list-tile-content>
@@ -59,7 +83,7 @@
                 <v-list-tile-sub-title v-text="object.detail"/>
               </v-list-tile-content>
 
-              <v-list-tile-action>
+              <v-list-tile-action class="item-actions">
                 <v-btn v-if="owned" icon @click.stop="goEdit(object)">
                   <v-icon color="grey lighten-1">edit</v-icon>
                 </v-btn>
@@ -81,14 +105,16 @@ import { mapMutations } from 'vuex'
 
 export default {
   name: 'ObjectList',
-  data: () => ({
-    blockstack: window.blockstack,
-    filterArchived: false,
-    filterActive: false,
-    filterUpcoming: true,
-    sortBy: 'name',
-    objects: []
-  }),
+  data: function () {
+    return {
+      blockstack: window.blockstack,
+      filterArchived: this.type === 'marker' || this.type === 'image',
+      filterActive: this.type === 'marker' || this.type === 'image',
+      filterUpcoming: true,
+      sortBy: 'name',
+      objects: []
+    }
+  },
   props: {
     objectsArray: {
       type: Array,
@@ -109,7 +135,7 @@ export default {
   computed: {
     filterAll: {
       get () {
-        return this.filterArchived && this.filterActive
+        return this.filterArchived && this.filterActive && this.filterUpcoming
       },
       set () {
         this.filterArchived = true

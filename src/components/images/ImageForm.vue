@@ -62,7 +62,7 @@
       <!--<span class="switch-text">Personal</span>-->
       <!--</div>-->
       <!--</div>-->
-      <div class="switch-wrapper" v-if="imageProp">
+      <div class="switch-wrapper" v-if="objectProp">
         <div class="input-group--text-field primary--text">Archived</div>
         <div class="switch-block">
           <span class="switch-text">No</span>
@@ -136,14 +136,14 @@ export default {
     ImageUploader
   },
   props: {
-    imageProp: {
+    objectProp: {
       type: [Object, null],
       default: null
     }
   },
   watch: {
     deep: true,
-    imageProp () {
+    objectProp () {
       this.updateFromImageProp()
     },
     tags () {
@@ -157,7 +157,7 @@ export default {
       const timestamp = +new Date()
       if (this.$refs.form.validate()) {
         this.isLoading = true
-        this.image.createdtime = this.imageProp ? this.imageProp.createdtime : timestamp
+        this.image.createdtime = this.objectProp ? this.objectProp.createdtime : timestamp
         this.image.owner = JSON.parse(localStorage['blockstack-gaia-hub-config']).address
         this.image.tags = []
         this.tags.forEach(element => {
@@ -178,7 +178,7 @@ export default {
       }
     },
     getImageFilename (timestamp) {
-      return this.imageProp ? `image_${this.imageProp.createdtime}.json` : `image_${timestamp}.json`
+      return this.objectProp ? `image_${this.objectProp.createdtime}.json` : `image_${timestamp}.json`
     },
     saveImage (timestamp) {
       this.blockstack.putFile(this.getImageFilename(timestamp), JSON.stringify(this.image), { encrypt: false })
@@ -186,7 +186,7 @@ export default {
           storageService.updateImageIndex(jsonUrl.split('/').pop().split('.')[0], this.image.title)
             .then(() => {
               this.isLoading = false
-              this.imageProp ? this.$router.push({
+              this.objectProp ? this.$router.push({
                 name: 'ImageInfo',
                 params: {
                   imageName: 'image_' + this.image.createdtime,
@@ -203,14 +203,14 @@ export default {
       this.imageFile = e
     },
     updateFromImageProp () {
-      if (this.imageProp) {
-        for (let property in this.imageProp) {
-          this.image[property] = this.imageProp[property] instanceof Object ? { ...this.imageProp[property] } : this.imageProp[property]
+      if (this.objectProp) {
+        for (let property in this.objectProp) {
+          this.image[property] = this.objectProp[property] instanceof Object ? { ...this.objectProp[property] } : this.objectProp[property]
         }
         this.image.tags = objectHelpers.toArray(this.image.tags)
         this.imageFile = {}
         this.imageFile.url = this.image.image
-        this.imageProp.tags.forEach(item => {
+        this.objectProp.tags.forEach(item => {
           this.tags.push(item.title)
         })
       } else {

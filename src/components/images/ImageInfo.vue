@@ -213,39 +213,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .image-container {
-    width: calc(100% + 32px);
-    margin: -16px -16px 0;
-    max-height: 300px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    position: relative;
 
-    .image-title {
-      position: absolute;
-      top: 16px;
-      left: 16px;
-      font-size: 24px;
-      color: white;
-      mix-blend-mode: difference;
-    }
-
-    .main-image {
-      max-height: 100%;
-      max-width: 100%;
-    }
-  }
-  @media only screen and (min-width: 960px) {
-    .image-container {
-      width: calc(100% + 48px);
-      margin: -24px -24px 0;
-    }
-    .image-title {
-      top: 24px;
-      left: 24px;
-      font-size: 24px;
-    }
-  }
 </style>

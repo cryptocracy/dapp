@@ -1,10 +1,16 @@
 <template>
   <v-card class="container mt-4">
-    <div class="entity-title d-flex justify-space-between" v-if="object.title">
-      {{ object.title }}
-      <v-flex xs3>
-        <Voter :itemsObject="object" :type="type"></Voter>
-      </v-flex>
+    <div class="image-container" v-if="object.image">
+      <span v-if="object.title" class="image-title">{{ object.title }}</span>
+      <img v-if="object.image" :src="object.image" class="main-image">
+    </div>
+    <div v-else>
+      <div class="entity-title d-flex justify-space-between" v-if="object.title">
+        {{ object.title }}
+        <v-flex xs3>
+          <Voter :itemsObject="object" :type="type"></Voter>
+        </v-flex>
+      </div>
     </div>
     <v-list two-line>
       <v-list-tile v-if="isLoading">
@@ -65,7 +71,7 @@
       <!--</v-list-tile>-->
       <div v-if="!isLoading" class="entity-actions">
         <router-link v-if="!hubUrl && isOwned" color="cyan lighten-1" class="entity-action entity-action--edit"
-                     :to="{ name: 'Edit' + type.charAt(0).toUpperCase() + type.slice(1)}">
+                     :to="{ name: 'Edit' + type.charAt(0).toUpperCase() + type.slice(1), params: {objectProp: object}}">
           <v-icon color="cyan lighten-1">edit</v-icon>
           Edit
         </router-link>

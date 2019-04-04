@@ -160,11 +160,11 @@ export default {
       // else if (content.fileUrl.includes('tag')) this.$router.push({name: 'Owned'})
       // else if (content.fileUrl.includes('image')) this.$router.push({name: 'OwnedImages'})
       // else if (content.fileUrl.includes('event')) this.$router.push({name: 'OwnedEvents'})
-      if (content.fileUrl.includes('marker')) this.$router.push({name: 'MarkerInfo', params: { markerName:  'info'}})
-      else if (content.fileUrl.includes('tag')) this.$router.push({name: 'TagInfo', params: { tagName:  'info'}})
-      else if (content.fileUrl.includes('image')) this.$router.push({name: 'ImageInfo', params: { imageName:  'info'}})
-      else if (content.fileUrl.includes('event')) this.$router.push({name: 'EventInfo', params: { eventName:  'info'}})
-      else if (content.fileUrl.includes('task')) this.$router.push({name: 'TaskInfo', params: { taskName:  'info'}})
+      if (content.fileUrl.includes('marker')) this.$router.push({name: 'MarkerInfo', params: { type:  'marker'}})
+      else if (content.fileUrl.includes('tag')) this.$router.push({name: 'TagInfo', params: { type:  'tag'}})
+      else if (content.fileUrl.includes('image')) this.$router.push({name: 'ImageInfo', params: { type:  'image'}})
+      else if (content.fileUrl.includes('event')) this.$router.push({name: 'EventInfo', params: { type:  'event'}})
+      else if (content.fileUrl.includes('task')) this.$router.push({name: 'TaskInfo', params: { type:  'task'}})
     }
   }
 }

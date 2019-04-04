@@ -63,7 +63,7 @@ const routes = [
   { path: '/images/edit-image', name: 'EditImage', props: true, component: ImageForm },
   { path: '/images/owned', name: 'OwnedImages', component: MyImageList },
   { path: '/images/favorites', name: 'FavoritesImages', component: FavoriteImageList },
-  { path: '/images/:imageName', name: 'ImageInfo', props: true, component: ImageInfo },
+  { path: '/images/info', name: 'ImageInfo', props: true, component: ObjectInfo },
 
   { path: '/events/add-event', name: 'AddEvent', props: true, component: EventForm },
   { path: '/events/edit-event', name: 'EditEvent', props: true, component: EventForm },
