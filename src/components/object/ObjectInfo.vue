@@ -235,6 +235,9 @@ export default {
           }
         })
     }
+  },
+  destroyed () {
+    this.$store.commit('MUTATION_SET_CONTENT_DATA', null)
   }
 }
 </script>

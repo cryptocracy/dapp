@@ -81,7 +81,7 @@
       <!--<span class="switch-text">Personal</span>-->
       <!--</div>-->
       <!--</div>-->
-      <div class="switch-wrapper" v-if="eventProp">
+      <div class="switch-wrapper" v-if="objectProp">
         <div class="input-group--text-field primary--text">Archived</div>
         <div class="switch-block">
           <span class="switch-text">No</span>
@@ -161,13 +161,13 @@ export default {
     Datetime
   },
   props: {
-    eventProp: {
+    objectProp: {
       type: [Object, null],
       default: null
     }
   },
   watch: {
-    eventProp () {
+    objectProp () {
       this.updateFromEventProp()
     },
     tags () {
@@ -181,7 +181,7 @@ export default {
       const timestamp = +new Date()
       if (this.$refs.form.validate()) {
         this.isLoading = true
-        this.event.createdtime = this.eventProp ? this.eventProp.createdtime : timestamp
+        this.event.createdtime = this.objectProp ? this.objectProp.createdtime : timestamp
         this.event.owner = JSON.parse(localStorage['blockstack-gaia-hub-config']).address
         this.event.ownername = cryptoName
         this.event.tags = []
@@ -192,7 +192,7 @@ export default {
       }
     },
     getEventFilename (timestamp) {
-      return this.eventProp ? `event_${this.eventProp.createdtime}.json` : `event_${timestamp}.json`
+      return this.objectProp ? `event_${this.objectProp.createdtime}.json` : `event_${timestamp}.json`
     },
     saveEvent (timestamp) {
       this.blockstack.putFile(this.getEventFilename(timestamp), JSON.stringify(this.event), { encrypt: false })
@@ -200,7 +200,7 @@ export default {
           storageService.updateEventIndex(jsonUrl.split('/').pop().split('.')[0], this.event.title)
             .then(() => {
               this.isLoading = false
-              this.eventProp ? this.$router.push({
+              this.objectProp ? this.$router.push({
                 name: 'EventInfo',
                 params: {
                   eventName: 'event_' + this.event.createdtime,
@@ -216,13 +216,13 @@ export default {
       this.event.end = undefined
     },
     updateFromEventProp () {
-      if (this.eventProp) {
-        for (let property in this.eventProp) {
-          this.event[property] = this.eventProp[property] instanceof Object ? {...this.eventProp[property]} : this.eventProp[property]
+      if (this.objectProp) {
+        for (let property in this.objectProp) {
+          this.event[property] = this.objectProp[property] instanceof Object ? {...this.objectProp[property]} : this.objectProp[property]
         }
         this.event.images = objectHelpers.toArray(this.event.images)
         // this.event.tags = objectHelpers.toArray(this.event.tags)
-        this.eventProp.tags.forEach(item => {
+        this.objectProp.tags.forEach(item => {
           this.tags.push(item.title)
         })
       } else {
