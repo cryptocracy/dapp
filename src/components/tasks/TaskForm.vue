@@ -105,7 +105,7 @@
       <!--<span class="switch-text">Personal</span>-->
       <!--</div>-->
       <!--</div>-->
-      <div class="switch-wrapper" v-if="taskProp">
+      <div class="switch-wrapper" v-if="objectProp">
         <div class="input-group--text-field primary--text">Archived</div>
         <div class="switch-block">
           <span class="switch-text">No</span>
@@ -202,13 +202,13 @@ export default {
     Datetime
   },
   props: {
-    taskProp: {
+    objectProp: {
       type: [Object, null],
       default: null
     }
   },
   watch: {
-    taskProp () {
+    objectProp () {
       this.updateFromTaskProp()
     },
     tags () {
@@ -222,7 +222,7 @@ export default {
       const timestamp = +new Date()
       if (this.$refs.form.validate()) {
         this.isLoading = true
-        this.task.createdtime = this.taskProp ? this.taskProp.createdtime : timestamp
+        this.task.createdtime = this.objectProp ? this.objectProp.createdtime : timestamp
         this.task.owner = JSON.parse(localStorage['blockstack-gaia-hub-config']).address
         this.task.ownername = cryptoName
         this.task.tags = []
@@ -233,7 +233,7 @@ export default {
       }
     },
     getTaskFilename (timestamp) {
-      return this.taskProp ? `task_${this.taskProp.createdtime}.json` : `task_${timestamp}.json`
+      return this.objectProp ? `task_${this.objectProp.createdtime}.json` : `task_${timestamp}.json`
     },
     saveTask (timestamp) {
       this.blockstack.putFile(this.getTaskFilename(timestamp), JSON.stringify(this.task), { encrypt: false })
@@ -241,7 +241,7 @@ export default {
           storageService.updateTaskIndex(jsonUrl.split('/').pop().split('.')[0], this.task.title)
             .then(() => {
               this.isLoading = false
-              this.taskProp ? this.$router.push({
+              this.objectProp ? this.$router.push({
                 name: 'TaskInfo',
                 params: {
                   taskName: 'task_' + this.task.createdtime,
@@ -256,13 +256,13 @@ export default {
       this.task.due = undefined
     },
     updateFromTaskProp () {
-      if (this.taskProp) {
-        for (let property in this.taskProp) {
-          this.task[property] = this.taskProp[property] instanceof Object ? {...this.taskProp[property]} : this.taskProp[property]
+      if (this.objectProp) {
+        for (let property in this.objectProp) {
+          this.task[property] = this.objectProp[property] instanceof Object ? {...this.objectProp[property]} : this.objectProp[property]
         }
         this.task.images = objectHelpers.toArray(this.task.images)
         this.task.events = objectHelpers.toArray(this.task.events)
-        this.taskProp.tags.forEach(item => {
+        this.objectProp.tags.forEach(item => {
           this.tags.push(item.title)
         })
       } else {

@@ -81,7 +81,7 @@ const routes = [
   { path: '/tasks/edit-task', name: 'EditTask', props: true, component: TaskForm },
   { path: '/tasks/owned', name: 'OwnedTasks', component: MyTaskList },
   { path: '/tasks/favorites', name: 'FavoritesTasks', component: FavoriteTaskList },
-  { path: '/tasks/:taskName', name: 'TaskInfo', props: true, component: TaskInfo },
+  { path: '/tasks/info', name: 'TaskInfo', props: true, component: ObjectInfo },
 
   { path: '/wallet/summary', name: 'Summary', component: WalletSummary },
   { path: '/wallet/receive', name: 'Receive', component: WalletReceive },
