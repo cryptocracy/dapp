@@ -75,7 +75,7 @@ const routes = [
   { path: '/markers/edit-marker', name: 'EditMarker', props: true, component: MarkerForm },
   { path: '/markers/owned', name: 'OwnedMarkers', component: MyMarkerList },
   { path: '/markers/favorites', name: 'FavoritesMarkers', component: FavoriteMarkerList },
-  { path: '/markers/:markerName', name: 'MarkerInfo', props: true, component: MarkerInfo },
+  { path: '/markers/info', name: 'MarkerInfo', props: true, component: ObjectInfo },
 
   { path: '/tasks/add-task', name: 'AddTask', props: true, component: TaskForm },
   { path: '/tasks/edit-task', name: 'EditTask', props: true, component: TaskForm },

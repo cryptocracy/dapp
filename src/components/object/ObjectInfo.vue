@@ -148,13 +148,15 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'ObjectInfo',
-  data: () => ({
-    copyButtonText: 'Copy',
-    isFavorite: false,
-    isLoading: false,
-    isShowMarker: false,
-    markerCenter: null
-  }),
+  data: function () {
+    return {
+      copyButtonText: 'Copy',
+      isFavorite: false,
+      isLoading: false,
+      isShowMarker: this.type === 'marker',
+      markerCenter: null
+    }
+  },
   props: {
     type: {
       type: String,
@@ -237,6 +239,7 @@ export default {
               })
               .catch(e => this.$store.commit('toggleLoading'))
           } else {
+            if (this.object.coordinates) this.markerCenter = this.object.coordinates
             this.$store.commit('toggleLoading')
           }
         })
