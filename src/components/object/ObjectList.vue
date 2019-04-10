@@ -87,7 +87,10 @@
                 <v-btn v-if="owned" icon @click.stop="goEdit(object)">
                   <v-icon color="grey lighten-1">edit</v-icon>
                 </v-btn>
-                <v-btn v-if="!hubUrl" icon @click.stop.prevent="removeFavorite($event, object)">
+                <!--<v-btn v-if="!hubUrl" icon @click.stop.prevent="addFavorite($event, object)">-->
+                <!--<v-icon color="grey lighten-1">favorite</v-icon>-->
+                <!--</v-btn>-->
+                <v-btn v-if="!hubUrl && !owned" icon @click.stop.prevent="removeFavorite($event, object)">
                   <v-icon color="grey lighten-1">favorite_border</v-icon>
                 </v-btn>
               </v-list-tile-action>
@@ -160,18 +163,26 @@ export default {
       return `${this.type}_${object.createdtime}_${JSON.parse(localStorage['blockstack-gaia-hub-config']).address}`
     },
     removeFavorite (e, object) {
-      storageService.reduceFavoriteObjectIndex(this.getFavObjectName(object), object.title)
+      storageService.reduceFavoriteObjectIndex(this.getFavObjectName(object), object.title, this.type)
+      this.objects = this.objects.filter(item => item.createdtime !== object.createdtime)
+    },
+    addFavorite (e, object) {
+      storageService.updateFavoriteObjectIndex(this.getFavObjectName(object), object.title, this.type)
       this.objects = this.objects.filter(item => item.createdtime !== object.createdtime)
     },
     goEdit (object) {
       this.setObjectData(object)
-      this.$router.push({ name: 'Edit' + this.$options.filters.capitalize(this.type), params: { objectProp: object }})
+      this.$router.push({
+        name: 'Edit' + this.$options.filters.capitalize(this.type),
+        params: { objectProp: object }
+      })
       this.$store.commit('MUTATION_SET_CONTENT_DATA', null)
     },
     goTo (object) {
       this.setObjectData(object)
       this.$router.push({
-        name: this.$options.filters.capitalize(this.type) + 'Info', params: {
+        name: this.$options.filters.capitalize(this.type) + 'Info',
+        params: {
           // eventName: 'event_' + event.createdtime,
           object: object,
           hubUrl: this.hubUrl,

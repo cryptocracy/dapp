@@ -21,7 +21,6 @@ const cryptocracyHandler = {
       state.searchResult = modifiedData
     },
     MUTATION_SET_CONTENT_DATA (state, payload) {
-      console.log(payload)
       state.contentData = payload
     },
     MUTATION_SET_CONTENT_URLS_DATA (state, payload) {
