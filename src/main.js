@@ -26,7 +26,6 @@ import '../node_modules/vuetify/dist/vuetify.min.css'
 /* Import store */
 import store from './store/store'
 
-
 // Import filters
 import filters from '@/services/filters.js'
 filters.create(Vue)

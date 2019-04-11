@@ -137,7 +137,8 @@ export default {
       console.log(event)
       this.setObjectData(event)
       this.$router.push({
-        name: 'EventInfo', params: {
+        name: 'EventInfo',
+        params: {
           // eventName: 'event_' + event.createdtime,
           object: event,
           hubUrl: this.hubUrl,

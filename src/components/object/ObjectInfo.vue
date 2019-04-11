@@ -222,7 +222,7 @@ export default {
   mounted () {
     if (!this.hubUrl) {
       this.$store.commit('toggleLoading')
-      storageService.getFile({fileName: 'my_fav_'+this.type+'s.json', options: {decrypt: false}})
+      storageService.getFile({fileName: 'my_fav_' + this.type + 's.json', options: {decrypt: false}})
         .then(res => {
           if (res) {
             this.isFavorite = !!res[this.getFavObjectName()]
