@@ -1,9 +1,10 @@
 <template>
-  <marker-list
+  <object-list
     v-if="markersArray.length"
-    :markersArray='markersArray'
+    :objectsArray='markersArray'
     :owned="!!!hubUrl"
     :hubUrl="hubUrl"
+    type="marker"
   />
   <v-layout v-else align-center justify-center row fill-height class="container">
     You have not yet created any content of this type yet
@@ -12,7 +13,7 @@
 
 <script>
 import axios from 'axios'
-import MarkerList from './MarkerList'
+import ObjectList from '@/components/object/ObjectList'
 import { mapGetters } from 'vuex'
 
 const storageFile = 'my_markers.json'
@@ -20,7 +21,7 @@ const storageFile = 'my_markers.json'
 export default {
   name: 'MyMarkerList',
   components: {
-    MarkerList
+    ObjectList
   },
   computed: {
     ...mapGetters({
@@ -84,7 +85,7 @@ export default {
   },
   destroyed () {
     this.$store.state.hubUrl = null
-    this.$store.commit('MUTATION_SET_CONTENT_DATA', null)
+    // this.$store.commit('MUTATION_SET_CONTENT_DATA', null)
   }
 }
 </script>

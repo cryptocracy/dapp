@@ -8,25 +8,29 @@ import favContacts from '@/components/contacts/FavouriteContacts'
 // import FavoriteTagList from '@/components/tags/FavoriteTagList'
 // import TagInfo from '@/components/tags/TagInfo'
 
+import ObjectInfo from '@/components/object/ObjectInfo'
+import MyObjectList from '@/components/object/MyObjectList'
+import FavoriteObjectList from '@/components/object/FavoriteObjectList'
+
 import ImageForm from '@/components/images/ImageForm'
-import MyImageList from '@/components/images/MyImageList'
-import FavoriteImageList from '@/components/images/FavoriteImageList'
-import ImageInfo from '@/components/images/ImageInfo'
+// import MyImageList from '@/components/images/MyImageList'
+// import FavoriteImageList from '@/components/images/FavoriteImageList'
+// import ImageInfo from '@/components/images/ImageInfo'
 
 import EventForm from '@/components/events/EventForm'
-import MyEventList from '@/components/events/MyEventList'
-import FavoriteEventList from '@/components/events/FavoriteEventList'
-import EventInfo from '@/components/events/EventInfo'
+// import MyEventList from '@/components/events/MyEventList'
+// import FavoriteEventList from '@/components/events/FavoriteEventList'
+// import EventInfo from '@/components/events/EventInfo'
 
 import MarkerForm from '@/components/markers/MarkerForm'
-import MyMarkerList from '@/components/markers/MyMarkerList'
-import FavoriteMarkerList from '@/components/markers/FavoriteMarkerList'
-import MarkerInfo from '@/components/markers/MarkerInfo'
+// import MyMarkerList from '@/components/markers/MyMarkerList'
+// import FavoriteMarkerList from '@/components/markers/FavoriteMarkerList'
+// import MarkerInfo from '@/components/markers/MarkerInfo'
 
 import TaskForm from '@/components/tasks/TaskForm'
-import MyTaskList from '@/components/tasks/MyTaskList'
-import FavoriteTaskList from '@/components/tasks/FavoriteTaskList'
-import TaskInfo from '@/components/tasks/TaskInfo'
+// import MyTaskList from '@/components/tasks/MyTaskList'
+// import FavoriteTaskList from '@/components/tasks/FavoriteTaskList'
+// import TaskInfo from '@/components/tasks/TaskInfo'
 
 import WalletSummary from '@/components/wallet/Summary'
 import WalletReceive from '@/components/wallet/Receive'
@@ -59,27 +63,30 @@ const routes = [
 
   { path: '/images/add-image', name: 'AddImage', props: true, component: ImageForm },
   { path: '/images/edit-image', name: 'EditImage', props: true, component: ImageForm },
-  { path: '/images/owned', name: 'OwnedImages', component: MyImageList },
-  { path: '/images/favorites', name: 'FavoritesImages', component: FavoriteImageList },
-  { path: '/images/:imageName', name: 'ImageInfo', props: true, component: ImageInfo },
+  { path: '/images/owned', name: 'OwnedImages', component: MyObjectList, props: { type: 'image' } },
+  // { path: '/images/favorites', name: 'FavoritesImages', component: FavoriteImageList },
+  { path: '/images/favorites', name: 'FavoriteImages', component: FavoriteObjectList, props: { type: 'image' } },
+  { path: '/images/info', name: 'ImageInfo', props: true, component: ObjectInfo },
 
   { path: '/events/add-event', name: 'AddEvent', props: true, component: EventForm },
   { path: '/events/edit-event', name: 'EditEvent', props: true, component: EventForm },
-  { path: '/events/owned', name: 'OwnedEvents', component: MyEventList },
-  { path: '/events/favorites', name: 'FavoritesEvents', component: FavoriteEventList },
-  { path: '/events/:eventName', name: 'EventInfo', props: true, component: EventInfo },
+  { path: '/events/owned', name: 'OwnedEvents', component: MyObjectList, props: { type: 'event' } },
+  { path: '/events/favorites', name: 'FavoriteEvents', component: FavoriteObjectList, props: { type: 'event' } },
+  { path: '/events/info', name: 'EventInfo', props: true, component: ObjectInfo },
 
   { path: '/markers/add-marker', name: 'AddMarker', props: true, component: MarkerForm },
   { path: '/markers/edit-marker', name: 'EditMarker', props: true, component: MarkerForm },
-  { path: '/markers/owned', name: 'OwnedMarkers', component: MyMarkerList },
-  { path: '/markers/favorites', name: 'FavoritesMarkers', component: FavoriteMarkerList },
-  { path: '/markers/:markerName', name: 'MarkerInfo', props: true, component: MarkerInfo },
+  { path: '/markers/owned', name: 'OwnedMarkers', component: MyObjectList, props: { type: 'marker' } },
+  // { path: '/markers/favorites', name: 'FavoritesMarkers', component: FavoriteMarkerList },
+  { path: '/markers/favorites', name: 'FavoriteMarkers', component: FavoriteObjectList, props: { type: 'marker' } },
+  { path: '/markers/info', name: 'MarkerInfo', props: true, component: ObjectInfo },
 
   { path: '/tasks/add-task', name: 'AddTask', props: true, component: TaskForm },
   { path: '/tasks/edit-task', name: 'EditTask', props: true, component: TaskForm },
-  { path: '/tasks/owned', name: 'OwnedTasks', component: MyTaskList },
-  { path: '/tasks/favorites', name: 'FavoritesTasks', component: FavoriteTaskList },
-  { path: '/tasks/:taskName', name: 'TaskInfo', props: true, component: TaskInfo },
+  { path: '/tasks/owned', name: 'OwnedTasks', component: MyObjectList, props: { type: 'task' } },
+  // { path: '/tasks/favorites', name: 'FavoritesTasks', component: FavoriteTaskList },
+  { path: '/tasks/favorites', name: 'FavoritesTasks', component: FavoriteObjectList, props: { type: 'task' } },
+  { path: '/tasks/info', name: 'TaskInfo', props: true, component: ObjectInfo },
 
   { path: '/wallet/summary', name: 'Summary', component: WalletSummary },
   { path: '/wallet/receive', name: 'Receive', component: WalletReceive },

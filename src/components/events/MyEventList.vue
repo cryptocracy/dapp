@@ -1,9 +1,10 @@
 <template>
-  <event-list
+  <object-list
     v-if="eventsArray.length"
-    :eventsArray='eventsArray'
+    :objectsArray='eventsArray'
     :hubUrl='hubUrl'
     :owned="!!!hubUrl"
+    type="event"
   />
   <v-layout v-else align-center justify-center row fill-height class="container">
     You have not yet created any content of this type yet
@@ -11,7 +12,7 @@
 </template>
 
 <script>
-import EventList from './EventList'
+import ObjectList from '@/components/object/ObjectList'
 import axios from 'axios'
 import { mapGetters } from 'vuex'
 
@@ -20,7 +21,7 @@ const storageFile = 'my_events.json'
 export default {
   name: 'MyEventList',
   components: {
-    EventList
+    ObjectList
   },
   data: () => ({
     blockstack: window.blockstack,
@@ -80,7 +81,7 @@ export default {
   },
   destroyed () {
     this.$store.state.hubUrl = null
-    this.$store.commit('MUTATION_SET_CONTENT_DATA', null)
+    // this.$store.commit('MUTATION_SET_CONTENT_DATA', null)
   }
 }
 </script>

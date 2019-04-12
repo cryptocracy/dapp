@@ -62,7 +62,7 @@
       <!--<span class="switch-text">Personal</span>-->
       <!--</div>-->
       <!--</div>-->
-      <div class="switch-wrapper" v-if="markerProp">
+      <div class="switch-wrapper" v-if="objectProp">
         <div class="input-group--text-field primary--text">Archived</div>
         <div class="switch-block">
           <span class="switch-text">No</span>
@@ -127,7 +127,7 @@ export default {
     ]
   }),
   props: {
-    markerProp: {
+    objectProp: {
       type: [Object, null],
       default: null
     }
@@ -137,7 +137,7 @@ export default {
   },
   watch: {
     deep: true,
-    markerProp () {
+    objectProp () {
       this.updateFromMarkerProp()
     },
     tags () {
@@ -162,7 +162,7 @@ export default {
       const timestamp = +new Date()
       if (this.$refs.form.validate()) {
         this.isLoading = true
-        this.marker.createdtime = this.markerProp ? this.markerProp.createdtime : timestamp
+        this.marker.createdtime = this.objectProp ? this.objectProp.createdtime : timestamp
         this.marker.owner = JSON.parse(localStorage['blockstack-gaia-hub-config']).address
         this.marker.ownername = cryptoName
         this.marker.tags = []
@@ -173,7 +173,7 @@ export default {
       }
     },
     getMarkerFilename (timestamp) {
-      return this.markerProp ? `marker_${this.markerProp.createdtime}.json` : `marker_${timestamp}.json`
+      return this.objectProp ? `marker_${this.objectProp.createdtime}.json` : `marker_${timestamp}.json`
     },
     saveMarker (timestamp) {
       this.blockstack.putFile(this.getMarkerFilename(timestamp), JSON.stringify(this.marker), { encrypt: false })
@@ -181,7 +181,7 @@ export default {
           storageService.updateMarkerIndex(jsonUrl.split('/').pop().split('.')[0], this.marker.title)
             .then(() => {
               this.isLoading = false
-              this.markerProp ? this.$router.push({
+              this.objectProp ? this.$router.push({
                 name: 'MarkerInfo',
                 params: {
                   markerName: 'marker_' + this.marker.createdtime,
@@ -194,14 +194,14 @@ export default {
       this.$refs.form.reset()
     },
     updateFromMarkerProp () {
-      if (this.markerProp) {
-        for (let property in this.markerProp) {
-          this.marker[property] = this.markerProp[property] instanceof Object ? { ...this.markerProp[property] } : this.markerProp[property]
+      if (this.objectProp) {
+        for (let property in this.objectProp) {
+          this.marker[property] = this.objectProp[property] instanceof Object ? { ...this.objectProp[property] } : this.objectProp[property]
         }
         if (this.marker.coordinates) {
           this.oldGeo = {...this.marker.coordinates}
         }
-        this.markerProp.tags.forEach(item => {
+        this.objectProp.tags.forEach(item => {
           this.tags.push(item.title)
         })
       } else {

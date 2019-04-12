@@ -21,7 +21,7 @@ import shadowUrl from 'leaflet/dist/images/marker-shadow.png'
 // import { eventBus } from '@/main'
 
 export default {
-  name: 'OpenMapWithMarker',
+  name: 'OpenMapWithMultipleMarkers',
   data: () => ({
     map: null,
     tileLayer: null,
@@ -154,12 +154,17 @@ export default {
         'createdOn': new Date(Number(a[5].split('_')[1].split('.')[0])).toLocaleString()
       }
     },
-    async redirectUser (content) {
-      await this.$store.dispatch('ACTION_GET_CONTENT', content.fileUrl)
-      if (content.fileUrl.includes('marker')) this.$router.push({name: 'OwnedMarkers'})
-      else if (content.fileUrl.includes('tag')) this.$router.push({name: 'Owned'})
-      else if (content.fileUrl.includes('image')) this.$router.push({name: 'OwnedImages'})
-      else if (content.fileUrl.includes('event')) this.$router.push({name: 'OwnedEvents'})
+    redirectUser (content) {
+      this.$store.dispatch('ACTION_GET_CONTENT', content.fileUrl)
+      // if (content.fileUrl.includes('marker')) this.$router.push({name: 'OwnedMarkers'})
+      // else if (content.fileUrl.includes('tag')) this.$router.push({name: 'Owned'})
+      // else if (content.fileUrl.includes('image')) this.$router.push({name: 'OwnedImages'})
+      // else if (content.fileUrl.includes('event')) this.$router.push({name: 'OwnedEvents'})
+      if (content.fileUrl.includes('marker')) this.$router.push({name: 'MarkerInfo', params: { type: 'marker' }})
+      else if (content.fileUrl.includes('tag')) this.$router.push({name: 'TagInfo', params: { type: 'tag' }})
+      else if (content.fileUrl.includes('image')) this.$router.push({name: 'ImageInfo', params: { type: 'image' }})
+      else if (content.fileUrl.includes('event')) this.$router.push({name: 'EventInfo', params: { type: 'event' }})
+      else if (content.fileUrl.includes('task')) this.$router.push({name: 'TaskInfo', params: { type: 'task' }})
     }
   }
 }

@@ -1,9 +1,10 @@
 <template>
-  <task-list
-    v-if="tasksArray.length"
-    :tasksArray='tasksArray'
+  <object-list
+    v-if="objectsArray.length"
+    :objectsArray='objectsArray'
     :hubUrl='hubUrl'
     :owned="!!!hubUrl"
+    type="task"
   />
   <v-layout v-else align-center justify-center row fill-height class="container">
     You have not yet created any content of this type yet
@@ -11,7 +12,7 @@
 </template>
 
 <script>
-import TaskList from './TaskList'
+import ObjectList from '@/components/object/ObjectList'
 import axios from 'axios'
 import { mapGetters } from 'vuex'
 
@@ -20,12 +21,12 @@ const storageFile = 'my_tasks.json'
 export default {
   name: 'MyTaskList',
   components: {
-    TaskList
+    ObjectList
   },
   data: () => ({
     blockstack: window.blockstack,
     storageFile: storageFile,
-    tasksArray: [],
+    objectsArray: [],
     hubUrl: ''
   }),
   computed: {
@@ -46,7 +47,7 @@ export default {
               // this[data.id] = taskData
               // this[data.id].tasks = this[data.id].tasks || []
               // creating task array for listing tasks under their respective project
-              this.tasksArray.push(taskData)
+              this.objectsArray.push(taskData)
             })
           }
         })
@@ -60,7 +61,7 @@ export default {
           for (let task in tasks) {
             axios.get(`${hubUrl + task}.json`).then((taskJson) => {
               let taskData = taskJson ? taskJson.data : {}
-              this.tasksArray.push(taskData)
+              this.objectsArray.push(taskData)
             })
           }
         })
@@ -72,7 +73,7 @@ export default {
       this.hubUrl = hubUrl
       this.fetchRedirectedUsersTaskFile(hubUrl)
     } else if (this.contentData && Object.keys(this.contentData).length > 0) {
-      this.tasksArray.push(this.contentData)
+      this.objectsArray.push(this.contentData)
       this.hubUrl = this.contentData.owner
     } else {
       this.fetchTaskFile()
@@ -80,7 +81,7 @@ export default {
   },
   destroyed () {
     this.$store.state.hubUrl = null
-    this.$store.commit('MUTATION_SET_CONTENT_DATA', null)
+    // this.$store.commit('MUTATION_SET_CONTENT_DATA', null)
   }
 }
 </script>
