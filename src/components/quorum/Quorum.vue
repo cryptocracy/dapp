@@ -15,7 +15,7 @@
         </v-layout>
 
         <v-layout class="quorumtour" row wrap>
-          <v-flex :class="index === 0 ? 'xs12' : 'xs6'" v-for="(item, index) in quorumData" :key="index" >
+          <v-flex :class="index === 0 ? 'xs12' : 'xs6'" v-for="(item, index) in quorumData" :key="index" @click="goTo(item)">
             <v-card @click="redirectUser(item)"  hover class=" mt-2 br20" >
               <v-img
                 :src="lazyLoadedData[item.contentUrl] ? lazyLoadedData[item.contentUrl].image : ''"
@@ -128,6 +128,14 @@ export default {
         : contentUrl.includes('image') ? 'IMAGE'
           : contentUrl.includes('event') ? 'EVENT' : ''
       return type
+    },
+    goTo (item) {
+      this.$store.dispatch('ACTION_GET_CONTENT', item.contentUrl)
+      if (item.contentUrl.includes('marker')) this.$router.push({name: 'MarkerInfo', params: { type: 'marker' }})
+      else if (item.contentUrl.includes('tag')) this.$router.push({name: 'TagInfo', params: { type: 'tag' }})
+      else if (item.contentUrl.includes('image')) this.$router.push({name: 'ImageInfo', params: { type: 'image' }})
+      else if (item.contentUrl.includes('event')) this.$router.push({name: 'EventInfo', params: { type: 'event' }})
+      else if (item.contentUrl.includes('task')) this.$router.push({name: 'TaskInfo', params: { type: 'task' }})
     },
     async redirectUser (content) {
       this.$store.commit('toggleLoading')

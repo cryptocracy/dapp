@@ -52,7 +52,7 @@ export default {
     }
   },
   // mounted () {
-    // this.fetchObjectFile()
+  // this.fetchObjectFile()
   // },
   // beforeRouteUpdate (to, from, next) {
   //   this.$store.commit('MUTATION_SET_CONTENT_DATA', null)
