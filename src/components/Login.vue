@@ -31,9 +31,9 @@
         <img class="img-icon" src="https://raw.githubusercontent.com/cryptocracy/images/master/souq_gradient.png" alt="Cryptocracy" height="168" width="168">
         <h1>Cryptocracy</h1>
         <h4>Democratized Crowdfunding</h4>
-        <v-btn class="btn-login pl-4 pr-4" style="color : #33886c;" @click="signIn">Sign In With Blockstack</v-btn>
+        <!-- <v-btn class="btn-login pl-4 pr-4" style="color : #33886c;" @click="signIn">Sign In With Blockstack</v-btn> -->
         <p></p>
-        <h6>(Warning: Still in beta and subject to breaking changes)</h6>
+        <h6>(Warning: This dapp is outdated and login is disabled until updated)</h6>
       </div>
     </div>
     <v-footer class="pa-3" >
